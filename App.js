@@ -17,7 +17,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import Login from './src/ModuloFrota/Login/Login';
+import Login from './src/Modulos/ModuloFrota/TelaInicial/TelaInicial'
 
 const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
