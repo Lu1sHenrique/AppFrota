@@ -15,7 +15,7 @@ const App = () => {
       <StatusBar/>
       <ScrollView>
         <View>
-          <Text>TelaLogin</Text>
+          <Text>App</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

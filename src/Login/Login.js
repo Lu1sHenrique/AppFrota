@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 
-const telaInicial = () => {
+const index = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <View>
@@ -17,4 +17,4 @@ const telaInicial = () => {
 };
 
 
-export default telaInicial;
+export default index;
