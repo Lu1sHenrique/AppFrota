@@ -21,7 +21,7 @@ const TelaInicial = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <View>
-          <Text>Tela Inicial Frota</Text>
+          <Text>Tela Comercial</Text>
       </View>
     </SafeAreaView>
   );

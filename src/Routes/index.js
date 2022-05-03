@@ -1,20 +1,38 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+
 import Login from '../Login/Login'
-import TelaIniFrota from '../Modulos/ModuloFrota/TelaInicial/TelaInicial'
+import BemVindo from '../BemVindo/BemVindo'
+import HomeModulos from '../HomeModulos/HomeModulos'
 
 const Stack = createNativeStackNavigator();
 
 export default function Routes(){
   return(
     <Stack.Navigator>
-      
+      <Stack.Screen 
+      name="Bem vindo"
+      component={BemVindo}
+      options={{
+          headerShown:false
+        }}
+      />
+
+      <Stack.Screen 
+      name="Login"
+      component={Login}
+      options={{
+        headerShown:false
+        }}
+      />
+
+      <Stack.Screen 
+      name="Home Modulos"
+      component={HomeModulos}
+      options={{
+        headerShown:false
+        }}
+      />
     </Stack.Navigator>
   )
 }

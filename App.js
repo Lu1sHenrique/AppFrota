@@ -1,25 +1,18 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import{StatusBar } from 'react-native';
 
+import { NavigationContainer } from '@react-navigation/native'
+import Routes from './src/Routes';
 
-const App = () => {
+export default function App(){
   return (
-    <SafeAreaView>
-      <StatusBar/>
-      <ScrollView>
-        <View>
-          <Text>App</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <StatusBar 
+      backgroundColor="#38a69d"
+      barStyle="light-content"
+      />
+        <Routes/>
+    </NavigationContainer>
+      
   );
 };
-
-export default App;
