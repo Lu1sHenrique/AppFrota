@@ -1,3 +1,4 @@
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import React from 'react';
 import {
   SafeAreaView,
@@ -5,16 +6,15 @@ import {
   Text,
   View,
 } from 'react-native';
+import Login from '../Login/Login'
+import TelaIniFrota from '../Modulos/ModuloFrota/TelaInicial/TelaInicial'
 
-const index = () => {
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <View>
-          <Text>Tela Inicial Frota</Text>
-      </View>
-    </SafeAreaView>
-  );
-};
+const Stack = createNativeStackNavigator();
 
-
-export default index;
+export default function Routes(){
+  return(
+    <Stack.Navigator>
+      
+    </Stack.Navigator>
+  )
+}

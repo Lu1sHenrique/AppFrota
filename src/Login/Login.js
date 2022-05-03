@@ -6,15 +6,15 @@ import {
   View,
 } from 'react-native';
 
-const index = () => {
+const Index = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <View>
-          <Text>Tela Inicial Frota</Text>
+          <Text>Login</Text>
       </View>
     </SafeAreaView>
   );
 };
 
 
-export default index;
+export default Index;
