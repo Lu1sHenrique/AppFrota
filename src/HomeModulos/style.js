@@ -6,9 +6,13 @@ const styles = StyleSheet.create({
         flex: 1,
       },
 
+  containerButtonsMod:{
+    marginTop: 200
+  },
+
   containerRow:{
     flexDirection:'row',
-    marginTop: 60
+    marginTop: 30
   },
 
   containerButton:{
