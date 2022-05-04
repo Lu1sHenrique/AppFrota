@@ -11,7 +11,7 @@ export default function Routes(){
   return(
     <Stack.Navigator>
       <Stack.Screen 
-      name="Bem vindo"
+      name="Bemvindo"
       component={BemVindo}
       options={{
           headerShown:false
@@ -27,7 +27,7 @@ export default function Routes(){
       />
 
       <Stack.Screen 
-      name="Home Modulos"
+      name="HomeModulos"
       component={HomeModulos}
       options={{
         headerShown:false

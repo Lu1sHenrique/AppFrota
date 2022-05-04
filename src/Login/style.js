@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
   message:{
     fontSize: 28,
     fontWeight: 'bold',
-    color:"black"
+    color:"black",
+    marginBottom: 30
   },
 
   containerForm:{

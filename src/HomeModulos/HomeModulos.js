@@ -6,14 +6,67 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import styles from '../Styles/style'
-import * as Animatable from 'react-native-animatable';
+import styles from './style'
 
-export default function THomeModulos() {
+export default function HomeModulos() {
+
   return (
-      <View>
-          <Text>Home Modulos</Text>
+      <View style={styles.container}>
+      <View style={styles.containerRow}>
+        <View style={styles.containerButton}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.textButton}>
+                Frota
+              </Text>
+              </TouchableOpacity>
+          </View>
+
+          <View style={styles.containerButton}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.textButton}>
+                Comercial
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+          
+        <View style={styles.containerRow}>
+          <View style={styles.containerButton}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.textButton}>
+                Técnica
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.containerButton}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.textButton}>
+                RH
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.containerRow}>
+          <View style={styles.containerButton}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.textButton}>
+                Estoque
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.containerButton}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.textButton}>
+                Financeiro
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
+ 
   );
 };
 
