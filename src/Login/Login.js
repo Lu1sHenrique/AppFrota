@@ -9,6 +9,7 @@ import {
 import styles from './style'
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
+import Icon from 'react-native-vector-icons/Feather';
 
 export default function Login(){
 
@@ -38,7 +39,12 @@ export default function Login(){
           onPress={ () => navigation.navigate('HomeModulos')}
           >
             <Text style={styles.buttonText}>Acessar</Text>
+            <Icon style={styles.icon} name="log-in" size={23} color="#fff" />
           </TouchableOpacity>
+
+        <View style={styles.containerVersao}>
+          <Text style={styles.textversao}>Versão 1.5.2</Text>
+        </View>
 
      
         </Animatable.View>

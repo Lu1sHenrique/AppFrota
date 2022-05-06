@@ -2,21 +2,47 @@ import React from 'react';
 import {
   Text,
   View,
-  Image,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 import styles from './style'
+import Icon from 'react-native-vector-icons/Feather';
+import * as Animatable from 'react-native-animatable'
+import { useNavigation } from '@react-navigation/native'
 
 
 export default function HomeModulos() {
 
+
+  const navigation = useNavigation();
+
   return (
       <View style={styles.container}>
-        <View style={styles.containerButtonsMod}>
+        <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
+          <Animatable.View animation="fadeInLeft" style={styles.icon}>
+            <TouchableOpacity
+            onPress={ () => navigation.navigate('HomeConfig')}
+            >
+              <Icon name="settings" size={30} color="#000" />
+            </TouchableOpacity>
+          </Animatable.View>
+
+          
+            <Animatable.View animation="fadeInDown" style={styles.containerNomeHeader}>
+              <View style={{marginLeft: 40}}>
+                <Text style={styles.textOla}>Olá,</Text>
+                <Text style={styles.textBold}>Luis Henrique</Text>
+              </View>
+            </Animatable.View>
+          </Animatable.View>
+
+        <Animatable.View animation="fadeInUp" style={styles.containerButtonsMod}>
           <View style={styles.containerRow}>
             <View style={styles.containerButton}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button}
+                onPress={ () => navigation.navigate('HomeFrota')}
+                >
+                  <Icon style={styles.iconButtonModulos} name="truck" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     Frota
                   </Text>
@@ -25,6 +51,7 @@ export default function HomeModulos() {
 
               <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}>
+                <Icon style={styles.iconButtonModulos} name="briefcase" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     Comercial
                   </Text>
@@ -35,6 +62,7 @@ export default function HomeModulos() {
             <View style={styles.containerRow}>
               <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}>
+                <Icon style={styles.iconButtonModulos} name="tool" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     Técnica
                   </Text>
@@ -43,6 +71,7 @@ export default function HomeModulos() {
 
               <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}>
+                <Icon style={styles.iconButtonModulos} name="users" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     RH
                   </Text>
@@ -53,6 +82,7 @@ export default function HomeModulos() {
             <View style={styles.containerRow}>
               <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}>
+                <Icon style={styles.iconButtonModulos} name="archive" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     Estoque
                   </Text>
@@ -61,13 +91,14 @@ export default function HomeModulos() {
 
               <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}>
+                <Icon style={styles.iconButtonModulos} name="dollar-sign" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     Financeiro
                   </Text>
                 </TouchableOpacity>
               </View>
             </View>
-        </View>
+        </Animatable.View>
       </View>
   );
 };

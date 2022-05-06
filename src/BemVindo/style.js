@@ -53,6 +53,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff',
     fontWeight: 'bold'
+  },
+
+  icon:{
+    position: 'absolute',
+    right: 40
   }
 
 })

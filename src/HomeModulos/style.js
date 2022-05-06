@@ -7,7 +7,41 @@ const styles = StyleSheet.create({
       },
 
   containerButtonsMod:{
-    marginTop: 200
+    marginTop: 80
+  },
+
+  icon:{
+    marginHorizontal: 20,
+    marginTop: 10
+  },
+
+  containerNomeHeader:{
+    position: 'absolute',
+    width: 330,
+    justifyContent: 'center',
+    marginTop: 17,
+    marginLeft: 60
+  },
+
+  containerCaixa:{
+    backgroundColor: '#38a69d',
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    paddingBottom: 15,
+    paddingTop: 10
+  },
+
+  textOla:{
+    fontSize: 25,
+    color: "#000"
+  },
+
+  textBold:{
+    fontWeight: 'bold',
+    position: 'absolute',
+    marginLeft: 50,
+    fontSize: 25,
+    color: "#000"
   },
 
   containerRow:{
@@ -16,13 +50,13 @@ const styles = StyleSheet.create({
   },
 
   containerButton:{
-   flex: 0.5,
-   marginHorizontal: 30,
+  flex: 0.5,
+  marginHorizontal: 30
   },
 
   button:{
     backgroundColor: 'black',
-    paddingVertical: 40,
+    paddingVertical: 30,
     borderRadius: 20
   },
 
@@ -30,7 +64,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     alignSelf: 'center',
-    color: '#fff'
+    color: '#fff',
+    marginTop: 10
+  },
+
+  iconButtonModulos:{
+    alignSelf: 'center',
+    marginTop: -10
   }
 })
 

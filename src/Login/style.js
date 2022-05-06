@@ -57,6 +57,21 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: 'bold'
+  },
+
+  icon:{
+    position: 'absolute',
+    right: 110
+  },
+
+  containerVersao:{
+    marginTop: 50,
+    alignSelf: 'center'
+  },
+
+  textversao:{
+    color: "#000",
+    fontSize: 15
   }
 
 })

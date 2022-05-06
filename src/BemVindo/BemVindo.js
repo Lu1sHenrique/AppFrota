@@ -9,6 +9,7 @@ import {
 import styles from './style'
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native'
+import Icon from 'react-native-vector-icons/Feather';
 
 export default function BemVindo() {
 
@@ -38,6 +39,7 @@ export default function BemVindo() {
             onPress={ () => navigation.navigate('Login')}
             >
                <Text style={styles.buttonText}>Acessar</Text>
+               <Icon style={styles.icon} name="arrow-right-circle" size={20} color="#fff" />
             </TouchableOpacity>
           </Animatable.View>
 

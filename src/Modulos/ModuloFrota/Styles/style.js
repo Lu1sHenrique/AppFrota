@@ -1,58 +1,34 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  container:{
-    flex: 1,
-    backgroundColor: '#38a69d'
+    container:{
+    flex: 1
   },
 
-  containerLogo: {
-    flex: 2,
-    backgroundColor: '#38a69d',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  containerForm:{
-    flex: 1,
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    paddingStart: '5%',
-    paddingEnd: '5%'
-  },
-
-  title:{
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 28,
-    marginBottom: 12,
+  textHeader:{
+    position: 'absolute',
     alignSelf: 'center',
-    color: 'black'
+    marginTop: 10,
   },
 
-  text:{
-    color: '#a1a1a1',
-    alignSelf: 'center',
-    color: 'black'
+  icon:{
+    marginHorizontal: 10,
+    marginTop: 10
+  },
+
+  textConfig:{
+      fontSize: 20,
+      color: "#000"
   },
 
   button:{
-      position: 'absolute',
-      borderRadius: 50,
-      paddingVertical: 8,
-      width: '60%',
-      alignSelf: 'center',
-      bottom: '30%',
-      backgroundColor: 'black',
-      alignItems: 'center',
-      justifyContent: 'center'
+      marginTop: 20,
+      marginHorizontal: 15
   },
 
-  buttonText:{
-    fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold'
+  textButton: {
+      fontSize: 20,
+      color: "#000"
   }
 
 })
