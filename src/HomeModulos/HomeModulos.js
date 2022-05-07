@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Text,
   View,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 
 import styles from './style'
@@ -36,69 +36,77 @@ export default function HomeModulos() {
             </Animatable.View>
           </Animatable.View>
 
-        <Animatable.View animation="fadeInUp" style={styles.containerButtonsMod}>
+        <View style={styles.containerButtonsMod}>
           <View style={styles.containerRow}>
-            <View style={styles.containerButton}>
-                <TouchableOpacity style={styles.button}
-                onPress={ () => navigation.navigate('HomeFrota')}
-                >
-                  <Icon style={styles.iconButtonModulos} name="truck" size={30} color="#fff" />
-                  <Text style={styles.textButton}>
-                    Frota
-                  </Text>
-                  </TouchableOpacity>
-              </View>
+            <Animatable.View animation="fadeInDown" style={styles.containerButton}>
+              <Animatable.View animation="fadeInLeft">
+                  <TouchableOpacity style={styles.button}
+                  onPress={ () => navigation.navigate('HomeFrota')}
+                  >
+                    <Icon style={styles.iconButtonModulos} name="truck" size={30} color="#000" />
+                    <Text style={styles.textButton}>
+                      Frota
+                    </Text>
+                    </TouchableOpacity>
+                </Animatable.View>
+              </Animatable.View>
 
-              <View style={styles.containerButton}>
+              <Animatable.View animation="fadeInDown" style={styles.containerButton}>
+              <Animatable.View animation="fadeInRight">
                 <TouchableOpacity style={styles.button}>
-                <Icon style={styles.iconButtonModulos} name="briefcase" size={30} color="#fff" />
+                <Icon style={styles.iconButtonModulos} name="briefcase" size={30} color="#000" />
                   <Text style={styles.textButton}>
                     Comercial
                   </Text>
                 </TouchableOpacity>
-              </View>
+                </Animatable.View>
+              </Animatable.View>
             </View>
               
             <View style={styles.containerRow}>
-              <View style={styles.containerButton}>
+              <Animatable.View animation="fadeInLeft" style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}>
-                <Icon style={styles.iconButtonModulos} name="tool" size={30} color="#fff" />
+                <Icon style={styles.iconButtonModulos} name="tool" size={30} color="#000" />
                   <Text style={styles.textButton}>
                     Técnica
                   </Text>
                 </TouchableOpacity>
-              </View>
+              </Animatable.View>
 
-              <View style={styles.containerButton}>
+              <Animatable.View animation="fadeInRight"  style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}>
-                <Icon style={styles.iconButtonModulos} name="users" size={30} color="#fff" />
+                <Icon style={styles.iconButtonModulos} name="users" size={30} color="#000" />
                   <Text style={styles.textButton}>
                     RH
                   </Text>
                 </TouchableOpacity>
-              </View>
+              </Animatable.View>
             </View>
 
             <View style={styles.containerRow}>
-              <View style={styles.containerButton}>
+            <Animatable.View animation="fadeInUp" style={styles.containerButton}>
+              <Animatable.View animation="fadeInLeft">
                 <TouchableOpacity style={styles.button}>
-                <Icon style={styles.iconButtonModulos} name="archive" size={30} color="#fff" />
+                <Icon style={styles.iconButtonModulos} name="archive" size={30} color="#000" />
                   <Text style={styles.textButton}>
                     Estoque
                   </Text>
                 </TouchableOpacity>
-              </View>
+                </Animatable.View>
+              </Animatable.View>
 
-              <View style={styles.containerButton}>
+              <Animatable.View animation="fadeInUp" style={styles.containerButton}>
+              <Animatable.View animation="fadeInRight">
                 <TouchableOpacity style={styles.button}>
-                <Icon style={styles.iconButtonModulos} name="dollar-sign" size={30} color="#fff" />
+                <Icon style={styles.iconButtonModulos} name="dollar-sign" size={30} color="#000" />
                   <Text style={styles.textButton}>
                     Financeiro
                   </Text>
                 </TouchableOpacity>
-              </View>
+                </Animatable.View>
+              </Animatable.View>
             </View>
-        </Animatable.View>
+        </View>
       </View>
   );
 };

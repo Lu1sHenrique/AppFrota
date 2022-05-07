@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react';
 
 import Login from '../Login/Login'
@@ -8,7 +9,6 @@ import HomeConfig from '../HomeConfig/HomeConfig'
 import HomeFrota from '../Modulos/ModuloFrota/HomeFrota/HomeFrota'
 
 const Stack = createNativeStackNavigator();
-
 export default function Routes(){
   return(
     <Stack.Navigator>
@@ -50,7 +50,7 @@ export default function Routes(){
       options={{
         headerShown:false
         }}
-      />  
+      /> 
     </Stack.Navigator>
   )
 }

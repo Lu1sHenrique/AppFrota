@@ -3,12 +3,12 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: '#38a69d'
+    backgroundColor: '#f77b77'
   },
 
   containerLogo: {
     flex: 2,
-    backgroundColor: '#38a69d',
+    backgroundColor: '#f77b77',
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 
   containerCaixa:{
-    backgroundColor: '#38a69d',
+    backgroundColor: '#f77b77',
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
     paddingBottom: 15,
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
 
   button:{
-    backgroundColor: 'black',
+    backgroundColor: '#f77b77',
     paddingVertical: 30,
     borderRadius: 20
   },
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     alignSelf: 'center',
-    color: '#fff',
+    color: '#000',
     marginTop: 10
   },
 
