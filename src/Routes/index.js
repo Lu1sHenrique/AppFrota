@@ -6,7 +6,7 @@ import Login from '../Login/Login'
 import BemVindo from '../BemVindo/BemVindo'
 import HomeModulos from '../HomeModulos/HomeModulos'
 import HomeConfig from '../HomeConfig/HomeConfig'
-import HomeFrota from '../Modulos/ModuloFrota/HomeFrota/HomeFrota'
+import RoutesFrota from '../Modulos/ModuloFrota/RoutesFrotas/RoutesFrota'
 
 const Stack = createNativeStackNavigator();
 export default function Routes(){
@@ -45,8 +45,8 @@ export default function Routes(){
       />
 
       <Stack.Screen 
-      name="HomeFrota"
-      component={HomeFrota}
+      name="RoutesFrota"
+      component={RoutesFrota}
       options={{
         headerShown:false
         }}

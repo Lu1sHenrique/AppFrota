@@ -28,12 +28,15 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
     paddingBottom: 15,
-    paddingTop: 10
+    paddingTop: 10,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1
   },
 
   textOla:{
     fontSize: 25,
-    color: "#000"
+    color: "#fff"
   },
 
   textBold:{
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginLeft: 50,
     fontSize: 25,
-    color: "#000"
+    color: "#fff"
   },
 
   containerRow:{
@@ -57,14 +60,15 @@ const styles = StyleSheet.create({
   button:{
     backgroundColor: '#f77b77',
     paddingVertical: 30,
-    borderRadius: 20
+    borderRadius: 20,
+    borderWidth: 1
   },
 
   textButton:{
     fontSize: 20,
     fontWeight: 'bold',
     alignSelf: 'center',
-    color: '#000',
+    color: '#fff',
     marginTop: 10
   },
 

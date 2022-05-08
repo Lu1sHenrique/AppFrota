@@ -23,7 +23,7 @@ export default function HomeModulos() {
             <TouchableOpacity
             onPress={ () => navigation.navigate('HomeConfig')}
             >
-              <Icon name="settings" size={30} color="#000" />
+              <Icon name="settings" size={30} color="#fff" />
             </TouchableOpacity>
           </Animatable.View>
 
@@ -41,9 +41,9 @@ export default function HomeModulos() {
             <Animatable.View animation="fadeInDown" style={styles.containerButton}>
               <Animatable.View animation="fadeInLeft">
                   <TouchableOpacity style={styles.button}
-                  onPress={ () => navigation.navigate('HomeFrota')}
+                  onPress={ () => navigation.navigate('RoutesFrota')}
                   >
-                    <Icon style={styles.iconButtonModulos} name="truck" size={30} color="#000" />
+                    <Icon style={styles.iconButtonModulos} name="truck" size={30} color="#fff" />
                     <Text style={styles.textButton}>
                       Frota
                     </Text>
@@ -54,7 +54,7 @@ export default function HomeModulos() {
               <Animatable.View animation="fadeInDown" style={styles.containerButton}>
               <Animatable.View animation="fadeInRight">
                 <TouchableOpacity style={styles.button}>
-                <Icon style={styles.iconButtonModulos} name="briefcase" size={30} color="#000" />
+                <Icon style={styles.iconButtonModulos} name="briefcase" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     Comercial
                   </Text>
@@ -66,7 +66,7 @@ export default function HomeModulos() {
             <View style={styles.containerRow}>
               <Animatable.View animation="fadeInLeft" style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}>
-                <Icon style={styles.iconButtonModulos} name="tool" size={30} color="#000" />
+                <Icon style={styles.iconButtonModulos} name="tool" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     Técnica
                   </Text>
@@ -75,7 +75,7 @@ export default function HomeModulos() {
 
               <Animatable.View animation="fadeInRight"  style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}>
-                <Icon style={styles.iconButtonModulos} name="users" size={30} color="#000" />
+                <Icon style={styles.iconButtonModulos} name="users" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     RH
                   </Text>
@@ -87,7 +87,7 @@ export default function HomeModulos() {
             <Animatable.View animation="fadeInUp" style={styles.containerButton}>
               <Animatable.View animation="fadeInLeft">
                 <TouchableOpacity style={styles.button}>
-                <Icon style={styles.iconButtonModulos} name="archive" size={30} color="#000" />
+                <Icon style={styles.iconButtonModulos} name="archive" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     Estoque
                   </Text>
@@ -98,7 +98,7 @@ export default function HomeModulos() {
               <Animatable.View animation="fadeInUp" style={styles.containerButton}>
               <Animatable.View animation="fadeInRight">
                 <TouchableOpacity style={styles.button}>
-                <Icon style={styles.iconButtonModulos} name="dollar-sign" size={30} color="#000" />
+                <Icon style={styles.iconButtonModulos} name="dollar-sign" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     Financeiro
                   </Text>
