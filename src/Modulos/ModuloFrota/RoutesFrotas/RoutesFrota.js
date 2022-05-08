@@ -16,7 +16,7 @@ export default function RoutesFrota({ navigation: { goBack } }) {
   return (
       <Bottom.Navigator>
       <Bottom.Screen 
-        name="FormFrota"
+        name="Formulário Frota"
         component={FormFrota}
         options={{
           headerShown:false
@@ -24,7 +24,7 @@ export default function RoutesFrota({ navigation: { goBack } }) {
         />
 
         <Bottom.Screen 
-        name="RelFrota"
+        name="Relatórios Frota"
         component={RelFrota}
         options={{
           headerShown:false
@@ -32,7 +32,7 @@ export default function RoutesFrota({ navigation: { goBack } }) {
         />
 
         <Bottom.Screen 
-        name="InvFrota"
+        name="Inventário Frota"
         component={InvFrota}
         options={{
           headerShown:false

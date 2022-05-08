@@ -4,7 +4,8 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  ScrollView
+  ScrollView,
+  Modal
 } from 'react-native';
 
 //libs
@@ -19,14 +20,16 @@ import Animated from 'react-native-reanimated';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
 //pages
 import styles from './style';
+import { ModalPicker } from '../../../Components/Modal/ModalPicker';
+import { ModalPickerPlaca } from '../../../Components/Modal/ModalPickerPlaca';
 
 const schema = yup.object({
-    condutor: yup.string().required("Selecione o condutor"),
-    placaVeiculo: yup.string().required("Selecione o placa do veículo"),
+    //condutor: yup.string().required("Selecione o condutor"),
+    //placaVeiculo: yup.string().required("Selecione o placa do veículo"),
     kmInicial: yup.number().required("Preencha o Km Inicial"),
-    fotoKmInicial: yup.string().required("Envie a foto do KM Inicial"),
+    //fotoKmInicial: yup.string().required("Envie a foto do KM Inicial"),
     kmFinal: yup.number().required("Preencha o Km Final!"),
-    fotoKmFinal: yup.string().required("Envie a foto do Km Final")
+    //fotoKmFinal: yup.string().required("Envie a foto do Km Final")
 })
 
 
@@ -35,6 +38,31 @@ export default function FormFrota({ navigation: { } }) {
 
       const navigation = useNavigation();
 
+      //configs modais picks
+      const[chooseData, setChooseData] = useState ("Selecione o condutor");
+      const[modalVisible, setModalVisible] = useState (false);
+
+      const changeModalVisibility = (bool) => {
+        setModalVisible(bool)
+      }
+
+      const setData = (Option) => {
+        setChooseData(Option)
+      }
+
+      const[chooseDataPlaca, setChooseDataPlaca] = useState ("Selecione a placa do veículo");
+      const[modalVisiblePlaca, setModalVisiblePlaca] = useState (false);
+
+      const changeModalVisibilityPlaca = (bool) => {
+        setModalVisiblePlaca(bool)
+      }
+
+      const setDataPlaca = (OptionPlaca) => {
+        setChooseDataPlaca(OptionPlaca)
+      }
+
+
+      //configs image picks upload
       const renderInner = () => (
         <View style={styles.panel}>
           <View style={{alignItems: 'center'}}> 
@@ -100,66 +128,70 @@ export default function FormFrota({ navigation: { } }) {
         callbackNode={this.fall}
         enabledGestureInteraction={true}
       />
+      
+            <Animated.View 
+            style={{flex: 1, opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)),}}>
+            <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
+            <View style={styles.textHeader}>
+                <Text style={styles.textConfig}>Gestão de Frota</Text>
+            </View>
 
+            <View style={styles.icon}>
+                <TouchableOpacity
+                onPress={ () => navigation.navigate('HomeModulos')}
+                >
+                <Icon name="chevron-left" size={30} color="#fff" />
+                </TouchableOpacity>
+            </View>
+          </Animatable.View>
       <ScrollView>
-
-        <Animated.View 
-        style={{flex: 1, opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)),}}>
-        <View style={styles.textHeader}>
-            <Text style={styles.textConfig}>Gestão de Frota</Text>
-        </View>
-
-        <View style={styles.icon}>
-            <TouchableOpacity
-            onPress={ () => navigation.navigate('HomeModulos')}
-            >
-            <Icon name="chevron-left" size={30} color="#f77b77" />
-            </TouchableOpacity>
-        </View>
-
+        <Animatable.View animation={"fadeInUp"}>
         <View style={styles.boxTitle}>
           <Text style={styles.textTitle}>Checklist Máxima</Text>
         </View>
         
 
         <Text style={styles.txtCaption}>Condutor:</Text>
-        <Controller
-         style={styles.boxInput}
-        control={control}
-        name="condutor"
-        render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
-          style={[styles.input,{
-            borderWidth: errors.condutor && 1,
-            borderColor: errors.condutor && '#ff375b'
-          }]}
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-            placeholder="Digite o Condutor"
-          />
-        )}
-        />
+        <TouchableOpacity
+              style={styles.buttonArquivo}
+              onPress={() => changeModalVisibility(true)}
+              >
+              <Text style={styles.txtButtonPicker}>{chooseData}</Text>
+              <Icon style={styles.iconButonPicker} name="chevron-down" size={25} color="#fff" />
+              </TouchableOpacity>
+           <Modal
+            transparent={true}
+            animationType="fade"
+            visible={modalVisible}
+            nRequestClose={() => changeModalVisibility(false)}
+           >
+              <ModalPicker
+                changeModalVisibility={changeModalVisibility}
+                setData={setData}
+              />
+           </Modal>
         {errors.condutor && <Text style={styles.labelError}>{errors.condutor?.message}</Text>}
 
 
         <Text style={styles.txtCaption}>Placa Veículo:</Text>
-          <Controller
-          control={control}
-          name="placaVeiculo"
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-            style={[styles.input,{
-              borderWidth: errors.placaVeiculo && 1,
-              borderColor: errors.placaVeiculo && '#ff375b'
-            }]}
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-              placeholder="Digite a placa do veículo"
-            />
-          )}
-        />
+        <TouchableOpacity
+              style={styles.buttonArquivo}
+              onPress={() => changeModalVisibilityPlaca(true)}
+              >
+              <Text style={styles.txtButtonPicker}>{chooseDataPlaca}</Text>
+              <Icon style={styles.iconButonPicker} name="chevron-down" size={25} color="#fff" />
+              </TouchableOpacity>
+           <Modal
+            transparent={true}
+            animationType="fade"
+            visible={modalVisiblePlaca}
+            nRequestClose={() => changeModalVisibilityPlaca(false)}
+           >
+              <ModalPickerPlaca
+                changeModalVisibilityPlaca={changeModalVisibilityPlaca}
+                setDataPlaca={setDataPlaca}
+              />
+           </Modal>
         {errors.placaVeiculo && <Text style={styles.labelError}>{errors.placaVeiculo?.message}</Text>}
         
 
@@ -233,9 +265,10 @@ export default function FormFrota({ navigation: { } }) {
               Enviar
             </Text>
           </TouchableOpacity>
-        </View>      
+        </View>  
+        </Animatable.View>
+        </ScrollView>    
     </Animated.View>
-    </ScrollView>
     </>
   );
 };

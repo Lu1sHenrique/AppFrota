@@ -49,19 +49,19 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     marginTop: 14,
     justifyContent: 'center',
-    alignItems: 'center',
     paddingVertical: 15
   },
 
   buttonText:{
     color: "#fff",
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginLeft: 130
   },
 
   icon:{
     position: 'absolute',
-    right: 110
+    right: 120
   },
 
   containerVersao:{

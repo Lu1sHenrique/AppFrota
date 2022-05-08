@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   textHeader:{
     position: 'absolute',
     alignSelf: 'center',
-    marginTop: 7
+    marginTop: 18
   },
 
   icon:{
@@ -18,15 +18,26 @@ const styles = StyleSheet.create({
 
   textConfig:{
       fontSize: 25,
-      color: "#f77b77"
+      color: "#fff"
   },
 
+  containerCaixa:{
+    backgroundColor: '#f77b77',
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    paddingBottom: 15,
+    paddingTop: 10,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1
+  },
+  
   boxTitle:{
-      marginTop: 12
+    marginTop: 12
   },
 
   textTitle:{
-    fontSize: 25,
+    fontSize: 30,
     textAlign: 'center',
     color: '#f77b77',
     width: '100%'
@@ -94,10 +105,24 @@ const styles = StyleSheet.create({
     marginLeft: 40
   },
 
+  txtButtonPicker:{
+    paddingVertical: 15,
+    justifyContent: 'center',
+    color:'#fff', 
+    fontSize: 17,
+    marginLeft: 40
+  },
+
   iconButtonUpLoad:{
       position: 'absolute',
       marginLeft: 9,
       paddingVertical: 13
+  },
+
+  iconButonPicker:{
+    position: 'absolute',
+    right:40,
+    paddingVertical: 15
   },
 
   iconButtonEnviar:{

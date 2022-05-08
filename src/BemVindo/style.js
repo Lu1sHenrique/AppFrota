@@ -45,19 +45,19 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       bottom: '30%',
       backgroundColor: 'black',
-      alignItems: 'center',
       justifyContent: 'center'
   },
 
   buttonText:{
     fontSize: 18,
     color: '#fff',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginLeft: 55
   },
 
   icon:{
     position: 'absolute',
-    right: 40
+    right: 60
   }
 
 })
