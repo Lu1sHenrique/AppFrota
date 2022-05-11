@@ -28,13 +28,15 @@ const styles = StyleSheet.create({
     marginTop: 28,
     marginBottom: 12,
     alignSelf: 'center',
-    color: 'black'
+    color: 'black',
+    fontFamily: 'Oswald-Regular'
   },
 
   text:{
     color: '#a1a1a1',
     alignSelf: 'center',
-    color: 'black'
+    color: 'black',
+    fontFamily: 'OleoScriptSwashCaps-Bold'
   },
 
   button:{

@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import RelFrota from '../RelatoriosFrota/RelFrota'
 import InvFrota from '../IventarioFrota/InvFrota'
 import FormFrota from '../FormFrota/FormFrota'
+import Icon from 'react-native-vector-icons/Feather';
 const Bottom = createBottomTabNavigator();
 
 export default function RoutesFrota({ navigation: { goBack } }) {
@@ -14,7 +15,8 @@ export default function RoutesFrota({ navigation: { goBack } }) {
   
 
   return (
-      <Bottom.Navigator>
+      <Bottom.Navigator
+      >
       <Bottom.Screen 
         name="Formulário Frota"
         component={FormFrota}

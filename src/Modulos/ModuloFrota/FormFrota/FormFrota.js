@@ -108,12 +108,25 @@ export default function FormFrota({ navigation: { } }) {
       bs = React.createRef();
       fall = new Animated.Value(1);
 
+      //configs validação campos com yup
       const {control, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
       })
 
       function enviarForm (data){
+        if(validar()){
+          console.log("Salvou")
+        }
           console.log(data)
+
+      }
+
+      //config validações campo sem yup
+      const [errorPicker, setErrorPicker] = useState(null);
+      const [errorFoto, setErrorFoto] = useState(null);
+
+      const validar = ()=>{
+
       }
 
   return (
@@ -174,13 +187,13 @@ export default function FormFrota({ navigation: { } }) {
 
 
         <Text style={styles.txtCaption}>Placa Veículo:</Text>
-        <TouchableOpacity
+          <TouchableOpacity
               style={styles.buttonArquivo}
               onPress={() => changeModalVisibilityPlaca(true)}
               >
               <Text style={styles.txtButtonPicker}>{chooseDataPlaca}</Text>
               <Icon style={styles.iconButonPicker} name="chevron-down" size={25} color="#fff" />
-              </TouchableOpacity>
+            </TouchableOpacity>
            <Modal
             transparent={true}
             animationType="fade"
@@ -194,7 +207,6 @@ export default function FormFrota({ navigation: { } }) {
            </Modal>
         {errors.placaVeiculo && <Text style={styles.labelError}>{errors.placaVeiculo?.message}</Text>}
         
-
         <Text style={styles.txtCaption}>Km Inicial:</Text>
         <Controller
         control={control}

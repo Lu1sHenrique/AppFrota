@@ -31,7 +31,7 @@ export default function HomeModulos() {
             <Animatable.View animation="fadeInDown" style={styles.containerNomeHeader}>
               <View style={{marginLeft: 40}}>
                 <Text style={styles.textOla}>Olá,</Text>
-                <Text style={styles.textBold}>Luis Henrique</Text>
+                <Text style={styles.textBold}>LUIS.TEIXEIRA</Text>
               </View>
             </Animatable.View>
           </Animatable.View>

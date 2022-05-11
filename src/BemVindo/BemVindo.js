@@ -17,8 +17,7 @@ export default function BemVindo() {
   
 
   return (
-      <View style={styles.container}>
-          
+      <View style={styles.container}>    
           <View style={styles.containerLogo}>
             <Animatable.Image 
               animation="flipInY"
@@ -42,8 +41,6 @@ export default function BemVindo() {
                <Icon style={styles.icon} name="arrow-right-circle" size={20} color="#fff" />
             </TouchableOpacity>
           </Animatable.View>
-
-
       </View>
   );
 };
