@@ -2,26 +2,43 @@ import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { useNavigation } from '@react-navigation/native'
 import RelFrota from '../RelatoriosFrota/RelFrota'
 import InvFrota from '../IventarioFrota/InvFrota'
 import FormFrota from '../FormFrota/FormFrota'
 import Icon from 'react-native-vector-icons/Feather';
 const Bottom = createBottomTabNavigator();
 
-export default function RoutesFrota({ navigation: { goBack } }) {
-
-  const navigation = useNavigation();
-  
+export default function RoutesFrota(){
 
   return (
       <Bottom.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarHideOnKeyboard: true,
+        tabBarStyle:{
+          borderTopColor: 'transparent',
+          height: 60,
+          position: 'absolute',
+          bottom: 10,
+          right: 10,
+          left: 10,
+          borderRadius: 10,
+          backgroundColor: '#f77b77',
+          borderWidth: 1
+        },
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: '#fff',
+        tabBarInactiveTintColor: '#000',
+      }}
       >
       <Bottom.Screen 
         name="Formulário Frota"
         component={FormFrota}
         options={{
-          headerShown:false
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="check-square" color={color} size={size} />
+            ),
+            tabBarAccessibilityLabel:"Formulário Frota",
           }}
         />
 
@@ -29,19 +46,23 @@ export default function RoutesFrota({ navigation: { goBack } }) {
         name="Relatórios Frota"
         component={RelFrota}
         options={{
-          headerShown:false
-          }}
+          tabBarIcon: ({ color, size }) => (
+          <Icon name="book-open" color={color} size={size} />
+          ),
+        }}
         />
 
         <Bottom.Screen 
         name="Inventário Frota"
         component={InvFrota}
         options={{
-          headerShown:false
+          tabBarIcon: ({ color, size }) => (
+          <Icon name="book" color={color} size={size} />
+          ),
           }}
         />    
       </Bottom.Navigator>
-  );
+  )
 };
 
 

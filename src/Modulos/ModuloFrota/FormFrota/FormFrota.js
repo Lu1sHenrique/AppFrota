@@ -279,6 +279,7 @@ export default function FormFrota({ navigation: { } }) {
           </TouchableOpacity>
         </View>  
         </Animatable.View>
+        <View style={{paddingVertical: 30}}></View>
         </ScrollView>    
     </Animated.View>
     </>
