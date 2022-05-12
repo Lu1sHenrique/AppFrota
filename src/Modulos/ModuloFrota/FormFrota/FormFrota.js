@@ -132,15 +132,15 @@ export default function FormFrota({ navigation: { } }) {
   return (
       
     <>
-      <BottomSheet
-        ref={this.bs}
-        snapPoints={[330, 0]}
-        renderContent={renderInner}
-        renderHeader={renderHeader}
-        initialSnap={1}
-        callbackNode={this.fall}
-        enabledGestureInteraction={true}
-      />
+        <BottomSheet
+          ref={this.bs}
+          snapPoints={[330, 0]}
+          renderContent={renderInner}
+          renderHeader={renderHeader}
+          initialSnap={1}
+          callbackNode={this.fall}
+          enabledGestureInteraction={true}
+        />
       
             <Animated.View 
             style={{flex: 1, opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)),}}>
