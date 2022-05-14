@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
-  Modal
+  ImageBackground,
 } from 'react-native';
 
 //libs
@@ -18,17 +18,16 @@ import { useNavigation } from '@react-navigation/native'
 import BottomSheet from  'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
+import {Picker} from '@react-native-picker/picker'
 //pages
 import styles from './style';
-import { ModalPicker } from '../../../Components/Modal/ModalPicker';
-import { ModalPickerPlaca } from '../../../Components/Modal/ModalPickerPlaca';
+
 
 const schema = yup.object({
-    //condutor: yup.string().required("Selecione o condutor"),
-    //placaVeiculo: yup.string().required("Selecione o placa do veículo"),
-    kmInicial: yup.number().required("Preencha o Km Inicial"),
+    kmInicial: yup.string().min(2, "O km Inicial deve ter pelo menos 2 digitos").required("Preencha o Km Inicial"),
+    kmInicial: yup.string().min(2, "O km Inicial deve ter pelo menos 2 digitos").required("Preencha o Km Inicial"),
     //fotoKmInicial: yup.string().required("Envie a foto do KM Inicial"),
-    kmFinal: yup.number().required("Preencha o Km Final!"),
+    kmFinal: yup.string().min(2, "O km Final deve ter pelo menos 2 digitos").required("Preencha o Km Final!"),
     //fotoKmFinal: yup.string().required("Envie a foto do Km Final")
 })
 
@@ -38,29 +37,11 @@ export default function FormFrota({ navigation: { } }) {
 
       const navigation = useNavigation();
 
-      //configs modais picks
-      const[chooseData, setChooseData] = useState ("Selecione o condutor");
-      const[modalVisible, setModalVisible] = useState (false);
-
-      const changeModalVisibility = (bool) => {
-        setModalVisible(bool)
-      }
-
-      const setData = (Option) => {
-        setChooseData(Option)
-      }
-
-      const[chooseDataPlaca, setChooseDataPlaca] = useState ("Selecione a placa do veículo");
-      const[modalVisiblePlaca, setModalVisiblePlaca] = useState (false);
-
-      const changeModalVisibilityPlaca = (bool) => {
-        setModalVisiblePlaca(bool)
-      }
-
-      const setDataPlaca = (OptionPlaca) => {
-        setChooseDataPlaca(OptionPlaca)
-      }
-
+      //states picker
+      const [condutor] = useState(['Sergio', 'Wander', 'Rodrigo', 'Ariel']);
+      const [condutorSelecionado, setCondutorSelecionado] = useState([]);
+      const [placa] = useState(['QXA-5945', 'RGB-2A74', 'FM-8C70', 'QUV-4221']);
+      const [placaSelecionada, setPlacaSelecionada] = useState([]);
 
       //configs image picks upload
       const renderInner = () => (
@@ -99,7 +80,6 @@ export default function FormFrota({ navigation: { } }) {
         <View style={styles.header}>
           <View style={styles.panelHeader}>
            <View  style={styles.panelHandle}>
-      
            </View>
           </View>
         </View>
@@ -114,24 +94,16 @@ export default function FormFrota({ navigation: { } }) {
       })
 
       function enviarForm (data){
-        if(validar()){
-          console.log("Salvou")
-        }
-          console.log(data)
-
-      }
-
-      //config validações campo sem yup
-      const [errorPicker, setErrorPicker] = useState(null);
-      const [errorFoto, setErrorFoto] = useState(null);
-
-      const validar = ()=>{
-
+            console.log(data, condutorSelecionado, placaSelecionada)
       }
 
   return (
       
     <>
+    <ImageBackground  
+        source={require('../../../assets/Fundo.png')} 
+        style={{width: "100%", height: "100%"}}  
+        >
         <BottomSheet
           ref={this.bs}
           snapPoints={[330, 0]}
@@ -141,7 +113,7 @@ export default function FormFrota({ navigation: { } }) {
           callbackNode={this.fall}
           enabledGestureInteraction={true}
         />
-      
+
             <Animated.View 
             style={{flex: 1, opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)),}}>
             <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
@@ -165,46 +137,61 @@ export default function FormFrota({ navigation: { } }) {
         
 
         <Text style={styles.txtCaption}>Condutor:</Text>
-        <TouchableOpacity
-              style={styles.buttonArquivo}
-              onPress={() => changeModalVisibility(true)}
-              >
-              <Text style={styles.txtButtonPicker}>{chooseData}</Text>
-              <Icon style={styles.iconButonPicker} name="chevron-down" size={25} color="#fff" />
-              </TouchableOpacity>
-           <Modal
-            transparent={true}
-            animationType="fade"
-            visible={modalVisible}
-            nRequestClose={() => changeModalVisibility(false)}
-           >
-              <ModalPicker
-                changeModalVisibility={changeModalVisibility}
-                setData={setData}
+       
+        <Picker
+          selectedValue={condutorSelecionado}
+          onValueChange={(itemValue) =>
+            setCondutorSelecionado(itemValue)
+          }
+            dropdownIconColor='#fff'
+            style={{
+            backgroundColor:'#f77b77',
+            width: '95%',
+            alignSelf: 'center',
+            color: '#fff',
+            marginTop: 5,
+          }}
+          dropdownIconRippleColor='#fff'
+          >
+          {
+            condutor.map(cond => {
+              return <Picker.Item label={cond} value={cond} 
+               style={{
+                 color: '#f77b77'
+               }}
               />
-           </Modal>
-        {errors.condutor && <Text style={styles.labelError}>{errors.condutor?.message}</Text>}
-
+            })
+          }
+        </Picker>
+      
 
         <Text style={styles.txtCaption}>Placa Veículo:</Text>
-          <TouchableOpacity
-              style={styles.buttonArquivo}
-              onPress={() => changeModalVisibilityPlaca(true)}
-              >
-              <Text style={styles.txtButtonPicker}>{chooseDataPlaca}</Text>
-              <Icon style={styles.iconButonPicker} name="chevron-down" size={25} color="#fff" />
-            </TouchableOpacity>
-           <Modal
-            transparent={true}
-            animationType="fade"
-            visible={modalVisiblePlaca}
-            nRequestClose={() => changeModalVisibilityPlaca(false)}
-           >
-              <ModalPickerPlaca
-                changeModalVisibilityPlaca={changeModalVisibilityPlaca}
-                setDataPlaca={setDataPlaca}
+        <Picker
+          selectedValue={placaSelecionada}
+          onValueChange={(itemValue) =>
+            setPlacaSelecionada(itemValue)
+          }
+          dropdownIconColor='#fff'
+          style={{
+            backgroundColor:'#f77b77',
+            width: '95%',
+            alignSelf: 'center',
+            color: '#fff',
+            marginTop: 5
+          }}
+          dropdownIconRippleColor='#fff'
+          >
+          {
+            placa.map(plac => {
+              return <Picker.Item label={plac} value={plac}
+              style={{
+                color: '#f77b77',
+              }}
               />
-           </Modal>
+            })
+          }
+        </Picker>
+     
         {errors.placaVeiculo && <Text style={styles.labelError}>{errors.placaVeiculo?.message}</Text>}
         
         <Text style={styles.txtCaption}>Km Inicial:</Text>
@@ -252,6 +239,7 @@ export default function FormFrota({ navigation: { } }) {
               onBlur={onBlur}
               value={value}
               placeholder="Digite o KM Final do veícuklo"
+              keyboardType='numeric'
             />
           )}
         />
@@ -279,9 +267,10 @@ export default function FormFrota({ navigation: { } }) {
           </TouchableOpacity>
         </View>  
         </Animatable.View>
-        <View style={{paddingVertical: 30}}></View>
+        <View style={{paddingVertical: 15}}></View>
         </ScrollView>    
     </Animated.View>
+    </ImageBackground>
     </>
   );
 };

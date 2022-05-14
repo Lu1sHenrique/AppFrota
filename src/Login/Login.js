@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import {
   Text,
   View,
@@ -8,12 +8,19 @@ import {
 
 import styles from './style'
 import * as Animatable from 'react-native-animatable'
-import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather';
+import {AuthContext } from '../contexts/Auth'
 
 export default function Login(){
 
-  const navigation = useNavigation();
+  const [usuario, setUsuario] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { logar } = useContext(AuthContext);
+
+  function HandleLogar(){
+    logar(usuario, password)
+  }
 
   return (
     <View style={styles.container}>
@@ -26,17 +33,23 @@ export default function Login(){
           <TextInput
             placeholder='Digite o usuário'
             style={styles.input}
+            value={usuario}
+            onChangeText={(text)=> setUsuario(text)}
+            autoCorrect={false}
           />
           <Text style={styles.title}>Senha</Text>
           <TextInput
             placeholder='Digite a senha'
             style={styles.input}
+            value={password}
+            onChangeText={(text)=> setPassword(text)}
             secureTextEntry={true} 
+            autoCorrect={false}
           />
 
           <TouchableOpacity 
           style={styles.button}
-          onPress={ () => navigation.navigate('HomeModulos')}
+          onPress={HandleLogar}
           >
             <Text style={styles.buttonText}>Acessar</Text>
             <Icon style={styles.icon} name="log-in" size={23} color="#fff" />
@@ -45,13 +58,10 @@ export default function Login(){
         <View style={styles.containerVersao}>
           <Text style={styles.textversao}>Versão 1.5.2</Text>
         </View>
-
-     
         </Animatable.View>
     </View>
      
   );
 };
-
 
 

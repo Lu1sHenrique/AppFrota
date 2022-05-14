@@ -1,23 +1,30 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from 'react-native';
 
 import styles from './style'
 import Icon from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
+import {AuthContext} from '../contexts/Auth'
 
 
 export default function HomeModulos() {
 
+  const {user} = useContext(AuthContext)
 
   const navigation = useNavigation();
 
   return (
       <View style={styles.container}>
+        <ImageBackground  
+        source={require('../assets/Fundo.png')} 
+        style={{width: "100%", height: "100%"}}  
+        >
         <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
           <Animatable.View animation="fadeInLeft" style={styles.icon}>
             <TouchableOpacity
@@ -31,7 +38,7 @@ export default function HomeModulos() {
             <Animatable.View animation="fadeInDown" style={styles.containerNomeHeader}>
               <View style={{marginLeft: 40}}>
                 <Text style={styles.textOla}>Olá,</Text>
-                <Text style={styles.textBold}>LUIS.TEIXEIRA</Text>
+                <Text style={styles.textBold}>{user.usuario}</Text>
               </View>
             </Animatable.View>
           </Animatable.View>
@@ -107,6 +114,7 @@ export default function HomeModulos() {
               </Animatable.View>
             </View>
         </View>
+        </ImageBackground>
       </View>
   );
 };

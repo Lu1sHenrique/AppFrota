@@ -23,7 +23,7 @@ export default function RoutesFrota(){
           right: 10,
           borderRadius: 10,
           backgroundColor: '#f77b77',
-          borderWidth: 1
+          borderWidth: 1,
         },
         tabBarShowLabel: false,
         tabBarActiveTintColor: '#fff',

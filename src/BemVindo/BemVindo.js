@@ -18,7 +18,9 @@ export default function BemVindo() {
 
   return (
       <View style={styles.container}>    
+          {/*container da logo*/}
           <View style={styles.containerLogo}>
+            {/*imagem bem vindo*/}
             <Animatable.Image 
               animation="flipInY"
               source={require('../assets/logopreta.png')} 
@@ -27,12 +29,14 @@ export default function BemVindo() {
             />
           </View>
 
+          {/*container rodape*/}
           <Animatable.View 
             delay={600}
             animation="fadeInUp"
             style={styles.containerForm}>
             <Text style={styles.title}>Gestão Interna Máxima</Text>
             <Text style={styles.text}>Faça login para começar</Text>
+            {/*botao 'acessar'*/}
             <TouchableOpacity 
             style={styles.button}
             onPress={ () => navigation.navigate('Login')}

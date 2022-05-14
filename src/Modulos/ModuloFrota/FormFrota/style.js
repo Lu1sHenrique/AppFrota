@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
     borderWidth: 1
   },
 
@@ -135,19 +134,20 @@ const styles = StyleSheet.create({
     shadowColor: '#333333',
     shadowRadius: 2,
     shadowOpacity: 0.4,
-    paddingTop: 20,
+    paddingTop: 10,
     borderTopLeftRadius: 20,
-    borderTopRightRadius: 20
+    borderTopRightRadius: 20,
+    marginTop: 15,
   },
 
   panel:{
     padding: 20,
     backgroundColor: '#FFFFFF',
-    paddingTop: 20,
+    paddingTop: 5
   },
 
   panelHeader: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   panelHandle:{
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     backgroundColor: '#00000040',
-    marginBottom: 10
+    marginBottom: 10,
   },
 
   panelButton: {
@@ -165,12 +165,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#f77b77',
     alignItems: 'center',
     marginVertical: 7,
+    borderWidth: 1
   },
 
   panelTitle: {
     fontSize: 20,
     height: 35,
-    color: '#f77b77'
+    color: '#f77b77',
   },
 
   panelSubtitle: {
@@ -178,13 +179,13 @@ const styles = StyleSheet.create({
     color: 'gray',
     height: 30,
     marginBottom: 10,
-    color: '#f77b77'
+    color: '#f77b77',
   },
 
   panelButtonTitle: {
     fontSize: 17,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#fff'
   },
 
 

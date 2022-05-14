@@ -10,19 +10,22 @@ function AuthProvider({children}){
     const [user, setUser] = useState({});
     const navigation = useNavigation();
 
-    function logar(email, password){
-        if (email !== '' && password !== ''){
+    function logar(usuario, password){
+        if (usuario !== '' && password !== ''){
             setUser({
-                email: email,
+                usuario: usuario,
                 status: "ATIVO"
             })
 
             navigation.navigate("HomeModulos"); 
+        }else{
+            alert("Usuário ou senha inválidos!")
         }
+
     }
 
     return(
-        <AuthContext.Provider value={{ nome:"LUIS.TEIXEIRA", logar, user}}>
+        <AuthContext.Provider value={{logar, user}}>
             {children}
         </AuthContext.Provider> 
     )
