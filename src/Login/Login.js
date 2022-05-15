@@ -6,10 +6,12 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import styles from './style'
+//libs
 import * as Animatable from 'react-native-animatable'
 import Icon from 'react-native-vector-icons/Feather';
-import {AuthContext } from '../contexts/Auth'
+//pages
+import styles from './style'
+import {AuthContext} from '../contexts/Auth'
 
 export default function Login(){
 
@@ -56,7 +58,7 @@ export default function Login(){
           </TouchableOpacity>
 
         <View style={styles.containerVersao}>
-          <Text style={styles.textversao}>Versão 1.5.2</Text>
+          <Text style={styles.textversao}>Versão 1.0.0</Text>
         </View>
         </Animatable.View>
     </View>

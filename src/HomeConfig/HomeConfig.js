@@ -5,12 +5,14 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+//libs
 import Icon from 'react-native-vector-icons/Feather';
 import styles from './style'
 
+//pages
+
 
 export default function HomeConfig({ navigation: { goBack } }) {
-
 
   return (
     <View style={styles.container}>
@@ -20,7 +22,7 @@ export default function HomeConfig({ navigation: { goBack } }) {
           >
             <Icon name="arrow-left" size={30} color="#000" />
           </TouchableOpacity>
-        </View>
+      </View>
 
       <View style={styles.textHeader}>
         <Text style={styles.textConfig}>Configurações</Text>

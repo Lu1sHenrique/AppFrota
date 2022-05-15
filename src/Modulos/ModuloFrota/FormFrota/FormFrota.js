@@ -25,12 +25,8 @@ import styles from './style';
 
 const schema = yup.object({
     kmInicial: yup.string().min(2, "O km Inicial deve ter pelo menos 2 digitos").required("Preencha o Km Inicial"),
-    kmInicial: yup.string().min(2, "O km Inicial deve ter pelo menos 2 digitos").required("Preencha o Km Inicial"),
-    //fotoKmInicial: yup.string().required("Envie a foto do KM Inicial"),
-    kmFinal: yup.string().min(2, "O km Final deve ter pelo menos 2 digitos").required("Preencha o Km Final!"),
-    //fotoKmFinal: yup.string().required("Envie a foto do Km Final")
+    kmFinal: yup.string().min(2, "O km Final deve ter pelo menos 2 digitos").required("Preencha o Km Final!")
 })
-
 
 
 export default function FormFrota({ navigation: { } }) {
@@ -137,7 +133,6 @@ export default function FormFrota({ navigation: { } }) {
         
 
         <Text style={styles.txtCaption}>Condutor:</Text>
-       
         <Picker
           selectedValue={condutorSelecionado}
           onValueChange={(itemValue) =>
@@ -163,8 +158,7 @@ export default function FormFrota({ navigation: { } }) {
             })
           }
         </Picker>
-      
-
+    
         <Text style={styles.txtCaption}>Placa Veículo:</Text>
         <Picker
           selectedValue={placaSelecionada}
@@ -191,7 +185,6 @@ export default function FormFrota({ navigation: { } }) {
             })
           }
         </Picker>
-     
         {errors.placaVeiculo && <Text style={styles.labelError}>{errors.placaVeiculo?.message}</Text>}
         
         <Text style={styles.txtCaption}>Km Inicial:</Text>
@@ -223,7 +216,6 @@ export default function FormFrota({ navigation: { } }) {
                 <Icon style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
                 <Text style={styles.txtButtonEnviar}>Adicionar arquivo</Text>
               </TouchableOpacity>
-        {errors.fotoKmInicial && <Text style={styles.labelError}>{errors.fotoKmInicial?.message}</Text>}
 
         <Text style={styles.txtCaption}>Km Final:</Text>
           <Controller
@@ -253,7 +245,6 @@ export default function FormFrota({ navigation: { } }) {
                 <Icon style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
                 <Text style={styles.txtButtonEnviar}>Adicionar arquivo</Text>
               </TouchableOpacity>
-        {errors.fotoKmFinal && <Text style={styles.labelError}>{errors.fotoKmFinal?.message}</Text>}
 
         <View>
           <TouchableOpacity
