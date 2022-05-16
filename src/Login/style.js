@@ -72,7 +72,19 @@ const styles = StyleSheet.create({
   textversao:{
     color: "#000",
     fontSize: 15
-  }
+  },
+
+  modal:(text='none')=>({
+    backgroundColor: 'red',
+    borderWidth: 1,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginHorizontal: 15,
+    position: 'absolute',
+    justifyContent: 'center',
+    marginVertical: 250,
+    display: text
+  }),
 
 })
 

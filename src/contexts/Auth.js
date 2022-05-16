@@ -18,10 +18,7 @@ function AuthProvider({children}){
             })
 
             navigation.navigate("HomeModulos"); 
-        }else{
-            alert("Usuário ou senha inválidos!")
         }
-
     }
 
     return(

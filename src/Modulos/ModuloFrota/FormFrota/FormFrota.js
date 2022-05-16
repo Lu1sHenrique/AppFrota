@@ -6,6 +6,8 @@ import {
   TextInput,
   ScrollView,
   ImageBackground,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 
 //libs
@@ -94,8 +96,7 @@ export default function FormFrota({ navigation: { } }) {
       }
 
   return (
-      
-    <>
+  <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
     <ImageBackground  
         source={require('../../../assets/Fundo.png')} 
         style={{width: "100%", height: "100%"}}  
@@ -262,7 +263,7 @@ export default function FormFrota({ navigation: { } }) {
         </ScrollView>    
     </Animated.View>
     </ImageBackground>
-    </>
+    </KeyboardAvoidingView>
   );
 };
 

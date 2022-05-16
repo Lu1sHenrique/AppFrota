@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
-import {AuthContext} from '../contexts/Auth'
+import {AuthContext} from '../Contexts/Auth'
 
 //pages
 import styles from './style'
