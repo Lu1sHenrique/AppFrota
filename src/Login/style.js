@@ -75,16 +75,51 @@ const styles = StyleSheet.create({
   },
 
   modal:(text='none')=>({
-    backgroundColor: 'red',
+    backgroundColor: '#f77b77',
     borderWidth: 1,
     borderRadius: 10,
     alignItems: 'center',
     marginHorizontal: 15,
     position: 'absolute',
-    justifyContent: 'center',
     marginVertical: 250,
     display: text
   }),
+
+  containerAvisoModalBadLogin:{
+    borderBottomWidth: 1,
+    width: "85%",
+    alignItems: 'center',
+    marginTop: 10,
+    paddingVertical: 8
+  },
+
+  textAvisoModalBadLogin:{
+    fontWeight: 'bold',
+    color: '#000',
+    fontSize: 20,
+  },
+
+  textModalBadLogin:{
+    color: '#000',
+    fontSize: 20,
+    paddingVertical: 8,
+    marginTop: 7
+  },
+
+  buttonOkModalBadLogin:{
+    width: '60%',
+    height: '20%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000',
+    borderRadius: 20,
+    marginTop: 5
+  },
+
+  txtOkButton:{
+    color: '#fff',
+    fontSize: 16
+  }
 
 })
 

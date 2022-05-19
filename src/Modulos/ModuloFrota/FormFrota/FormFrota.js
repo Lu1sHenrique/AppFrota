@@ -18,7 +18,7 @@ import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native'
 import BottomSheet from  'reanimated-bottom-sheet';
-import Animated from 'react-native-reanimated';
+import Animated, { cond } from 'react-native-reanimated';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
 import {Picker} from '@react-native-picker/picker'
 //pages
@@ -70,10 +70,9 @@ export default function FormFrota({ navigation: { } }) {
             </TouchableOpacity>
           </View>
         </View>
-        
       );
-          
-      
+         
+
       const renderHeader = () => (
         <View style={styles.header}>
           <View style={styles.panelHeader}>

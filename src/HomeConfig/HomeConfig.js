@@ -20,7 +20,7 @@ export default function HomeConfig({ navigation: { goBack } }) {
           <TouchableOpacity
           onPress={() => goBack()}
           >
-            <Icon name="arrow-left" size={30} color="#000" />
+            <Icon name="chevron-left" size={30} color="#000" />
           </TouchableOpacity>
       </View>
 

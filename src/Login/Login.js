@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   Text,
   View,
@@ -34,7 +34,12 @@ export default function Login(){
   //function logar
   function HandleLogar(){
     logar(usuario, password)
-    setDisplay('flex')
+    if(usuario === "" || password === ""){
+      setDisplay('flex')
+    }else{
+      setDisplay('none')
+    }
+  
   }
 //function fechar modal erro login
   function fecharDisplayBadLogin(){
@@ -83,12 +88,16 @@ export default function Login(){
           </View>
         </Animatable.View>
         {/*modal erro bad login*/}
-        <View style={[(styles.modal(display)), {width: WIDTH - 32, height: HEIGHT/9}]}>
-            <Text>Usuário ou senha inválida</Text>
+        <View style={[(styles.modal(display)), {width: WIDTH - 32, height: HEIGHT/5}]}>
+          <View style={styles.containerAvisoModalBadLogin}>
+            <Text style={styles.textAvisoModalBadLogin}>Aviso</Text>
+          </View>
+            <Text style={styles.textModalBadLogin}>Usuário ou senha inválida</Text>
             <TouchableOpacity
             onPress={fecharDisplayBadLogin}
+            style={styles.buttonOkModalBadLogin}
             >
-                <Text>OK</Text>
+                <Text style={styles.txtOkButton}>OK</Text>
             </TouchableOpacity>
         </View>  
     </KeyboardAvoidingView>
