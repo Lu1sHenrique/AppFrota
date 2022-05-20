@@ -22,6 +22,8 @@ const HEIGHT = Dimensions.get('window').height;
 
 export default function Login(){
 
+  const [hidePass, setHidePass] = useState(true);
+
   //consts do context api
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
@@ -53,7 +55,7 @@ export default function Login(){
           <Text style={styles.message}>Bem vindo(a)</Text>
         </Animatable.View>
         {/*texto usuario*/}
-        <Animatable.View animation="fadeInUp"  delay={500} style={styles.containerForm}>
+        <Animatable.View animation="fadeInUp"  delay={500} style={styles.containerInput}>
           <Text style={styles.title}>Usuário</Text>
           {/*caixa input usuario*/}
           <TextInput
@@ -71,9 +73,21 @@ export default function Login(){
             style={styles.input}
             value={password}
             onChangeText={(text)=> setPassword(text)}
-            secureTextEntry={true} 
+            secureTextEntry={hidePass} 
             autoCorrect={false}
           />
+
+          <TouchableOpacity
+            style={styles.iconHidePass}
+            onPress={()=> setHidePass(!hidePass)}
+            >
+              {
+                hidePass ?
+                <Icon style={styles.icon} name="eye" size={18} color="#000" />
+                :
+                <Icon style={styles.icon} name="eye-off" size={18} color="#000" />
+              }
+          </TouchableOpacity>
           {/*botao acessar*/}
           <TouchableOpacity 
           style={styles.button}

@@ -20,13 +20,13 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
 
-  containerForm:{
+  containerInput:{
     backgroundColor: '#fff',
     flex: 1,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     paddingStart: '5%',
-    paddingEnd: '5%'
+    paddingEnd: '5%',
   },
 
   title:{
@@ -40,6 +40,11 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 12,
     fontSize: 16
+  },
+
+  iconHidePass:{
+    borderWidth: 1,
+    width: '15%',
   },
 
   button:{
