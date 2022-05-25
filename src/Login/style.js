@@ -43,8 +43,11 @@ const styles = StyleSheet.create({
   },
 
   iconHidePass:{
-    borderWidth: 1,
-    width: '15%',
+    marginBottom: 10,
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    marginTop: '48%',
+    marginHorizontal: '40%'
   },
 
   button:{

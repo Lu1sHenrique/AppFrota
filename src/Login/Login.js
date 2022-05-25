@@ -76,16 +76,15 @@ export default function Login(){
             secureTextEntry={hidePass} 
             autoCorrect={false}
           />
-
           <TouchableOpacity
             style={styles.iconHidePass}
             onPress={()=> setHidePass(!hidePass)}
             >
               {
                 hidePass ?
-                <Icon style={styles.icon} name="eye" size={18} color="#000" />
+                <Icon name="eye" size={23} color="#000" />
                 :
-                <Icon style={styles.icon} name="eye-off" size={18} color="#000" />
+                <Icon name="eye-off" size={23} color="#000" />
               }
           </TouchableOpacity>
           {/*botao acessar*/}
@@ -102,7 +101,8 @@ export default function Login(){
           </View>
         </Animatable.View>
         {/*modal erro bad login*/}
-        <View style={[(styles.modal(display)), {width: WIDTH - 32, height: HEIGHT/5}]}>
+        <View
+            style={[(styles.modal(display)), {width: WIDTH - 32, height: HEIGHT/5}]}>
           <View style={styles.containerAvisoModalBadLogin}>
             <Text style={styles.textAvisoModalBadLogin}>Aviso</Text>
           </View>

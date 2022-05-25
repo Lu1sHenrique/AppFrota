@@ -2,7 +2,8 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
     container:{
-    flex: 1
+    flex: 1,
+    margin: 50
   },
 
   textHeader:{
@@ -17,16 +18,6 @@ const styles = StyleSheet.create({
   },
 
   textConfig:{
-      fontSize: 20,
-      color: "#000"
-  },
-
-  button:{
-      marginTop: 20,
-      marginHorizontal: 15
-  },
-
-  textButton: {
       fontSize: 20,
       color: "#000"
   }

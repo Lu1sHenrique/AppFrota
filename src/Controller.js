@@ -1,11 +1,11 @@
 //importando modulos
-const express=require('express');
-const cors=require('cors');
-const bodyParser=require('body-parser');
+import express from 'express';
+import cors from 'cors';
+import { urlencoded } from 'body-parser';
 
 const app=express();
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(urlencoded({ extended: false }));
 
 app.get('/', (req, res)=>{
     res.send('Meu servidor backend ja esta rodando')

@@ -3,43 +3,35 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  FlatList
 } from 'react-native';
 
-import styles from './style'
+//libs
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native'
+import api from '../../../services/api'
+//pages
+import styles from './style'
 
-export default function HomeFrota({ navigation: { goBack } }) {
 
-  const navigation = useNavigation();
-  
 
-  return (
-    <View style={styles.container}>
-    <View style={styles.textHeader}>
-        <Text style={styles.textConfig}>Gestão de Frota</Text>
-    </View>
+export default function HomeFrota(){
 
-    <View style={styles.icon}>
-        <TouchableOpacity
-        onPress={ () => navigation.navigate('HomeModulos')}
-        >
-        <Icon name="arrow-left" size={30} color="#000" />
-        </TouchableOpacity>
-    </View>
+  navigation = useNavigation();
 
-    <View>
-      <TouchableOpacity>
-         <Text>
-         Tela de relatorio
-         </Text>
-      </TouchableOpacity>
-    </View>
-</View>
-  );
-};
+    return(
+     <View>
+       <FlatList
+        data={this.state.filmes}
+        keyExtractor={item=>item.id.toString()}
+        render Item={({item})=><Filmes data={item}/>}
+       />
+     </View>
+    );
+  }
+   
 
 
 
