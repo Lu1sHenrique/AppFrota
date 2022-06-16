@@ -18,10 +18,7 @@ export default function RoutesFrota(){
         tabBarStyle:{
           borderTopColor: 'transparent',
           height: 60,
-          marginHorizontal: 10,
-          bottom: 10,
           right: 10,
-          borderRadius: 10,
           backgroundColor: '#f77b77',
           borderWidth: 1,
         },

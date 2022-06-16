@@ -18,7 +18,7 @@ import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native'
 import BottomSheet from  'reanimated-bottom-sheet';
-import Animated, { cond } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
 import {Picker} from '@react-native-picker/picker'
 //pages
@@ -107,10 +107,8 @@ export default function FormFrota({ navigation: { } }) {
           renderHeader={renderHeader}
           initialSnap={1}
           callbackNode={this.fall}
-          enabledGestureInteraction={true}
         />
-
-            <Animated.View 
+           <Animated.View 
             style={{flex: 1, opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)),}}>
             <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
             <View style={styles.textHeader}>
@@ -150,10 +148,13 @@ export default function FormFrota({ navigation: { } }) {
           >
           {
             condutor.map(cond => {
-              return <Picker.Item label={cond} value={cond} 
+              return <Picker.Item 
+              label={cond} 
+              value={cond} 
                style={{
                  color: '#f77b77'
                }}
+              key='condutor'
               />
             })
           }
@@ -181,6 +182,7 @@ export default function FormFrota({ navigation: { } }) {
               style={{
                 color: '#f77b77',
               }}
+              key='placa'
               />
             })
           }
