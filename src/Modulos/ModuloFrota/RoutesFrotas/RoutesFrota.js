@@ -17,44 +17,52 @@ export default function RoutesFrota(){
         tabBarHideOnKeyboard: true,
         tabBarStyle:{
           borderTopColor: 'transparent',
-          height: 60,
           right: 10,
-          backgroundColor: '#f77b77',
+          backgroundColor: "#d21e2b",
           borderWidth: 1,
+          borderTopLeftRadius: 60,
+          borderTopRightRadius: 60,
+          height: 80,
+          paddingTop: 10
         },
-        tabBarShowLabel: false,
         tabBarActiveTintColor: '#fff',
         tabBarInactiveTintColor: '#000',
+        tabBarLabelStyle:{
+          fontSize: 15,
+          paddingBottom: 10
+        }
       }}
       >
       <Bottom.Screen 
-        name="Formulário Frota"
+        name="Formulário"
         component={FormFrota}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="check-square" color={color} size={size} />
+          tabBarIcon: ({ color }) => (
+            <Icon name="file-text" color={color} size={30} />
             ),
             tabBarAccessibilityLabel:"Formulário Frota",
           }}
         />
 
         <Bottom.Screen 
-        name="Relatórios Frota"
+        name="Relatórios"
         component={RelFrota}
         options={{
-          tabBarIcon: ({ color, size }) => (
-          <Icon name="book-open" color={color} size={size} />
+          tabBarIcon: ({ color }) => (
+          <Icon name="bar-chart-2" color={color} size={30} />
           ),
+          tabBarAccessibilityLabel:"Relatório Frota",
         }}
         />
 
         <Bottom.Screen 
-        name="Inventário Frota"
+        name="Inventário"
         component={InvFrota}
         options={{
-          tabBarIcon: ({ color, size }) => (
-          <Icon name="book" color={color} size={size} />
+          tabBarIcon: ({ color }) => (
+          <Icon name="clipboard" color={color} size={30} />
           ),
+          tabBarAccessibilityLabel:"Inventário Frota",
           }}
         />    
       </Bottom.Navigator>

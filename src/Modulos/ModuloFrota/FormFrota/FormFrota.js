@@ -32,7 +32,7 @@ const schema = yup.object({
 })
 
 
-export default function FormFrota({ navigation: { } }) {
+export default function FormFrota({ navigation: { goBack} }) {
 
       const navigation = useNavigation();
 
@@ -44,6 +44,11 @@ export default function FormFrota({ navigation: { } }) {
       const [oleo, setOleo] = useState("");
       const [pneu, setPneu] = useState("");
       const [correias, setCorreias] = useState("");
+      const [carroMaxima, setCarroMaxima] = useState(true);
+      const [carroReserva, setCarroReserva] = useState(false);
+      const [ronda1, setRonda1] = useState(false);
+      const [ronda2, setRonda2] = useState(false);
+      const [ronda3, setRonda3] = useState(false);
 
       //configs image picks upload
       const renderInner = () => (
@@ -94,8 +99,24 @@ export default function FormFrota({ navigation: { } }) {
         resolver: yupResolver(schema)
       })
 
+      function clickCheckCarroMaxima(){
+        setCarroMaxima(!carroMaxima)
+        setCarroReserva(!carroReserva)
+      }
+
+      function clickCheckCarroReserva(){
+        setCarroReserva(!carroReserva)
+        setCarroMaxima(!carroMaxima)
+      }
+
+      //enviar form
       function enviarForm (data){
-            console.log(data, condutorSelecionado, placaSelecionada, oleo, pneu, correias)
+        if(ronda1 === false){
+          setRonda1("N")
+        }else{
+          setRonda1("S")
+        }
+          console.log(carroMaxima, carroReserva, parseInt(data.kmInicial), parseInt(data.kmFinal), condutorSelecionado, placaSelecionada, ronda1, ronda2, ronda3, oleo, pneu, correias)
       }
 
   return (
@@ -149,6 +170,9 @@ export default function FormFrota({ navigation: { } }) {
                 fontSize: 15,
                 fontWeight: 'bold'
               }}
+              isChecked={carroMaxima}
+              disableBuiltInState
+              onPress={clickCheckCarroMaxima}
               />
             </View>
             <View style={{width: '40%'}}>
@@ -161,6 +185,9 @@ export default function FormFrota({ navigation: { } }) {
                   fontSize: 15,
                   fontWeight: 'bold'
                 }}
+                isChecked={carroReserva}
+                disableBuiltInState
+                onPress={clickCheckCarroReserva}
               />
             </View>
           </View>
@@ -301,6 +328,8 @@ export default function FormFrota({ navigation: { } }) {
                       fontWeight: 'bold',
                       marginRight: 20
                     }}
+                    isChecked={ronda1}
+                    onPress={() => setRonda1(!ronda1)}
                   />
                   <Checkbox
                     size={25}
@@ -312,6 +341,8 @@ export default function FormFrota({ navigation: { } }) {
                       fontWeight: 'bold',
                       marginRight: 20
                     }}
+                    isChecked={ronda2}
+                    onPress={() => setRonda2(!ronda2)}
                   />
                   <Checkbox
                     size={25}
@@ -322,6 +353,8 @@ export default function FormFrota({ navigation: { } }) {
                       fontSize: 15,
                       fontWeight: 'bold'
                     }}
+                    isChecked={ronda3}
+                    onPress={() => setRonda3(!ronda3)}
                   />
             </View>
           </View>
@@ -333,7 +366,8 @@ export default function FormFrota({ navigation: { } }) {
               placeholder="Troca de Óleo (Km Inicail)"
               placeholderTextColor={"#d21e2b"}
               keyboardType='numeric'
-              onChange={() => setOleo(Text)}
+              value={oleo}
+              onChangeText={text => setOleo(text)}
             />
         </View>
 
@@ -343,6 +377,8 @@ export default function FormFrota({ navigation: { } }) {
               placeholder='Pneu'
               placeholderTextColor={"#d21e2b"}
               keyboardType='numeric'
+              value={pneu}
+              onChangeText={text => setPneu(text)}
             />
         </View>
 
@@ -352,7 +388,8 @@ export default function FormFrota({ navigation: { } }) {
               placeholder="Correias (Km Inicail)"
               placeholderTextColor={"#d21e2b"}
               keyboardType='numeric'
-              onChange={() => setCorreias(Text)}
+              value={correias}
+              onChangeText={text => setCorreias(text)}
             />
         </View>
 

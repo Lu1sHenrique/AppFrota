@@ -18,8 +18,7 @@ export default function RouteDrawer(){
             headerShown:false,
             drawerStyle: {width: width}
             }}
-  
-        />
+          />
     </Drawer.Navigator>
   )
 }

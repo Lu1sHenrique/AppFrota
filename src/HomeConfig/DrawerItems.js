@@ -11,7 +11,6 @@ import Icon from 'react-native-vector-icons/Feather';
 import styles from './style'
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
-import {AuthContext} from '../Contexts/Auth'
 
 
 //pages
@@ -96,7 +95,7 @@ export default function DrawerItems({ navigation: { goBack } }) {
           </View>
           <View style={styles.DrawerItem}>
               <TouchableOpacity
-              onPress={() => navigation.navigate('InvFrota')}
+              onPress={() => navigation.navigate('RoutesFrota')}
               >
                 <Text style={styles.txtDrawerItem}>Iventário</Text>
               </TouchableOpacity>

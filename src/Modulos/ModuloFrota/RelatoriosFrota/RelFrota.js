@@ -19,7 +19,7 @@ import styles from './style'
 
 export default function RelFrota(){
 
-  navigation = useNavigation();
+  const navigation = useNavigation();
 
   const [infoCep, setInfoCep] = useState({})
   const [searchCep, setSearchCep] = useState('')
