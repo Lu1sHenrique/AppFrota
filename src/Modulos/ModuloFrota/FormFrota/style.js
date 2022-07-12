@@ -5,43 +5,52 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
-  textHeader:{
-    position: 'absolute',
-    alignSelf: 'center',
-    marginTop: 18
-  },
-
   icon:{
-    marginHorizontal: 10,
-    marginTop: 10
-  },
-
-  textConfig:{
-      fontSize: 25,
-      color: "#fff"
+    width: '15%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   containerCaixa:{
-    backgroundColor: '#f77b77',
-    borderBottomLeftRadius: 25,
-    borderBottomRightRadius: 25,
-    paddingBottom: 15,
-    paddingTop: 10,
-    borderBottomWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1
-  },
-  
-  boxTitle:{
-    marginTop: 12
+    backgroundColor: '#d21e2b',
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    paddingBottom: 10,
+    paddingTop: 40,
+    borderWidth: 1
   },
 
-  textTitle:{
-    fontSize: 30,
-    textAlign: 'center',
-    color: '#f77b77',
-    width: '100%'
+  ContainerLogo: {
+    width: '75%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
+
+  LogoHome:{
+    width: '100%',
+    height: 80,
+    borderWidth: 1
+  },
+
+  ContainerButtonBack:{
+    flexDirection: 'row',
+    borderBottomWidth: 1, 
+    borderBottomColor:"#808080" 
+  },
+
+  ButtonBack:{
+    width: '100%', 
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    paddingVertical: 25
+  },
+
+  IconBack:{
+    marginRight: 15,
+    color: "#d21e2b"
+  },
+  
 
   txtCaption:{
     fontSize: 25,
@@ -52,28 +61,33 @@ const styles = StyleSheet.create({
 
   input:{
     alignSelf: 'center',
-    width: '95%',
+    width: '85%',
     height: 50,
-    paddingHorizontal: 8,
-    marginBottom: 8,
-    borderRadius: 4,
-    borderBottomWidth: 1
+    paddingHorizontal: 16,
+    marginTop: 5,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderRightWidth: 1,
+    borderLeftWidth: 1,
+    borderTopColor: "#d21e2b",
+    borderBottomColor: "#d21e2b",
+    borderLeftColor: "#d21e2b",
+    borderRightColor: "#d21e2b",
   },
 
   button:{
     marginTop: 15,
     alignSelf: 'center',
-    width: '90%',
+    width: '85%',
     height: 45,
-    backgroundColor: '#f77b77',
-    borderRadius: 25,
+    backgroundColor: "#d21e2b",
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1
   },
 
   labelError:{
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     color: '#ff375b',
     marginBottom: 8,
     marginLeft: 10
@@ -86,14 +100,11 @@ const styles = StyleSheet.create({
   },
 
   buttonArquivo:{
-    alignItems: 'flex-start',
-    marginLeft: 12,
-    borderRadius: 10,
-    width: '93%',
+    alignSelf: 'center',
+    width: '85%',
     borderWidth: 1,
-    backgroundColor: '#f77b77',
-    marginTop: 8,
-    marginBottom: 8
+    backgroundColor: "#d21e2b",
+    marginTop: 5
   },
 
   txtButtonEnviar:{
@@ -162,7 +173,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 13,
     borderRadius: 10,
-    backgroundColor: '#f77b77',
+    backgroundColor: "#d21e2b",
     alignItems: 'center',
     marginVertical: 7,
     borderWidth: 1
@@ -171,7 +182,7 @@ const styles = StyleSheet.create({
   panelTitle: {
     fontSize: 20,
     height: 35,
-    color: '#f77b77',
+    color: "#d21e2b",
   },
 
   panelSubtitle: {
@@ -179,7 +190,7 @@ const styles = StyleSheet.create({
     color: 'gray',
     height: 30,
     marginBottom: 10,
-    color: '#f77b77',
+    color: "#d21e2b",
   },
 
   panelButtonTitle: {
@@ -188,6 +199,13 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
 
+  ContainerRonda:{
+    borderBottomWidth: 1, 
+    borderBottomColor:"#d21e2b", 
+    marginBottom: 20
+  },
+
+  
 
 
 })

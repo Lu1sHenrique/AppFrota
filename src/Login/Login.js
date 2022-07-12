@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  Dimensions
+  Dimensions,
+  Image,
+  ImageBackground
 } from 'react-native';
 
 //libs
@@ -50,27 +52,28 @@ export default function Login(){
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-        {/*titulo bem vindo*/}
+      <ImageBackground 
+      source={require('../assets/fundo_vermelho.png')}
+      style={{flex: 1 }}>
         <Animatable.View animation="fadeInLeft"  delay={500} style={styles.containerHeader}>
-          <Text style={styles.message}>Bem vindo(a)</Text>
+          <Image source={require('../assets/logo_login.png')}
+          style={{width: "100%", height: 100 }}
+          />
         </Animatable.View>
-        {/*texto usuario*/}
         <Animatable.View animation="fadeInUp"  delay={500} style={styles.containerInput}>
-          <Text style={styles.title}>Usuário</Text>
-          {/*caixa input usuario*/}
           <TextInput
             placeholder='Digite o usuário'
+            placeholderTextColor={'#fff'}
             style={styles.input}
             value={usuario}
             onChangeText={(text)=> setUsuario(text)}
             autoCorrect={false}
           />
-          {/*texto senha*/}
-          <Text style={styles.title}>Senha</Text>
-          {/*caixa input senha*/}
+          <View style={styles.ContainerHidePass}>
           <TextInput
             placeholder='Digite a senha'
-            style={styles.input}
+            placeholderTextColor={'#fff'}
+            style={styles.inputHidePass}
             value={password}
             onChangeText={(text)=> setPassword(text)}
             secureTextEntry={hidePass} 
@@ -82,24 +85,25 @@ export default function Login(){
             >
               {
                 hidePass ?
-                <Icon name="eye" size={23} color="#000" />
+                <Icon name="eye" size={23} color="#fff" />
                 :
-                <Icon name="eye-off" size={23} color="#000" />
+                <Icon name="eye-off" size={23} color="#fff" />
               }
           </TouchableOpacity>
+          </View>
           {/*botao acessar*/}
           <TouchableOpacity 
           style={styles.button}
           onPress={HandleLogar}
           >
             <Text style={styles.buttonText}>Acessar</Text>
-            <Icon style={styles.icon} name="log-in" size={23} color="#fff" />
           </TouchableOpacity>
           {/*texto versão*/}
           <View style={styles.containerVersao}>
             <Text style={styles.textversao}>Versão 1.0.0</Text>
           </View>
         </Animatable.View>
+      </ImageBackground>
         {/*modal erro bad login*/}
         <View
             style={[(styles.modal(display)), {width: WIDTH - 32, height: HEIGHT/5}]}>
@@ -115,7 +119,6 @@ export default function Login(){
             </TouchableOpacity>
         </View>  
     </KeyboardAvoidingView>
-     
   );
 };
 

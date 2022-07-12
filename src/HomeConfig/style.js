@@ -2,33 +2,79 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
     container:{
-    flex: 1
+      flex: 1,
+      backgroundColor: '#d21e2b',
+      width: '100%'
   },
 
-  textHeader:{
-    position: 'absolute',
-    alignSelf: 'center',
-    marginTop: 10,
+  Logo:{
+    width: 200,
+    height: 80,
   },
 
-  icon:{
-    marginHorizontal: 10,
-    marginTop: 10
+  ContainerHeader: {
+    flexDirection: 'row',
+    marginTop: 40
   },
 
-  textConfig:{
-      fontSize: 20,
-      color: "#000"
+  ContainerLogo: {
+    width:'75%',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    marginLeft: '5%'
+  },
+  
+  ContainerIcon:{
+    width: '10%',
+    marginRight: 70,
+    justifyContent: 'center'
   },
 
-  button:{
-      marginTop: 20,
-      marginHorizontal: 15
+  DrawerItem:{
+    marginLeft: 55,
+    marginVertical: 15
   },
 
-  textButton: {
-      fontSize: 20,
-      color: "#000"
+  txtDrawerItem:{
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+
+  ContainerFooter:{
+    flex: 1,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    backgroundColor: '#9E161F'
+  },
+
+  ContainerDrawerItem:{
+    marginTop: 20,
+    marginBottom: 40
+  },
+
+  ButtonFooter:{
+    flexDirection: 'row',
+    width: '40%',
+    marginLeft: 10
+  },
+
+  IconFooter:{
+    width: '17%'
+  },
+
+  txtFooter:{
+    width: '83%',
+    fontSize: 15,
+    marginLeft: 8,
+    color: '#fff',
+    fontWeight: 'bold'
+  },
+
+  RowFooter:{
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    marginTop: 15
   }
 
 })

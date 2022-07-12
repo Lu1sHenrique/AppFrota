@@ -3,14 +3,11 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
     container:{
     flex: 1,
-    backgroundColor: '#f77b77'
   },
 
   containerHeader:{
-   marginTop: '14%',
-   marginBotton: '8%',
-   paddingStart: '5%',
-   alignItems: 'center'
+   marginTop: 150,
+   width: "100%"
   },
 
   message:{
@@ -21,12 +18,8 @@ const styles = StyleSheet.create({
   },
 
   containerInput:{
-    backgroundColor: '#fff',
-    flex: 1,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    paddingStart: '5%',
-    paddingEnd: '5%',
+    marginTop: 150,
+    marginHorizontal: 30,
   },
 
   title:{
@@ -36,32 +29,52 @@ const styles = StyleSheet.create({
   },
 
   input:{
-    borderBottomWidth: 1,
-    height: 40,
+    borderWidth: 1,
+    height: 50,
+    borderColor: '#fff',
     marginBottom: 12,
-    fontSize: 16
+    fontSize: 16,
+    borderRadius: 10,
+    paddingHorizontal: 30,
+    color: '#fff',
+    width: '100%'
+  },
+  inputHidePass:{
+    height: 50,
+    marginBottom: 12,
+    fontSize: 16,
+    paddingHorizontal: 30,
+    color: '#fff',
+    width: '85%'
+  },
+  ContainerHidePass:{
+    flexDirection: 'row',
+    height: 50,
+    borderColor: '#fff',
+    borderWidth: 1,
+    borderRadius: 10,
+    width: '100%'
   },
 
   iconHidePass:{
-    marginBottom: 10,
-    position: 'absolute',
-    alignSelf: 'flex-end',
-    marginTop: '48%',
-    marginHorizontal: '40%'
+    width: '15%',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   button:{
-    backgroundColor: 'black',
+    backgroundColor: '#fff',
     width: '100%',
-    borderRadius: 4,
+    borderRadius: 10,
     paddingVertical: 8,
-    marginTop: 14,
+    marginTop: 8,
     justifyContent: 'center',
     paddingVertical: 15
   },
 
   buttonText:{
-    color: "#fff",
+    color: "#d21e2b",
     fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 130
@@ -78,18 +91,18 @@ const styles = StyleSheet.create({
   },
 
   textversao:{
-    color: "#000",
+    color: "#fff",
     fontSize: 15
   },
 
   modal:(text='none')=>({
-    backgroundColor: '#f77b77',
+    backgroundColor: '#fff',
     borderWidth: 1,
     borderRadius: 10,
     alignItems: 'center',
     marginHorizontal: 15,
     position: 'absolute',
-    marginVertical: 250,
+    marginVertical: 300,
     display: text
   }),
 

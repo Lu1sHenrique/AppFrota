@@ -26,7 +26,7 @@ export default function RelFrota(){
 
   const getCep = async () =>{
     try { 
-    const {data} = await api.get('66645445/json/')
+    const {data} = await api.get(+searchCep+'/json/')
     setInfoCep(data)
   } catch(error) {
     console.log(error)

@@ -5,9 +5,9 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
-  ImageBackground,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Image
 } from 'react-native';
 
 //libs
@@ -15,11 +15,12 @@ import {useForm, Controller} from 'react-hook-form'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import * as Animatable from 'react-native-animatable';
-import Icon from 'react-native-vector-icons/Feather';
+import IconFeather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native'
 import BottomSheet from  'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
+import Checkbox from "react-native-bouncy-checkbox";
 import {Picker} from '@react-native-picker/picker'
 //pages
 import styles from './style';
@@ -40,6 +41,9 @@ export default function FormFrota({ navigation: { } }) {
       const [condutorSelecionado, setCondutorSelecionado] = useState([]);
       const [placa] = useState(['QXA-5945', 'RGB-2A74', 'FM-8C70', 'QUV-4221']);
       const [placaSelecionada, setPlacaSelecionada] = useState([]);
+      const [oleo, setOleo] = useState("");
+      const [pneu, setPneu] = useState("");
+      const [correias, setCorreias] = useState("");
 
       //configs image picks upload
       const renderInner = () => (
@@ -91,15 +95,11 @@ export default function FormFrota({ navigation: { } }) {
       })
 
       function enviarForm (data){
-            console.log(data, condutorSelecionado, placaSelecionada)
+            console.log(data, condutorSelecionado, placaSelecionada, oleo, pneu, correias)
       }
 
   return (
-  <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
-    <ImageBackground  
-        source={require('../../../assets/Fundo.png')} 
-        style={{width: "100%", height: "100%"}}  
-        >
+  <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
         <BottomSheet
           ref={this.bs}
           snapPoints={[330, 0]}
@@ -108,59 +108,97 @@ export default function FormFrota({ navigation: { } }) {
           initialSnap={1}
           callbackNode={this.fall}
         />
-           <Animated.View 
-            style={{flex: 1, opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)),}}>
-            <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
-            <View style={styles.textHeader}>
-                <Text style={styles.textConfig}>Gestão de Frota</Text>
+         <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
+          <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
+            <Animatable.View animation="fadeInLeft" style={styles.icon}>
+              <TouchableOpacity
+              onPress={ () => navigation.openDrawer()}
+              >
+                <IconFeather name="menu" size={30} color="#fff" />
+              </TouchableOpacity>
+            </Animatable.View>
+            <View
+            style={styles.ContainerLogo}>
+              <Image source={require('../../../assets/logo_login.png')}
+              style={styles.LogoHome} 
+              />
             </View>
-
-            <View style={styles.icon}>
-                <TouchableOpacity
-                onPress={ () => navigation.navigate('HomeModulos')}
-                >
-                <Icon name="chevron-left" size={30} color="#fff" />
-                </TouchableOpacity>
-            </View>
-          </Animatable.View>
+          </View>
+        </Animatable.View>
       <ScrollView>
         <Animatable.View animation={"fadeInUp"}>
-        <View style={styles.boxTitle}>
-          <Text style={styles.textTitle}>Checklist Máxima</Text>
+        <View style={styles.ContainerButtonBack}>
+          <TouchableOpacity
+           style={styles.ButtonBack}
+           onPress={() => goBack()}
+           >
+            <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
+            <Text style={{fontSize: 28}}>CheckList Combustão</Text>
+          </TouchableOpacity>
         </View>
         
-
-        <Text style={styles.txtCaption}>Condutor:</Text>
-        <Picker
-          selectedValue={condutorSelecionado}
-          onValueChange={(itemValue) =>
-            setCondutorSelecionado(itemValue)
-          }
-            dropdownIconColor='#fff'
-            style={{
-            backgroundColor:'#f77b77',
-            width: '95%',
-            alignSelf: 'center',
-            color: '#fff',
-            marginTop: 5,
-          }}
-          dropdownIconRippleColor='#fff'
-          >
-          {
-            condutor.map(cond => {
-              return <Picker.Item 
-              label={cond} 
-              value={cond} 
-               style={{
-                 color: '#f77b77'
-               }}
-              key='condutor'
+        <View style={{flexDirection: 'row', paddingVertical: 20, alignSelf: 'center', justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: "#d21e2b"}}>
+          <View style={{width: '100%', flexDirection: 'row', justifyContent: 'center'}}>
+            <View style={{width: '40%', marginRight: 15}}>
+              <Checkbox
+              size={25}
+              text="Carro Máxima"
+              fillColor="#d21e2b"
+              textStyle={{
+                textDecorationLine: "none",
+                fontSize: 15,
+                fontWeight: 'bold'
+              }}
               />
-            })
-          }
-        </Picker>
-    
-        <Text style={styles.txtCaption}>Placa Veículo:</Text>
+            </View>
+            <View style={{width: '40%'}}>
+              <Checkbox
+                size={25}
+                text="Carro Reserva"
+                fillColor="#d21e2b"
+                textStyle={{
+                  textDecorationLine: "none",
+                  fontSize: 15,
+                  fontWeight: 'bold'
+                }}
+              />
+            </View>
+          </View>
+        </View>
+
+        <View style={{marginTop: 20}}>
+          <Picker
+            selectedValue={condutorSelecionado}
+            onValueChange={(itemValue) =>
+              setCondutorSelecionado(itemValue)
+            }
+              dropdownIconColor='#fff'
+              style={{
+              backgroundColor:'#d21e2b',
+              width: '85%',
+              alignSelf: 'center',
+              color: '#fff',
+              marginTop: 5
+            }}
+            dropdownIconRippleColor='#fff'
+            >
+              <Picker.Item 
+              label='Condutor' />
+            {
+              condutor.map(cond => {
+                return <Picker.Item 
+                label={cond} 
+                value={cond} 
+                style={{
+                  color: '#d21e2b',
+                }}
+                key='condutor'
+                />
+              })
+            }
+          </Picker>
+        </View>          
+        
         <Picker
           selectedValue={placaSelecionada}
           onValueChange={(itemValue) =>
@@ -168,19 +206,21 @@ export default function FormFrota({ navigation: { } }) {
           }
           dropdownIconColor='#fff'
           style={{
-            backgroundColor:'#f77b77',
-            width: '95%',
+            backgroundColor:'#d21e2b',
+            width: '85%',
             alignSelf: 'center',
             color: '#fff',
             marginTop: 5
           }}
           dropdownIconRippleColor='#fff'
           >
+            <Picker.Item 
+              label='Placa Veículo' />
           {
             placa.map(plac => {
               return <Picker.Item label={plac} value={plac}
               style={{
-                color: '#f77b77',
+                color: '#d21e2b',
               }}
               key='placa'
               />
@@ -189,7 +229,6 @@ export default function FormFrota({ navigation: { } }) {
         </Picker>
         {errors.placaVeiculo && <Text style={styles.labelError}>{errors.placaVeiculo?.message}</Text>}
         
-        <Text style={styles.txtCaption}>Km Inicial:</Text>
         <Controller
         control={control}
         name="kmInicial"
@@ -202,24 +241,22 @@ export default function FormFrota({ navigation: { } }) {
             onChangeText={onChange}
             onBlur={onBlur}
             value={value}
-            placeholder="Digite o KM Inicial do veícuklo"
+            placeholder="Km Inicial"
             keyboardType='numeric'
+            placeholderTextColor={"#d21e2b"}
           />
         )}
         />
         {errors.kmInicial && <Text style={styles.labelError}>{errors.kmInicial?.message}</Text>}
         
-          
-            <Text style={styles.txtCaption}>Foto Km Inicial:</Text>
               <TouchableOpacity
               style={styles.buttonArquivo}
               onPress={() => this.bs.current.snapTo(0)}
               >
-                <Icon style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
-                <Text style={styles.txtButtonEnviar}>Adicionar arquivo</Text>
+                <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
+                <Text style={styles.txtButtonEnviar}>Foto Km Inicial</Text>
               </TouchableOpacity>
 
-        <Text style={styles.txtCaption}>Km Final:</Text>
           <Controller
           control={control}
           name="kmFinal"
@@ -232,28 +269,98 @@ export default function FormFrota({ navigation: { } }) {
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
-              placeholder="Digite o KM Final do veícuklo"
+              placeholder="Km Final"
+              placeholderTextColor={"#d21e2b"}
               keyboardType='numeric'
             />
           )}
         />
         {errors.kmFinal && <Text style={styles.labelError}>{errors.kmFinal?.message}</Text>}
 
-           <Text style={styles.txtCaption}>Foto Km Final:</Text>
-              <TouchableOpacity
-              style={styles.buttonArquivo}
-              onPress={() => this.bs.current.snapTo(0)}
-              >
-                <Icon style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
-                <Text style={styles.txtButtonEnviar}>Adicionar arquivo</Text>
-              </TouchableOpacity>
+        <TouchableOpacity
+        style={styles.buttonArquivo}
+        onPress={() => this.bs.current.snapTo(0)}
+        >
+          <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
+          <Text style={styles.txtButtonEnviar}>Foto Km Final</Text>
+        </TouchableOpacity>
+
+        <View style={styles.ContainerRonda}>
+          <View style={{marginVertical: 25, marginHorizontal: 30}}>
+            <View style={{marginVertical: 15}}>
+              <Text style={{fontSize: 25, fontWeight: 'bold'}}>Ronda</Text>
+            </View>
+              <View style={{width: '100%',flexDirection: 'row'}}>
+                <Checkbox
+                    size={25}
+                    text="Rota 1"
+                    fillColor="#d21e2b"
+                    textStyle={{
+                      textDecorationLine: "none",
+                      fontSize: 15,
+                      fontWeight: 'bold',
+                      marginRight: 20
+                    }}
+                  />
+                  <Checkbox
+                    size={25}
+                    text="Rota 2"
+                    fillColor="#d21e2b"
+                    textStyle={{
+                      textDecorationLine: "none",
+                      fontSize: 15,
+                      fontWeight: 'bold',
+                      marginRight: 20
+                    }}
+                  />
+                  <Checkbox
+                    size={25}
+                    text="Rota 3"
+                    fillColor="#d21e2b"
+                    textStyle={{
+                      textDecorationLine: "none",
+                      fontSize: 15,
+                      fontWeight: 'bold'
+                    }}
+                  />
+            </View>
+          </View>
+        </View>    
+        
+        <View>
+          <TextInput
+              style={styles.input}
+              placeholder="Troca de Óleo (Km Inicail)"
+              placeholderTextColor={"#d21e2b"}
+              keyboardType='numeric'
+              onChange={() => setOleo(Text)}
+            />
+        </View>
+
+        <View>
+          <TextInput
+              style={styles.input}
+              placeholder='Pneu'
+              placeholderTextColor={"#d21e2b"}
+              keyboardType='numeric'
+            />
+        </View>
+
+        <View>
+          <TextInput
+              style={styles.input}
+              placeholder="Correias (Km Inicail)"
+              placeholderTextColor={"#d21e2b"}
+              keyboardType='numeric'
+              onChange={() => setCorreias(Text)}
+            />
+        </View>
 
         <View>
           <TouchableOpacity
           onPress={handleSubmit(enviarForm)}
           style={styles.button}
           >
-            <Icon style={styles.iconButtonEnviar} name="send" size={25} color="#fff" />
             <Text style={styles.txtButton}>
               Enviar
             </Text>
@@ -262,8 +369,6 @@ export default function FormFrota({ navigation: { } }) {
         </Animatable.View>
         <View style={{paddingVertical: 15}}></View>
         </ScrollView>    
-    </Animated.View>
-    </ImageBackground>
     </KeyboardAvoidingView>
   );
 };

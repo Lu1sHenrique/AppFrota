@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
 
   container:{
         flex: 1,
+        backgroundColor: '#f4f4f4'
       },
 
   containerButtonsMod:{
@@ -11,40 +12,50 @@ const styles = StyleSheet.create({
   },
 
   icon:{
-    marginHorizontal: 20,
-    marginTop: 10
+    width: '15%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  containerCaixa:{
+    backgroundColor: '#d21e2b',
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    paddingBottom: 10,
+    paddingTop: 40,
+    borderWidth: 1
+  },
+
+  ContainerLogo: {
+    width: '75%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  LogoHome:{
+    width: '100%',
+    height: 80,
+    borderWidth: 1
   },
 
   containerNomeHeader:{
     position: 'absolute',
-    width: 330,
+    width: '100%',
     justifyContent: 'center',
-    marginTop: 17,
-    marginLeft: 60
-  },
-
-  containerCaixa:{
-    backgroundColor: 'red',
-    borderBottomLeftRadius: 25,
-    borderBottomRightRadius: 25,
-    paddingBottom: 15,
-    paddingTop: 10,
-    borderBottomWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1
+    marginTop: 150,
   },
 
   textOla:{
     fontSize: 25,
-    color: "#fff"
+    color: "#424242",
+    alignSelf: 'center',
   },
 
   textBold:{
     fontWeight: 'bold',
-    position: 'absolute',
-    marginLeft: 50,
-    fontSize: 25,
-    color: "#fff"
+    fontSize: 40,
+    color: "#d21e2b",
+    alignSelf: 'center'
   },
 
   containerRow:{
@@ -58,7 +69,7 @@ const styles = StyleSheet.create({
   },
 
   button:{
-    backgroundColor: 'red',
+    backgroundColor: '#d21e2b',
     paddingVertical: 30,
     borderRadius: 20,
     borderWidth: 1

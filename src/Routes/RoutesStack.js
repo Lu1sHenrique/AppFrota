@@ -2,23 +2,18 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react';
 
 import Login from '../Login/Login'
-import BemVindo from '../BemVindo/BemVindo'
 import HomeModulos from '../HomeModulos/HomeModulos'
-import HomeConfig from '../HomeConfig/HomeConfig'
+import HomeFrota from '../Modulos/ModuloFrota/HomeFrota/HomeFrota'
 import RoutesFrota from '../Modulos/ModuloFrota/RoutesFrotas/RoutesFrota'
 
 const Stack = createNativeStackNavigator();
 export default function Routes(){
   return(
-    <Stack.Navigator>
-      <Stack.Screen 
-      name="Bemvindo"
-      component={BemVindo}
-      options={{
-          headerShown:false
-        }}
-      />
-
+    <Stack.Navigator
+    screenOptions={{
+      headerShown: true
+    }}
+    >
       <Stack.Screen 
       name="Login"
       component={Login}
@@ -36,13 +31,13 @@ export default function Routes(){
       />
 
       <Stack.Screen 
-      name="HomeConfig"
-      component={HomeConfig}
+      name="HomeFrota"
+      component={HomeFrota}
       options={{
         headerShown:false
         }}
       />
-
+      
       <Stack.Screen 
       name="RoutesFrota"
       component={RoutesFrota}
