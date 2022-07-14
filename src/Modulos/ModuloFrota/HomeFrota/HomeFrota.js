@@ -9,6 +9,7 @@ import {
 
 //libs
 import IconFeather from 'react-native-vector-icons/Feather';
+import IconMaterial from 'react-native-vector-icons/MaterialIcons'
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
 import {AuthContext} from '../../../Contexts/Auth'
@@ -70,7 +71,7 @@ export default function HomeFrota({ navigation: { goBack } }) {
                 style={{alignItems: 'center'}}
                 onPress={() => navigation.navigate('RoutesFrota')}
                 >
-                    <IconFeather size={60} name="help-circle" color='#fff' />
+                    <IconMaterial size={80} name="local-gas-station" color='#fff' />
                     <Text style={{fontSize: 30,  color: '#fff'}}>Combustão</Text>
                 </TouchableOpacity>
             </View>
@@ -78,8 +79,11 @@ export default function HomeFrota({ navigation: { goBack } }) {
 
         <View style={styles.Container2Button}>
             <View style={styles.Container2ButtonSolo}>
-                <TouchableOpacity style={{alignItems: 'center'}}>
-                    <IconFeather size={60} name="help-circle" color='#fff' />
+                <TouchableOpacity 
+                style={{alignItems: 'center'}}
+                onPress={() => navigation.navigate('FormFrotaEletrica')}
+                >
+                    <IconMaterial size={80} name="bolt" color='#fff' />
                     <Text style={{fontSize: 30, color: '#fff'}}>Elétrica</Text>
                 </TouchableOpacity>
             </View>

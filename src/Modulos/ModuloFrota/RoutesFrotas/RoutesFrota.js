@@ -6,6 +6,7 @@ import RelFrota from '../RelatoriosFrota/RelFrota'
 import InvFrota from '../IventarioFrota/InvFrota'
 import FormFrota from '../FormFrota/FormFrota'
 import Icon from 'react-native-vector-icons/Feather';
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
 const Bottom = createBottomTabNavigator();
 
 export default function RoutesFrota(){
@@ -49,7 +50,7 @@ export default function RoutesFrota(){
         component={RelFrota}
         options={{
           tabBarIcon: ({ color }) => (
-          <Icon name="bar-chart-2" color={color} size={30} />
+          <IconAntDesign name="linechart" color={color} size={30} />
           ),
           tabBarAccessibilityLabel:"Relatório Frota",
         }}

@@ -71,7 +71,7 @@ Container2Button:{
     flexDirection: 'row', 
     justifyContent: 'center', 
     alignItems: 'center',
-    marginBottom: 125
+    marginBottom: 95
   },
 
 ContainerButtonSolo:{

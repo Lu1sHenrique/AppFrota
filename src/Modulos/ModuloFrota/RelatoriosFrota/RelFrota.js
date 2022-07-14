@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -12,6 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native'
 import api from '../../../services/api'
+import {Picker} from '@react-native-picker/picker'
 //pages
 import styles from './style'
 
@@ -19,18 +20,23 @@ import styles from './style'
 
 export default function RelFrota(){
 
+  useEffect(()=>{
+    getCep();
+  },[])
+
   const navigation = useNavigation();
 
-  const [infoCep, setInfoCep] = useState({})
-  const [searchCep, setSearchCep] = useState('')
+  const [infoCep, setInfoCep] = useState([])
+  const [filmeSelecionado, setFilmeSelecionado] = useState([]);
 
   const getCep = async () =>{
     try { 
-    const {data} = await api.get(+searchCep+'/json/')
+    const {data} = await api.get('paises/')
     setInfoCep(data)
   } catch(error) {
     console.log(error)
  }
+ console.log(infoCep)
   };
 
     return(
@@ -48,39 +54,44 @@ export default function RelFrota(){
               </TouchableOpacity>
           </View>
         </View>
-
-        <View>
-          <TextInput
-            placeholder='DIGITE O CEP'
-            value={searchCep}
-            onChangeText= {text => setSearchCep(text)}
-          />
-          <TouchableOpacity
-          onPress={getCep}
-          >
-            <Text>Buscar</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View>
-          <View>
-            <Text>Rua: {infoCep.logradouro}</Text>
-          </View>
-
-          <View>
-            <Text>Bairro: {infoCep.bairro}</Text>
-          </View>
-
-          <View>
-            <Text>Cidade: {infoCep.localidade}</Text>
-          </View>
-
-          <View>
-            <Text>Estado: {infoCep.uf}</Text>
-          </View>
-        </View>
+        <View style={{marginTop: 20}}>
+          <Picker
+            selectedValue={filmeSelecionado}
+            onValueChange={(itemValue) =>
+              setFilmeSelecionado(itemValue)
+            }
+              dropdownIconColor='#fff'
+              style={{
+              backgroundColor:'#d21e2b',
+              width: '85%',
+              alignSelf: 'center',
+              color: '#fff',
+              marginTop: 5
+            }}
+            dropdownIconRippleColor='#fff'
+            >
+              <Picker.Item 
+              label='Filmes' 
+              style={{
+                color: '#000',
+              }}
+              />
+              {
+              infoCep.map(id => {
+                return <Picker.Item 
+                label={id.nome.abreviado} 
+                value={id.nome.abreviado} 
+                style={{
+                  color: '#d21e2b',
+                }}
+                key='filmes'
+                />
+              })
+            }
+          </Picker>
+        </View>    
       </SafeAreaView>
-    );
+    )
   }
    
 

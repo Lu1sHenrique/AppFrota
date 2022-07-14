@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 40,
     color: "#d21e2b",
-    alignSelf: 'center'
+    alignSelf: 'center',
+    textTransform: 'capitalize'
   },
 
   containerRow:{

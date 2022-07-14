@@ -27,8 +27,8 @@ import styles from './style';
 
 
 const schema = yup.object({
-    kmInicial: yup.string().min(2, "O km Inicial deve ter pelo menos 2 digitos").required("Preencha o Km Inicial"),
-    kmFinal: yup.string().min(2, "O km Final deve ter pelo menos 2 digitos").required("Preencha o Km Final!")
+  bateriaInicial: yup.string().required("Preencha a bateria Inicial"),
+  bateriaFinal: yup.string().required("Preencha a bateria Final!")
 })
 
 
@@ -43,14 +43,11 @@ export default function FormFrota({ navigation: { goBack} }) {
       const [condutorSelecionado, setCondutorSelecionado] = useState([]);
       const [placa] = useState(['QXA-5945', 'RGB-2A74', 'FM-8C70', 'QUV-4221']);
       const [placaSelecionada, setPlacaSelecionada] = useState([]);
-      const [oleo, setOleo] = useState("");
-      const [pneu, setPneu] = useState("");
-      const [correias, setCorreias] = useState("");
       const [carroMaxima, setCarroMaxima] = useState(true);
       const [carroReserva, setCarroReserva] = useState(false);
-      const [ronda1, setRonda1] = useState(false);
-      const [ronda2, setRonda2] = useState(false);
-      const [ronda3, setRonda3] = useState(false);
+      const [bateriaInicial, setBateriaInicial] = useState(0);
+      const [bateriaFinal, setBateriaFinal] = useState(0);
+      const [diferenca, setDiferenca] = useState(0);
 
       //configs image picks upload
       const renderInner = () => (
@@ -113,23 +110,14 @@ export default function FormFrota({ navigation: { goBack} }) {
 
       //enviar form
       function enviarForm (data){
-        if(ronda1 === false){
-          setRonda1("N")
-        }else{
-          setRonda1("S")
-        }
-        if(ronda2 === false){
-          setRonda2("N")
-        }else{
-          setRonda2("S")
-        }
-        if(ronda3 === false){
-          setRonda3("N")
-        }else{
-          setRonda3("S")
-        }
-          console.log(carroMaxima, carroReserva, parseInt(data.kmInicial), parseInt(data.kmFinal), condutorSelecionado, placaSelecionada, ronda1, ronda2, ronda3, oleo, pneu, correias)
+          console.log(carroMaxima, carroReserva, parseInt(data.bateriaInicial), parseInt(data.bateriaFinal), condutorSelecionado, placaSelecionada)
       }
+
+      function calcDiferenca(){
+        dif = bateriaInicial - bateriaFinal
+        setDiferenca(dif)
+        console.log(diferenca)
+    }
 
   return (
   <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
@@ -166,7 +154,7 @@ export default function FormFrota({ navigation: { goBack} }) {
            onPress={() => goBack()}
            >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 28}}>CheckList Combustão</Text>
+            <Text style={{fontSize: 28}}>CheckList Elétrica</Text>
           </TouchableOpacity>
         </View>
         
@@ -204,7 +192,6 @@ export default function FormFrota({ navigation: { goBack} }) {
             </View>
           </View>
         </View>
-
         <View style={{marginTop: 20}}>
           <Picker
             selectedValue={departamentoSelecionado}
@@ -240,7 +227,7 @@ export default function FormFrota({ navigation: { goBack} }) {
               })
             }
           </Picker>
-        </View>         
+        </View>          
 
         <View>
           <Picker
@@ -315,141 +302,76 @@ export default function FormFrota({ navigation: { goBack} }) {
         
         <Controller
         control={control}
-        name="kmInicial"
-        render={({field: {onChange, onBlur, value}}) => (
+        name="bateriaInicial"
+        render={({field: {valueBatInicial}}) => (
           <TextInput
           style={[styles.input,{
-            borderWidth: errors.kmInicial && 1,
-            borderColor: errors.kmInicial && '#ff375b'
+            borderWidth: errors.bateriaInicial && 1,
+            borderColor: errors.bateriaInicial && '#ff375b'
           }]}
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-            placeholder="Km Inicial"
+            onChangeText={text => setBateriaInicial(text)}
+            value={valueBatInicial}
+            placeholder="Bateria Inicial"
             keyboardType='numeric'
             placeholderTextColor={"#d21e2b"}
           />
         )}
         />
-        {errors.kmInicial && <Text style={styles.labelError}>{errors.kmInicial?.message}</Text>}
+        {errors.bateriaInicial && <Text style={styles.labelError}>{errors.bateriaInicial?.message}</Text>}
         
-        <TouchableOpacity
-        style={styles.buttonArquivo}
-        onPress={() => this.bs.current.snapTo(0)}
-        >
-          <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
-          <Text style={styles.txtButtonEnviar}>Foto Km Inicial</Text>
-        </TouchableOpacity>
+              <TouchableOpacity
+              style={styles.buttonArquivo}
+              onPress={() => this.bs.current.snapTo(0)}
+              >
+                <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
+                <Text style={styles.txtButtonEnviar}>Foto Bateria Inicial</Text>
+              </TouchableOpacity>
 
           <Controller
           control={control}
-          name="kmFinal"
-          render={({field: {onChange, onBlur, value}}) => (
+          name="bateriaFinal"
+          render={({field: {valueBatFinal}}) => (
             <TextInput
             style={[styles.input,{
-              borderWidth: errors.kmFinal && 1,
-              borderColor: errors.kmFinal && '#ff375b'
+              borderWidth: errors.bateriaFinal && 1,
+              borderColor: errors.bateriaFinal && '#ff375b'
             }]}
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-              placeholder="Km Final"
+              onChangeText={text => setBateriaFinal(text)}
+              value={valueBatFinal}
+              placeholder="Bateria Final"
               placeholderTextColor={"#d21e2b"}
               keyboardType='numeric'
             />
           )}
         />
-        {errors.kmFinal && <Text style={styles.labelError}>{errors.kmFinal?.message}</Text>}
+        {errors.bateriaFinal && <Text style={styles.labelError}>{errors.bateriaFinal?.message}</Text>}
 
         <TouchableOpacity
         style={styles.buttonArquivo}
         onPress={() => this.bs.current.snapTo(0)}
         >
           <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
-          <Text style={styles.txtButtonEnviar}>Foto Km Final</Text>
-        </TouchableOpacity>
-
-        <View style={styles.ContainerRonda}>
-          <View style={{marginVertical: 25, marginHorizontal: 30}}>
-            <View style={{marginVertical: 15}}>
-              <Text style={{fontSize: 25, fontWeight: 'bold'}}>Ronda</Text>
-            </View>
-              <View style={{width: '100%',flexDirection: 'row'}}>
-                <Checkbox
-                    size={25}
-                    text="Rota 1"
-                    fillColor="#d21e2b"
-                    textStyle={{
-                      textDecorationLine: "none",
-                      fontSize: 15,
-                      fontWeight: 'bold',
-                      marginRight: 20
-                    }}
-                    isChecked={ronda1}
-                    onPress={() => setRonda1(!ronda1)}
-                  />
-                  <Checkbox
-                    size={25}
-                    text="Rota 2"
-                    fillColor="#d21e2b"
-                    textStyle={{
-                      textDecorationLine: "none",
-                      fontSize: 15,
-                      fontWeight: 'bold',
-                      marginRight: 20
-                    }}
-                    isChecked={ronda2}
-                    onPress={() => setRonda2(!ronda2)}
-                  />
-                  <Checkbox
-                    size={25}
-                    text="Rota 3"
-                    fillColor="#d21e2b"
-                    textStyle={{
-                      textDecorationLine: "none",
-                      fontSize: 15,
-                      fontWeight: 'bold'
-                    }}
-                    isChecked={ronda3}
-                    onPress={() => setRonda3(!ronda3)}
-                  />
-            </View>
-          </View>
-        </View>    
-        
+          <Text style={styles.txtButtonEnviar}>Foto Bateria Final</Text>
+        </TouchableOpacity>   
         <View>
           <TextInput
               style={styles.input}
-              placeholder="Troca de Óleo (Km Inicail)"
+              placeholder="Diferença"
               placeholderTextColor={"#d21e2b"}
-              keyboardType='numeric'
-              value={oleo}
-              onChangeText={text => setOleo(text)}
+              editable={false}
+			        value={diferenca}
             />
         </View>
-
         <View>
-          <TextInput
-              style={styles.input}
-              placeholder='Pneu'
-              placeholderTextColor={"#d21e2b"}
-              keyboardType='numeric'
-              value={pneu}
-              onChangeText={text => setPneu(text)}
-            />
-        </View>
-
-        <View>
-          <TextInput
-              style={styles.input}
-              placeholder="Correias (Km Inicail)"
-              placeholderTextColor={"#d21e2b"}
-              keyboardType='numeric'
-              value={correias}
-              onChangeText={text => setCorreias(text)}
-            />
-        </View>
-
+          <TouchableOpacity
+          onPress={calcDiferenca}
+          style={styles.button}
+          >
+            <Text style={styles.txtButton}>
+              calcular
+            </Text>
+          </TouchableOpacity>
+        </View> 
         <View>
           <TouchableOpacity
           onPress={handleSubmit(enviarForm)}

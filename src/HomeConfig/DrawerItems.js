@@ -46,7 +46,7 @@ export default function DrawerItems({ navigation: { goBack } }) {
           </View>
           <View style={styles.DrawerItem}>
               <TouchableOpacity
-              onPress={() => navigation.navigate('RoutesFrota')}
+              onPress={() => navigation.navigate('HomeFrota')}
               >
                 <Text style={styles.txtDrawerItem}>Frota</Text>
               </TouchableOpacity>
