@@ -113,22 +113,22 @@ export default function FormFrota({ navigation: { goBack} }) {
 
       //enviar form
       function enviarForm (data){
-        if(ronda1 === false){
-          setRonda1("N")
-        }else{
+        /*if(ronda1 === true){
           setRonda1("S")
-        }
-        if(ronda2 === false){
-          setRonda2("N")
         }else{
+          setRonda1("N")
+        }
+        if(ronda2 === true){
           setRonda2("S")
-        }
-        if(ronda3 === false){
-          setRonda3("N")
         }else{
-          setRonda3("S")
+          setRonda2("N")
         }
-          console.log(carroMaxima, carroReserva, parseInt(data.kmInicial), parseInt(data.kmFinal), condutorSelecionado, placaSelecionada, ronda1, ronda2, ronda3, oleo, pneu, correias)
+        if(ronda3 === true){
+          setRonda3("S")
+        }else{
+          setRonda3("N")
+        }*/
+          console.log(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, parseInt(data.kmInicial), parseInt(data.kmFinal), ronda1, ronda2, ronda3, oleo, pneu, correias)
       }
 
   return (
