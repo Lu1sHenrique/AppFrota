@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+  TouchableOpacity,
+  Alert
+} from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
@@ -10,6 +14,11 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 const Bottom = createBottomTabNavigator();
 
 export default function RoutesFrota(){
+
+  const showAlert = () =>
+  Alert.alert(
+    "Opção disponível em breve!"
+  );
 
   return (
       <Bottom.Navigator
@@ -64,6 +73,9 @@ export default function RoutesFrota(){
           <Icon name="clipboard" color={color} size={30} />
           ),
           tabBarAccessibilityLabel:"Inventário Frota",
+          tabBarButton: props => (
+            <TouchableOpacity {...props} onPress={(showAlert)} />
+          )
           }}
         />    
       </Bottom.Navigator>

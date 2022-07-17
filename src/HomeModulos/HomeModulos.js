@@ -3,7 +3,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image
+  Image,
+  Alert
 } from 'react-native';
 
 
@@ -17,6 +18,11 @@ import {AuthContext} from '../Contexts/Auth'
 import styles from './style'
 
 export default function HomeModulos() {
+
+  const showAlert = () =>
+  Alert.alert(
+    "Módulo disponível em breve!"
+  );
 
   const {user} = useContext(AuthContext)
 
@@ -68,7 +74,7 @@ export default function HomeModulos() {
               <Animatable.View animation="fadeInDown" style={styles.containerButton}>
               <Animatable.View animation="fadeInRight">
                 <TouchableOpacity style={styles.button}
-                onPress={()=> alert("Módulo em breve")}>
+                onPress={(showAlert)}>
                   <Icon style={styles.iconButtonModulos} name="briefcase" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     Comercial
@@ -82,7 +88,7 @@ export default function HomeModulos() {
 
               <Animatable.View animation="fadeInLeft" style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}
-                onPress={()=> alert("Módulo em breve")}>
+                onPress={(showAlert)}>
                     <Icon style={styles.iconButtonModulos} name="tool" size={30} color="#fff" />
                     <Text style={styles.textButton}>
                       Técnica
@@ -92,7 +98,7 @@ export default function HomeModulos() {
 
               <Animatable.View animation="fadeInRight"  style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}
-                onPress={()=> alert("Módulo em breve")}>
+                onPress={(showAlert)}>
                 <Icon style={styles.iconButtonModulos} name="users" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     RH
@@ -106,7 +112,7 @@ export default function HomeModulos() {
             <Animatable.View animation="fadeInUp" style={styles.containerButton}>
               <Animatable.View animation="fadeInLeft">
                 <TouchableOpacity style={styles.button}
-                onPress={()=> alert("Módulo em breve")}>
+                onPress={(showAlert)}>
                   <Icon style={styles.iconButtonModulos} name="archive" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     Estoque
@@ -118,7 +124,7 @@ export default function HomeModulos() {
               <Animatable.View animation="fadeInUp" style={styles.containerButton}>
               <Animatable.View animation="fadeInRight">
                 <TouchableOpacity style={styles.button}
-                onPress={()=> alert("Módulo em breve")}>
+                onPress={(showAlert)}>
                   <Icon style={styles.iconButtonModulos} name="dollar-sign" size={30} color="#fff" />
                   <Text style={styles.textButton}>
                     Financeiro

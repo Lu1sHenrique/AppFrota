@@ -83,7 +83,6 @@ export default function FormFrota({ navigation: { goBack} }) {
         </View>
       );
          
-
       const renderHeader = () => (
         <View style={styles.header}>
           <View style={styles.panelHeader}>
@@ -109,26 +108,6 @@ export default function FormFrota({ navigation: { goBack} }) {
       function clickCheckCarroReserva(){
         setCarroReserva(!carroReserva)
         setCarroMaxima(!carroMaxima)
-      }
-
-      //enviar form
-      function enviarForm (data){
-        /*if(ronda1 === true){
-          setRonda1("S")
-        }else{
-          setRonda1("N")
-        }
-        if(ronda2 === true){
-          setRonda2("S")
-        }else{
-          setRonda2("N")
-        }
-        if(ronda3 === true){
-          setRonda3("S")
-        }else{
-          setRonda3("N")
-        }*/
-          console.log(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, parseInt(data.kmInicial), parseInt(data.kmFinal), ronda1, ronda2, ronda3, oleo, pneu, correias)
       }
 
   return (
@@ -465,6 +444,26 @@ export default function FormFrota({ navigation: { goBack} }) {
         </ScrollView>    
     </KeyboardAvoidingView>
   );
+
+  //enviar form
+  function enviarForm (data){
+    /*if(ronda1 === true){
+      setRonda1("S")
+    }else{
+      setRonda1("N")
+    }
+    if(ronda2 === true){
+      setRonda2("S")
+    }else{
+      setRonda2("N")
+    }
+    if(ronda3 === true){
+      setRonda3("S")
+    }else{
+      setRonda3("N")
+    }*/
+      console.log(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, parseInt(data.kmInicial), parseInt(data.kmFinal), ronda1, ronda2, ronda3, oleo, pneu, correias)
+  }
 };
 
 

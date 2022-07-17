@@ -6,6 +6,7 @@ import HomeModulos from '../HomeModulos/HomeModulos'
 import HomeFrota from '../Modulos/ModuloFrota/HomeFrota/HomeFrota'
 import RoutesFrota from '../Modulos/ModuloFrota/RoutesFrotas/RoutesFrota'
 import FormFrotaEletrica from '../Modulos/ModuloFrota/FormFrotaEletrica/FormFrotaEletrica';
+import Splash from '../Splash/Splash'
 
 const Stack = createNativeStackNavigator();
 export default function Routes(){
@@ -15,11 +16,21 @@ export default function Routes(){
       headerShown: true
     }}
     >
+
+    <Stack.Screen 
+      name="Splash"
+      component={Splash}
+      options={{
+        headerShown:false
+        }}
+      />
+
       <Stack.Screen 
       name="Login"
       component={Login}
       options={{
-        headerShown:false
+        headerShown:false,
+        gestureEnabled: false
         }}
       />
 

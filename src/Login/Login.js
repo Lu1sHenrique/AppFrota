@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   Text,
   View,
@@ -8,7 +8,8 @@ import {
   Platform,
   Dimensions,
   Image,
-  ImageBackground
+  ImageBackground,
+  BackHandler
 } from 'react-native';
 
 //libs
@@ -23,6 +24,12 @@ const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 export default function Login(){
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () =>{
+      return true
+    })
+  }, [])
 
   const [hidePass, setHidePass] = useState(true);
 

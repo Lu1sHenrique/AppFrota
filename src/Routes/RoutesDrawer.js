@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import React from 'react';
 import Stack from './RoutesStack'
-import DrawerItems from '../HomeConfig/DrawerItems'
+import DrawerItems from '../HomeDrawer/DrawerItems'
 import { Dimensions } from 'react-native'
 
 const width = Dimensions.get("screen").width

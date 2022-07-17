@@ -3,7 +3,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image
+  Image,
+  Alert
 } from 'react-native';
 
 //libs
@@ -17,6 +18,11 @@ import { useNavigation } from '@react-navigation/native'
 
 
 export default function DrawerItems({ navigation: { goBack } }) {
+
+  const showAlert = () =>
+  Alert.alert(
+    "Módulo disponível em breve!"
+  );
 
   const navigation = useNavigation();
 
@@ -53,28 +59,28 @@ export default function DrawerItems({ navigation: { goBack } }) {
           </View>
           <View style={styles.DrawerItem}>
               <TouchableOpacity
-              onPress={()=> alert("Módulo em breve")}
+              onPress={(showAlert)}
               >
                 <Text style={styles.txtDrawerItem}>Comercial</Text>
               </TouchableOpacity>
           </View>
           <View style={styles.DrawerItem}>
               <TouchableOpacity
-              onPress={()=> alert("Módulo em breve")}
+              onPress={(showAlert)}
               >
                 <Text style={styles.txtDrawerItem}>Técnica</Text>
               </TouchableOpacity>
           </View>
           <View style={styles.DrawerItem}>
               <TouchableOpacity
-              onPress={()=> alert("Módulo em breve")}
+              onPress={(showAlert)}
               >
                 <Text style={styles.txtDrawerItem}>RH</Text>
               </TouchableOpacity>
           </View>
           <View style={styles.DrawerItem}>
               <TouchableOpacity
-              onPress={()=> alert("Módulo em breve")}
+              onPress={(showAlert)}
               >
                 <Text style={styles.txtDrawerItem}>Financeiro</Text>
               </TouchableOpacity>
@@ -88,14 +94,14 @@ export default function DrawerItems({ navigation: { goBack } }) {
           </View>
           <View style={styles.DrawerItem}>
               <TouchableOpacity
-              onPress={() => navigation.navigate('RelFrota')}
+              onPress={(showAlert)}
               >
                 <Text style={styles.txtDrawerItem}>Relatórios</Text>
               </TouchableOpacity>
           </View>
           <View style={styles.DrawerItem}>
               <TouchableOpacity
-              onPress={() => navigation.navigate('RoutesFrota')}
+              onPress={(showAlert)}
               >
                 <Text style={styles.txtDrawerItem}>Iventário</Text>
               </TouchableOpacity>
