@@ -1,11 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-  TextInput
-} from 'react-native';
+
+
+import { SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
 
 //libs
 //import * as Animatable from 'react-native-animatable';
@@ -20,10 +16,6 @@ import styles from './style'
 
 export default function RelFrota(){
 
-  useEffect(()=>{
-    getCep();
-  },[])
-
   const navigation = useNavigation();
 
   const [infoCep, setInfoCep] = useState([])
@@ -31,13 +23,24 @@ export default function RelFrota(){
 
   const getCep = async () =>{
     try { 
-    const {data} = await api.get('paises/')
-    setInfoCep(data)
+    const data = await api.post('/veiculos',{
+      "codigo_veiculo": 6,
+      "placa_veiculo": "FEL1236",
+      "codigo_usuario_acesso": 317,
+      "data_hora_gravacao": null,
+      "situacao_txt": null,
+      "excluido": null
+  })
+    return(data)
   } catch(error) {
-    console.log(error)
- }
- console.log(infoCep)
-  };
+    console.log((error))
+  }
+  console.log(infoCep)
+};
+
+  useEffect(()=>{
+    getCep();
+  },[])
 
     return(
       <SafeAreaView>
@@ -55,40 +58,11 @@ export default function RelFrota(){
           </View>
         </View>
         <View style={{marginTop: 20}}>
-          <Picker
-            selectedValue={filmeSelecionado}
-            onValueChange={(itemValue) =>
-              setFilmeSelecionado(itemValue)
-            }
-              dropdownIconColor='#fff'
-              style={{
-              backgroundColor:'#d21e2b',
-              width: '85%',
-              alignSelf: 'center',
-              color: '#fff',
-              marginTop: 5
-            }}
-            dropdownIconRippleColor='#fff'
-            >
-              <Picker.Item 
-              label='Filmes' 
-              style={{
-                color: '#000',
-              }}
-              />
-              {
-              infoCep.map(id => {
-                return <Picker.Item 
-                label={id.nome.abreviado} 
-                value={id.nome.abreviado} 
-                style={{
-                  color: '#d21e2b',
-                }}
-                key='filmes'
-                />
-              })
-            }
-          </Picker>
+          <TouchableOpacity
+          onPress={getCep}
+          >
+            <Text>Enviar</Text>
+          </TouchableOpacity>
         </View>    
       </SafeAreaView>
     )

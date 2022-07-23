@@ -462,7 +462,7 @@ export default function FormFrota({ navigation: { goBack} }) {
     }else{
       setRonda3("N")
     }*/
-      console.log(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, parseInt(data.kmInicial), parseInt(data.kmFinal), ronda1, ronda2, ronda3, oleo, pneu, correias)
+      console.log(JSON.parse(carroMaxima), carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, parseInt(data.kmInicial), parseInt(data.kmFinal), ronda1, ronda2, ronda3, oleo, pneu, correias)
   }
 };
 
