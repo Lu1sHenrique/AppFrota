@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 
-import { SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
+import { SafeAreaView, Text, View, TouchableOpacity} from 'react-native';
 
 //libs
 //import * as Animatable from 'react-native-animatable';
@@ -17,23 +17,15 @@ import styles from './style'
 export default function RelFrota(){
 
   const navigation = useNavigation();
-
+  
   const [infoCep, setInfoCep] = useState([])
-  const [filmeSelecionado, setFilmeSelecionado] = useState([]);
 
   const getCep = async () =>{
     try { 
-    const data = await api.post('/veiculos',{
-      "codigo_veiculo": 6,
-      "placa_veiculo": "FEL1236",
-      "codigo_usuario_acesso": 317,
-      "data_hora_gravacao": null,
-      "situacao_txt": null,
-      "excluido": null
-  })
-    return(data)
+    const {data} = await api.get('/veiculos')
+    setInfoCep(data)
   } catch(error) {
-    console.log((error))
+    console.log(error)
   }
   console.log(infoCep)
 };
@@ -58,16 +50,40 @@ export default function RelFrota(){
           </View>
         </View>
         <View style={{marginTop: 20}}>
-          <TouchableOpacity
-          onPress={getCep}
-          >
-            <Text>Enviar</Text>
-          </TouchableOpacity>
-        </View>    
+          <Picker
+              dropdownIconColor='#fff'
+              style={{
+              backgroundColor:'#d21e2b',
+              width: '85%',
+              alignSelf: 'center',
+              color: '#fff',
+              marginTop: 5
+            }}
+            dropdownIconRippleColor='#fff'
+            >
+              <Picker.Item 
+              label='Placas' 
+              style={{
+                color: '#000',
+              }}
+              />
+              {
+              infoCep.map(id => {
+                return <Picker.Item 
+                label={id.placa_veiculo} 
+                value={id.placa_veiculo} 
+                style={{
+                  color: '#d21e2b',
+                }}
+                key='placas'
+                />
+              })
+            }
+          </Picker>
+        </View>           
       </SafeAreaView>
     )
-  }
-   
+}
 
 
 
