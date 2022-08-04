@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -37,11 +37,11 @@ export default function FormFrota({ navigation: { goBack} }) {
       const navigation = useNavigation();
 
       //states picker
-      const [departamento] = useState(['Técnica', 'Monitoração', 'Estoque', 'RH']);
+      const [departamentos, setDepartamentos] = useState([]);
       const [departamentoSelecionado, setDepartamentoSelecionado] = useState([]);
-      const [condutor] = useState(['Sergio', 'Wander', 'Rodrigo', 'Ariel']);
+      const [condutores, setCondutores] = useState([]);
       const [condutorSelecionado, setCondutorSelecionado] = useState([]);
-      const [placa] = useState(['QXA-5945', 'RGB-2A74', 'FM-8C70', 'QUV-4221']);
+      const [placas, setPlacas] = useState([]);
       const [placaSelecionada, setPlacaSelecionada] = useState([]);
       const [oleo, setOleo] = useState("");
       const [pneu, setPneu] = useState("");
@@ -51,6 +51,45 @@ export default function FormFrota({ navigation: { goBack} }) {
       const [ronda1, setRonda1] = useState(false);
       const [ronda2, setRonda2] = useState(false);
       const [ronda3, setRonda3] = useState(false);
+
+      const getPlacas = async () =>{
+        try { 
+        const {data} = await api.get('/veiculos')
+        setPlacas(data)
+      } catch(error) {
+        if (error.response) {
+        console.log({...error});
+        }}
+        console.log(placas)
+      };
+
+      const getDepartamentos = async () =>{
+        try { 
+        const {data} = await api.get('/departamentos')
+        setDepartamentos(data)
+      } catch(error) {
+        if (error.response) {
+        console.log({...error});
+        }}
+        console.log(departamentos)
+      };
+
+      const getCondutores = async () =>{
+        try { 
+        const [{data}] = await api.get('/condutores')
+        setCondutores(data)
+      } catch(error) {
+        if (error.response) {
+        console.log({...error});
+        }}
+        console.log(condutores)
+      };
+
+      useEffect(()=>{
+        getPlacas();
+        getDepartamentos();
+        getCondutores();
+      },[])
 
       //configs image picks upload
       const renderInner = () => (
@@ -201,16 +240,16 @@ export default function FormFrota({ navigation: { goBack} }) {
             dropdownIconRippleColor='#fff'
             >
               <Picker.Item 
-              label='Departamento' 
+              label='Departamentos' 
               style={{
                 color: '#000',
               }}
               />
               {
-              departamento.map(dep => {
+              departamentos.map(id => {
                 return <Picker.Item 
-                label={dep} 
-                value={dep} 
+                label={id.nome_departamento} 
+                value={id.nome_departamento} 
                 style={{
                   color: '#d21e2b',
                 }}
@@ -238,16 +277,16 @@ export default function FormFrota({ navigation: { goBack} }) {
             dropdownIconRippleColor='#fff'
             >
               <Picker.Item 
-              label='Condutor' 
+              label='Condutores' 
               style={{
                 color: '#000',
               }}
               />
               {
-              condutor.map(cond => {
+              condutores.map(id => {
                 return <Picker.Item 
-                label={cond} 
-                value={cond} 
+                label={id.nome} 
+                value={id.nome} 
                 style={{
                   color: '#d21e2b',
                 }}
@@ -280,8 +319,10 @@ export default function FormFrota({ navigation: { goBack} }) {
               }}
               />
           {
-            placa.map(plac => {
-              return <Picker.Item label={plac} value={plac}
+            placas.map(id => {
+              return <Picker.Item 
+              label={id.placa_veiculo} 
+              value={id.placa_veiculo}
               style={{
                 color: '#d21e2b',
               }}

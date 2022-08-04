@@ -22,7 +22,7 @@ export default function RelFrota(){
 
   const getCep = async () =>{
     try { 
-    const {data} = await api.get('/veiculos')
+    const [data] = await api.get('/veiculos')
     setInfoCep(data)
   } catch(error) {
     if (error.response) {

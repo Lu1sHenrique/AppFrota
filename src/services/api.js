@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL:'https://localhost:3000',
+    baseURL:'https://api-teste-app-frota.herokuapp.com',
 }); 
 export default api;
