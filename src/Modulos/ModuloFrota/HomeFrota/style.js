@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#d21e2b',
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
-    paddingBottom: 10,
-    paddingTop: 40,
+    paddingBottom: '2%',
+    paddingTop: '5%',
     borderWidth: 1
   },
 
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     justifyContent: 'center', 
     alignItems: 'center', 
-    paddingVertical: 25
+    paddingVertical: '5%'
   },
 
   IconBack:{
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     width: '100%', 
     justifyContent: 'center', 
     alignItems: 'center',
-    paddingVertical: 40
+    paddingVertical: '4%'
   },
 
   ContainerButton:{
@@ -71,26 +71,17 @@ Container2Button:{
     flexDirection: 'row', 
     justifyContent: 'center', 
     alignItems: 'center',
-    marginBottom: 95
+    marginBottom: '12%'
   },
 
 ContainerButtonSolo:{
     justifyContent: 'center', 
     alignItems: 'center', 
     borderRadius: 10, 
-    paddingHorizontal: 70, 
+    width: '70%',
     paddingVertical: 10, 
     backgroundColor: '#d21e2b' 
 },
-
-Container2ButtonSolo:{
-    justifyContent: 'center', 
-    alignItems: 'center',
-    borderRadius: 10, 
-    paddingHorizontal: 100, 
-    paddingVertical: 10, 
-    backgroundColor: '#d21e2b'
-  },
   
 BarFooter:{
     backgroundColor: '#d21e2b', 

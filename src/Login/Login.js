@@ -58,7 +58,11 @@ export default function Login(){
   }
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+    <KeyboardAvoidingView 
+    behavior={Platform.OS === "ios" ? "padding" : "height"} 
+    style={styles.container}
+    keyboardVerticalOffset={-90}
+    >
       <ImageBackground 
       source={require('../assets/fundo_vermelho.png')}
       style={{flex: 1 }}>
@@ -113,7 +117,7 @@ export default function Login(){
       </ImageBackground>
         {/*modal erro bad login*/}
         <View
-            style={[(styles.modal(display)), {width: WIDTH - 32, height: HEIGHT/5}]}>
+            style={[(styles.modal(display)), {width: WIDTH - 32, height: HEIGHT/4}]}>
           <View style={styles.containerAvisoModalBadLogin}>
             <Text style={styles.textAvisoModalBadLogin}>Aviso</Text>
           </View>

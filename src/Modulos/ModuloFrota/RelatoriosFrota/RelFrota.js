@@ -22,7 +22,7 @@ export default function RelFrota(){
 
   const getCep = async () =>{
     try { 
-    const [data] = await api.get('/veiculos')
+    const {data} = await api.get('/veiculos')
     setInfoCep(data)
   } catch(error) {
     if (error.response) {
@@ -71,8 +71,8 @@ export default function RelFrota(){
               {
               infoCep.map(id => {
                 return <Picker.Item 
-                label={id.codigo_veiculo} 
-                value={id.codigo_veiculo} 
+                label={id.placa_veiculo} 
+                value={id.placa_veiculo} 
                 style={{
                   color: '#d21e2b',
                 }}

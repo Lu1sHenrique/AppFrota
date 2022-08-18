@@ -368,7 +368,7 @@ export default function FormFrota({ navigation: { goBack} }) {
           style={styles.button}
           >
             <Text style={styles.txtButton}>
-              calcular
+              Calcular
             </Text>
           </TouchableOpacity>
         </View> 

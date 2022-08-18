@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import RelFrota from '../RelatoriosFrota/RelFrota'
 import InvFrota from '../IventarioFrota/InvFrota'
+import FormFrotaEletrica from '../FormFrotaEletrica/FormFrotaEletrica'
 import FormFrota from '../FormFrota/FormFrota'
 import Icon from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -44,13 +45,24 @@ export default function RoutesFrota(){
       }}
       >
       <Bottom.Screen 
-        name="Formulário"
+        name="Combustão"
         component={FormFrota}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="file-text" color={color} size={30} />
             ),
             tabBarAccessibilityLabel:"Formulário Frota",
+          }}
+        />
+
+      <Bottom.Screen 
+        name="Elétrica"
+        component={FormFrotaEletrica}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon name="file-text" color={color} size={30} />
+            ),
+            tabBarAccessibilityLabel:"Elétrica",
           }}
         />
 

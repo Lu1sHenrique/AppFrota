@@ -22,6 +22,7 @@ import Animated from 'react-native-reanimated';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
 import Checkbox from "react-native-bouncy-checkbox";
 import {Picker} from '@react-native-picker/picker'
+import api from '../../../services/api'
 //pages
 import styles from './style';
 
@@ -76,7 +77,7 @@ export default function FormFrota({ navigation: { goBack} }) {
 
       const getCondutores = async () =>{
         try { 
-        const [{data}] = await api.get('/condutores')
+        const {data} = await api.get('/condutores')
         setCondutores(data)
       } catch(error) {
         if (error.response) {

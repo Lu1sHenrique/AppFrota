@@ -78,7 +78,7 @@ export default function HomeFrota({ navigation: { goBack } }) {
         </View>
 
         <View style={styles.Container2Button}>
-            <View style={styles.Container2ButtonSolo}>
+            <View style={styles.ContainerButtonSolo}>
                 <TouchableOpacity 
                 style={{alignItems: 'center'}}
                 onPress={() => navigation.navigate('FormFrotaEletrica')}

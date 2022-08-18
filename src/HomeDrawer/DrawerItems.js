@@ -4,7 +4,8 @@ import {
   View,
   TouchableOpacity,
   Image,
-  Alert
+  Alert,
+  ScrollView
 } from 'react-native';
 
 //libs
@@ -42,6 +43,7 @@ export default function DrawerItems({ navigation: { goBack } }) {
           </View>
         </View>
       </View>
+      <ScrollView>
       <View style={styles.ContainerDrawerItem}>
         <View style={styles.DrawerItem}>
               <TouchableOpacity
@@ -114,7 +116,7 @@ export default function DrawerItems({ navigation: { goBack } }) {
               </TouchableOpacity>
           </View>
         </View>
-        
+      
         <View style={styles.ContainerFooter}>
           <View style={styles.RowFooter}>
               <TouchableOpacity style={styles.ButtonFooter}>
@@ -127,6 +129,7 @@ export default function DrawerItems({ navigation: { goBack } }) {
               </TouchableOpacity>
               </View>          
         </View>
+        </ScrollView>
     </Animatable.View>
             
   );

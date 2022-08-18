@@ -30,9 +30,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
+  ContainerDrawerItem:{
+    marginTop: 20,
+    marginBottom: 30
+  },
+
   DrawerItem:{
     marginLeft: 55,
-    marginVertical: 15
+    marginVertical: '4%'
   },
 
   txtDrawerItem:{
@@ -46,11 +51,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     backgroundColor: '#9E161F'
-  },
-
-  ContainerDrawerItem:{
-    marginTop: 20,
-    marginBottom: 40
   },
 
   ButtonFooter:{
@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
   RowFooter:{
     flexDirection: 'row', 
     justifyContent: 'center', 
-    marginTop: 15
+    marginTop: '3%',
+    marginBottom: '5%'
   }
 
 })

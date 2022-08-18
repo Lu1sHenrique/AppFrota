@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
 
   containerInput:{
-    marginTop: 150,
+    marginTop: '25%',
     marginHorizontal: 30,
   },
 
