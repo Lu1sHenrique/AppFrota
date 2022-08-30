@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 15,
     position: 'absolute',
-    marginVertical: 300,
+    marginVertical: 325,
     display: text
   }),
 

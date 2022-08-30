@@ -25,12 +25,6 @@ const HEIGHT = Dimensions.get('window').height;
 
 export default function Login(){
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () =>{
-      return true
-    })
-  }, [])
-
   const [hidePass, setHidePass] = useState(true);
 
   //consts do context api

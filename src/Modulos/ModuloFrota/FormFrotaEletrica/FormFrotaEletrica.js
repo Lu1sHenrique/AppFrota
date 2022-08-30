@@ -7,7 +7,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Image
+  Image,
+  ActivityIndicator
 } from 'react-native';
 
 //libs
@@ -37,6 +38,8 @@ export default function FormFrota({ navigation: { goBack} }) {
 
       const navigation = useNavigation();
 
+      const [isLoading, setLoading] = useState(true);
+
       //states picker
       const [departamentos, setDepartamentos] = useState([]);
       const [departamentoSelecionado, setDepartamentoSelecionado] = useState([]);
@@ -57,7 +60,10 @@ export default function FormFrota({ navigation: { goBack} }) {
       } catch(error) {
         if (error.response) {
         console.log({...error});
-        }}
+        }
+      } finally {
+        setLoading(false);
+      }
         console.log(placas)
       };
 
@@ -68,7 +74,10 @@ export default function FormFrota({ navigation: { goBack} }) {
       } catch(error) {
         if (error.response) {
         console.log({...error});
-        }}
+        }
+      } finally {
+        setLoading(false);
+      }
         console.log(departamentos)
       };
 
@@ -79,7 +88,10 @@ export default function FormFrota({ navigation: { goBack} }) {
       } catch(error) {
         if (error.response) {
         console.log({...error});
-        }}
+        }
+      } finally {
+        setLoading(false);
+      }
         console.log(condutores)
       };
 
@@ -186,6 +198,7 @@ export default function FormFrota({ navigation: { goBack} }) {
             </View>
           </View>
         </Animatable.View>
+      {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
       <ScrollView>
         <Animatable.View animation={"fadeInUp"}>
         <View style={styles.ContainerButtonBack}>
@@ -426,7 +439,8 @@ export default function FormFrota({ navigation: { goBack} }) {
         </View>  
         </Animatable.View>
         <View style={{paddingVertical: 15}}></View>
-        </ScrollView>    
+        </ScrollView>
+      )}    
     </KeyboardAvoidingView>
   );
 };

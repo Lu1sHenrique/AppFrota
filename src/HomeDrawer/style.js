@@ -36,8 +36,9 @@ const styles = StyleSheet.create({
   },
 
   DrawerItem:{
-    marginLeft: 55,
-    marginVertical: '4%'
+    paddingLeft: 55,
+    marginVertical: 6,
+    paddingVertical: 10
   },
 
   txtDrawerItem:{

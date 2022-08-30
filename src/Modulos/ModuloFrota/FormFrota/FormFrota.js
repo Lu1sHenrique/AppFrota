@@ -7,7 +7,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Image
+  Image,
+  ActivityIndicator
 } from 'react-native';
 
 //libs
@@ -25,7 +26,7 @@ import {Picker} from '@react-native-picker/picker'
 import api from '../../../services/api'
 //pages
 import styles from './style';
-
+import ModalErro from '../../../Components/Modal/ModalErro/ModalErro';
 
 const schema = yup.object({
     kmInicial: yup.string().min(2, "O km Inicial deve ter pelo menos 2 digitos").required("Preencha o Km Inicial"),
@@ -35,7 +36,15 @@ const schema = yup.object({
 
 export default function FormFrota({ navigation: { goBack} }) {
 
+      useEffect(()=>{
+        getPlacas();
+        getDepartamentos();
+        getCondutores();
+      },[])
+
       const navigation = useNavigation();
+
+      const [isLoading, setLoading] = useState(true);
 
       //states picker
       const [departamentos, setDepartamentos] = useState([]);
@@ -52,45 +61,56 @@ export default function FormFrota({ navigation: { goBack} }) {
       const [ronda1, setRonda1] = useState(false);
       const [ronda2, setRonda2] = useState(false);
       const [ronda3, setRonda3] = useState(false);
+      const [showError, setShowError] = useState(true);
 
       const getPlacas = async () =>{
+        showError && setShowError(false)
         try { 
         const {data} = await api.get('/veiculos')
         setPlacas(data)
       } catch(error) {
         if (error.response) {
         console.log({...error});
-        }}
-        console.log(placas)
-      };
-
+        setLoading(false)
+        setShowError(true)
+        }
+      } finally {
+        setLoading(false)
+      }
+      console.log(placas)
+      }
+    
       const getDepartamentos = async () =>{
+        showError && setShowError(false)
         try { 
         const {data} = await api.get('/departamentos')
         setDepartamentos(data)
       } catch(error) {
         if (error.response) {
-        console.log({...error});
-        }}
+        console.log({...error})
+        setShowError(true)
+        }
+      } finally {
+        setLoading(false)
+      }
         console.log(departamentos)
-      };
+      }
 
       const getCondutores = async () =>{
+        showError && setShowError(false)
         try { 
         const {data} = await api.get('/condutores')
         setCondutores(data)
       } catch(error) {
         if (error.response) {
-        console.log({...error});
-        }}
+        console.log({...error})
+        setShowError(true)
+        }
+      } finally {
+        setLoading(false)
+      }
         console.log(condutores)
       };
-
-      useEffect(()=>{
-        getPlacas();
-        getDepartamentos();
-        getCondutores();
-      },[])
 
       //configs image picks upload
       const renderInner = () => (
@@ -177,6 +197,7 @@ export default function FormFrota({ navigation: { goBack} }) {
             </View>
           </View>
         </Animatable.View>
+      {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
       <ScrollView>
         <Animatable.View animation={"fadeInUp"}>
         <View style={styles.ContainerButtonBack}>
@@ -189,6 +210,8 @@ export default function FormFrota({ navigation: { goBack} }) {
           </TouchableOpacity>
         </View>
         
+        <ModalErro showError={showError} />
+
         <View style={{flexDirection: 'row', paddingVertical: 20, alignSelf: 'center', justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: "#d21e2b"}}>
           <View style={{width: '100%', flexDirection: 'row', justifyContent: 'center'}}>
             <View style={{width: '40%', marginRight: 15}}>
@@ -252,8 +275,7 @@ export default function FormFrota({ navigation: { goBack} }) {
                 label={id.nome_departamento} 
                 value={id.nome_departamento} 
                 style={{
-                  color: '#d21e2b',
-                  backgroundColor: '#fff'
+                  color: '#d21e2b'
                 }}
                 key='departamento'
                 />
@@ -290,8 +312,7 @@ export default function FormFrota({ navigation: { goBack} }) {
                 label={id.nome} 
                 value={id.nome} 
                 style={{
-                  color: '#d21e2b',
-                  backgroundColor: '#fff'
+                  color: '#d21e2b'
                 }}
                 key='condutor'
                 />
@@ -327,8 +348,7 @@ export default function FormFrota({ navigation: { goBack} }) {
               label={id.placa_veiculo} 
               value={id.placa_veiculo}
               style={{
-                color: '#d21e2b',
-                backgroundColor: '#fff'
+                color: '#d21e2b'
               }}
               key='placa'
               />
@@ -486,7 +506,8 @@ export default function FormFrota({ navigation: { goBack} }) {
         </View>  
         </Animatable.View>
         <View style={{paddingVertical: 15}}></View>
-        </ScrollView>    
+        </ScrollView>
+      )}    
     </KeyboardAvoidingView>
   );
 

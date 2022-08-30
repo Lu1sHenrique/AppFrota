@@ -44,79 +44,79 @@ export default function DrawerItems({ navigation: { goBack } }) {
         </View>
       </View>
       <ScrollView>
-      <View style={styles.ContainerDrawerItem}>
-        <View style={styles.DrawerItem}>
-              <TouchableOpacity
-              onPress={() => navigation.navigate('HomeModulos')}
-              >
-                <Text style={styles.txtDrawerItem}>Inicio</Text>
-              </TouchableOpacity>
-          </View>
+        <View style={styles.ContainerDrawerItem}>
           <View style={styles.DrawerItem}>
-              <TouchableOpacity
-              onPress={() => navigation.navigate('HomeFrota')}
-              >
-                <Text style={styles.txtDrawerItem}>Frota</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                onPress={() => navigation.navigate('HomeModulos')}
+                >
+                  <Text style={styles.txtDrawerItem}>Inicio</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.DrawerItem}>
+                <TouchableOpacity
+                onPress={() => navigation.navigate('HomeFrota')}
+                >
+                  <Text style={styles.txtDrawerItem}>Frota</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.DrawerItem}>
+                <TouchableOpacity
+                onPress={(showAlert)}
+                >
+                  <Text style={styles.txtDrawerItem}>Comercial</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.DrawerItem}>
+                <TouchableOpacity
+                onPress={(showAlert)}
+                >
+                  <Text style={styles.txtDrawerItem}>Técnica</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.DrawerItem}>
+                <TouchableOpacity
+                onPress={(showAlert)}
+                >
+                  <Text style={styles.txtDrawerItem}>RH</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.DrawerItem}>
+                <TouchableOpacity
+                onPress={(showAlert)}
+                >
+                  <Text style={styles.txtDrawerItem}>Financeiro</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.DrawerItem}>
+                <TouchableOpacity
+                onPress={() => navigation.navigate('RoutesFrota')}
+                >
+                  <Text style={styles.txtDrawerItem}>Fomulário Frota Combustão</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.DrawerItem}>
+                <TouchableOpacity
+                onPress={(showAlert)}
+                >
+                  <Text style={styles.txtDrawerItem}>Relatórios</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.DrawerItem}>
+                <TouchableOpacity
+                onPress={(showAlert)}
+                >
+                  <Text style={styles.txtDrawerItem}>Iventário</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.DrawerItem}>
+                <TouchableOpacity
+                onPress={()=> alert("Sair")}
+                >
+                  <Text style={styles.txtDrawerItem}>Sair</Text>
+                </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.DrawerItem}>
-              <TouchableOpacity
-              onPress={(showAlert)}
-              >
-                <Text style={styles.txtDrawerItem}>Comercial</Text>
-              </TouchableOpacity>
-          </View>
-          <View style={styles.DrawerItem}>
-              <TouchableOpacity
-              onPress={(showAlert)}
-              >
-                <Text style={styles.txtDrawerItem}>Técnica</Text>
-              </TouchableOpacity>
-          </View>
-          <View style={styles.DrawerItem}>
-              <TouchableOpacity
-              onPress={(showAlert)}
-              >
-                <Text style={styles.txtDrawerItem}>RH</Text>
-              </TouchableOpacity>
-          </View>
-          <View style={styles.DrawerItem}>
-              <TouchableOpacity
-              onPress={(showAlert)}
-              >
-                <Text style={styles.txtDrawerItem}>Financeiro</Text>
-              </TouchableOpacity>
-          </View>
-          <View style={styles.DrawerItem}>
-              <TouchableOpacity
-              onPress={() => navigation.navigate('RoutesFrota')}
-              >
-                <Text style={styles.txtDrawerItem}>Fomulário Frota Combustão</Text>
-              </TouchableOpacity>
-          </View>
-          <View style={styles.DrawerItem}>
-              <TouchableOpacity
-              onPress={(showAlert)}
-              >
-                <Text style={styles.txtDrawerItem}>Relatórios</Text>
-              </TouchableOpacity>
-          </View>
-          <View style={styles.DrawerItem}>
-              <TouchableOpacity
-              onPress={(showAlert)}
-              >
-                <Text style={styles.txtDrawerItem}>Iventário</Text>
-              </TouchableOpacity>
-          </View>
-          <View style={styles.DrawerItem}>
-              <TouchableOpacity
-              onPress={()=> alert("Sair")}
-              >
-                <Text style={styles.txtDrawerItem}>Sair</Text>
-              </TouchableOpacity>
-          </View>
-        </View>
-      
+    
         <View style={styles.ContainerFooter}>
           <View style={styles.RowFooter}>
               <TouchableOpacity style={styles.ButtonFooter}>
@@ -129,7 +129,7 @@ export default function DrawerItems({ navigation: { goBack } }) {
               </TouchableOpacity>
               </View>          
         </View>
-        </ScrollView>
+      </ScrollView>
     </Animatable.View>
             
   );

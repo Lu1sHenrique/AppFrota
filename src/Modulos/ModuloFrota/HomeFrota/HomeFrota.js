@@ -13,7 +13,6 @@ import IconMaterial from 'react-native-vector-icons/MaterialIcons'
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
 import {AuthContext} from '../../../Contexts/Auth'
-import { mdiGasStation } from '@mdi/js'
 
 //pages
 import styles from './style'
@@ -68,7 +67,7 @@ export default function HomeFrota({ navigation: { goBack } }) {
         <View style={styles.ContainerButton}>
             <View style={styles.ContainerButtonSolo}>
                 <TouchableOpacity 
-                style={{alignItems: 'center'}}
+                style={{alignItems: 'center', width: "100%"}}
                 onPress={() => navigation.navigate('RoutesFrota')}
                 >
                     <IconMaterial size={80} name="local-gas-station" color='#fff' />
@@ -80,7 +79,7 @@ export default function HomeFrota({ navigation: { goBack } }) {
         <View style={styles.Container2Button}>
             <View style={styles.ContainerButtonSolo}>
                 <TouchableOpacity 
-                style={{alignItems: 'center'}}
+                style={{alignItems: 'center', width: "100%"}}
                 onPress={() => navigation.navigate('FormFrotaEletrica')}
                 >
                     <IconMaterial size={80} name="bolt" color='#fff' />
@@ -93,9 +92,6 @@ export default function HomeFrota({ navigation: { goBack } }) {
             <Text> </Text>
           </View>
         </View>
-        
-
-
     </View>
   );
 };
