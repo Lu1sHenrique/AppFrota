@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -22,6 +22,7 @@ import Animated from 'react-native-reanimated';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
 import Checkbox from "react-native-bouncy-checkbox";
 import {Picker} from '@react-native-picker/picker'
+import api from '../../../services/api'
 //pages
 import styles from './style';
 
@@ -37,17 +38,56 @@ export default function FormFrota({ navigation: { goBack} }) {
       const navigation = useNavigation();
 
       //states picker
-      const [departamento] = useState(['Técnica', 'Monitoração', 'Estoque', 'RH']);
+      const [departamentos, setDepartamentos] = useState([]);
       const [departamentoSelecionado, setDepartamentoSelecionado] = useState([]);
-      const [condutor] = useState(['Sergio', 'Wander', 'Rodrigo', 'Ariel']);
+      const [condutores, setCondutores] = useState([]);
       const [condutorSelecionado, setCondutorSelecionado] = useState([]);
-      const [placa] = useState(['QXA-5945', 'RGB-2A74', 'FM-8C70', 'QUV-4221']);
+      const [placas, setPlacas] = useState([]);
       const [placaSelecionada, setPlacaSelecionada] = useState([]);
       const [carroMaxima, setCarroMaxima] = useState(true);
       const [carroReserva, setCarroReserva] = useState(false);
       const [bateriaInicial, setBateriaInicial] = useState(0);
       const [bateriaFinal, setBateriaFinal] = useState(0);
       const [diferenca, setDiferenca] = useState(0);
+
+      const getPlacas = async () =>{
+        try { 
+        const {data} = await api.get('/veiculos')
+        setPlacas(data)
+      } catch(error) {
+        if (error.response) {
+        console.log({...error});
+        }}
+        console.log(placas)
+      };
+
+      const getDepartamentos = async () =>{
+        try { 
+        const {data} = await api.get('/departamentos')
+        setDepartamentos(data)
+      } catch(error) {
+        if (error.response) {
+        console.log({...error});
+        }}
+        console.log(departamentos)
+      };
+
+      const getCondutores = async () =>{
+        try { 
+        const {data} = await api.get('/condutores')
+        setCondutores(data)
+      } catch(error) {
+        if (error.response) {
+        console.log({...error});
+        }}
+        console.log(condutores)
+      };
+
+      useEffect(()=>{
+        getPlacas();
+        getDepartamentos();
+        getCondutores();
+      },[])
 
       //configs image picks upload
       const renderInner = () => (
@@ -151,10 +191,10 @@ export default function FormFrota({ navigation: { goBack} }) {
         <View style={styles.ContainerButtonBack}>
           <TouchableOpacity
            style={styles.ButtonBack}
-           onPress={() => goBack()}
+           onPress={() => navigation.navigate('HomeFrota')}
            >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 28}}>CheckList Elétrica</Text>
+            <Text style={{fontSize: 28, color: '#424242'}}>CheckList Elétrica</Text>
           </TouchableOpacity>
         </View>
         
@@ -215,10 +255,10 @@ export default function FormFrota({ navigation: { goBack} }) {
               }}
               />
               {
-              departamento.map(dep => {
+              departamentos.map(id => {
                 return <Picker.Item 
-                label={dep} 
-                value={dep} 
+                label={id.nome_departamento} 
+                value={id.nome_departamento} 
                 style={{
                   color: '#d21e2b',
                 }}
@@ -252,10 +292,10 @@ export default function FormFrota({ navigation: { goBack} }) {
               }}
               />
               {
-              condutor.map(cond => {
+              condutores.map(id => {
                 return <Picker.Item 
-                label={cond} 
-                value={cond} 
+                label={id.nome} 
+                value={id.nome}
                 style={{
                   color: '#d21e2b',
                 }}
@@ -288,8 +328,10 @@ export default function FormFrota({ navigation: { goBack} }) {
               }}
               />
           {
-            placa.map(plac => {
-              return <Picker.Item label={plac} value={plac}
+            placas.map(id => {
+              return <Picker.Item 
+              label={id.placa_veiculo} 
+              value={id.placa_veiculo}
               style={{
                 color: '#d21e2b',
               }}

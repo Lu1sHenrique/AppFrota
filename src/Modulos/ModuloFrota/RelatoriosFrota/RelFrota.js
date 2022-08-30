@@ -71,8 +71,8 @@ export default function RelFrota(){
               {
               infoCep.map(id => {
                 return <Picker.Item 
-                label={id.placa_veiculo} 
-                value={id.placa_veiculo} 
+                label={id.codigo_veiculo} 
+                value={id.codigo_veiculo} 
                 style={{
                   color: '#d21e2b',
                 }}

@@ -47,19 +47,19 @@ export default function HomeFrota({ navigation: { goBack } }) {
         <View style={styles.ContainerButtonBack}>
           <TouchableOpacity
            style={styles.ButtonBack}
-           onPress={() => goBack()}
+           onPress={() => navigation.navigate('HomeModulos')}
            >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 28}}>Voltar</Text>
+            <Text style={{fontSize: 28, color: '#424242'}}>Voltar</Text>
           </TouchableOpacity>
         </View>
 
         <View style={{flexDirection: 'row'}}>
             <View style={styles.ContainerTxt}>
-                <Text style={{fontSize: 30}}>
+                <Text style={{fontSize: 30, color: '#424242'}}>
                     Escolha o tipo da
                 </Text>
-                <Text style={{fontSize: 40, fontWeight: 'bold'}}>
+                <Text style={{fontSize: 40, fontWeight: 'bold', color: '#424242'}}>
                     Frota
                 </Text>
             </View>
@@ -88,10 +88,12 @@ export default function HomeFrota({ navigation: { goBack } }) {
                 </TouchableOpacity>
             </View>
         </View>
-
-        <View style={styles.BarFooter}>
-                <Text> </Text>
+        <View style={{flex: 1, justifyContent: 'flex-end'}}>
+          <View style={styles.BarFooter}>
+            <Text> </Text>
+          </View>
         </View>
+        
 
 
     </View>

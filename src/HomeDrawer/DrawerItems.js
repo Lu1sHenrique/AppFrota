@@ -91,7 +91,7 @@ export default function DrawerItems({ navigation: { goBack } }) {
               <TouchableOpacity
               onPress={() => navigation.navigate('RoutesFrota')}
               >
-                <Text style={styles.txtDrawerItem}>Fomulário</Text>
+                <Text style={styles.txtDrawerItem}>Fomulário Frota Combustão</Text>
               </TouchableOpacity>
           </View>
           <View style={styles.DrawerItem}>

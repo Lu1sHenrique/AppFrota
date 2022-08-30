@@ -67,11 +67,10 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
 
-Container2Button:{
+  Container2Button:{
     flexDirection: 'row', 
     justifyContent: 'center', 
-    alignItems: 'center',
-    marginBottom: '12%'
+    alignItems: 'center'
   },
 
 ContainerButtonSolo:{
@@ -85,7 +84,7 @@ ContainerButtonSolo:{
   
 BarFooter:{
     backgroundColor: '#d21e2b', 
-    paddingVertical: 10, 
+    paddingVertical: 3, 
     borderTopLeftRadius: 20, 
     borderTopRightRadius: 20, 
     width: '85%', 

@@ -74,6 +74,9 @@ export default function RoutesFrota(){
           <IconAntDesign name="linechart" color={color} size={30} />
           ),
           tabBarAccessibilityLabel:"Relatório Frota",
+          tabBarButton: props => (
+            <TouchableOpacity {...props} onPress={(showAlert)} />
+          )
         }}
         />
 

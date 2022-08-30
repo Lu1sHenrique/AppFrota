@@ -182,10 +182,10 @@ export default function FormFrota({ navigation: { goBack} }) {
         <View style={styles.ContainerButtonBack}>
           <TouchableOpacity
            style={styles.ButtonBack}
-           onPress={() => goBack()}
+           onPress={() => navigation.navigate('HomeFrota')}
            >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 28}}>CheckList Combustão</Text>
+            <Text style={{fontSize: 28, color: '#424242'}}>CheckList Combustão</Text>
           </TouchableOpacity>
         </View>
         
@@ -253,6 +253,7 @@ export default function FormFrota({ navigation: { goBack} }) {
                 value={id.nome_departamento} 
                 style={{
                   color: '#d21e2b',
+                  backgroundColor: '#fff'
                 }}
                 key='departamento'
                 />
@@ -290,6 +291,7 @@ export default function FormFrota({ navigation: { goBack} }) {
                 value={id.nome} 
                 style={{
                   color: '#d21e2b',
+                  backgroundColor: '#fff'
                 }}
                 key='condutor'
                 />
@@ -326,6 +328,7 @@ export default function FormFrota({ navigation: { goBack} }) {
               value={id.placa_veiculo}
               style={{
                 color: '#d21e2b',
+                backgroundColor: '#fff'
               }}
               key='placa'
               />
@@ -393,7 +396,7 @@ export default function FormFrota({ navigation: { goBack} }) {
         <View style={styles.ContainerRonda}>
           <View style={{marginVertical: 25, marginHorizontal: 30}}>
             <View style={{marginVertical: 15}}>
-              <Text style={{fontSize: 25, fontWeight: 'bold'}}>Ronda</Text>
+              <Text style={{fontSize: 25, fontWeight: 'bold', color: '#424242'}}>Ronda</Text>
             </View>
               <View style={{width: '100%',flexDirection: 'row'}}>
                 <Checkbox
