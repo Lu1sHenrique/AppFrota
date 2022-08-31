@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import { color } from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
     container:{
@@ -203,6 +204,28 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1, 
     borderBottomColor:"#d21e2b", 
     marginBottom: 20
+  },
+
+  containerAlert:{
+    width: "80%",
+    borderRadius: 15
+  },
+
+  txtTitleAlert:{
+    fontSize: 18,
+    color: "#d21e2b",
+    textAlign: 'center'
+  },
+
+  ButtonAlert:{
+    width: "30%",
+    marginHorizontal: 13
+  },
+
+  txtButtonAlert:{
+    fontSize: 15,
+    alignSelf: 'center',
+    color: '#fff'
   },
 
   

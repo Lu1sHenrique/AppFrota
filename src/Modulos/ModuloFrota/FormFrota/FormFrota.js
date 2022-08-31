@@ -12,9 +12,6 @@ import {
 } from 'react-native';
 
 //libs
-import {useForm, Controller} from 'react-hook-form'
-import * as yup from 'yup'
-import {yupResolver} from '@hookform/resolvers/yup'
 import * as Animatable from 'react-native-animatable';
 import IconFeather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native'
@@ -24,27 +21,23 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
 import Checkbox from "react-native-bouncy-checkbox";
 import {Picker} from '@react-native-picker/picker'
 import api from '../../../services/api'
+import AwesomeAlert from 'react-native-awesome-alerts';
 //pages
 import styles from './style';
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro';
-
-const schema = yup.object({
-    kmInicial: yup.string().min(2, "O km Inicial deve ter pelo menos 2 digitos").required("Preencha o Km Inicial"),
-    kmFinal: yup.string().min(2, "O km Final deve ter pelo menos 2 digitos").required("Preencha o Km Final!")
-})
 
 
 export default function FormFrota({ navigation: { goBack} }) {
 
       useEffect(()=>{
-        getPlacas();
         getDepartamentos();
         getCondutores();
+        getPlacas();
       },[])
 
       const navigation = useNavigation();
 
-      const [isLoading, setLoading] = useState(true);
+      const [isLoading, setIsLoading] = useState(true);
 
       //states picker
       const [departamentos, setDepartamentos] = useState([]);
@@ -53,32 +46,71 @@ export default function FormFrota({ navigation: { goBack} }) {
       const [condutorSelecionado, setCondutorSelecionado] = useState([]);
       const [placas, setPlacas] = useState([]);
       const [placaSelecionada, setPlacaSelecionada] = useState([]);
+      const [kmInicialSelecionado, setKmInicialSelecionado] = useState("");
+      const [kmFinalSelecionado, setKmFinalSelecionado] = useState("");
       const [oleo, setOleo] = useState("");
       const [pneu, setPneu] = useState("");
       const [correias, setCorreias] = useState("");
+      //states checks
       const [carroMaxima, setCarroMaxima] = useState(true);
       const [carroReserva, setCarroReserva] = useState(false);
       const [ronda1, setRonda1] = useState(false);
       const [ronda2, setRonda2] = useState(false);
       const [ronda3, setRonda3] = useState(false);
-      const [showError, setShowError] = useState(true);
+      //states alerts
+      const [showError, setShowError] = useState(false);
+      const [showAlertConfirm, setShowAlertConfirm] = useState(false)
+      const [showAlertSuccess, setShowAlertSuccess] = useState(false)
+      const [showValidacaoDep, setShowValidacaoDep] = useState(false)
+      const [showValidacaoCond, setShowValidacaoCond] = useState(false)
+      const [showValidacaoPlac, setShowValidacaoPlac] = useState(false)
+      const [showErroConec, setShowErroConec] = useState(false)
+      const [showKmInicial, setShowKmInicial] = useState(false)
+      const [showKmFinal, setShowKmFinal] = useState(false)
+      const [showValidacaoKm, setShowValidacaoKm] = useState(false)
+      //states controle S ou N
+      const [showSouNCarroMaxima, setShowSouNCarroMaxima] = useState("")
+      const [showSouNCarroReserva, setShowSouNCarroReserva] = useState("")
+      const [showRota1, setShowRota1] = useState("")
+      const [showRota2, setShowRota2] = useState("")
+      const [showRota3, setShowRota3] = useState("")
 
-      const getPlacas = async () =>{
-        showError && setShowError(false)
-        try { 
-        const {data} = await api.get('/veiculos')
-        setPlacas(data)
-      } catch(error) {
-        if (error.response) {
-        console.log({...error});
-        setLoading(false)
-        setShowError(true)
-        }
-      } finally {
-        setLoading(false)
-      }
-      console.log(placas)
-      }
+
+      const hideAlertConfirm = () => (
+        setShowAlertConfirm(false)
+      );
+
+      const hideAlertSuccess = () => (
+        setShowAlertSuccess(false)
+      );
+
+      const hideAlertValidacaoDep = () => (
+        setShowValidacaoDep(false)
+      );
+
+      const hideAlertValidacaoCond = () => (
+        setShowValidacaoCond(false)
+      );
+
+      const hideAlertValidacaoPlac = () => (
+        setShowValidacaoPlac(false)
+      );
+
+      const hideErroConec = () => (
+        setShowErroConec(false)
+      );
+
+      const hideKmInicial = () => (
+        setShowKmInicial(false)
+      );
+
+      const hideKmFinal = () => (
+        setShowKmFinal(false)
+      );
+
+      const hideAlertValidacaoKm = () => (
+        setShowValidacaoKm(false)
+      );
     
       const getDepartamentos = async () =>{
         showError && setShowError(false)
@@ -88,10 +120,11 @@ export default function FormFrota({ navigation: { goBack} }) {
       } catch(error) {
         if (error.response) {
         console.log({...error})
-        setShowError(true)
         }
-      } finally {
-        setLoading(false)
+        setIsLoading(false)
+        setShowError(true)
+      }finally{
+        setIsLoading(false)
       }
         console.log(departamentos)
       }
@@ -104,13 +137,31 @@ export default function FormFrota({ navigation: { goBack} }) {
       } catch(error) {
         if (error.response) {
         console.log({...error})
-        setShowError(true)
         }
-      } finally {
-        setLoading(false)
+        setIsLoading(false)
+        setShowError(true)
+      }finally{
+        setIsLoading(false)
       }
         console.log(condutores)
       };
+
+      const getPlacas = async () =>{
+        showError && setShowError(false)
+        try { 
+        const {data} = await api.get('/veiculos')
+        setPlacas(data)
+      } catch(error) {
+        if (error.response) {
+        console.log({...error});
+        }
+        setIsLoading(false)
+        setShowError(true)
+      }finally{
+        setIsLoading(false)
+      }
+      console.log(placas)
+      }
 
       //configs image picks upload
       const renderInner = () => (
@@ -154,11 +205,6 @@ export default function FormFrota({ navigation: { goBack} }) {
 
       bs = React.createRef();
       fall = new Animated.Value(1);
-
-      //configs validação campos com yup
-      const {control, handleSubmit, formState: {errors}} = useForm({
-        resolver: yupResolver(schema)
-      })
 
       function clickCheckCarroMaxima(){
         setCarroMaxima(!carroMaxima)
@@ -206,10 +252,10 @@ export default function FormFrota({ navigation: { goBack} }) {
            onPress={() => navigation.navigate('HomeFrota')}
            >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 28, color: '#424242'}}>CheckList Combustão</Text>
+            <Text style={{fontSize: 28, color: '#424242'}}>Checklist Combustão</Text>
           </TouchableOpacity>
         </View>
-        
+
         <ModalErro showError={showError} />
 
         <View style={{flexDirection: 'row', paddingVertical: 20, alignSelf: 'center', justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: "#d21e2b"}}>
@@ -321,62 +367,54 @@ export default function FormFrota({ navigation: { goBack} }) {
           </Picker>
         </View>          
         
-        <Picker
-          selectedValue={placaSelecionada}
-          onValueChange={(itemValue) =>
-            setPlacaSelecionada(itemValue)
-          }
-          dropdownIconColor='#fff'
-          style={{
-            backgroundColor:'#d21e2b',
-            width: '85%',
-            alignSelf: 'center',
-            color: '#fff',
-            marginTop: 5
-          }}
-          dropdownIconRippleColor='#fff'
-          >
-            <Picker.Item 
-              label='Placa Veículo' 
-              style={{
-                color: '#000',
-              }}
-              />
-          {
-            placas.map(id => {
-              return <Picker.Item 
-              label={id.placa_veiculo} 
-              value={id.placa_veiculo}
-              style={{
-                color: '#d21e2b'
-              }}
-              key='placa'
-              />
-            })
-          }
-        </Picker>
-        {errors.placaVeiculo && <Text style={styles.labelError}>{errors.placaVeiculo?.message}</Text>}
+        <View>
+          <Picker
+            selectedValue={placaSelecionada}
+            onValueChange={(itemValue) =>
+              setPlacaSelecionada(itemValue)
+            }
+            dropdownIconColor='#fff'
+            style={{
+              backgroundColor:'#d21e2b',
+              width: '85%',
+              alignSelf: 'center',
+              color: '#fff',
+              marginTop: 5
+            }}
+            dropdownIconRippleColor='#fff'
+            >
+              <Picker.Item 
+                label='Placa Veículo' 
+                style={{
+                  color: '#000',
+                }}
+                />
+            {
+              placas.map(id => {
+                return <Picker.Item 
+                label={id.placa_veiculo} 
+                value={id.placa_veiculo}
+                style={{
+                  color: '#d21e2b'
+                }}
+                key='placa'
+                />
+              })
+            }
+          </Picker>
+        </View>
         
-        <Controller
-        control={control}
-        name="kmInicial"
-        render={({field: {onChange, onBlur, value}}) => (
+        <View>
           <TextInput
-          style={[styles.input,{
-            borderWidth: errors.kmInicial && 1,
-            borderColor: errors.kmInicial && '#ff375b'
-          }]}
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-            placeholder="Km Inicial"
-            keyboardType='numeric'
-            placeholderTextColor={"#d21e2b"}
+            style={styles.input}
+              placeholder="Km Inicial"
+              keyboardType='numeric'
+              placeholderTextColor={"#d21e2b"}
+              onChangeText={text => setKmInicialSelecionado(text)}
+              value={kmInicialSelecionado}
           />
-        )}
-        />
-        {errors.kmInicial && <Text style={styles.labelError}>{errors.kmInicial?.message}</Text>}
-        
+        </View>
+
         <TouchableOpacity
         style={styles.buttonArquivo}
         onPress={() => this.bs.current.snapTo(0)}
@@ -385,25 +423,16 @@ export default function FormFrota({ navigation: { goBack} }) {
           <Text style={styles.txtButtonEnviar}>Foto Km Inicial</Text>
         </TouchableOpacity>
 
-          <Controller
-          control={control}
-          name="kmFinal"
-          render={({field: {onChange, onBlur, value}}) => (
+          <View>
             <TextInput
-            style={[styles.input,{
-              borderWidth: errors.kmFinal && 1,
-              borderColor: errors.kmFinal && '#ff375b'
-            }]}
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-              placeholder="Km Final"
-              placeholderTextColor={"#d21e2b"}
-              keyboardType='numeric'
+              style={styles.input}               
+                placeholder="Km Final"
+                placeholderTextColor={"#d21e2b"}
+                keyboardType='numeric'
+                onChangeText={text => setKmFinalSelecionado(text)}
+                value={kmFinalSelecionado}
             />
-          )}
-        />
-        {errors.kmFinal && <Text style={styles.labelError}>{errors.kmFinal?.message}</Text>}
+          </View>
 
         <TouchableOpacity
         style={styles.buttonArquivo}
@@ -496,7 +525,7 @@ export default function FormFrota({ navigation: { goBack} }) {
 
         <View>
           <TouchableOpacity
-          onPress={handleSubmit(enviarForm)}
+          onPress={exibirAlerta}
           style={styles.button}
           >
             <Text style={styles.txtButton}>
@@ -506,31 +535,259 @@ export default function FormFrota({ navigation: { goBack} }) {
         </View>  
         </Animatable.View>
         <View style={{paddingVertical: 15}}></View>
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          cancelButtonStyle={styles.ButtonAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          cancelButtonTextStyle={styles.txtButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showAlertConfirm}
+          showProgress={false}
+          message="Tem certeza que deseja enviar o checklist?"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          cancelText="Não"
+          confirmText="Sim"
+          confirmButtonColor="#d21e2b"
+          cancelButtonColor='#424242'
+          onCancelPressed={() => {
+            hideAlertConfirm();
+          }}
+          onConfirmPressed={() => {
+            enviarForm();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showAlertSuccess}
+          showProgress={false}
+          message="O checklist foi enviado com sucesso"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertSuccess();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showValidacaoDep}
+          showProgress={false}
+          message="Selecione um departamento"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertValidacaoDep();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showValidacaoCond}
+          showProgress={false}
+          message="Selecione um condutor"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertValidacaoCond();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showValidacaoPlac}
+          showProgress={false}
+          message="Selecione uma placa"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertValidacaoPlac();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showErroConec}
+          showProgress={false}
+          message="Erro de conexão"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideErroConec();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showKmInicial}
+          showProgress={false}
+          message="Preencha o Km Inicial com no mínimo dois dígitos"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideKmInicial();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showKmFinal}
+          showProgress={false}
+          message="Preencha o Km Final com no mínimo dois dígitos"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideKmFinal();
+          }}
+        />
+
+          <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showValidacaoKm}
+          showProgress={false}
+          message="O Km Inicial deve ser menor que o Km Final"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertValidacaoKm();
+          }}
+        />
         </ScrollView>
       )}    
     </KeyboardAvoidingView>
   );
 
+  function exibirAlerta(){
+    setShowAlertConfirm(true)
+  }
+
   //enviar form
   function enviarForm (data){
-    /*if(ronda1 === true){
-      setRonda1("S")
+    if(carroMaxima == true){
+      setShowSouNCarroMaxima("S")
     }else{
-      setRonda1("N")
+      setShowSouNCarroMaxima("N")
     }
-    if(ronda2 === true){
-      setRonda2("S")
+    if(carroReserva == true){
+      setShowSouNCarroReserva("S")
     }else{
-      setRonda2("N")
+      setShowSouNCarroReserva("N")
     }
-    if(ronda3 === true){
-      setRonda3("S")
+    if(ronda1 == true){
+      setShowRota1("S")
     }else{
-      setRonda3("N")
-    }*/
-      console.log(JSON.parse(carroMaxima), carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, parseInt(data.kmInicial), parseInt(data.kmFinal), ronda1, ronda2, ronda3, oleo, pneu, correias)
+      setShowRota1("N")
+    }
+    if(ronda2 == true){
+      setShowRota2("S")
+    }else{
+      setShowRota2("N")
+    }
+    if(ronda3 == true){
+      setShowRota3("S")
+    }else{
+      setShowRota3("N")
+    }
+
+    if(showError == true){
+      setShowErroConec(true)
+      setShowAlertConfirm(false)
+    }else
+    if(!departamentoSelecionado.length){
+      setShowValidacaoDep(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }else
+    if(!condutorSelecionado.length){
+      setShowValidacaoCond(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }else
+    if(!placaSelecionada.length){
+      setShowValidacaoPlac(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }else
+    if(kmInicialSelecionado.length<2){
+      setShowKmInicial(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }else
+    if(kmFinalSelecionado.length<2){
+      setShowKmFinal(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }else
+
+    if(parseInt(kmInicialSelecionado) >= parseInt(kmFinalSelecionado)){
+      setShowValidacaoKm(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }else{
+      setShowAlertConfirm(false)
+      console.log(showSouNCarroMaxima, showSouNCarroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, showRota1, showRota2, showRota3, oleo, pneu, correias)
+      setShowAlertSuccess(true)
+    }
   }
 };
-
-
-

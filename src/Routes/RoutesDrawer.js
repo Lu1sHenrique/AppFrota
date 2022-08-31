@@ -11,14 +11,14 @@ export default function RouteDrawer(){
     <Drawer.Navigator
     drawerContent={DrawerItems}
     >
-        <Drawer.Screen 
-        name='Stack'
-        component={Stack}
-        options={{
-            headerShown:false,
-            drawerStyle: {width: width}
-            }}
-          />
+      <Drawer.Screen 
+      name='Stack'
+      component={Stack}
+      options={{
+          headerShown:false,
+          drawerStyle: {width: width}
+          }}
+        />
     </Drawer.Navigator>
   )
 }

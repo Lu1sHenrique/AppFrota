@@ -207,7 +207,7 @@ export default function FormFrota({ navigation: { goBack} }) {
            onPress={() => navigation.navigate('HomeFrota')}
            >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 28, color: '#424242'}}>CheckList Elétrica</Text>
+            <Text style={{fontSize: 28, color: '#424242'}}>Checklist Elétrica</Text>
           </TouchableOpacity>
         </View>
         

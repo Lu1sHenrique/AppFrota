@@ -55,17 +55,6 @@ export default function RoutesFrota(){
           }}
         />
 
-      <Bottom.Screen 
-        name="Elétrica"
-        component={FormFrotaEletrica}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="file-text" color={color} size={30} />
-            ),
-            tabBarAccessibilityLabel:"Elétrica",
-          }}
-        />
-
         <Bottom.Screen 
         name="Relatórios"
         component={RelFrota}
