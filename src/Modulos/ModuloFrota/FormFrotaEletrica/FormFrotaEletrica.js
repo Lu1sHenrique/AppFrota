@@ -12,33 +12,31 @@ import {
 } from 'react-native';
 
 //libs
-import {useForm, Controller} from 'react-hook-form'
-import * as yup from 'yup'
-import {yupResolver} from '@hookform/resolvers/yup'
 import * as Animatable from 'react-native-animatable';
 import IconFeather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native'
 import BottomSheet from  'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
-import Checkbox from "react-native-bouncy-checkbox";
 import {Picker} from '@react-native-picker/picker'
 import api from '../../../services/api'
+import AwesomeAlert from 'react-native-awesome-alerts';
 //pages
 import styles from './style';
+import ModalErro from '../../../Components/Modal/ModalErro/ModalErro';
 
 
-const schema = yup.object({
-  bateriaInicial: yup.string().required("Preencha a bateria Inicial"),
-  bateriaFinal: yup.string().required("Preencha a bateria Final!")
-})
+export default function FormFrota() {
 
-
-export default function FormFrota({ navigation: { goBack} }) {
+      useEffect(()=>{
+        getPlacas();
+        getDepartamentos();
+        getCondutores();
+      },[])
 
       const navigation = useNavigation();
 
-      const [isLoading, setLoading] = useState(true);
+      const [isLoading, setIsLoading] = useState(true);
 
       //states picker
       const [departamentos, setDepartamentos] = useState([]);
@@ -47,59 +45,106 @@ export default function FormFrota({ navigation: { goBack} }) {
       const [condutorSelecionado, setCondutorSelecionado] = useState([]);
       const [placas, setPlacas] = useState([]);
       const [placaSelecionada, setPlacaSelecionada] = useState([]);
-      const [carroMaxima, setCarroMaxima] = useState(true);
-      const [carroReserva, setCarroReserva] = useState(false);
-      const [bateriaInicial, setBateriaInicial] = useState(0);
-      const [bateriaFinal, setBateriaFinal] = useState(0);
       const [diferenca, setDiferenca] = useState(0);
+      //
+      const [bateriaInicialSelecionado, setBateriaInicialSelecionado] = useState("");
+      const [bateriaFinalSelecionado, setBateriaFinalSelecionado] = useState("");
+      //states alerts
+      const [showError, setShowError] = useState(false);
+      const [showAlertConfirm, setShowAlertConfirm] = useState(false)
+      const [showAlertSuccess, setShowAlertSuccess] = useState(false)
+      const [showValidacaoDep, setShowValidacaoDep] = useState(false)
+      const [showValidacaoCond, setShowValidacaoCond] = useState(false)
+      const [showValidacaoPlac, setShowValidacaoPlac] = useState(false)
+      const [showErroConec, setShowErroConec] = useState(false)
+      const [showBateriaInicial, setShowBateriaInicial] = useState(false)
+      const [showBateriaFinal, setShowBateriaFinal] = useState(false)
+      const [showValidacaoBateria, setShowValidacaoBateria] = useState(false)
 
-      const getPlacas = async () =>{
-        try { 
-        const {data} = await api.get('/veiculos')
-        setPlacas(data)
-      } catch(error) {
-        if (error.response) {
-        console.log({...error});
-        }
-      } finally {
-        setLoading(false);
-      }
-        console.log(placas)
-      };
+      const hideAlertConfirm = () => (
+        setShowAlertConfirm(false)
+      );
+
+      const hideAlertSuccess = () => (
+        setShowAlertSuccess(false)
+      );
+
+      const hideAlertValidacaoDep = () => (
+        setShowValidacaoDep(false)
+      );
+
+      const hideAlertValidacaoCond = () => (
+        setShowValidacaoCond(false)
+      );
+
+      const hideAlertValidacaoPlac = () => (
+        setShowValidacaoPlac(false)
+      );
+
+      const hideErroConec = () => (
+        setShowErroConec(false)
+      );
+
+      const hideBateriaInicial = () => (
+        setShowBateriaInicial(false)
+      );
+
+      const hideBaterialFinal = () => (
+        setShowBateriaFinal(false)
+      );
+
+      const hideAlertValidacaoBateria = () => (
+        setShowValidacaoBateria(false)
+      );
 
       const getDepartamentos = async () =>{
+        showError && setShowError(false)
+        setIsLoading(true)
         try { 
         const {data} = await api.get('/departamentos')
+        setIsLoading(false)
         setDepartamentos(data)
       } catch(error) {
-        if (error.response) {
-        console.log({...error});
-        }
+        setIsLoading(false)
+        setShowError(true)
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
-        console.log(departamentos)
-      };
+      }
 
       const getCondutores = async () =>{
+        showError && setShowError(false)
+        setIsLoading(true)
         try { 
         const {data} = await api.get('/condutores')
+        setIsLoading(false)
         setCondutores(data)
       } catch(error) {
-        if (error.response) {
-        console.log({...error});
-        }
+        setIsLoading(false)
+        setShowError(true)
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
-        console.log(condutores)
-      };
+    }
 
-      useEffect(()=>{
-        getPlacas();
-        getDepartamentos();
-        getCondutores();
-      },[])
+      const getPlacas = async () =>{
+        showError && setShowError(false)
+        setIsLoading(true)
+        try { 
+        const {data} = await api.get('/veiculos')
+        setIsLoading(false)
+        setPlacas(data)
+      } catch(error) {
+        setIsLoading(false)
+        setShowError(true)
+      } finally {
+        setIsLoading(false);
+      }
+      }
+
+      function calcDiferenca(){
+        setDiferenca(parseInt(bateriaInicialSelecionado)-parseInt(bateriaFinalSelecionado))
+      }
 
       //configs image picks upload
       const renderInner = () => (
@@ -145,32 +190,6 @@ export default function FormFrota({ navigation: { goBack} }) {
       bs = React.createRef();
       fall = new Animated.Value(1);
 
-      //configs validação campos com yup
-      const {control, handleSubmit, formState: {errors}} = useForm({
-        resolver: yupResolver(schema)
-      })
-
-      function clickCheckCarroMaxima(){
-        setCarroMaxima(!carroMaxima)
-        setCarroReserva(!carroReserva)
-      }
-
-      function clickCheckCarroReserva(){
-        setCarroReserva(!carroReserva)
-        setCarroMaxima(!carroMaxima)
-      }
-
-      //enviar form
-      function enviarForm (data){
-          console.log(carroMaxima, carroReserva, parseInt(data.bateriaInicial), parseInt(data.bateriaFinal), condutorSelecionado, placaSelecionada)
-      }
-
-      function calcDiferenca(){
-        dif = bateriaInicial - bateriaFinal
-        setDiferenca(dif)
-        console.log(diferenca)
-    }
-
   return (
   <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
         <BottomSheet
@@ -210,41 +229,9 @@ export default function FormFrota({ navigation: { goBack} }) {
             <Text style={{fontSize: 28, color: '#424242'}}>Checklist Elétrica</Text>
           </TouchableOpacity>
         </View>
-        
-        <View style={{flexDirection: 'row', paddingVertical: 20, alignSelf: 'center', justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: "#d21e2b"}}>
-          <View style={{width: '100%', flexDirection: 'row', justifyContent: 'center'}}>
-            <View style={{width: '40%', marginRight: 15}}>
-              <Checkbox
-              size={25}
-              text="Carro Máxima"
-              fillColor="#d21e2b"
-              textStyle={{
-                textDecorationLine: "none",
-                fontSize: 15,
-                fontWeight: 'bold'
-              }}
-              isChecked={carroMaxima}
-              disableBuiltInState
-              onPress={clickCheckCarroMaxima}
-              />
-            </View>
-            <View style={{width: '40%'}}>
-              <Checkbox
-                size={25}
-                text="Carro Reserva"
-                fillColor="#d21e2b"
-                textStyle={{
-                  textDecorationLine: "none",
-                  fontSize: 15,
-                  fontWeight: 'bold'
-                }}
-                isChecked={carroReserva}
-                disableBuiltInState
-                onPress={clickCheckCarroReserva}
-              />
-            </View>
-          </View>
-        </View>
+
+        <ModalErro showError={showError} />
+
         <View style={{marginTop: 20}}>
           <Picker
             selectedValue={departamentoSelecionado}
@@ -273,7 +260,7 @@ export default function FormFrota({ navigation: { goBack} }) {
                 label={id.nome_departamento} 
                 value={id.nome_departamento} 
                 style={{
-                  color: '#d21e2b',
+                  color: '#d21e2b'
                 }}
                 key='departamento'
                 />
@@ -310,7 +297,7 @@ export default function FormFrota({ navigation: { goBack} }) {
                 label={id.nome} 
                 value={id.nome}
                 style={{
-                  color: '#d21e2b',
+                  color: '#d21e2b'
                 }}
                 key='condutor'
                 />
@@ -319,87 +306,69 @@ export default function FormFrota({ navigation: { goBack} }) {
           </Picker>
         </View>          
         
-        <Picker
-          selectedValue={placaSelecionada}
-          onValueChange={(itemValue) =>
-            setPlacaSelecionada(itemValue)
-          }
-          dropdownIconColor='#fff'
-          style={{
-            backgroundColor:'#d21e2b',
-            width: '85%',
-            alignSelf: 'center',
-            color: '#fff',
-            marginTop: 5
-          }}
-          dropdownIconRippleColor='#fff'
-          >
-            <Picker.Item 
-              label='Placa Veículo' 
-              style={{
-                color: '#000',
-              }}
-              />
-          {
-            placas.map(id => {
-              return <Picker.Item 
-              label={id.placa_veiculo} 
-              value={id.placa_veiculo}
-              style={{
-                color: '#d21e2b',
-              }}
-              key='placa'
-              />
-            })
-          }
-        </Picker>
-        {errors.placaVeiculo && <Text style={styles.labelError}>{errors.placaVeiculo?.message}</Text>}
-        
-        <Controller
-        control={control}
-        name="bateriaInicial"
-        render={({field: {valueBatInicial}}) => (
-          <TextInput
-          style={[styles.input,{
-            borderWidth: errors.bateriaInicial && 1,
-            borderColor: errors.bateriaInicial && '#ff375b'
-          }]}
-            onChangeText={text => setBateriaInicial(text)}
-            value={valueBatInicial}
-            placeholder="Bateria Inicial"
-            keyboardType='numeric'
-            placeholderTextColor={"#d21e2b"}
-          />
-        )}
-        />
-        {errors.bateriaInicial && <Text style={styles.labelError}>{errors.bateriaInicial?.message}</Text>}
-        
-              <TouchableOpacity
-              style={styles.buttonArquivo}
-              onPress={() => this.bs.current.snapTo(0)}
-              >
-                <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
-                <Text style={styles.txtButtonEnviar}>Foto Bateria Inicial</Text>
-              </TouchableOpacity>
+        <View>
+          <Picker
+            selectedValue={placaSelecionada}
+            onValueChange={(itemValue) =>
+              setPlacaSelecionada(itemValue)
+            }
+            dropdownIconColor='#fff'
+            style={{
+              backgroundColor:'#d21e2b',
+              width: '85%',
+              alignSelf: 'center',
+              color: '#fff',
+              marginTop: 5
+            }}
+            dropdownIconRippleColor='#fff'
+            >
+              <Picker.Item 
+                label='Placa Veículo' 
+                style={{
+                  color: '#000',
+                }}
+                />
+            {
+              placas.map(id => {
+                return <Picker.Item 
+                label={id.placa_veiculo} 
+                value={id.placa_veiculo}
+                style={{
+                  color: '#d21e2b'
+                }}
+                key='placa'
+                />
+              })
+            }
+          </Picker>
+        </View>
 
-          <Controller
-          control={control}
-          name="bateriaFinal"
-          render={({field: {valueBatFinal}}) => (
-            <TextInput
-            style={[styles.input,{
-              borderWidth: errors.bateriaFinal && 1,
-              borderColor: errors.bateriaFinal && '#ff375b'
-            }]}
-              onChangeText={text => setBateriaFinal(text)}
-              value={valueBatFinal}
-              placeholder="Bateria Final"
-              placeholderTextColor={"#d21e2b"}
-              keyboardType='numeric'
-            />
-          )}
+        <TextInput
+          style={styles.input}
+          placeholder="Bateria Inicial"
+          keyboardType='numeric'
+          placeholderTextColor={"#d21e2b"}
+          value={bateriaInicialSelecionado}
+          onChangeText={text => setBateriaInicialSelecionado(text)}
         />
-        {errors.bateriaFinal && <Text style={styles.labelError}>{errors.bateriaFinal?.message}</Text>}
+        
+        <TouchableOpacity
+        style={styles.buttonArquivo}
+        onPress={() => this.bs.current.snapTo(0)}
+        >
+          <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
+          <Text style={styles.txtButtonEnviar}>Foto Bateria Inicial</Text>
+        </TouchableOpacity>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Bateria Final"
+          placeholderTextColor={"#d21e2b"}
+          keyboardType='numeric'
+          value={bateriaFinalSelecionado}
+          onChangeText={text => setBateriaFinalSelecionado(text)}
+          onEndEditing={() => calcDiferenca()}
+        />
 
         <TouchableOpacity
         style={styles.buttonArquivo}
@@ -411,38 +380,254 @@ export default function FormFrota({ navigation: { goBack} }) {
         <View>
           <TextInput
               style={styles.input}
-              placeholder="Diferença"
+              placeholder="Diferença entre a bateria inicical e a final"
               placeholderTextColor={"#d21e2b"}
-              editable={false}
-			        value={diferenca}
+              editable={true}
+              value={String(diferenca)}
+              onChangeText={text => setDiferenca(text)}
             />
         </View>
-        <View>
-          <TouchableOpacity
-          onPress={calcDiferenca}
-          style={styles.button}
-          >
-            <Text style={styles.txtButton}>
-              Calcular
-            </Text>
-          </TouchableOpacity>
-        </View> 
-        <View>
-          <TouchableOpacity
-          onPress={handleSubmit(enviarForm)}
-          style={styles.button}
-          >
-            <Text style={styles.txtButton}>
-              Enviar
-            </Text>
-          </TouchableOpacity>
-        </View>  
+          <View>
+            <TouchableOpacity
+            onPress={exibirAlerta}
+            style={styles.button}
+            >
+              <Text style={styles.txtButton}>
+                Enviar
+              </Text>
+            </TouchableOpacity>
+          </View>  
         </Animatable.View>
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          cancelButtonStyle={styles.ButtonAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          cancelButtonTextStyle={styles.txtButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showAlertConfirm}
+          showProgress={false}
+          message="Tem certeza que deseja enviar o checklist?"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          cancelText="Não"
+          confirmText="Sim"
+          confirmButtonColor="#d21e2b"
+          cancelButtonColor='#424242'
+          onCancelPressed={() => {
+            hideAlertConfirm();
+          }}
+          onConfirmPressed={() => {
+            enviarForm();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showAlertSuccess}
+          showProgress={false}
+          message="O checklist foi enviado com sucesso"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertSuccess();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showValidacaoDep}
+          showProgress={false}
+          message="Selecione um departamento"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertValidacaoDep();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showValidacaoCond}
+          showProgress={false}
+          message="Selecione um condutor"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertValidacaoCond();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showValidacaoPlac}
+          showProgress={false}
+          message="Selecione uma placa"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertValidacaoPlac();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showErroConec}
+          showProgress={false}
+          message="Erro de conexão"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideErroConec();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showBateriaInicial}
+          showProgress={false}
+          message="Preencha a Bateria Inicial"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideBateriaInicial();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showBateriaFinal}
+          showProgress={false}
+          message="Preencha a Bateria Final"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideBaterialFinal();
+          }}
+        />
+
+        <AwesomeAlert
+        contentContainerStyle={styles.containerAlert}
+        confirmButtonStyle={styles.ButtonAlert}
+        confirmButtonTextStyle={styles.txtButtonAlert}
+        messageStyle={styles.txtTitleAlert}
+        show={showValidacaoBateria}
+        showProgress={false}
+        message="A Bateria Inicial deve ser maior que a Bateria Final"
+        closeOnTouchOutside={false}
+        closeOnHardwareBackPress={false}
+        showCancelButton={false}
+        showConfirmButton={true}
+        confirmText="Ok"
+        confirmButtonColor="#d21e2b"
+        onConfirmPressed={() => {
+          hideAlertValidacaoBateria();
+        }}
+        />
         <View style={{paddingVertical: 15}}></View>
         </ScrollView>
       )}    
     </KeyboardAvoidingView>
   );
+
+  function exibirAlerta(){
+    setShowAlertConfirm(true)
+  }
+
+  //enviar form
+  function enviarForm (){
+    if(showError == true){
+      setShowErroConec(true)
+      setShowAlertConfirm(false)
+    }else
+    if(!departamentoSelecionado.length){
+      setShowValidacaoDep(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }else
+    if(!condutorSelecionado.length){
+      setShowValidacaoCond(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }else
+    if(!placaSelecionada.length){
+      setShowValidacaoPlac(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }else
+    if(bateriaInicialSelecionado.length <= 0){
+      setShowBateriaInicial(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }else
+    if(bateriaFinalSelecionado.length <= 0){
+      setShowBateriaFinal(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }else
+    if(parseInt(bateriaInicialSelecionado) <= parseInt(bateriaFinalSelecionado)){
+      setShowValidacaoBateria(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }
+    else{
+      setShowAlertConfirm(false)
+      console.log(departamentoSelecionado, condutorSelecionado, placaSelecionada, bateriaInicialSelecionado, bateriaFinalSelecionado, diferenca)
+      setShowAlertSuccess(true)
+    }
+  }
 };
 
 

@@ -12,13 +12,17 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import styles from './style'
 import * as Animatable from 'react-native-animatable'
-import { useNavigation } from '@react-navigation/native'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 
 
-//pages
+export default function DrawerItems() {
 
-
-export default function DrawerItems({ navigation: { goBack } }) {
+  const logout = (navigation) =>{
+    navigation.reset({
+      index: 0,
+      routes: [{name: "Login"}]
+    })
+}
 
   const showAlert = () =>
   Alert.alert(
@@ -36,7 +40,7 @@ export default function DrawerItems({ navigation: { goBack } }) {
         <View style={styles.ContainerIcon}>
           <View style={styles.ButtonIcon}>
               <TouchableOpacity
-              onPress={() => goBack()}
+              onPress={() => navigation.dispatch(DrawerActions.closeDrawer())}
               >
                 <Icon name="x-circle" size={35} color="#fff"/>
               </TouchableOpacity>
@@ -110,7 +114,7 @@ export default function DrawerItems({ navigation: { goBack } }) {
             </View>
             <View style={styles.DrawerItem}>
                 <TouchableOpacity
-                onPress={()=> alert("Sair")}
+                onPress={()=> logout(navigation)}
                 >
                   <Text style={styles.txtDrawerItem}>Sair</Text>
                 </TouchableOpacity>
@@ -131,7 +135,6 @@ export default function DrawerItems({ navigation: { goBack } }) {
         </View>
       </ScrollView>
     </Animatable.View>
-            
   );
 };
 

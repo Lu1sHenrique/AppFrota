@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#d21e2b",
     borderLeftColor: "#d21e2b",
     borderRightColor: "#d21e2b",
+    color: "#d21e2b"
   },
 
   button:{
@@ -203,6 +204,30 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1, 
     borderBottomColor:"#d21e2b", 
     marginBottom: 20
+  },
+
+  containerAlert:{
+    width: "80%",
+    height: "25%",
+    borderRadius: 15
+  },
+
+  txtTitleAlert:{
+    fontSize: 25,
+    color: "#d21e2b",
+    textAlign: 'center'
+  },
+
+  ButtonAlert:{
+    width: "35%",
+    marginHorizontal: 13,
+    paddingVertical: 15
+  },
+
+  txtButtonAlert:{
+    fontSize: 15,
+    alignSelf: 'center',
+    color: '#fff'
   },
 
   

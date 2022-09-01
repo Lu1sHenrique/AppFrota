@@ -27,7 +27,7 @@ import styles from './style';
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro';
 
 
-export default function FormFrota({ navigation: { goBack} }) {
+export default function FormFrota() {
 
       useEffect(()=>{
         getDepartamentos();
@@ -114,54 +114,48 @@ export default function FormFrota({ navigation: { goBack} }) {
     
       const getDepartamentos = async () =>{
         showError && setShowError(false)
+        setIsLoading(true)
         try { 
         const {data} = await api.get('/departamentos')
+        setIsLoading(false)
         setDepartamentos(data)
       } catch(error) {
-        if (error.response) {
-        console.log({...error})
-        }
         setIsLoading(false)
         setShowError(true)
       }finally{
         setIsLoading(false)
       }
-        console.log(departamentos)
-      }
+    }
 
       const getCondutores = async () =>{
         showError && setShowError(false)
+        setIsLoading(true)
         try { 
         const {data} = await api.get('/condutores')
+        setIsLoading(false)
         setCondutores(data)
       } catch(error) {
-        if (error.response) {
-        console.log({...error})
-        }
         setIsLoading(false)
         setShowError(true)
       }finally{
         setIsLoading(false)
       }
-        console.log(condutores)
-      };
+    }
 
       const getPlacas = async () =>{
         showError && setShowError(false)
+        setIsLoading(true)
         try { 
         const {data} = await api.get('/veiculos')
+        setIsLoading(false)
         setPlacas(data)
       } catch(error) {
-        if (error.response) {
-        console.log({...error});
-        }
         setIsLoading(false)
         setShowError(true)
       }finally{
         setIsLoading(false)
       }
-      console.log(placas)
-      }
+    }
 
       //configs image picks upload
       const renderInner = () => (
@@ -779,7 +773,6 @@ export default function FormFrota({ navigation: { goBack} }) {
       setShowAlertSuccess(false)
       setShowAlertConfirm(false)
     }else
-
     if(parseInt(kmInicialSelecionado) >= parseInt(kmFinalSelecionado)){
       setShowValidacaoKm(true)
       setShowAlertSuccess(false)
