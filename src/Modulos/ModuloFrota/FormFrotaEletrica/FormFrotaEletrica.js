@@ -8,15 +8,14 @@ import {
   KeyboardAvoidingView,
   Platform,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
+  Alert
 } from 'react-native';
 
 //libs
 import * as Animatable from 'react-native-animatable';
 import IconFeather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native'
-import BottomSheet from  'reanimated-bottom-sheet';
-import Animated from 'react-native-reanimated';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
 import {Picker} from '@react-native-picker/picker'
 import api from '../../../services/api'
@@ -60,6 +59,11 @@ export default function FormFrota() {
       const [showBateriaInicial, setShowBateriaInicial] = useState(false)
       const [showBateriaFinal, setShowBateriaFinal] = useState(false)
       const [showValidacaoBateria, setShowValidacaoBateria] = useState(false)
+      // states image
+      const [imageKmInicial, setImageKmInicial] = useState("")
+      const [imageKmFinal, setImageKmFinal] = useState("")
+      const [showValidacaoImageInicial, setShowValidacaoImageInicial] = useState(false)
+      const [showValidacaoImageFinal, setShowValidacaoImageFinal] = useState(false)
 
       const hideAlertConfirm = () => (
         setShowAlertConfirm(false)
@@ -95,6 +99,14 @@ export default function FormFrota() {
 
       const hideAlertValidacaoBateria = () => (
         setShowValidacaoBateria(false)
+      );
+
+      const hideAlertValidacaoImageInicial = () => (
+        setShowValidacaoImageInicial(false)
+      );
+
+      const hideAlertValidacaoImageFinal = () => (
+        setShowValidacaoImageFinal(false)
       );
 
       const getDepartamentos = async () =>{
@@ -147,59 +159,102 @@ export default function FormFrota() {
       }
 
       //configs image picks upload
-      const renderInner = () => (
-        <View style={styles.panel}>
-          <View style={{alignItems: 'center'}}> 
-            <Text style={styles.panelTitle}>Enviar foto</Text>
-            <Text style={styles.panelSubtitle}>Escolha como deseja enviar a foto</Text>
+      const handleImageKmInicial = () =>{
+        Alert.alert(
+          "Selecione",
+          "Informe de onde você quer pegar a foto",
+          [
+            {
+              text: "Galeria",
+              onPress: () => pickImageFromGalleryInicial(),
+              style: 'default'
+            },
+            {
+              text: "Camera",
+              onPress: () => pickImageFromCameraInicial(),
+              style: 'default'
+            }
+          ],
+          {
+            cancelable: true,
+            onDismiss: () => console.log("tratar depois")
+          }
+        )
+      }
 
-            <TouchableOpacity 
-            style={styles.panelButton}
-            onPress={() => launchCamera()}
-            >
-              <Text style={styles.panelButtonTitle}>Capturar foto</Text>
-            </TouchableOpacity>
+      const handleImageKmFinal = () =>{
+        Alert.alert(
+          "Selecione",
+          "Informe de onde você quer pegar a foto",
+          [
+            {
+              text: "Galeria",
+              onPress: () => pickImageFromGalleryFinal(),
+              style: 'default'
+            },
+            {
+              text: "Camera",
+              onPress: () => pickImageFromCameraFinal(),
+              style: 'default'
+            }
+          ],
+          {
+            cancelable: true,
+            onDismiss: () => console.log("tratar depois")
+          }
+        )
+      }
 
-            <TouchableOpacity 
-            style={styles.panelButton}
-            onPress={() => launchImageLibrary()}
-            >
-              <Text style={styles.panelButtonTitle}>Escolher da galeria</Text>
-            </TouchableOpacity>
+      const pickImageFromGalleryInicial = async () => {
+        const options ={
+          mediaType: 'photo',
+          includeBase64: true
+        }
+        const result = await launchImageLibrary(options)
+        if(result?.assets){
+          setImageKmInicial(result.assets[0].base64)
+        }
+      }
 
-            <TouchableOpacity 
-            style={styles.panelButton}
-            onPress={() => this.bs.current.snapTo(1)}
-            >
-              <Text style={styles.panelButtonTitle}>Cancelar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      );
-         
+      const pickImageFromCameraInicial = async () => {
+        const options ={
+          mediaTyp: 'photo',
+          saveToPhotos: false,
+          quality: 1,
+          includeBase64: true
+        }
+        const result = await launchCamera(options)
+        if(result?.assets){
+          setImageKmInicial(result.assets[0].base64)
+        }
+      }
 
-      const renderHeader = () => (
-        <View style={styles.header}>
-          <View style={styles.panelHeader}>
-           <View  style={styles.panelHandle}>
-           </View>
-          </View>
-        </View>
-      );
+      const pickImageFromGalleryFinal = async () => {
+        const options ={
+          mediaType: 'photo',
+          includeBase64: true
+        }
+        const result = await launchImageLibrary(options)
+        if(result?.assets){
+          setImageKmFinal(result.assets[0].base64)
+        }
+      }
 
-      bs = React.createRef();
-      fall = new Animated.Value(1);
+      const pickImageFromCameraFinal = async () => {
+        const options ={
+          mediaTyp: 'photo',
+          saveToPhotos: false,
+          quality: 1,
+          includeBase64: true
+        }
+        const result = await launchCamera(options)
+        if(result?.assets){
+          setImageKmFinal(result.assets[0].base64)
+        }
+      }   
 
   return (
   <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-        <BottomSheet
-          ref={this.bs}
-          snapPoints={[330, 0]}
-          renderContent={renderInner}
-          renderHeader={renderHeader}
-          initialSnap={1}
-          callbackNode={this.fall}
-        />
          <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
           <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
             <Animatable.View animation="fadeInLeft" style={styles.icon}>
@@ -226,7 +281,7 @@ export default function FormFrota() {
            onPress={() => navigation.navigate('HomeFrota')}
            >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 28, color: '#424242'}}>Checklist Elétrica</Text>
+            <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: '#424242'}}>Checklist Elétrica</Text>
           </TouchableOpacity>
         </View>
 
@@ -244,7 +299,8 @@ export default function FormFrota() {
               width: '85%',
               alignSelf: 'center',
               color: '#fff',
-              marginTop: 5
+              marginTop: 5,
+              fontFamily: 'BebasNeue-Regular',
             }}
             dropdownIconRippleColor='#fff'
             >
@@ -252,6 +308,7 @@ export default function FormFrota() {
               label='Departamento' 
               style={{
                 color: '#000',
+                fontFamily: 'BebasNeue-Regular',
               }}
               />
               {
@@ -260,7 +317,8 @@ export default function FormFrota() {
                 label={id.nome_departamento} 
                 value={id.nome_departamento} 
                 style={{
-                  color: '#d21e2b'
+                  color: '#d21e2b',
+                  fontFamily: 'BebasNeue-Regular',
                 }}
                 key='departamento'
                 />
@@ -281,7 +339,8 @@ export default function FormFrota() {
               width: '85%',
               alignSelf: 'center',
               color: '#fff',
-              marginTop: 5
+              marginTop: 5,
+              fontFamily: 'BebasNeue-Regular',
             }}
             dropdownIconRippleColor='#fff'
             >
@@ -289,6 +348,7 @@ export default function FormFrota() {
               label='Condutor' 
               style={{
                 color: '#000',
+                fontFamily: 'BebasNeue-Regular',
               }}
               />
               {
@@ -297,7 +357,8 @@ export default function FormFrota() {
                 label={id.nome} 
                 value={id.nome}
                 style={{
-                  color: '#d21e2b'
+                  color: '#d21e2b',
+                  fontFamily: 'BebasNeue-Regular'
                 }}
                 key='condutor'
                 />
@@ -318,7 +379,8 @@ export default function FormFrota() {
               width: '85%',
               alignSelf: 'center',
               color: '#fff',
-              marginTop: 5
+              marginTop: 5,
+              fontFamily: 'BebasNeue-Regular'
             }}
             dropdownIconRippleColor='#fff'
             >
@@ -326,6 +388,7 @@ export default function FormFrota() {
                 label='Placa Veículo' 
                 style={{
                   color: '#000',
+                  fontFamily: 'BebasNeue-Regular'
                 }}
                 />
             {
@@ -334,7 +397,8 @@ export default function FormFrota() {
                 label={id.placa_veiculo} 
                 value={id.placa_veiculo}
                 style={{
-                  color: '#d21e2b'
+                  color: '#d21e2b',
+                  fontFamily: 'BebasNeue-Regular',
                 }}
                 key='placa'
                 />
@@ -354,7 +418,7 @@ export default function FormFrota() {
         
         <TouchableOpacity
         style={styles.buttonArquivo}
-        onPress={() => this.bs.current.snapTo(0)}
+        onPress={() => handleImageKmInicial()}
         >
           <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
           <Text style={styles.txtButtonEnviar}>Foto Bateria Inicial</Text>
@@ -372,7 +436,7 @@ export default function FormFrota() {
 
         <TouchableOpacity
         style={styles.buttonArquivo}
-        onPress={() => this.bs.current.snapTo(0)}
+        onPress={() => handleImageKmFinal()}
         >
           <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
           <Text style={styles.txtButtonEnviar}>Foto Bateria Final</Text>
@@ -576,6 +640,43 @@ export default function FormFrota() {
           hideAlertValidacaoBateria();
         }}
         />
+         <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showValidacaoImageInicial}
+          showProgress={false}
+          message="Capture ou selecione uma foto do Km Inicial"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertValidacaoImageInicial();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showValidacaoImageFinal}
+          showProgress={false}
+          message="Capture ou selecione uma foto do Km Final"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertValidacaoImageFinal();
+          }}
+        />
         <View style={{paddingVertical: 15}}></View>
         </ScrollView>
       )}    
@@ -621,10 +722,18 @@ export default function FormFrota() {
       setShowValidacaoBateria(true)
       setShowAlertSuccess(false)
       setShowAlertConfirm(false)
-    }
-    else{
+    }if(!imageKmInicial.length){
+      setShowValidacaoImageInicial(true)
+      setShowAlertSuccess(false)
       setShowAlertConfirm(false)
-      console.log(departamentoSelecionado, condutorSelecionado, placaSelecionada, bateriaInicialSelecionado, bateriaFinalSelecionado, diferenca)
+    }else
+    if(!imageKmFinal.length){
+      setShowValidacaoImageFinal(true)
+      setShowAlertSuccess(false)
+      setShowAlertConfirm(false)
+    }else{
+      setShowAlertConfirm(false)
+      console.log(departamentoSelecionado, condutorSelecionado, placaSelecionada, bateriaInicialSelecionado, imageKmInicial, bateriaFinalSelecionado, imageKmFinal, diferenca)
       setShowAlertSuccess(true)
     }
   }

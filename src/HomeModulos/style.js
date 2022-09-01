@@ -49,14 +49,16 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "#424242",
     alignSelf: 'center',
+    fontFamily: 'BebasNeue-Regular'
   },
 
   textBold:{
-    fontWeight: 'bold',
-    fontSize: 40,
+    fontFamily: 'BebasNeue-Regular',
+    fontSize: 44,
     color: "#d21e2b",
     alignSelf: 'center',
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
+    fontFamily: 'BebasNeue-Regular'
   },
 
   containerRow:{
@@ -77,11 +79,11 @@ const styles = StyleSheet.create({
   },
 
   textButton:{
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 22,
+    fontFamily: 'BebasNeue-Regular',
     alignSelf: 'center',
     color: '#fff',
-    marginTop: 10
+    marginTop: 10,
   },
 
   iconButtonModulos:{

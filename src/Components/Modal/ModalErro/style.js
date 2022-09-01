@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
   txtErro:{
     color: "#fff",
     alignSelf: 'center',
-    fontSize: 17
+    fontSize: 23,
+    fontFamily: 'BebasNeue-Regular',
   }
 
 

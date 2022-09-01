@@ -51,6 +51,15 @@ const styles = StyleSheet.create({
     marginRight: 15,
     color: "#d21e2b"
   },
+
+  containerCheckBox:{
+    flexDirection: 'row', 
+    paddingVertical: 20, 
+    alignSelf: 'center', 
+    justifyContent: 'center', 
+    borderBottomWidth: 1, 
+    borderBottomColor: "#d21e2b"
+  },
   
 
   txtCaption:{
@@ -74,7 +83,9 @@ const styles = StyleSheet.create({
     borderBottomColor: "#d21e2b",
     borderLeftColor: "#d21e2b",
     borderRightColor: "#d21e2b",
-    color: "#d21e2b"
+    color: "#d21e2b",
+    fontFamily: 'BebasNeue-Regular',
+    fontSize: 19
   },
 
   button:{
@@ -97,8 +108,8 @@ const styles = StyleSheet.create({
 
   txtButton: {
     color: '#fff',
-    fontSize: 20,
-    fontWeight: 'bold'
+    fontSize: 25,
+    fontFamily: 'BebasNeue-Regular',
   },
 
   buttonArquivo:{
@@ -113,8 +124,9 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     justifyContent: 'center',
     color:'#fff', 
-    fontSize: 17,
-    marginLeft: 40
+    fontSize: 19,
+    marginLeft: 40,
+    fontFamily: 'BebasNeue-Regular'
   },
 
   txtButtonPicker:{
@@ -182,13 +194,15 @@ const styles = StyleSheet.create({
   },
 
   panelTitle: {
-    fontSize: 20,
+    fontSize: 23,
+    fontFamily: 'BebasNeue-Regular',
     height: 35,
     color: "#d21e2b",
   },
 
   panelSubtitle: {
-    fontSize: 16,
+    fontSize: 19,
+    fontFamily: 'BebasNeue-Regular',
     color: 'gray',
     height: 30,
     marginBottom: 10,
@@ -197,7 +211,7 @@ const styles = StyleSheet.create({
 
   panelButtonTitle: {
     fontSize: 17,
-    fontWeight: 'bold',
+    fontFamily: 'BebasNeue-Regular',
     color: '#fff'
   },
 
@@ -216,7 +230,8 @@ const styles = StyleSheet.create({
   txtTitleAlert:{
     fontSize: 25,
     color: "#d21e2b",
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'BebasNeue-Regular'
   },
 
   ButtonAlert:{
@@ -226,9 +241,10 @@ const styles = StyleSheet.create({
   },
 
   txtButtonAlert:{
-    fontSize: 15,
+    fontSize: 20,
     alignSelf: 'center',
-    color: '#fff'
+    color: '#fff',
+    fontFamily: 'BebasNeue-Regular'
   },
 })
 

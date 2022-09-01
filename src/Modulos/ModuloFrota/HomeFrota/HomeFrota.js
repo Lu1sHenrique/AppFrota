@@ -49,16 +49,16 @@ export default function HomeFrota({ navigation: { goBack } }) {
            onPress={() => navigation.navigate('HomeModulos')}
            >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 28, color: '#424242'}}>Voltar</Text>
+            <Text style={{fontSize: 33, color: '#424242', fontFamily: 'BebasNeue-Regular'}}>Voltar</Text>
           </TouchableOpacity>
         </View>
 
         <View style={{flexDirection: 'row'}}>
             <View style={styles.ContainerTxt}>
-                <Text style={{fontSize: 30, color: '#424242'}}>
+                <Text style={{fontSize: 38, color: '#424242', fontFamily: 'BebasNeue-Regular'}}>
                     Escolha o tipo da
                 </Text>
-                <Text style={{fontSize: 40, fontWeight: 'bold', color: '#424242'}}>
+                <Text style={{fontSize: 44, fontFamily: 'BebasNeue-Regular', color: '#424242'}}>
                     Frota
                 </Text>
             </View>
@@ -71,7 +71,7 @@ export default function HomeFrota({ navigation: { goBack } }) {
                 onPress={() => navigation.navigate('RoutesFrota')}
                 >
                     <IconMaterial size={80} name="local-gas-station" color='#fff' />
-                    <Text style={{fontSize: 30,  color: '#fff'}}>Combustão</Text>
+                    <Text style={{fontSize: 33,  color: '#fff', fontFamily: 'BebasNeue-Regular'}}>Combustão</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -83,7 +83,7 @@ export default function HomeFrota({ navigation: { goBack } }) {
                 onPress={() => navigation.navigate('FormFrotaEletrica')}
                 >
                     <IconMaterial size={80} name="bolt" color='#fff' />
-                    <Text style={{fontSize: 30, color: '#fff'}}>Elétrica</Text>
+                    <Text style={{fontSize: 33, color: '#fff', fontFamily: 'BebasNeue-Regular'}}>Elétrica</Text>
                 </TouchableOpacity>
             </View>
         </View>

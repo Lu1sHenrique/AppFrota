@@ -33,19 +33,21 @@ const styles = StyleSheet.create({
     height: 50,
     borderColor: '#fff',
     marginBottom: 12,
-    fontSize: 16,
+    fontSize: 19,
     borderRadius: 10,
     paddingHorizontal: 30,
     color: '#fff',
-    width: '100%'
+    width: '100%',
+    fontFamily: 'BebasNeue-Regular'
   },
   inputHidePass:{
     height: 50,
     marginBottom: 12,
-    fontSize: 16,
+    fontSize: 19,
     paddingHorizontal: 30,
     color: '#fff',
-    width: '85%'
+    width: '85%',
+    fontFamily: 'BebasNeue-Regular'
   },
   ContainerHidePass:{
     flexDirection: 'row',
@@ -75,8 +77,8 @@ const styles = StyleSheet.create({
 
   buttonText:{
     color: "#d21e2b",
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 22,
+    fontFamily: 'BebasNeue-Regular',
     marginLeft: 130
   },
 
@@ -92,7 +94,8 @@ const styles = StyleSheet.create({
 
   textversao:{
     color: "#fff",
-    fontSize: 15
+    fontSize: 19,
+    fontFamily: 'BebasNeue-Regular'
   },
 
   modal:(text='none')=>({
@@ -115,16 +118,17 @@ const styles = StyleSheet.create({
   },
 
   textAvisoModalBadLogin:{
-    fontWeight: 'bold',
+    fontFamily: 'BebasNeue-Regular',
     color: '#000',
-    fontSize: 20,
+    fontSize: 22,
   },
 
   textModalBadLogin:{
     color: '#000',
-    fontSize: 20,
+    fontSize: 22,
     paddingVertical: 8,
-    marginTop: 7
+    marginTop: 7,
+    fontFamily: 'BebasNeue-Regular'
   },
 
   buttonOkModalBadLogin:{
@@ -139,7 +143,8 @@ const styles = StyleSheet.create({
 
   txtOkButton:{
     color: '#fff',
-    fontSize: 16
+    fontSize: 22,
+    fontFamily: 'BebasNeue-Regular'
   }
 
 })

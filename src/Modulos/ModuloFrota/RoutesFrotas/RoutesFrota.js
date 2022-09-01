@@ -39,7 +39,8 @@ export default function RoutesFrota(){
         tabBarActiveTintColor: '#fff',
         tabBarInactiveTintColor: '#000',
         tabBarLabelStyle:{
-          fontSize: 15,
+          fontSize: 20,
+          fontFamily: 'BebasNeue-Regular',
           paddingBottom: 10
         }
       }}

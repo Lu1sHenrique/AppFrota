@@ -100,16 +100,9 @@ export default function DrawerItems() {
             </View>
             <View style={styles.DrawerItem}>
                 <TouchableOpacity
-                onPress={(showAlert)}
+                onPress={() => navigation.navigate('FormFrotaEletrica')}
                 >
-                  <Text style={styles.txtDrawerItem}>Relatórios</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.DrawerItem}>
-                <TouchableOpacity
-                onPress={(showAlert)}
-                >
-                  <Text style={styles.txtDrawerItem}>Iventário</Text>
+                  <Text style={styles.txtDrawerItem}>Fomulário Frota Elétrica</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.DrawerItem}>
@@ -120,8 +113,8 @@ export default function DrawerItems() {
                 </TouchableOpacity>
             </View>
           </View>
-    
-        <View style={styles.ContainerFooter}>
+      </ScrollView>
+      <View style={styles.ContainerFooter}>
           <View style={styles.RowFooter}>
               <TouchableOpacity style={styles.ButtonFooter}>
                 <Icon style={styles.IconFooter} name="help-circle" size={20} color="#fff" />
@@ -133,7 +126,6 @@ export default function DrawerItems() {
               </TouchableOpacity>
               </View>          
         </View>
-      </ScrollView>
     </Animatable.View>
   );
 };
