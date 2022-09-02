@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import styles from './style'
 import * as Animatable from 'react-native-animatable'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 
 export default function DrawerItems() {
@@ -22,6 +23,7 @@ export default function DrawerItems() {
       index: 0,
       routes: [{name: "Login"}]
     })
+    navigation.dispatch(DrawerActions.closeDrawer())
 }
 
   const showAlert = () =>
@@ -30,6 +32,16 @@ export default function DrawerItems() {
   );
 
   const navigation = useNavigation();
+
+  const [showDuvidas, setShowDuvidas] = useState(false)
+
+  const hideAlertDuvidas = () => (
+    setShowDuvidas(false)
+  );
+
+  function exibirAlerta(){
+    setShowDuvidas(true)
+  }
 
   return (
     <Animatable.View animation="slideInLeft" style={styles.container}>
@@ -116,7 +128,10 @@ export default function DrawerItems() {
       </ScrollView>
       <View style={styles.ContainerFooter}>
           <View style={styles.RowFooter}>
-              <TouchableOpacity style={styles.ButtonFooter}>
+              <TouchableOpacity 
+              style={styles.ButtonFooter}
+              onPress={exibirAlerta}
+              >
                 <Icon style={styles.IconFooter} name="help-circle" size={20} color="#fff" />
                 <Text style={styles.txtFooter}>Dúvidas?</Text>
               </TouchableOpacity>      
@@ -126,6 +141,25 @@ export default function DrawerItems() {
               </TouchableOpacity>
               </View>          
         </View>
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showDuvidas}
+          showProgress={false}
+          message='Se tiver qualquer dúvida envie um email para "suporteti@maximaseguranca.com" ou ligue para o ramal "8128" que entraremos em contato assim que possível.'
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertDuvidas();
+          }}
+        />
     </Animatable.View>
   );
 };

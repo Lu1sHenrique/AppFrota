@@ -75,8 +75,33 @@ const styles = StyleSheet.create({
   RowFooter:{
     flexDirection: 'row', 
     justifyContent: 'center', 
-    marginTop: '3%',
-    marginBottom: '5%'
+    marginTop: '2%',
+    paddingBottom: 20
+  },
+
+  containerAlert:{
+    width: "80%",
+    borderRadius: 15
+  },
+
+  txtTitleAlert:{
+    fontSize: 25,
+    color: "#d21e2b",
+    textAlign: 'center',
+    fontFamily: 'BebasNeue-Regular'
+  },
+
+  ButtonAlert:{
+    width: "35%",
+    marginHorizontal: 13,
+    paddingVertical: 15
+  },
+
+  txtButtonAlert:{
+    fontSize: 20,
+    alignSelf: 'center',
+    color: '#fff',
+    fontFamily: 'BebasNeue-Regular'
   }
 
 })

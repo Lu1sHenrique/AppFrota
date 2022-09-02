@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   View,
@@ -8,8 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Image,
-  ActivityIndicator,
-  Alert
+  ActivityIndicator
 } from 'react-native';
 
 //libs
@@ -21,9 +20,10 @@ import Checkbox from "react-native-bouncy-checkbox";
 import {Picker} from '@react-native-picker/picker'
 import api from '../../../services/api'
 import AwesomeAlert from 'react-native-awesome-alerts';
+import { Modalize } from 'react-native-modalize';
 //pages
 import styles from './style';
-import ModalErro from '../../../Components/Modal/ModalErro/ModalErro';
+import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
 
 
 export default function FormFrota() {
@@ -170,50 +170,17 @@ export default function FormFrota() {
     }
 
       //configs image picks upload
-      const handleImageKmInicial = () =>{
-        Alert.alert(
-          "Selecione",
-          "Informe de onde você quer pegar a foto",
-          [
-            {
-              text: "Galeria",
-              onPress: () => pickImageFromGalleryInicial(),
-              style: 'default'
-            },
-            {
-              text: "Camera",
-              onPress: () => pickImageFromCameraInicial(),
-              style: 'default'
-            }
-          ],
-          {
-            cancelable: true,
-            onDismiss: () => console.log("tratar depois")
-          }
-        )
+      function onOpenKmInicial(){
+        modalizeRefKmInicial.current?.open()
       }
 
-      const handleImageKmFinal = () =>{
-        Alert.alert(
-          "Selecione",
-          "Informe de onde você quer pegar a foto",
-          [
-            {
-              text: "Galeria",
-              onPress: () => pickImageFromGalleryFinal(),
-              style: 'default'
-            },
-            {
-              text: "Camera",
-              onPress: () => pickImageFromCameraFinal(),
-              style: 'default'
-            }
-          ],
-          {
-            cancelable: true,
-            onDismiss: () => console.log("tratar depois")
-          }
-        )
+      function onOpenKmFinal(){
+        modalizeRefKmFinal.current?.open()
+      }
+
+      function onClose(){
+        modalizeRefKmInicial.current?.close()
+        modalizeRefKmFinal.current?.close()
       }
 
       const pickImageFromGalleryInicial = async () => {
@@ -225,6 +192,7 @@ export default function FormFrota() {
         if(result?.assets){
           setImageKmInicial(result.assets[0].base64)
         }
+        onClose()
       }
 
       const pickImageFromCameraInicial = async () => {
@@ -238,6 +206,7 @@ export default function FormFrota() {
         if(result?.assets){
           setImageKmInicial(result.assets[0].base64)
         }
+        onClose()
       }
 
       const pickImageFromGalleryFinal = async () => {
@@ -249,6 +218,7 @@ export default function FormFrota() {
         if(result?.assets){
           setImageKmFinal(result.assets[0].base64)
         }
+        onClose()
       }
 
       const pickImageFromCameraFinal = async () => {
@@ -262,6 +232,7 @@ export default function FormFrota() {
         if(result?.assets){
           setImageKmFinal(result.assets[0].base64)
         }
+        onClose()
       }
 
       function clickCheckCarroMaxima(){
@@ -273,26 +244,104 @@ export default function FormFrota() {
         setCarroReserva(!carroReserva)
         setCarroMaxima(!carroMaxima)
       }
+      const modalizeRefKmInicial = useRef(null)
+      const modalizeRefKmFinal = useRef(null)
 
   return (
   <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-         <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
-          <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
-            <Animatable.View animation="fadeInLeft" style={styles.icon}>
-              <TouchableOpacity
-              onPress={ () => navigation.openDrawer()}
+      <Modalize
+      ref={modalizeRefKmInicial}
+      snapPoint={330}
+      modalHeight={330}
+      HeaderComponent={
+        <View style={styles.header}>
+          <View style={styles.panelHeader}>
+          </View>
+        </View>
+      }
+      >
+          <View style={styles.panel}>
+            <View style={{alignItems: 'center'}}> 
+              <Text style={styles.panelTitle}>Enviar foto</Text>
+              <Text style={styles.panelSubtitle}>Escolha como deseja enviar a foto</Text>
+
+              <TouchableOpacity 
+              style={styles.panelButton}
+              onPress={() => pickImageFromCameraInicial()}
               >
-                <IconFeather name="menu" size={30} color="#fff" />
+                <Text style={styles.panelButtonTitle}>Capturar foto</Text>
               </TouchableOpacity>
-            </Animatable.View>
-            <View
-            style={styles.ContainerLogo}>
-              <Image source={require('../../../assets/logo_login.png')}
-              style={styles.LogoHome} 
-              />
+
+              <TouchableOpacity 
+              style={styles.panelButton}
+              onPress={() => pickImageFromGalleryInicial()}
+              >
+                <Text style={styles.panelButtonTitle}>Escolher da galeria</Text>
+              </TouchableOpacity>
+              <TouchableOpacity 
+              style={styles.panelButton}
+              onPress={onClose}
+              >
+                <Text style={styles.panelButtonTitle}>Cancelar</Text>
+              </TouchableOpacity>
             </View>
           </View>
-        </Animatable.View>
+      </Modalize>
+      <Modalize
+      ref={modalizeRefKmFinal}
+      snapPoint={330}
+      modalHeight={330}
+      HeaderComponent={
+        <View style={styles.header}>
+          <View style={styles.panelHeader}>
+          </View>
+        </View>
+      }
+      >
+          <View style={styles.panel}>
+            <View style={{alignItems: 'center'}}> 
+              <Text style={styles.panelTitle}>Enviar foto</Text>
+              <Text style={styles.panelSubtitle}>Escolha como deseja enviar a foto</Text>
+
+              <TouchableOpacity 
+              style={styles.panelButton}
+              onPress={() => pickImageFromCameraFinal()}
+              >
+                <Text style={styles.panelButtonTitle}>Capturar foto</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity 
+              style={styles.panelButton}
+              onPress={() => pickImageFromGalleryFinal()}
+              >
+                <Text style={styles.panelButtonTitle}>Escolher da galeria</Text>
+              </TouchableOpacity>
+              <TouchableOpacity 
+              style={styles.panelButton}
+              onPress={onClose}
+              >
+                <Text style={styles.panelButtonTitle}>Cancelar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+      </Modalize>
+      <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
+        <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
+          <Animatable.View animation="fadeInLeft" style={styles.icon}>
+            <TouchableOpacity
+            onPress={ () => navigation.openDrawer()}
+            >
+              <IconFeather name="menu" size={30} color="#fff" />
+            </TouchableOpacity>
+          </Animatable.View>
+          <View
+          style={styles.ContainerLogo}>
+            <Image source={require('../../../assets/logo_login.png')}
+            style={styles.LogoHome} 
+            />
+          </View>
+        </View>
+      </Animatable.View>
       {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
       <ScrollView>
         <Animatable.View animation={"fadeInUp"}>
@@ -476,7 +525,7 @@ export default function FormFrota() {
 
         <TouchableOpacity
         style={styles.buttonArquivo}
-        onPress={() => handleImageKmInicial()}
+        onPress={onOpenKmInicial}
         >
           <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
           <Text style={styles.txtButtonEnviar}>Foto Km Inicial</Text>
@@ -495,7 +544,7 @@ export default function FormFrota() {
 
         <TouchableOpacity
         style={styles.buttonArquivo}
-        onPress={() => handleImageKmFinal()}
+        onPress={onOpenKmFinal}
         >
           <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
           <Text style={styles.txtButtonEnviar}>Foto Km Final</Text>
@@ -552,7 +601,7 @@ export default function FormFrota() {
         <View>
           <TextInput
               style={styles.input}
-              placeholder="Troca de Óleo (Km Inicail)"
+              placeholder="Troca de Óleo (Km Inicial)"
               placeholderTextColor={"#d21e2b"}
               keyboardType='numeric'
               value={oleo}
@@ -894,6 +943,16 @@ export default function FormFrota() {
       setShowAlertConfirm(false)
       console.log(showSouNCarroMaxima, showSouNCarroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, imageKmInicial, kmFinalSelecionado, imageKmFinal, showRota1, showRota2, showRota3, oleo, pneu, correias)
       setShowAlertSuccess(true)
+      setDepartamentoSelecionado([])
+      setCondutorSelecionado([])
+      setPlacaSelecionada([])
+      setKmInicialSelecionado("")
+      setImageKmInicial("")
+      setKmFinalSelecionado("")
+      setImageKmFinal("")
+      setOleo("")
+      setPneu("")
+      setCorreias("")
     }
   }
 };

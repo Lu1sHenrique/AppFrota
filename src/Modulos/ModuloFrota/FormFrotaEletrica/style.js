@@ -146,13 +146,12 @@ const styles = StyleSheet.create({
 
   header:{
     backgroundColor: '#fff',
-    shadowColor: '#333333',
     shadowRadius: 2,
     shadowOpacity: 0.4,
     paddingTop: 10,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    marginTop: 15,
+    marginTop: 5,
   },
 
   panel:{
@@ -163,14 +162,6 @@ const styles = StyleSheet.create({
 
   panelHeader: {
     alignItems: 'center',
-  },
-
-  panelHandle:{
-    width: 40,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#00000040',
-    marginBottom: 10,
   },
 
   panelButton: {
@@ -213,7 +204,6 @@ const styles = StyleSheet.create({
 
   containerAlert:{
     width: "80%",
-    height: "25%",
     borderRadius: 15
   },
 

@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     color: "#d21e2b",
     fontSize: 22,
     fontFamily: 'BebasNeue-Regular',
-    marginLeft: 130
+    alignSelf: "center"
   },
 
   icon:{
