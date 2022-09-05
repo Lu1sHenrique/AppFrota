@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -13,13 +13,26 @@ import IconMaterial from 'react-native-vector-icons/MaterialIcons'
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
 import {AuthContext} from '../../../Contexts/Auth'
+import {useNetInfo} from "@react-native-community/netinfo";
+import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 
 //pages
 import styles from './style'
 
 export default function HomeFrota({ navigation: { goBack } }) {
 
-  const {user} = useContext(AuthContext)
+  const netInfo = useNetInfo();
+
+  const [showErrorNetWork, setShowErrorNetWork] = useState(false)
+
+  useEffect(() => {
+    setShowErrorNetWork(false)
+    if (netInfo.isConnected) {
+      setShowErrorNetWork(false)
+    } else {
+      setShowErrorNetWork(true)
+    }
+  }, [netInfo]);
 
   const navigation = useNavigation();
 
@@ -52,6 +65,8 @@ export default function HomeFrota({ navigation: { goBack } }) {
             <Text style={{fontSize: 33, color: '#424242', fontFamily: 'BebasNeue-Regular'}}>Voltar</Text>
           </TouchableOpacity>
         </View>
+
+        <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
 
         <View style={{flexDirection: 'row'}}>
             <View style={styles.ContainerTxt}>

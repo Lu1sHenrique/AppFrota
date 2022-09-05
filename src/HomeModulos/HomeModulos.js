@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -7,17 +7,31 @@ import {
   Alert
 } from 'react-native';
 
-
 //libs
 import Icon from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
 import {AuthContext} from '../Contexts/Auth'
+import {useNetInfo} from "@react-native-community/netinfo";
+import ModalErroNetwok from '../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 
 //pages
 import styles from './style'
 
 export default function HomeModulos() {
+
+  const netInfo = useNetInfo();
+
+  const [showErrorNetWork, setShowErrorNetWork] = useState(false)
+
+  useEffect(() => {
+    setShowErrorNetWork(false)
+    if (netInfo.isConnected) {
+      setShowErrorNetWork(false)
+    } else {
+      setShowErrorNetWork(true)
+    }
+  }, [netInfo]);
 
   const showAlert = () =>
   Alert.alert(
@@ -47,12 +61,15 @@ export default function HomeModulos() {
             </View>
           </View>
         </Animatable.View>
-          <Animatable.View animation="fadeInDown" style={styles.containerNomeHeader}>
-                <View style={{width: '100%'}}>
-                  <Text style={styles.textOla}>Seja bem vindo,</Text>
-                  <Text style={styles.textBold}>{user.usuario}</Text>
-                </View>
-            </Animatable.View>
+        
+        <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
+
+        <Animatable.View animation="fadeInDown" style={styles.containerNomeHeader}>
+          <View style={{width: '100%'}}>
+            <Text style={styles.textOla}>Seja bem vindo,</Text>
+            <Text style={styles.textBold}>{user.usuario}</Text>
+          </View>
+        </Animatable.View>
         {/*botoes modulos*/}
         <View style={styles.containerButtonsMod}>
           {/*linha com dois botoes*/}
@@ -137,6 +154,4 @@ export default function HomeModulos() {
       </View>
   );
 };
-
-
 

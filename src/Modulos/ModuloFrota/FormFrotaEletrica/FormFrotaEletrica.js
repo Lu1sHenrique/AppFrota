@@ -20,12 +20,26 @@ import {Picker} from '@react-native-picker/picker'
 import api from '../../../services/api'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { Modalize } from 'react-native-modalize';
+import {useNetInfo} from "@react-native-community/netinfo";
 //pages
 import styles from './style';
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro';
-
+import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 
 export default function FormFrota() {
+
+      const netInfo = useNetInfo();
+
+      const [showErrorNetWork, setShowErrorNetWork] = useState(false)
+
+      useEffect(()=>{
+        setShowErrorNetWork(false)
+        if (netInfo.isConnected) {
+          setShowErrorNetWork(false)
+        } else {
+          setShowErrorNetWork(true)
+        }
+      },[netInfo])
 
       useEffect(()=>{
         getPlacas();
@@ -334,6 +348,8 @@ export default function FormFrota() {
             <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: '#424242'}}>Checklist Elétrica</Text>
           </TouchableOpacity>
         </View>
+
+        <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
 
         <ModalErro showError={showError} />
 
@@ -739,6 +755,10 @@ export default function FormFrota() {
 
   //enviar form
   function enviarForm (){
+    if(showErrorNetWork == true){
+      setShowErroConec(true)
+      setShowAlertConfirm(false)
+    }else
     if(showError == true){
       setShowErroConec(true)
       setShowAlertConfirm(false)
@@ -772,7 +792,8 @@ export default function FormFrota() {
       setShowValidacaoBateria(true)
       setShowAlertSuccess(false)
       setShowAlertConfirm(false)
-    }if(!imageBateriaInicial.length){
+    }else
+    if(!imageBateriaInicial.length){
       setShowValidacaoImageInicial(true)
       setShowAlertSuccess(false)
       setShowAlertConfirm(false)

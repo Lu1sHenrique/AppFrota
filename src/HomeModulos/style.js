@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
       },
 
   containerButtonsMod:{
-    marginTop: 80
+    marginTop: 20
   },
 
   icon:{
@@ -39,10 +39,9 @@ const styles = StyleSheet.create({
   },
 
   containerNomeHeader:{
-    position: 'absolute',
     width: '100%',
     justifyContent: 'center',
-    marginTop: 150,
+    marginTop: 20,
   },
 
   textOla:{

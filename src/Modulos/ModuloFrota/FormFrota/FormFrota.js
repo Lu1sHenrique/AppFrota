@@ -21,18 +21,34 @@ import {Picker} from '@react-native-picker/picker'
 import api from '../../../services/api'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { Modalize } from 'react-native-modalize';
+import {useNetInfo} from "@react-native-community/netinfo";
 //pages
 import styles from './style';
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
+import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 
 
 export default function FormFrota() {
+  
+      const netInfo = useNetInfo();
+
+      const [showErrorNetWork, setShowErrorNetWork] = useState(false)
+
+      useEffect(()=>{
+        setShowErrorNetWork(false)
+        if (netInfo.isConnected) {
+          setShowErrorNetWork(false)
+        } else {
+          setShowErrorNetWork(true)
+        }
+      },[netInfo])
 
       useEffect(()=>{
         getDepartamentos();
         getCondutores();
         getPlacas();
       },[])
+
 
       const navigation = useNavigation();
 
@@ -354,6 +370,8 @@ export default function FormFrota() {
             <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: '#424242'}}>Checklist Combustão</Text>
           </TouchableOpacity>
         </View>
+
+        <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
 
         <ModalErro showError={showError} />
 
@@ -895,7 +913,10 @@ export default function FormFrota() {
     }else{
       setShowRota3("N")
     }
-
+    if(showErrorNetWork == true){
+      setShowErroConec(true)
+      setShowAlertConfirm(false)
+    }else
     if(showError == true){
       setShowErroConec(true)
       setShowAlertConfirm(false)
