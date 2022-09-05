@@ -104,6 +104,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     marginHorizontal: 15,
+    alignSelf: 'center',
+    width: '80%',
+    height: 160,
     position: 'absolute',
     marginVertical: 325,
     display: text

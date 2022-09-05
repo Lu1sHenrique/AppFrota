@@ -6,10 +6,8 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  Dimensions,
   Image,
-  ImageBackground,
-  BackHandler
+  ImageBackground
 } from 'react-native';
 
 //libs
@@ -18,10 +16,6 @@ import Icon from 'react-native-vector-icons/Feather';
 //pages
 import styles from './style'
 import {AuthContext} from '../Contexts/Auth'
-
-//consts de domensionamento do modal de erro login
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
 
 export default function Login(){
 
@@ -111,7 +105,7 @@ export default function Login(){
       </ImageBackground>
         {/*modal erro bad login*/}
         <View
-            style={[(styles.modal(display)), {width: WIDTH - 32, height: HEIGHT/4}]}>
+            style={[(styles.modal(display))]}>
           <View style={styles.containerAvisoModalBadLogin}>
             <Text style={styles.textAvisoModalBadLogin}>Aviso</Text>
           </View>
