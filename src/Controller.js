@@ -2,33 +2,47 @@
 const express=require('express')
 const cors=require('cors')
 const bodyParser=require('body-parser')
-const models=require('../models')
+const models=require('../models');
 
 const app=express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 let usuario=models.Usuario;
 let tab_veiculos_reserva=models.Tab_veiculos_reserva;
 let tab_veiculos_maxima=models.Tab_veiculos_maxima;
 let tab_departamento=models.Tab_departamento;
 let tab_condutor=models.Tab_condutor;
-let tab_checkist_eletrica=models.Tab_checkist_eletrica;
-let tab_checkist_combustao=models.Tab_checkist_combustao;
+let tab_checkist_eletrica=models.Tab_checklist_eletrica;
+let tab_checkist_combustao=models.Tab_checklist_combustao;
+
+app.post('/login',async (req, res)=>{
+    let response = await usuario.findOne({
+        where:{nome_usuario:req.body.usuario, senha: req.body.password}
+    });
+    if(response === null){
+        res.send(JSON.stringify("error"))
+    }else{
+        res.send(response)
+    }
+})
 
 
-app.get('/criarUsuario',async (req, res)=>{
-    let create=await usuario.create({ 
+/*app.get('/criarUsuario',async (req, res)=>{
+    let criarUsuario=await usuario.create({ 
         nome_usuario: "teste", 
         senha: "teste",
         codigo_departamento: 5,
         createdAt: new Date(),
-        updatedAt: new Date() 
+        updatedAt: new Date(),
+        TabCondutorId: 0,
+        TabDepartamentoId: 0 
     });
     res.send("Usuario criado com sucesso")
-})
+})*/
 
 app.get('/criarChecklistCombustao',async (req, res)=>{
-    let create=await tab_checkist_combustao.create({ 
+    let criarChecklistCombustao=await tab_checkist_combustao.create({ 
         carro_maxima_checklist_combustao: "S", 
         carro_reserva_checklist_combustao: "N",
         departamento_checklist_combustao: 5,
@@ -48,7 +62,7 @@ app.get('/criarChecklistCombustao',async (req, res)=>{
 })
 
 app.get('/criarChecklistEletrica',async (req, res)=>{
-    let create=await tab_checkist_eletrica.create({ 
+    let criarChecklistEletrica=await tab_checkist_eletrica.create({ 
         departamento_checklist_eletrica: 5, 
         condutor_checklist_eletrica: "teste eletrica",
         placa_veiculo_checklist_eletrica: "HGF-8956",
@@ -64,35 +78,35 @@ app.get('/criarChecklistEletrica',async (req, res)=>{
 })
 
 app.get('/listaDepartamentos',async (req, res)=>{
-    let read=await tab_departamento.findAll({ 
+    let listaDepartamentos=await tab_departamento.findAll({ 
         raw:true
     });
-    res.send(read)
+    res.send(listaDepartamentos)
 })
 
 app.get('/listaCondutores',async (req, res)=>{
-    let read=await tab_condutor.findAll({ 
+    let listaCondutores=await tab_condutor.findAll({ 
         raw:true
     });
-    res.send(read)
+    res.send(listaCondutores)
 })
 
 app.get('/listaVeiculosMaxima',async (req, res)=>{
-    let read=await tab_veiculos_maxima.findAll({ 
+    let listaVeiculosMaxima=await tab_veiculos_maxima.findAll({ 
         raw:true
     });
-    res.send(read)
+    res.send(listaVeiculosMaxima)
 })
 
 app.get('/listaVeiculosReserva',async (req, res)=>{
-    let read=await tab_veiculos_reserva.findAll({ 
+    let listaVeiculosReserva=await tab_veiculos_reserva.findAll({ 
         raw:true
     });
-    res.send(read)
+    res.send(listaVeiculosReserva)
 })
 
 app.get('/atualizarSenha',async (req, res)=>{
-    let update=await usuario.findByPk(1).then((response) => { 
+    let atualizarSenha=await usuario.findByPk(1).then((response) => { 
         response.senha='testesenha'
         response.save()
     })
