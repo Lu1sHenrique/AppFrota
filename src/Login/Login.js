@@ -22,8 +22,8 @@ export default function Login(){
   const [hidePass, setHidePass] = useState(true);
 
   //consts do context api
-  const [usuario, setUsuario] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [usuario, setUsuario] = useState("");
+  const [password, setPassword] = useState("");
   const [login, setLogin] = useState(null);
 
   //consts do modal de erro login
@@ -34,20 +34,10 @@ export default function Login(){
   //function logar
   async function HandleLogar(){
     logar(usuario, password)
-    let response=await fetch('http://localhost:3000/login',{
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: usuario,
-        password: password
-      })
-    })
-    let json=await response.json();
-    if(json === "error"){
+    if(usuario === "" || password === ""){
       setDisplay('flex')
+    }else{
+      setDisplay('none')
     }
   }
 //function fechar modal erro login
@@ -103,7 +93,7 @@ export default function Login(){
           {/*botao acessar*/}
           <TouchableOpacity 
           style={styles.button}
-          onPress={()=>HandleLogar()}
+          onPress={HandleLogar}
           >
             <Text style={styles.buttonText}>Acessar</Text>
           </TouchableOpacity>

@@ -8,7 +8,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
+  RefreshControl
 } from 'react-native';
 
 //libs
@@ -78,6 +79,15 @@ export default function FormFrota() {
       const [imageBateriaFinal, setimageBateriaFinal] = useState("")
       const [showValidacaoImageInicial, setShowValidacaoImageInicial] = useState(false)
       const [showValidacaoImageFinal, setShowValidacaoImageFinal] = useState(false)
+      // refresh control
+      const [refreshing, setRefreshing] = useState(false)
+
+      const onRefresh = () =>{
+        setRefreshing(false)
+        getDepartamentos();
+        getCondutores();
+        getPlacas();
+      }
 
       const hideAlertConfirm = () => (
         setShowAlertConfirm(false)
@@ -337,7 +347,9 @@ export default function FormFrota() {
         </View>
       </Animatable.View>
       {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
-      <ScrollView>
+      <ScrollView refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#d21e2b']}/>
+      }>
         <Animatable.View animation={"fadeInUp"}>
         <View style={styles.ContainerButtonBack}>
           <TouchableOpacity

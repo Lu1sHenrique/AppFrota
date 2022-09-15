@@ -12,8 +12,11 @@ import {Picker} from '@react-native-picker/picker'
 import styles from './style'
 
 
-
 export default function RelFrota(){
+
+  useEffect(()=>{
+    getCep();
+  },[])
 
   const navigation = useNavigation();
   
@@ -26,13 +29,8 @@ export default function RelFrota(){
   } catch(error) {
     if (error.response) {
     console.log({...error});
-  }}
-  console.log(infoCep)
-};
-
-  useEffect(()=>{
-    getCep();
-  },[])
+    }}
+  };
 
     return(
       <SafeAreaView>
@@ -69,18 +67,19 @@ export default function RelFrota(){
               />
               {
               infoCep.map(id => {
-                return <Picker.Item 
+                return <Picker.Item
                 label={id.codigo_departamento} 
                 value={id.codigo_departamento} 
                 style={{
                   color: '#d21e2b',
                 }}
-                key='placas'
+
+                key='departamento'
                 />
               })
             }
           </Picker>
-        </View>           
+        </View>          
       </SafeAreaView>
     )
 }
