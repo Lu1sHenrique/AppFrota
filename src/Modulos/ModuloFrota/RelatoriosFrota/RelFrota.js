@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 
-import { SafeAreaView, Text, View, TouchableOpacity} from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity, FlatList, RefreshControl} from 'react-native';
 
 //libs
 import Icon from 'react-native-vector-icons/Feather';
@@ -10,6 +10,7 @@ import api from '../../../services/api'
 import {Picker} from '@react-native-picker/picker'
 //pages
 import styles from './style'
+import ConsultaChecklistComb from '../../../Components/ConsultaChecklistComb/index'
 
 
 export default function RelFrota(){
@@ -21,10 +22,18 @@ export default function RelFrota(){
   const navigation = useNavigation();
   
   const [infoCep, setInfoCep] = useState([])
+  const [listaChecklistComb, setListaChecklistComb] = useState([])
+  // refresh control
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = () =>{
+    setRefreshing(false)
+    getListaCheckList();
+  }
 
   const getCep = async () =>{
     try { 
-    const {data} = await api.get('/departamentos')
+    const {data} = await api.get('/obterDepartamentos')
     setInfoCep(data)
   } catch(error) {
     if (error.response) {
@@ -32,8 +41,22 @@ export default function RelFrota(){
     }}
   };
 
+  const getListaCheckList = async () =>{
+    try { 
+    const {data} = await api.get('http://192.168.1.131:3000/obterListaChecklistCombustao')
+    setListaChecklistComb(data)
+    console.log(listaChecklistComb)
+    console.log("aqui try")
+  } catch(error) {
+    if (error.response) {
+    console.log({...error});
+    }}
+  };
+  
     return(
-      <SafeAreaView>
+      <ScrollView refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#d21e2b']}/>
+      }>
         <View animation="fadeInDown"  style={styles.containerCaixa}>
           <View style={styles.textHeader}>
               <Text style={styles.textConfig}>Gestão de Frota</Text>
@@ -79,8 +102,20 @@ export default function RelFrota(){
               })
             }
           </Picker>
-        </View>          
-      </SafeAreaView>
+        </View>       
+
+        <TouchableOpacity
+        onPress={getListaCheckList}
+        >
+            <Text>trazer</Text>
+        </TouchableOpacity>
+
+        <FlatList 
+            data={listaChecklistComb}
+            keyExtractor={(item) => String(item.id)}
+            renderItem={({item})=> <ConsultaChecklistComb data={item} />}
+        />  
+      </ScrollView>
     )
 }
 

@@ -105,7 +105,6 @@ export default function FormFrota() {
         getPlacas();
       }
 
-
       const hideAlertConfirm = () => (
         setShowAlertConfirm(false)
       );
@@ -195,6 +194,120 @@ export default function FormFrota() {
       }
     }
 
+    const inserirChecklist = async () =>{
+      setShowAlertConfirm(true)
+      if(carroMaxima == true){
+        setShowSouNCarroMaxima("S")
+      }else{
+        setShowSouNCarroMaxima("N")
+      }
+      if(carroReserva == true){
+        setShowSouNCarroReserva("S")
+      }else{
+        setShowSouNCarroReserva("N")
+      }
+      if(ronda1 == true){
+        setShowRota1("S")
+      }else{
+        setShowRota1("N")
+      }
+      if(ronda2 == true){
+        setShowRota2("S")
+      }else{
+        setShowRota2("N")
+      }
+      if(ronda3 == true){
+        setShowRota3("S")
+      }else{
+        setShowRota3("N")
+      }
+      if(showErrorNetWork == true){
+        setShowErroConec(true)
+        setShowAlertConfirm(false)
+      }else
+      if(showError == true){
+        setShowErroConec(true)
+        setShowAlertConfirm(false)
+      }else
+      if(!departamentoSelecionado.length){
+        setShowValidacaoDep(true)
+        setShowAlertSuccess(false)
+        setShowAlertConfirm(false)
+      }else
+      if(!condutorSelecionado.length){
+        setShowValidacaoCond(true)
+        setShowAlertSuccess(false)
+        setShowAlertConfirm(false)
+      }else
+      if(!placaSelecionada.length){
+        setShowValidacaoPlac(true)
+        setShowAlertSuccess(false)
+        setShowAlertConfirm(false)
+      }else
+      if(kmInicialSelecionado.length<2){
+        setShowKmInicial(true)
+        setShowAlertSuccess(false)
+        setShowAlertConfirm(false)
+      }else
+      if(kmFinalSelecionado.length<2){
+        setShowKmFinal(true)
+        setShowAlertSuccess(false)
+        setShowAlertConfirm(false)
+      }else
+      if(parseInt(kmInicialSelecionado) >= parseInt(kmFinalSelecionado)){
+        setShowValidacaoKm(true)
+        setShowAlertSuccess(false)
+        setShowAlertConfirm(false)
+      }else
+      if(!imageKmInicial.length){
+        setShowValidacaoImageInicial(true)
+        setShowAlertSuccess(false)
+        setShowAlertConfirm(false)
+      }else
+      if(!imageKmFinal.length){
+        setShowValidacaoImageFinal(true)
+        setShowAlertSuccess(false)
+        setShowAlertConfirm(false)
+      }else
+      await api.post('http://192.168.1.131:3000/enviarChecklistCombustao', {
+        codigo_checklist_combustao: 4,
+        carro_maxima: showSouNCarroMaxima,
+        carro_reserva: showSouNCarroReserva,
+        departamento: departamentoSelecionado,
+        condutor: condutorSelecionado,
+        placa_veiculo: placaSelecionada,
+        km_inicial: kmInicialSelecionado,
+        km_final: kmFinalSelecionado,
+        rota_ronda_1: showRota1,
+        rota_ronda_2: showRota2,
+        rota_ronda_3: showRota3,
+        troca_oleo: oleo,
+        pneu: pneu,
+        correias: correias,
+        foto_km_inicial: imageKmInicial,
+        foto_km_final: imageKmFinal
+     })
+     .then(function (response) {
+      console.log(response);
+      setShowAlertConfirm(false)
+      setShowAlertSuccess(true)
+      setDepartamentoSelecionado([])
+      setCondutorSelecionado([])
+      setPlacaSelecionada([])
+      setKmInicialSelecionado("")
+      setImageKmInicial("")
+      setKmFinalSelecionado("")
+      setImageKmFinal("")
+      setOleo("")
+      setPneu("")
+      setCorreias("")  
+     })
+     .catch(function (error) {
+       console.error(error);
+     });
+   }
+    
+
       //configs image picks upload
       function onOpenKmInicial(){
         modalizeRefKmInicial.current?.open()
@@ -216,7 +329,7 @@ export default function FormFrota() {
         }
         const result = await launchImageLibrary(options)
         if(result?.assets){
-          setImageKmInicial(result.assets[0].base64)
+          setImageKmInicial(result.assets[0].fileName)
         }
         onClose()
       }
@@ -230,7 +343,7 @@ export default function FormFrota() {
         }
         const result = await launchCamera(options)
         if(result?.assets){
-          setImageKmInicial(result.assets[0].base64)
+          setImageKmInicial(result.assets[0].fileName)
         }
         onClose()
       }
@@ -242,7 +355,7 @@ export default function FormFrota() {
         }
         const result = await launchImageLibrary(options)
         if(result?.assets){
-          setImageKmFinal(result.assets[0].base64)
+          setImageKmFinal(result.assets[0].fileName)
         }
         onClose()
       }
@@ -256,7 +369,7 @@ export default function FormFrota() {
         }
         const result = await launchCamera(options)
         if(result?.assets){
-          setImageKmFinal(result.assets[0].base64)
+          setImageKmFinal(result.assets[0].fileName)
         }
         onClose()
       }
@@ -695,9 +808,7 @@ export default function FormFrota() {
           onCancelPressed={() => {
             hideAlertConfirm();
           }}
-          onConfirmPressed={() => {
-            enviarForm();
-          }}
+          onConfirmPressed={inserirChecklist}
         />
 
         <AwesomeAlert
@@ -897,95 +1008,4 @@ export default function FormFrota() {
   function exibirAlerta(){
     setShowAlertConfirm(true)
   }
-
-  //enviar form
-  function enviarForm (data){
-    if(carroMaxima == true){
-      setShowSouNCarroMaxima("S")
-    }else{
-      setShowSouNCarroMaxima("N")
-    }
-    if(carroReserva == true){
-      setShowSouNCarroReserva("S")
-    }else{
-      setShowSouNCarroReserva("N")
-    }
-    if(ronda1 == true){
-      setShowRota1("S")
-    }else{
-      setShowRota1("N")
-    }
-    if(ronda2 == true){
-      setShowRota2("S")
-    }else{
-      setShowRota2("N")
-    }
-    if(ronda3 == true){
-      setShowRota3("S")
-    }else{
-      setShowRota3("N")
-    }
-    if(showErrorNetWork == true){
-      setShowErroConec(true)
-      setShowAlertConfirm(false)
-    }else
-    if(showError == true){
-      setShowErroConec(true)
-      setShowAlertConfirm(false)
-    }else
-    if(!departamentoSelecionado.length){
-      setShowValidacaoDep(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(!condutorSelecionado.length){
-      setShowValidacaoCond(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(!placaSelecionada.length){
-      setShowValidacaoPlac(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(kmInicialSelecionado.length<2){
-      setShowKmInicial(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(kmFinalSelecionado.length<2){
-      setShowKmFinal(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(parseInt(kmInicialSelecionado) >= parseInt(kmFinalSelecionado)){
-      setShowValidacaoKm(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(!imageKmInicial.length){
-      setShowValidacaoImageInicial(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(!imageKmFinal.length){
-      setShowValidacaoImageFinal(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else{
-      setShowAlertConfirm(false)
-      console.log(showSouNCarroMaxima, showSouNCarroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, imageKmInicial, kmFinalSelecionado, imageKmFinal, showRota1, showRota2, showRota3, oleo, pneu, correias)
-      setShowAlertSuccess(true)
-      setDepartamentoSelecionado([])
-      setCondutorSelecionado([])
-      setPlacaSelecionada([])
-      setKmInicialSelecionado("")
-      setImageKmInicial("")
-      setKmFinalSelecionado("")
-      setImageKmFinal("")
-      setOleo("")
-      setPneu("")
-      setCorreias("")
-    }
-  }
-};
+}
