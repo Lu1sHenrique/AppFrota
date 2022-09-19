@@ -182,6 +182,88 @@ export default function FormFrota() {
         setDiferenca(parseInt(bateriaInicialSelecionado)-parseInt(bateriaFinalSelecionado))
       }
 
+
+      const enviarChecklistEletrica = async () =>{
+        if(showErrorNetWork == true){
+          setShowErroConec(true)
+          setShowAlertConfirm(false)
+        }else
+        if(showError == true){
+          setShowErroConec(true)
+          setShowAlertConfirm(false)
+        }else
+        if(!departamentoSelecionado.length){
+          setShowValidacaoDep(true)
+          setShowAlertSuccess(false)
+          setShowAlertConfirm(false)
+        }else
+        if(!condutorSelecionado.length){
+          setShowValidacaoCond(true)
+          setShowAlertSuccess(false)
+          setShowAlertConfirm(false)
+        }else
+        if(!placaSelecionada.length){
+          setShowValidacaoPlac(true)
+          setShowAlertSuccess(false)
+          setShowAlertConfirm(false)
+        }else
+        if(bateriaInicialSelecionado.length<0){
+          setShowBateriaInicial(true)
+          setShowAlertSuccess(false)
+          setShowAlertConfirm(false)
+        }else
+        if(bateriaFinalSelecionado.length<0){
+          setShowBateriaFinal(true)
+          setShowAlertSuccess(false)
+          setShowAlertConfirm(false)
+        }else
+        if(parseInt(bateriaInicialSelecionado) <= parseInt(bateriaFinalSelecionado)){
+          setShowValidacaoBateria(true)
+          setShowAlertSuccess(false)
+          setShowAlertConfirm(false)
+        }else
+        if(!imageBateriaInicial.length){
+          setShowValidacaoImageInicial(true)
+          setShowAlertSuccess(false)
+          setShowAlertConfirm(false)
+        }else
+        if(!imageBateriaFinal.length){
+          setShowValidacaoImageFinal(true)
+          setShowAlertSuccess(false)
+          setShowAlertConfirm(false)
+        }else
+        await api.post('http://192.168.1.131:3000/enviarChecklistEletrica', {
+          codigo_checklist_eletrica: 1,
+          departamento: departamentoSelecionado,
+          condutor: condutorSelecionado,
+          placa_veiculo: placaSelecionada,
+          bateria_inicial: bateriaInicialSelecionado,
+          bateria_final: bateriaFinalSelecionado,
+          calc_diferenca: diferenca,
+          foto_bateria_inicial: imageBateriaInicial,
+          foto_bateria_final: imageBateriaFinal
+       })
+       .then(function (response) {
+        console.log(response);
+        console.log(response.data)
+        setIsLoading(true)
+        setShowAlertConfirm(false)
+        setShowAlertSuccess(true)
+        setDepartamentoSelecionado([])
+        setCondutorSelecionado([])
+        setPlacaSelecionada([])
+        setBateriaInicialSelecionado("")
+        setImageBateriaInicial("")
+        setBateriaFinalSelecionado("")
+        setimageBateriaFinal("")
+        setDiferenca("")  
+       })
+       .catch(function (error) {
+         console.error(error);
+       });
+       setIsLoading(false)
+     }
+
       //configs image picks upload
       function onOpenKmInicial(){
         modalizeRefBateriaInicial.current?.open()
@@ -203,7 +285,7 @@ export default function FormFrota() {
         }
         const result = await launchImageLibrary(options)
         if(result?.assets){
-          setImageBateriaInicial(result.assets[0].base64)
+          setImageBateriaInicial(result.assets[0].fileName)
         }
         onClose()
       }
@@ -217,7 +299,7 @@ export default function FormFrota() {
         }
         const result = await launchCamera(options)
         if(result?.assets){
-          setImageBateriaInicial(result.assets[0].base64)
+          setImageBateriaInicial(result.assets[0].fileName)
         }
         onClose()
       }
@@ -229,7 +311,7 @@ export default function FormFrota() {
         }
         const result = await launchImageLibrary(options)
         if(result?.assets){
-          setimageBateriaFinal(result.assets[0].base64)
+          setimageBateriaFinal(result.assets[0].fileName)
         }
         onClose()
       }
@@ -243,7 +325,7 @@ export default function FormFrota() {
         }
         const result = await launchCamera(options)
         if(result?.assets){
-          setimageBateriaFinal(result.assets[0].base64)
+          setimageBateriaFinal(result.assets[0].fileName)
         }
         onClose()
       }   
@@ -562,9 +644,7 @@ export default function FormFrota() {
           onCancelPressed={() => {
             hideAlertConfirm();
           }}
-          onConfirmPressed={() => {
-            enviarForm();
-          }}
+          onConfirmPressed={enviarChecklistEletrica}
         />
 
         <AwesomeAlert
@@ -763,70 +843,6 @@ export default function FormFrota() {
 
   function exibirAlerta(){
     setShowAlertConfirm(true)
-  }
-
-  //enviar form
-  function enviarForm (){
-    if(showErrorNetWork == true){
-      setShowErroConec(true)
-      setShowAlertConfirm(false)
-    }else
-    if(showError == true){
-      setShowErroConec(true)
-      setShowAlertConfirm(false)
-    }else
-    if(!departamentoSelecionado.length){
-      setShowValidacaoDep(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(!condutorSelecionado.length){
-      setShowValidacaoCond(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(!placaSelecionada.length){
-      setShowValidacaoPlac(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(bateriaInicialSelecionado.length <= 0){
-      setShowBateriaInicial(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(bateriaFinalSelecionado.length <= 0){
-      setShowBateriaFinal(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(parseInt(bateriaInicialSelecionado) <= parseInt(bateriaFinalSelecionado)){
-      setShowValidacaoBateria(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(!imageBateriaInicial.length){
-      setShowValidacaoImageInicial(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else
-    if(!imageBateriaFinal.length){
-      setShowValidacaoImageFinal(true)
-      setShowAlertSuccess(false)
-      setShowAlertConfirm(false)
-    }else{
-      setShowAlertConfirm(false)
-      console.log(departamentoSelecionado, condutorSelecionado, placaSelecionada, bateriaInicialSelecionado, imageBateriaInicial, bateriaFinalSelecionado, imageBateriaFinal, diferenca)
-      setShowAlertSuccess(true)
-      setDepartamentoSelecionado([])
-      setCondutorSelecionado([])
-      setPlacaSelecionada([])
-      setBateriaInicialSelecionado("")
-      setBateriaFinalSelecionado("")
-      setImageBateriaInicial("")
-      setimageBateriaFinal("")
-      setDiferenca(0)
-    }
   }
 };
 

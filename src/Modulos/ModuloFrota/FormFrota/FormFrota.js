@@ -159,6 +159,7 @@ export default function FormFrota() {
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
+        console.log(error)
       }finally{
         setIsLoading(false)
       }
@@ -174,6 +175,7 @@ export default function FormFrota() {
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
+        console.log(error)
       }finally{
         setIsLoading(false)
       }
@@ -189,13 +191,13 @@ export default function FormFrota() {
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
+        console.log(error)
       }finally{
         setIsLoading(false)
       }
     }
 
-    const inserirChecklist = async () =>{
-      setShowAlertConfirm(true)
+    const enviarChecklistCombustao = async () =>{
       if(carroMaxima == true){
         setShowSouNCarroMaxima("S")
       }else{
@@ -270,7 +272,7 @@ export default function FormFrota() {
         setShowAlertConfirm(false)
       }else
       await api.post('http://192.168.1.131:3000/enviarChecklistCombustao', {
-        codigo_checklist_combustao: 4,
+        codigo_checklist_combustao: 1,
         carro_maxima: showSouNCarroMaxima,
         carro_reserva: showSouNCarroReserva,
         departamento: departamentoSelecionado,
@@ -289,6 +291,8 @@ export default function FormFrota() {
      })
      .then(function (response) {
       console.log(response);
+      console.log(response.data)
+      setIsLoading(true)
       setShowAlertConfirm(false)
       setShowAlertSuccess(true)
       setDepartamentoSelecionado([])
@@ -305,6 +309,7 @@ export default function FormFrota() {
      .catch(function (error) {
        console.error(error);
      });
+     setIsLoading(false)
    }
     
 
@@ -437,32 +442,32 @@ export default function FormFrota() {
         </View>
       }
       >
-          <View style={styles.panel}>
-            <View style={{alignItems: 'center'}}> 
-              <Text style={styles.panelTitle}>Enviar foto</Text>
-              <Text style={styles.panelSubtitle}>Escolha como deseja enviar a foto</Text>
+      <View style={styles.panel}>
+        <View style={{alignItems: 'center'}}> 
+          <Text style={styles.panelTitle}>Enviar foto</Text>
+          <Text style={styles.panelSubtitle}>Escolha como deseja enviar a foto</Text>
 
-              <TouchableOpacity 
-              style={styles.panelButton}
-              onPress={() => pickImageFromCameraFinal()}
-              >
-                <Text style={styles.panelButtonTitle}>Capturar foto</Text>
-              </TouchableOpacity>
+          <TouchableOpacity 
+          style={styles.panelButton}
+          onPress={() => pickImageFromCameraFinal()}
+          >
+            <Text style={styles.panelButtonTitle}>Capturar foto</Text>
+          </TouchableOpacity>
 
-              <TouchableOpacity 
-              style={styles.panelButton}
-              onPress={() => pickImageFromGalleryFinal()}
-              >
-                <Text style={styles.panelButtonTitle}>Escolher da galeria</Text>
-              </TouchableOpacity>
-              <TouchableOpacity 
-              style={styles.panelButton}
-              onPress={onClose}
-              >
-                <Text style={styles.panelButtonTitle}>Cancelar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          <TouchableOpacity 
+          style={styles.panelButton}
+          onPress={() => pickImageFromGalleryFinal()}
+          >
+            <Text style={styles.panelButtonTitle}>Escolher da galeria</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+          style={styles.panelButton}
+          onPress={onClose}
+          >
+            <Text style={styles.panelButtonTitle}>Cancelar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
       </Modalize>
       <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
         <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
@@ -808,7 +813,7 @@ export default function FormFrota() {
           onCancelPressed={() => {
             hideAlertConfirm();
           }}
-          onConfirmPressed={inserirChecklist}
+          onConfirmPressed={enviarChecklistCombustao}
         />
 
         <AwesomeAlert
