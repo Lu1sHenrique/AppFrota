@@ -11,9 +11,9 @@ export default function ConsultaChecklistComb({data}){
         <TouchableOpacity 
         style={styles.buttonItemCheck}
         >
-          <Text style={styles.txtbBttonItemCheck}>{data.codigo_checklist_combustao}</Text>
-          <Text style={styles.txtbBttonItemCheck}>12/12/1999</Text>
-          <Text style={styles.txtbBttonItemCheck}>Thiago</Text>
+          <Text style={styles.txtbBttonItemCheck}>{data.codigoChecklistCombustao}</Text>
+          <Text style={styles.txtbBttonItemCheck}>{data.dataEnvio}</Text>
+          <Text style={styles.txtbBttonItemCheck}>{data.condutor}</Text>
         </TouchableOpacity>
     );
 }

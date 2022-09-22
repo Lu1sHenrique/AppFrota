@@ -153,9 +153,9 @@ export default function FormFrota() {
         showError && setShowError(false)
         setIsLoading(true)
         try { 
-        const {data} = await api.get('/departamentos')
+        const {data} = await api.get('/obterListaDepartamento')
         setIsLoading(false)
-        setDepartamentos(data)
+        setDepartamentos(data.lista)
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
@@ -169,9 +169,9 @@ export default function FormFrota() {
         showError && setShowError(false)
         setIsLoading(true)
         try { 
-        const {data} = await api.get('/condutores')
+        const {data} = await api.get('/obterListaRondante/1&"TODOS"&317&"TESTE"&"TESTE"&"TESTE"')
         setIsLoading(false)
-        setCondutores(data)
+        setCondutores(data.lista)
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
@@ -185,15 +185,44 @@ export default function FormFrota() {
         showError && setShowError(false)
         setIsLoading(true)
         try { 
-        const {data} = await api.get('/veiculos')
+        const {data} = await api.get('/obterListaVeiculo')
         setIsLoading(false)
-        setPlacas(data)
+        setPlacas(data.lista)
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
         console.log(error)
       }finally{
         setIsLoading(false)
+      }
+    }
+
+    function ChecklistCombustao(carroMaxima, carroReserva, departamento, condutor, placaVeiculo, kmInicial, kmFinal, rotaRonda1, rotaRonda2, rotaRonda3, trocaOleo, pneu, correias, fotoKmInical, fotoKmFinal) {
+      this.carroMaxima = carroMaxima;
+      this.carroReserva = carroReserva;
+      this.departamento = departamento;
+      this.condutor = condutor;
+      this.placaVeiculo = placaVeiculo;
+      this.kmInicial = kmInicial;
+      this.kmFinal = kmFinal;
+      this.rotaRonda1 = rotaRonda1;
+      this.rotaRonda2 = rotaRonda2;
+      this.rotaRonda3 = rotaRonda3;
+      this.trocaOleo = trocaOleo;
+      this.pneu = pneu;
+      this.correias = correias;
+      this.fotoKmInical = fotoKmInical;
+      this.fotoKmFinal = fotoKmFinal;
+    }
+
+    const dadosChecklistCombustao = new ChecklistCombustao(showSouNCarroMaxima, showSouNCarroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, showRota1, showRota2, showRota3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
+
+    const params = new URLSearchParams()
+    params.append(dadosChecklistCombustao, dadosChecklistCombustao)
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
     }
 
@@ -271,24 +300,7 @@ export default function FormFrota() {
         setShowAlertSuccess(false)
         setShowAlertConfirm(false)
       }else
-      await api.post('http://192.168.1.131:3000/enviarChecklistCombustao', {
-        codigo_checklist_combustao: 1,
-        carro_maxima: showSouNCarroMaxima,
-        carro_reserva: showSouNCarroReserva,
-        departamento: departamentoSelecionado,
-        condutor: condutorSelecionado,
-        placa_veiculo: placaSelecionada,
-        km_inicial: kmInicialSelecionado,
-        km_final: kmFinalSelecionado,
-        rota_ronda_1: showRota1,
-        rota_ronda_2: showRota2,
-        rota_ronda_3: showRota3,
-        troca_oleo: oleo,
-        pneu: pneu,
-        correias: correias,
-        foto_km_inicial: imageKmInicial,
-        foto_km_final: imageKmFinal
-     })
+      await api.post('/registrarChecklistCombustao', params, config)
      .then(function (response) {
       console.log(response);
       console.log(response.data)
@@ -308,6 +320,7 @@ export default function FormFrota() {
      })
      .catch(function (error) {
        console.error(error);
+       console.log(dadosChecklistCombustao)
      });
      setIsLoading(false)
    }
@@ -567,8 +580,8 @@ export default function FormFrota() {
               {
               departamentos.map(id => {
                 return <Picker.Item 
-                label={id.nome_departamento} 
-                value={id.nome_departamento} 
+                label={decodeURIComponent(id.nomeDepartamento.replaceAll('+', ' '))} 
+                value={id.nomeDepartamento} 
                 style={{
                   color: '#d21e2b',
                   fontFamily: 'BebasNeue-Regular'
@@ -607,8 +620,8 @@ export default function FormFrota() {
               {
               condutores.map(id => {
                 return <Picker.Item 
-                label={id.nome} 
-                value={id.nome} 
+                label={decodeURIComponent(id.nomeRondante.replaceAll('+', ' '))} 
+                value={id.nomeRondante} 
                 style={{
                   color: '#d21e2b',
                   fontFamily: 'BebasNeue-Regular'
@@ -647,8 +660,8 @@ export default function FormFrota() {
             {
               placas.map(id => {
                 return <Picker.Item 
-                label={id.placa_veiculo} 
-                value={id.placa_veiculo}
+                label={id.placaVeiculo.replaceAll('+', ' ')} 
+                value={id.placaVeiculo}
                 style={{
                   color: '#d21e2b',
                   fontFamily: 'BebasNeue-Regular'

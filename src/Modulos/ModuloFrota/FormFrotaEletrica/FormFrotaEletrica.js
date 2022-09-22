@@ -137,9 +137,9 @@ export default function FormFrota() {
         showError && setShowError(false)
         setIsLoading(true)
         try { 
-        const {data} = await api.get('/departamentos')
+        const {data} = await api.get('/obterListaDepartamento')
         setIsLoading(false)
-        setDepartamentos(data)
+        setDepartamentos(data.lista)
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
@@ -152,9 +152,9 @@ export default function FormFrota() {
         showError && setShowError(false)
         setIsLoading(true)
         try { 
-        const {data} = await api.get('/condutores')
+        const {data} = await api.get('/obterListaRondante/1&"TODOS"&317&"TESTE"&"TESTE"&"TESTE"')
         setIsLoading(false)
-        setCondutores(data)
+        setCondutores(data.lista)
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
@@ -167,9 +167,9 @@ export default function FormFrota() {
         showError && setShowError(false)
         setIsLoading(true)
         try { 
-        const {data} = await api.get('/veiculos')
+        const {data} = await api.get('/obterListaVeiculo')
         setIsLoading(false)
-        setPlacas(data)
+        setPlacas(data.lista)
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
@@ -474,8 +474,8 @@ export default function FormFrota() {
               {
               departamentos.map(id => {
                 return <Picker.Item 
-                label={id.nome_departamento} 
-                value={id.nome_departamento} 
+                label={decodeURIComponent(id.nomeDepartamento.replaceAll('+', ' '))} 
+                value={id.nomeDepartamento} 
                 style={{
                   color: '#d21e2b',
                   fontFamily: 'BebasNeue-Regular',
@@ -514,8 +514,8 @@ export default function FormFrota() {
               {
               condutores.map(id => {
                 return <Picker.Item 
-                label={id.nome} 
-                value={id.nome}
+                label={decodeURIComponent(id.nomeRondante.replaceAll('+', ' '))} 
+                value={id.nomeRondante}
                 style={{
                   color: '#d21e2b',
                   fontFamily: 'BebasNeue-Regular'
@@ -554,8 +554,8 @@ export default function FormFrota() {
             {
               placas.map(id => {
                 return <Picker.Item 
-                label={id.placa_veiculo} 
-                value={id.placa_veiculo}
+                label={id.placaVeiculo} 
+                value={id.placaVeiculo}
                 style={{
                   color: '#d21e2b',
                   fontFamily: 'BebasNeue-Regular',

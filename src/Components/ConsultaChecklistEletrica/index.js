@@ -11,9 +11,9 @@ export default function ConsultaChecklistEletrica({data}){
         <TouchableOpacity 
         style={styles.buttonItemCheck}
         >
-          <Text style={styles.txtbBttonItemCheck}>{data.codigo_checklist_eletrica}</Text>
-          <Text style={styles.txtbBttonItemCheck}>15/08/2022</Text>
-          <Text style={styles.txtbBttonItemCheck}>Rodrigo</Text>
+          <Text style={styles.txtbBttonItemCheck}>{data.codigoChecklistEletrica}</Text>
+          <Text style={styles.txtbBttonItemCheck}>{data.dataEnvio}</Text>
+          <Text style={styles.txtbBttonItemCheck}>{data.condutor}</Text>
         </TouchableOpacity>
     );
 }

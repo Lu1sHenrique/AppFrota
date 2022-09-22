@@ -1,6 +1,4 @@
-import React, {useState, useEffect} from 'react';
-
-
+import React, {useState} from 'react';
 import { ScrollView, 
   Text, 
   View, 
@@ -27,13 +25,8 @@ import ConsultaChecklistEletrica from '../../../Components/ConsultaChecklistElet
 
 export default function RelFrota(){
 
-  useEffect(()=>{
-    getCep();
-  },[])
-
   const navigation = useNavigation();
   
-  const [infoCep, setInfoCep] = useState([])
   const [listaChecklistComb, setListaChecklistComb] = useState([])
   const [listaChecklistEletrica, setListaChecklistEletrica] = useState([])
   const [dataInicialSelecionada, setDataInicialSelecionada] = useState("");
@@ -53,16 +46,6 @@ export default function RelFrota(){
     setShowValidacaoTipoFrota(false)
   );
 
-  const getCep = async () =>{
-    try { 
-    const {data} = await api.get('http://192.168.1.131:3000/obterVeiculos')
-    setInfoCep(data)
-  } catch(error) {
-    if (error.response) {
-    console.log({...error});
-    }}
-  };
-
   const getListaCheckList = async () =>{
     setIsLoading(true)
     if(tipoFrotaSelecionado === 0){
@@ -70,9 +53,9 @@ export default function RelFrota(){
     }else
     if(tipoFrotaSelecionado === 1){
       try { 
-        const {data} = await api.get('http://192.168.1.131:3000/obterListaChecklistCombustao')
+        const {data} = await api.get('/obterListaChecklistCombustao')
         setIsLoading(false)
-        setListaChecklistComb(data)
+        setListaChecklistComb(data.lista)
         console.log(listaChecklistComb)
       } catch(error) {
         setIsLoading(false)
@@ -82,9 +65,9 @@ export default function RelFrota(){
     }else 
     if(tipoFrotaSelecionado === 2){
       try { 
-        const {data} = await api.get('http://192.168.1.131:3000/obterListaChecklistEletrica')
+        const {data} = await api.get('/obterListaChecklistEletrica')
         setIsLoading(false)
-        setListaChecklistEletrica(data)
+        setListaChecklistEletrica(data.lista)
         console.log(listaChecklistEletrica)
       } catch(error) {
         setIsLoading(false)
@@ -125,40 +108,6 @@ export default function RelFrota(){
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
             <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: '#424242'}}>Pesquisar checklist</Text>
           </TouchableOpacity>
-        </View>
-
-        <View style={{marginTop: 20}}>
-          <Picker
-              dropdownIconColor='#fff'
-              style={{
-              backgroundColor:'#d21e2b',
-              width: '85%',
-              alignSelf: 'center',
-              color: '#fff',
-              marginTop: 5
-            }}
-            dropdownIconRippleColor='#fff'
-            >
-              <Picker.Item 
-              label='Placas' 
-              style={{
-                color: '#000',
-              }}
-              />
-              {
-              infoCep.map(id => {
-                return <Picker.Item
-                label={id.placa_veiculo.data} 
-                value={id.placa_veiculo.data} 
-                style={{
-                  color: '#d21e2b',
-                }}
-
-                key='departamento'
-                />
-              })
-            }
-          </Picker>
         </View>
 
         <View style={{marginTop: 10}}>
@@ -239,9 +188,9 @@ export default function RelFrota(){
         {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
         <>
 
-        <View style={{flexDirection: 'row', justifyContent: 'space-around', width:'90%'}}>   
+        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>   
           <Text style={{color: '#000'}}>Código</Text>
-          <Text style={{color: '#000'}}>Data envio</Text>  
+          <Text style={{color: '#000'}}>Data e hora envio</Text>  
           <Text style={{color: '#000'}}>Condutor</Text>
         </View>
 
