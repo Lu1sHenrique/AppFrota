@@ -2,8 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
     container:{
-    flex: 1,
-    margin: 50
+    flex: 1
   },
 
   icon:{
@@ -236,11 +235,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     marginTop: 10,
-  },
-
-  icon:{
-    marginHorizontal: 10,
-    marginTop: 10
   },
 
   textConfig:{

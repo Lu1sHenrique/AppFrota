@@ -10,6 +10,7 @@ export default function ConsultaChecklistComb({data}){
     return(
         <TouchableOpacity 
         style={styles.buttonItemCheck}
+        onPress={() => navigation.navigate('DetalheChecklist', {paramKey:data})}
         >
           <Text style={styles.txtbBttonItemCheck}>{data.codigoChecklistCombustao}</Text>
           <Text style={styles.txtbBttonItemCheck}>{data.dataEnvio}</Text>

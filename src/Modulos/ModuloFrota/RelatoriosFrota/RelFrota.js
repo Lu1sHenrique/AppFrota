@@ -79,8 +79,10 @@ export default function RelFrota(){
   };
   
     return(
-      <ScrollView refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#d21e2b']}/>
+      <ScrollView 
+      style={styles.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh ={onRefresh} colors={['#d21e2b']}/>
       }>
        <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
         <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
@@ -178,7 +180,7 @@ export default function RelFrota(){
         </View>       
 
         <TouchableOpacity
-        onPress={getListaCheckList}
+        onPress={() => navigation.navigate('DetalheChecklist')}
         style={styles.buttonBuscar}
         >
           <IconFeather style={{marginRight: 15}} name="search" size={25} color="#fff"/>

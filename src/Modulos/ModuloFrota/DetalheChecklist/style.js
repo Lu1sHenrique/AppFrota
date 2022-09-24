@@ -2,7 +2,8 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
     container:{
-    flex: 1
+    flex: 1,
+    margin: 50
   },
 
   icon:{
@@ -230,6 +231,35 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontFamily: 'BebasNeue-Regular'
   },
+
+  textHeader:{
+    position: 'absolute',
+    alignSelf: 'center',
+    marginTop: 10,
+  },
+
+  textConfig:{
+      fontSize: 20,
+      color: "#000"
+  },
+
+  buttonBuscar:{
+  flexDirection: 'row', 
+  width: '85%', 
+  borderWidth: 1, 
+  justifyContent: 'center',
+  marginVertical: 10,
+  alignSelf: 'center',
+  height: 50,
+  borderColor: "#d21e2b",
+  fontFamily: 'BebasNeue-Regular',
+  alignItems: 'center',
+  backgroundColor: "#d21e2b"
+}
+
 })
 
 export default styles;
+
+
+
