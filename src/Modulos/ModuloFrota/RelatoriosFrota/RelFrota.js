@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { ScrollView, 
   Text, 
   View, 
@@ -17,13 +17,28 @@ import { useNavigation } from '@react-navigation/native'
 import api from '../../../services/api'
 import {Picker} from '@react-native-picker/picker'
 import AwesomeAlert from 'react-native-awesome-alerts';
+import {useNetInfo} from "@react-native-community/netinfo";
 //pages
 import styles from './style'
-import ConsultaChecklistComb from '../../../Components/ConsultaChecklistComb/index'
-import ConsultaChecklistEletrica from '../../../Components/ConsultaChecklistEletrica/index'
-
+import ConsultaChecklistComb from '../../../Components/ConsultaChecklistComb/ConsultaChecklistComb'
+import ConsultaChecklistEletrica from '../../../Components/ConsultaChecklistEletrica/ConsultaChecklistEletrica'
+import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
+import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 
 export default function RelFrota(){
+
+  const netInfo = useNetInfo();
+
+  const [showErrorNetWork, setShowErrorNetWork] = useState(false)
+
+  useEffect(()=>{
+    setShowErrorNetWork(false)
+    if (netInfo.isConnected) {
+      setShowErrorNetWork(false)
+    } else {
+      setShowErrorNetWork(true)
+    }
+  },[netInfo])
 
   const navigation = useNavigation();
   
@@ -34,6 +49,9 @@ export default function RelFrota(){
   const [isLoading, setIsLoading] = useState(false);
   const [tipoFrotaSelecionado, setTipoFrotaSelecionado] = useState(0);
   const [showValidacaoTipoFrota, setShowValidacaoTipoFrota] = useState(false)
+  const [showErroConec, setShowErroConec] = useState(false)
+  const [showError, setShowError] = useState(false);
+  const [showAlertConfirm, setShowAlertConfirm] = useState(false)
   // refresh control
   const [refreshing, setRefreshing] = useState(false)
 
@@ -46,8 +64,21 @@ export default function RelFrota(){
     setShowValidacaoTipoFrota(false)
   );
 
+  const hideErroConec = () => (
+    setShowErroConec(false)
+  );
+
   const getListaCheckList = async () =>{
+    showError && setShowError(false)
     setIsLoading(true)
+    if(showErrorNetWork == true){
+      setShowErroConec(true)
+      setShowAlertConfirm(false)
+    }else
+    if(showError == true){
+      setShowErroConec(true)
+      setShowAlertConfirm(false)
+    }else
     if(tipoFrotaSelecionado === 0){
       setShowValidacaoTipoFrota(true)
     }else
@@ -59,6 +90,7 @@ export default function RelFrota(){
         console.log(listaChecklistComb)
       } catch(error) {
         setIsLoading(false)
+        setShowError(true)
         if (error.response) {
         console.log({...error});
         }}
@@ -71,6 +103,7 @@ export default function RelFrota(){
         console.log(listaChecklistEletrica)
       } catch(error) {
         setIsLoading(false)
+        setShowError(true)
         if (error.response) {
         console.log({...error});
         }}
@@ -111,6 +144,10 @@ export default function RelFrota(){
             <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: '#424242'}}>Pesquisar checklist</Text>
           </TouchableOpacity>
         </View>
+
+        <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
+
+        <ModalErro showError={showError} />
 
         <View style={{marginTop: 10}}>
           <Picker
@@ -227,7 +264,26 @@ export default function RelFrota(){
           onConfirmPressed={() => {
             hideAlertValidacaoTipoFrota();
           }}
-        />  
+        /> 
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showErroConec}
+          showProgress={false}
+          message="Erro de conexão"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideErroConec();
+          }}
+        /> 
       </ScrollView>
     )
 }

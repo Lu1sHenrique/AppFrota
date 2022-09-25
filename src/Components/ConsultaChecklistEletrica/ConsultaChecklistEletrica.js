@@ -10,10 +10,11 @@ export default function ConsultaChecklistEletrica({data}){
     return(
         <TouchableOpacity 
         style={styles.buttonItemCheck}
+        onPress={() => navigation.navigate('DetalheChecklist', {paramKey:data})}
         >
           <Text style={styles.txtbBttonItemCheck}>{data.codigoChecklistEletrica}</Text>
           <Text style={styles.txtbBttonItemCheck}>{data.dataEnvio}</Text>
-          <Text style={styles.txtbBttonItemCheck}>{data.condutor}</Text>
+          <Text style={styles.txtbBttonItemCheck}>{decodeURIComponent(data.condutor.replaceAll('+', ' '))}</Text>
         </TouchableOpacity>
     );
 }

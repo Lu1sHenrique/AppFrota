@@ -217,15 +217,6 @@ export default function FormFrota() {
 
     const dadosChecklistCombustao = new ChecklistCombustao(showSouNCarroMaxima, showSouNCarroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, showRota1, showRota2, showRota3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
 
-    const params = new URLSearchParams()
-    params.append(dadosChecklistCombustao, dadosChecklistCombustao)
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    }
-
     const enviarChecklistCombustao = async () =>{
       if(carroMaxima == true){
         setShowSouNCarroMaxima("S")
@@ -300,7 +291,9 @@ export default function FormFrota() {
         setShowAlertSuccess(false)
         setShowAlertConfirm(false)
       }else
-      await api.post('/registrarChecklistCombustao', params, config)
+      await api.post('/registrarChecklistCombustao',
+        dadosChecklistCombustao
+      )
      .then(function (response) {
       console.log(response);
       console.log(response.data)
