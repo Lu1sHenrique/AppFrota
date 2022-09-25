@@ -180,7 +180,7 @@ export default function RelFrota(){
         </View>       
 
         <TouchableOpacity
-        onPress={() => navigation.navigate('DetalheChecklist')}
+        onPress={getListaCheckList}
         style={styles.buttonBuscar}
         >
           <IconFeather style={{marginRight: 15}} name="search" size={25} color="#fff"/>

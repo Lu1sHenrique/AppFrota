@@ -111,11 +111,11 @@ export default function DetalheChecklist(){
       </Animatable.View>
 
       {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
-        <>
+        <View>
         <View style={styles.ContainerButtonBack}> 
           <TouchableOpacity
             style={styles.ButtonBack}
-            onPress={() => navigation.navigate('HomeFrota')}
+            onPress={() => navigation.goBack()}
             >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
             <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: '#424242'}}>Detalhes checklist</Text>
@@ -125,7 +125,100 @@ export default function DetalheChecklist(){
         <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
 
         <ModalErro showError={showError} />
-        </>
+
+        <View style={{flexDirection: 'row', marginVertical: 15}}>
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Código checklist: <Text style={styles.txtValue}>1</Text></Text>
+          </View>
+
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Data envio: <Text style={styles.txtValue}>22/09/2022</Text></Text>
+          </View>
+
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Hora envio: <Text style={styles.txtValue}>16:32</Text></Text>
+          </View>
+        </View>
+
+        <View style={{flexDirection: 'row', marginVertical: 15}}>
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Carro Máxima: <Text style={styles.txtValue}>Sim</Text></Text>
+          </View>
+
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Carro Reserva: <Text style={styles.txtValue}>Não</Text></Text>
+          </View>
+
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Departamento: <Text style={styles.txtValue}>Financeiro</Text></Text>
+          </View>
+        </View>
+
+        <View style={{flexDirection: 'row', marginVertical: 15}}>
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Condutor: <Text style={styles.txtValue}>rodrigo</Text></Text>
+          </View>
+
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Placa do veículo: <Text style={styles.txtValue}>ghg8565</Text></Text>
+          </View>
+        </View>
+
+        <View style={{flexDirection: 'row', marginVertical: 15}}>
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>KM Inicial: <Text style={styles.txtValue}>6000</Text></Text>
+          </View>
+          
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>KM Final: <Text style={styles.txtValue}>6200</Text></Text>
+          </View>
+        </View>
+
+        <View style={{flexDirection: 'row', marginVertical: 15}}>
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Rota ronda 1: <Text style={styles.txtValue}>sim</Text></Text>
+          </View>
+
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Rota ronda 2: <Text style={styles.txtValue}>não</Text></Text>
+          </View>
+
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Rota ronda 3: <Text style={styles.txtValue}>não</Text></Text>
+          </View>
+        </View>
+
+        <View style={{flexDirection: 'row', marginVertical: 15}}>
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Troca óleo: <Text style={styles.txtValue}></Text></Text>
+          </View>
+
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Pneu: <Text style={styles.txtValue}></Text></Text>
+          </View>
+
+          <View style={{marginTop: 15}}>
+            <Text style={styles.txtLabel}>Correias: <Text style={styles.txtValue}></Text></Text>
+          </View>
+        </View>
+
+        <View style={{flexDirection: 'row', marginStart: 15}}>
+          <View style={{flexDirection: 'row', marginVertical: 15, marginRight: 20}}>
+              <TouchableOpacity style={styles.buttonDown}>
+                <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
+                <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Km Inicial</Text>
+              </TouchableOpacity>
+          </View>
+
+          <View style={{marginTop: 15}}>
+            <TouchableOpacity style={styles.buttonDown}>
+              <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
+              <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Km Final</Text>
+            </TouchableOpacity>
+          </View> 
+        </View> 
+
+        </View>
         )}
       </View>
 )
