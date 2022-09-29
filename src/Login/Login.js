@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   Text,
   View,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
   Image,
   ImageBackground
 } from 'react-native';
@@ -13,33 +14,61 @@ import {
 //libs
 import * as Animatable from 'react-native-animatable'
 import Icon from 'react-native-vector-icons/Feather';
+import { StackActions, NavigationAction } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //pages
 import styles from './style'
 import {AuthContext} from '../Contexts/Auth'
+import api from '../services/api'
 
-export default function Login(){
+export default function Login(props){
 
   const [hidePass, setHidePass] = useState(true);
 
   //consts do context api
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
-  const [login, setLogin] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   //consts do modal de erro login
   const [display, setDisplay] = useState('none') 
 
+  //context api
   const { logar } = useContext(AuthContext);
 
-  //function logar
-  async function HandleLogar(){
-    logar(usuario, password)
-    if(usuario === "" || password === ""){
-      setDisplay('flex')
-    }else{
-      setDisplay('none')
-    }
+  async function saveUser(user) {
+    await AsyncStorage.setItem('@ListApp:userToken', JSON.stringify(user))
   }
+
+  //function logar
+  const HandleLogar = async () =>{
+    logar(usuario, password)
+    if (username.length === 0) return
+    setIsLoading(true)
+  try{ 
+    const {data} = await api.get('/processarLoginMobileV3/'+usuario+'&'+password+'&01311001-3955-421b-81cb-af08f5cb1031&00000')
+    
+
+    const user = data.passaport
+
+    await saveUser(user)
+
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'HomeModulos' })],
+    })
+
+    setIsLoading(false)
+
+    props.navigation.dispatch(resetAction)
+  } 
+  catch(error) {
+    console.log(error)
+    setIsLoading(false)
+    setDisplay('flex')
+  }
+}
+
 //function fechar modal erro login
   function fecharDisplayBadLogin(){
     setDisplay('none')
@@ -51,6 +80,7 @@ export default function Login(){
     style={styles.container}
     keyboardVerticalOffset={-90}
     >
+      {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
       <ImageBackground 
       source={require('../assets/fundo_vermelho.png')}
       style={{flex: 1 }}>
@@ -95,7 +125,13 @@ export default function Login(){
           style={styles.button}
           onPress={HandleLogar}
           >
-            <Text style={styles.buttonText}>Acessar</Text>
+            {
+              isLoading ? (
+                <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/>
+              ) : (
+                <Text style={styles.buttonText}>Acessar</Text>
+              )
+            }
           </TouchableOpacity>
           {/*texto versão*/}
           <View style={styles.containerVersao}>
@@ -103,6 +139,7 @@ export default function Login(){
           </View>
         </Animatable.View>
       </ImageBackground>
+      )}
         {/*modal erro bad login*/}
         <View
             style={[(styles.modal(display))]}>
