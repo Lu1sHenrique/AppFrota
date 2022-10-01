@@ -5,13 +5,15 @@ import {
 
 import Lottie from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native'
 
 export default function BemVindo(props) {
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function handleUserNextScreen() {
       const userToken = await AsyncStorage.getItem('@ListApp:userToken');
-
       props.navigation.navigate(userToken ? 'HomeModulos' : 'Login');
     }
 

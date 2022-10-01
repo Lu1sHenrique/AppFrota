@@ -14,7 +14,7 @@ import {
 //libs
 import * as Animatable from 'react-native-animatable'
 import Icon from 'react-native-vector-icons/Feather';
-import { StackActions, NavigationAction } from '@react-navigation/native';
+import { StackActions, NavigationActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //pages
 import styles from './style'
@@ -42,31 +42,40 @@ export default function Login(props){
 
   //function logar
   const HandleLogar = async () =>{
-    logar(usuario, password)
-    if (username.length === 0) return
+    logar(usuario)
     setIsLoading(true)
-  try{ 
-    const {data} = await api.get('/processarLoginMobileV3/'+usuario+'&'+password+'&01311001-3955-421b-81cb-af08f5cb1031&00000')
+    if (!usuario.length && !password.length){
+      setDisplay("flex")
+      setIsLoading(false)
+    }else{
+      try{ 
+        const {data} = await api.get('/processarLoginMobileV3/'+usuario+'&'+password+'&01311001-3955-421b-81cb-af08f5cb1031&00000')
+        
+        console.log(data)
+        if(data.operacaoExecutada === "N"){
+          setDisplay("flex")
+        }else{
+
+          const user = data.passaport
     
-
-    const user = data.passaport
-
-    await saveUser(user)
-
-    const resetAction = StackActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'HomeModulos' })],
-    })
-
-    setIsLoading(false)
-
-    props.navigation.dispatch(resetAction)
-  } 
-  catch(error) {
-    console.log(error)
-    setIsLoading(false)
-    setDisplay('flex')
-  }
+          await saveUser(user)
+      
+          const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: 'HomeModulos' })],
+          })
+          
+          setIsLoading(false)
+      
+          props.navigation.dispatch(resetAction)
+        }
+      } 
+      catch(error) {
+        console.log(error)
+        setIsLoading(false)
+        setDisplay('flex')
+      }
+    }
 }
 
 //function fechar modal erro login
@@ -80,7 +89,6 @@ export default function Login(props){
     style={styles.container}
     keyboardVerticalOffset={-90}
     >
-      {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
       <ImageBackground 
       source={require('../assets/fundo_vermelho.png')}
       style={{flex: 1 }}>
@@ -139,7 +147,6 @@ export default function Login(props){
           </View>
         </Animatable.View>
       </ImageBackground>
-      )}
         {/*modal erro bad login*/}
         <View
             style={[(styles.modal(display))]}>
