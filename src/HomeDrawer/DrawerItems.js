@@ -14,16 +14,18 @@ import styles from './style'
 import * as Animatable from 'react-native-animatable'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import AwesomeAlert from 'react-native-awesome-alerts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function DrawerItems() {
 
-  const logout = (navigation) =>{
-    navigation.reset({
-      index: 0,
-      routes: [{name: "Login"}]
-    })
-    navigation.dispatch(DrawerActions.closeDrawer())
+  logout = async (navigation) =>{
+      await AsyncStorage.removeItem('@ListApp:userToken')
+      navigation.reset({
+        index: 0,
+        routes: [{name: "Login"}]
+      })
+      navigation.dispatch(DrawerActions.closeDrawer())
 }
 
   const showAlert = () =>

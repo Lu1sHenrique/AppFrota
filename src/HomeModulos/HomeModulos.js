@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native'
 import {AuthContext} from '../Contexts/Auth'
 import {useNetInfo} from "@react-native-community/netinfo";
 import ModalErroNetwok from '../Components/Modal/ModalErroNetwork/ModalErroNetwork'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //pages
 import styles from './style'
@@ -21,6 +22,8 @@ import styles from './style'
 export default function HomeModulos() {
 
   const netInfo = useNetInfo();
+
+  const [userName, setUserName] = useState("")
 
   const [showErrorNetWork, setShowErrorNetWork] = useState(false)
 
@@ -32,6 +35,15 @@ export default function HomeModulos() {
       setShowErrorNetWork(true)
     }
   }, [netInfo]);
+
+  useEffect(() => {
+    async function handleUserNextScreen() {
+      const userName = await AsyncStorage.getItem('@ListApp:userName');
+      userName ? setUserName(userName.replaceAll('"', '')) : null
+    }
+
+    handleUserNextScreen();
+  }, []);
 
   const showAlert = () =>
   Alert.alert(
@@ -67,7 +79,7 @@ export default function HomeModulos() {
         <Animatable.View animation="fadeInDown" style={styles.containerNomeHeader}>
           <View style={{width: '100%'}}>
             <Text style={styles.textOla}>Seja bem vindo,</Text>
-            <Text style={styles.textBold}>{user.usuario}</Text>
+            <Text style={styles.textBold}>{user.usuario ? user.usuario : userName}</Text>
           </View>
         </Animatable.View>
         {/*botoes modulos*/}

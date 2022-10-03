@@ -196,8 +196,8 @@ export default function FormFrota() {
         setIsLoading(false)
       }
     }
-
-    function ChecklistCombustao(carroMaxima, carroReserva, departamento, condutor, placaVeiculo, kmInicial, kmFinal, rotaRonda1, rotaRonda2, rotaRonda3, trocaOleo, pneu, correias, fotoKmInical, fotoKmFinal) {
+    class ChecklistCombustao {
+    constructor(carroMaxima, carroReserva, departamento, condutor, placaVeiculo, kmInicial, kmFinal, rotaRonda1, rotaRonda2, rotaRonda3, trocaOleo, pneu, correias, fotoKmInical, fotoKmFinal) {
       this.carroMaxima = carroMaxima;
       this.carroReserva = carroReserva;
       this.departamento = departamento;
@@ -214,8 +214,20 @@ export default function FormFrota() {
       this.fotoKmInical = fotoKmInical;
       this.fotoKmFinal = fotoKmFinal;
     }
+  }
 
     const dadosChecklistCombustao = new ChecklistCombustao(showSouNCarroMaxima, showSouNCarroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, showRota1, showRota2, showRota3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
+
+    const data = Object.keys(dadosChecklistCombustao)
+    .map((key) => `${key}=${encodeURIComponent(dadosChecklistCombustao[key])}`)
+    .join('&');
+
+    const options = {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      data: data,
+      url: 'http://192.168.1.131:8082/maxima-mobile-rest/facadeTecV3/registrarChecklistCombustao',
+    };
 
     const enviarChecklistCombustao = async () =>{
       if(carroMaxima == true){
@@ -291,8 +303,9 @@ export default function FormFrota() {
         setShowAlertSuccess(false)
         setShowAlertConfirm(false)
       }else
-      await api.post('/registrarChecklistCombustao',
-        dadosChecklistCombustao
+      console.log(data)
+      await api.post('/registrarChecklistCombustao', 
+      data
       )
      .then(function (response) {
       console.log(response);
@@ -313,7 +326,6 @@ export default function FormFrota() {
      })
      .catch(function (error) {
        console.error(error);
-       console.log(dadosChecklistCombustao)
      });
      setIsLoading(false)
    }

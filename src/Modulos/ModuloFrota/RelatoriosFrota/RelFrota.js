@@ -87,7 +87,6 @@ export default function RelFrota(){
         const {data} = await api.get('/obterListaChecklistCombustao')
         setIsLoading(false)
         setListaChecklistComb(data.lista)
-        console.log(listaChecklistComb)
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
@@ -100,7 +99,6 @@ export default function RelFrota(){
         const {data} = await api.get('/obterListaChecklistEletrica')
         setIsLoading(false)
         setListaChecklistEletrica(data.lista)
-        console.log(listaChecklistEletrica)
       } catch(error) {
         setIsLoading(false)
         setShowError(true)

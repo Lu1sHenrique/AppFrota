@@ -14,8 +14,9 @@ import {
 //libs
 import * as Animatable from 'react-native-animatable'
 import Icon from 'react-native-vector-icons/Feather';
-import { StackActions, NavigationActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native'
+import AwesomeAlert from 'react-native-awesome-alerts';
 //pages
 import styles from './style'
 import {AuthContext} from '../Contexts/Auth'
@@ -30,57 +31,64 @@ export default function Login(props){
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  //consts do modal de erro login
-  const [display, setDisplay] = useState('none') 
+  const [showAlertErro, setShowAlertErro] = useState(false)
+  const [msgErro, setMsgErro] = useState("")
+
+  const hideAlertErro = () => (
+    setShowAlertErro(false)
+  );
 
   //context api
   const { logar } = useContext(AuthContext);
 
-  async function saveUser(user) {
+  async function saveUserToken(user) {
     await AsyncStorage.setItem('@ListApp:userToken', JSON.stringify(user))
   }
 
+  async function saveUserName(userName) {
+    await AsyncStorage.setItem('@ListApp:userName', JSON.stringify(userName))
+  }
+
+  const navigation = useNavigation();
+
   //function logar
-  const HandleLogar = async () =>{
-    logar(usuario)
+  async function HandleLogar(){
     setIsLoading(true)
-    if (!usuario.length && !password.length){
-      setDisplay("flex")
+    if (!usuario.length || !password.length){
+      setShowAlertErro(true)
       setIsLoading(false)
     }else{
-      try{ 
+      try{
         const {data} = await api.get('/processarLoginMobileV3/'+usuario+'&'+password+'&01311001-3955-421b-81cb-af08f5cb1031&00000')
-        
-        console.log(data)
-        if(data.operacaoExecutada === "N"){
-          setDisplay("flex")
-        }else{
-
+        if(data.operacaoExecutada == "N"){
+          setShowAlertErro(true)
+          setIsLoading(false)
+          if(data.mensagemErro.length>0){
+            setMsgErro(data.mensagemErro)
+            setShowAlertErro(true)
+          }
+        }else if(!data.passaport == ""){
+          logar(usuario)
           const user = data.passaport
-    
-          await saveUser(user)
+          const userName = usuario
+
+          await saveUserToken(user)
+          await saveUserName(userName)
       
-          const resetAction = StackActions.reset({
+          setIsLoading(false)
+
+          navigation.reset({
             index: 0,
-            actions: [NavigationActions.navigate({ routeName: 'HomeModulos' })],
+            routes: [{name: "HomeModulos"}]
           })
           
-          setIsLoading(false)
-      
-          props.navigation.dispatch(resetAction)
         }
-      } 
-      catch(error) {
-        console.log(error)
+      }catch(error){
         setIsLoading(false)
-        setDisplay('flex')
+        setMsgErro("Erro ao realizar login: "+error)
+        setShowAlertErro(true)
       }
     }
-}
-
-//function fechar modal erro login
-  function fecharDisplayBadLogin(){
-    setDisplay('none')
   }
 
   return (
@@ -146,21 +154,26 @@ export default function Login(props){
             <Text style={styles.textversao}>Versão 1.0.0</Text>
           </View>
         </Animatable.View>
-      </ImageBackground>
-        {/*modal erro bad login*/}
-        <View
-            style={[(styles.modal(display))]}>
-          <View style={styles.containerAvisoModalBadLogin}>
-            <Text style={styles.textAvisoModalBadLogin}>Aviso</Text>
-          </View>
-            <Text style={styles.textModalBadLogin}>Usuário ou senha inválida</Text>
-            <TouchableOpacity
-            onPress={fecharDisplayBadLogin}
-            style={styles.buttonOkModalBadLogin}
-            >
-                <Text style={styles.txtOkButton}>OK</Text>
-            </TouchableOpacity>
-        </View>  
+      </ImageBackground> 
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showAlertErro}
+          showProgress={false}
+          message={msgErro}
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertErro();
+          }}
+        />
     </KeyboardAvoidingView>
   );
 };

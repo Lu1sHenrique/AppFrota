@@ -98,57 +98,30 @@ const styles = StyleSheet.create({
     fontFamily: 'BebasNeue-Regular'
   },
 
-  modal:(text='none')=>({
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginHorizontal: 15,
+  containerAlert:{
+    width: "80%",
+    borderRadius: 15
+  },
+
+   txtTitleAlert:{
+    fontSize: 25,
+    color: "#d21e2b",
+    textAlign: 'center',
+    fontFamily: 'BebasNeue-Regular'
+  },
+
+  ButtonAlert:{
+    width: "35%",
+    marginHorizontal: 13,
+    paddingVertical: 15
+  },
+
+  txtButtonAlert:{
+    fontSize: 20,
     alignSelf: 'center',
-    width: '80%',
-    height: 160,
-    position: 'absolute',
-    marginVertical: 325,
-    display: text
-  }),
-
-  containerAvisoModalBadLogin:{
-    borderBottomWidth: 1,
-    width: "85%",
-    alignItems: 'center',
-    marginTop: 10,
-    paddingVertical: 8
-  },
-
-  textAvisoModalBadLogin:{
-    fontFamily: 'BebasNeue-Regular',
-    color: '#000',
-    fontSize: 22,
-  },
-
-  textModalBadLogin:{
-    color: '#000',
-    fontSize: 22,
-    paddingVertical: 8,
-    marginTop: 7,
-    fontFamily: 'BebasNeue-Regular'
-  },
-
-  buttonOkModalBadLogin:{
-    width: '60%',
-    height: '20%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#000',
-    borderRadius: 20,
-    marginTop: 5
-  },
-
-  txtOkButton:{
     color: '#fff',
-    fontSize: 22,
     fontFamily: 'BebasNeue-Regular'
-  }
+  },
 
 })
 
