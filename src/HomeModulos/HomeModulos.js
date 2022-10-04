@@ -45,6 +45,7 @@ export default function HomeModulos() {
     handleUserNextScreen();
   }, []);
 
+
   const showAlert = () =>
   Alert.alert(
     "Módulo disponível em breve!"

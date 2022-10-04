@@ -6,6 +6,7 @@ import {
 import Lottie from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native'
+import TouchID from 'react-native-touch-id';
 
 export default function BemVindo(props) {
 
@@ -14,11 +15,35 @@ export default function BemVindo(props) {
   useEffect(() => {
     async function handleUserNextScreen() {
       const userToken = await AsyncStorage.getItem('@ListApp:userToken');
-      props.navigation.navigate(userToken ? 'HomeModulos' : 'Login');
+      userToken 
+      ? 
+      biometria()
+      : 
+      null
     }
 
     handleUserNextScreen();
   }, []);
+
+  function biometria(){
+    const configs = {
+      title: "Autenticação requerida",
+      color: "#d21e2b",
+      sensorErrorDescription: 'Biometria inválida',
+      sensorDescription: 'Toque no sensor',
+      cancelText: 'Cancelar',
+      imageErrorColor: "#d21e2b"
+    };
+    TouchID.authenticate("Verificação de login", configs)
+    .then((success)=>{
+      console.log("sucesso na autenticação")
+      props.navigation.navigate('HomeModulos');
+    })
+    .catch((error) =>{
+      console.log("falha na autenticação" +error)
+      props.navigation.navigate('Login');
+    })  
+  }
 
   return (
       <View style={{flex: 1, justifyContent: "center", alignItems:'center'}}>

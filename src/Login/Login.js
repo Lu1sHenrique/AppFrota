@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   Text,
   View,
@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native'
 import AwesomeAlert from 'react-native-awesome-alerts';
+import TouchID from 'react-native-touch-id';
 //pages
 import styles from './style'
 import {AuthContext} from '../Contexts/Auth'
@@ -24,7 +25,21 @@ import api from '../services/api'
 
 export default function Login(props){
 
+  useEffect(() => {
+    TouchID.isSupported()
+    .then(success =>{
+      setSupportedTouchID(true)
+    })
+    .catch((error) =>{
+      console.log("erro touch" + error)
+      setShowAlertErro(true)
+      setMsgErro("Touch ID não suportado/habilitado")
+    })
+  }, []);
+
   const [hidePass, setHidePass] = useState(true);
+  
+  const [supportedTouchID, setSupportedTouchID] = useState(null);
 
   //consts do context api
   const [usuario, setUsuario] = useState("");
@@ -49,6 +64,10 @@ export default function Login(props){
     await AsyncStorage.setItem('@ListApp:userName', JSON.stringify(userName))
   }
 
+  async function saveUserCode(userCode) {
+    await AsyncStorage.setItem('@ListApp:userCode', JSON.stringify(userCode))
+  }
+
   const navigation = useNavigation();
 
   //function logar
@@ -56,6 +75,7 @@ export default function Login(props){
     setIsLoading(true)
     if (!usuario.length || !password.length){
       setShowAlertErro(true)
+      setMsgErro("Login ou Senha invalidos !")
       setIsLoading(false)
     }else{
       try{
@@ -71,9 +91,11 @@ export default function Login(props){
           logar(usuario)
           const user = data.passaport
           const userName = usuario
+          const userCode = data.codigoUsuario
 
           await saveUserToken(user)
           await saveUserName(userName)
+          await saveUserCode(userCode)
       
           setIsLoading(false)
 
@@ -81,7 +103,6 @@ export default function Login(props){
             index: 0,
             routes: [{name: "HomeModulos"}]
           })
-          
         }
       }catch(error){
         setIsLoading(false)

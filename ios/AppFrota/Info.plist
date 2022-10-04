@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Permissão para ativar o Face ID para acesso rápido e seguro</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Permissão para acessar sua galeria</string>
 	<key>NSCameraUsageDescription</key>

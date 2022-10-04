@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 
   DrawerItem:{
     paddingLeft: 55,
-    marginVertical: 6,
+    marginTop: 15,
     paddingVertical: 10
   },
 
@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
-    backgroundColor: '#9E161F'
+    backgroundColor: '#9E161F',
+    borderWidth: 1
   },
 
   ButtonFooter:{
@@ -75,8 +76,7 @@ const styles = StyleSheet.create({
   RowFooter:{
     flexDirection: 'row', 
     justifyContent: 'center', 
-    marginTop: '2%',
-    paddingBottom: 20
+    marginTop: '2%'
   },
 
   containerAlert:{
