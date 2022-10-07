@@ -37,12 +37,12 @@ export default function HomeModulos() {
   }, [netInfo]);
 
   useEffect(() => {
-    async function handleUserNextScreen() {
+    async function buscarUserNameAsyncStorage() {
       const userName = await AsyncStorage.getItem('@ListApp:userName');
       userName ? setUserName(userName.replaceAll('"', '')) : null
     }
 
-    handleUserNextScreen();
+    buscarUserNameAsyncStorage();
   }, []);
 
 

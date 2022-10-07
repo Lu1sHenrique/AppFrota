@@ -13,7 +13,7 @@ export default function BemVindo(props) {
   const navigation = useNavigation();
 
   useEffect(() => {
-    async function handleUserNextScreen() {
+    async function buscarTokenAsyncStorage() {
       const userToken = await AsyncStorage.getItem('@ListApp:userToken');
       userToken 
       ? 
@@ -22,7 +22,7 @@ export default function BemVindo(props) {
       null
     }
 
-    handleUserNextScreen();
+    buscarTokenAsyncStorage();
   }, []);
 
   function biometria(){
@@ -36,11 +36,11 @@ export default function BemVindo(props) {
     };
     TouchID.authenticate("Verificação de login", configs)
     .then((success)=>{
-      console.log("sucesso na autenticação")
+      console.log("Sucesso na autenticação")
       props.navigation.navigate('HomeModulos');
     })
     .catch((error) =>{
-      console.log("falha na autenticação" +error)
+      console.log("Falha na autenticação "+error)
       props.navigation.navigate('Login');
     })  
   }

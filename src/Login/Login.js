@@ -18,12 +18,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import TouchID from 'react-native-touch-id';
+import {useNetInfo} from "@react-native-community/netinfo";
+import ModalErroNetwok from '../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 //pages
 import styles from './style'
 import {AuthContext} from '../Contexts/Auth'
 import api from '../services/api'
 
-export default function Login(props){
+export default function Login(){
+
+  const netInfo = useNetInfo();
 
   useEffect(() => {
     TouchID.isSupported()
@@ -37,9 +41,21 @@ export default function Login(props){
     })
   }, []);
 
+  useEffect(() => {
+    setShowErrorNetWork(false)
+    if (netInfo.isConnected) {
+      setShowErrorNetWork(false)
+    } else {
+      setShowErrorNetWork(true)
+    }
+  }, [netInfo]);
+
   const [hidePass, setHidePass] = useState(true);
   
   const [supportedTouchID, setSupportedTouchID] = useState(null);
+
+  const [showErrorNetWork, setShowErrorNetWork] = useState(false)
+  const [showErroConec, setShowErroConec] = useState(false)
 
   //consts do context api
   const [usuario, setUsuario] = useState("");
@@ -51,6 +67,10 @@ export default function Login(props){
 
   const hideAlertErro = () => (
     setShowAlertErro(false)
+  );
+
+  const hideErroConec = () => (
+    setShowErroConec(false)
   );
 
   //context api
@@ -73,6 +93,10 @@ export default function Login(props){
   //function logar
   async function HandleLogar(){
     setIsLoading(true)
+    if(showErrorNetWork == true){
+      setShowErroConec(true)
+      setIsLoading(false)
+    }else
     if (!usuario.length || !password.length){
       setShowAlertErro(true)
       setMsgErro("Login ou Senha invalidos !")
@@ -126,7 +150,11 @@ export default function Login(props){
           style={{width: "100%", height: 100 }}
           />
         </Animatable.View>
+
         <Animatable.View animation="fadeInUp"  delay={500} style={styles.containerInput}>
+
+        <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
+
           <TextInput
             placeholder='Digite o usuário'
             placeholderTextColor={'#fff'}
@@ -164,7 +192,7 @@ export default function Login(props){
           >
             {
               isLoading ? (
-                <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/>
+                <ActivityIndicator style={{flex: 1, display: 'flex', paddingVertical: 10}} size="large" color='#d21e2b'/>
               ) : (
                 <Text style={styles.buttonText}>Acessar</Text>
               )
@@ -193,6 +221,25 @@ export default function Login(props){
           confirmButtonColor="#d21e2b"
           onConfirmPressed={() => {
             hideAlertErro();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showErroConec}
+          showProgress={false}
+          message="Erro de conexão"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideErroConec();
           }}
         />
     </KeyboardAvoidingView>

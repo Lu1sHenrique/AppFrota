@@ -23,6 +23,9 @@ import api from '../../../services/api'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { Modalize } from 'react-native-modalize';
 import {useNetInfo} from "@react-native-community/netinfo";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import ChecklistCombustaoEnvDTO from '../../../Envio/ChecklistCombustaoEnvDTO'
 //pages
 import styles from './style';
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
@@ -35,6 +38,9 @@ export default function FormFrota() {
 
       const [showErrorNetWork, setShowErrorNetWork] = useState(false)
 
+      //states AsyncStorage
+      const [numUserCode, setNumUserCode] = useState(0)
+
       useEffect(()=>{
         setShowErrorNetWork(false)
         if (netInfo.isConnected) {
@@ -44,12 +50,20 @@ export default function FormFrota() {
         }
       },[netInfo])
 
+      useEffect(() => {
+        async function buscarUserCodeAsyncStorage() {
+          const userCode = await AsyncStorage.getItem('@ListApp:userCode');
+          userCode ? setNumUserCode(userCode) : null
+        }
+
+        buscarUserCodeAsyncStorage();
+      }, []);
+
       useEffect(()=>{
         getDepartamentos();
         getCondutores();
         getPlacas();
       },[])
-
 
       const navigation = useNavigation();
 
@@ -168,8 +182,8 @@ export default function FormFrota() {
       const getCondutores = async () =>{
         showError && setShowError(false)
         setIsLoading(true)
-        try { 
-        const {data} = await api.get('/obterListaRondante/1&"TODOS"&317&"TESTE"&"TESTE"&"TESTE"')
+        try {
+        const {data} = await api.get('/obterListaRondante/1&"TODOS"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
         setIsLoading(false)
         setCondutores(data.lista)
       } catch(error) {
@@ -196,37 +210,17 @@ export default function FormFrota() {
         setIsLoading(false)
       }
     }
-    class ChecklistCombustao {
-    constructor(carroMaxima, carroReserva, departamento, condutor, placaVeiculo, kmInicial, kmFinal, rotaRonda1, rotaRonda2, rotaRonda3, trocaOleo, pneu, correias, fotoKmInical, fotoKmFinal) {
-      this.carroMaxima = carroMaxima;
-      this.carroReserva = carroReserva;
-      this.departamento = departamento;
-      this.condutor = condutor;
-      this.placaVeiculo = placaVeiculo;
-      this.kmInicial = kmInicial;
-      this.kmFinal = kmFinal;
-      this.rotaRonda1 = rotaRonda1;
-      this.rotaRonda2 = rotaRonda2;
-      this.rotaRonda3 = rotaRonda3;
-      this.trocaOleo = trocaOleo;
-      this.pneu = pneu;
-      this.correias = correias;
-      this.fotoKmInical = fotoKmInical;
-      this.fotoKmFinal = fotoKmFinal;
-    }
-  }
 
-    const dadosChecklistCombustao = new ChecklistCombustao(showSouNCarroMaxima, showSouNCarroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, showRota1, showRota2, showRota3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
+    const dadosChecklistCombustao = new ChecklistCombustaoEnvDTO(showSouNCarroMaxima, showSouNCarroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, showRota1, showRota2, showRota3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
 
     const data = Object.keys(dadosChecklistCombustao)
     .map((key) => `${key}=${encodeURIComponent(dadosChecklistCombustao[key])}`)
     .join('&');
 
-    const options = {
-      method: 'POST',
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      data: data,
-      url: 'http://192.168.1.131:8082/maxima-mobile-rest/facadeTecV3/registrarChecklistCombustao',
+    const config = {
+      headers: { 
+        'content-type': 'application/x-www-form-urlencoded' 
+      }
     };
 
     const enviarChecklistCombustao = async () =>{
@@ -304,10 +298,8 @@ export default function FormFrota() {
         setShowAlertConfirm(false)
       }else
       console.log(data)
-      await api.post('/registrarChecklistCombustao', 
-      data
-      )
-     .then(function (response) {
+      axios.post('/registrarChecklistCombustao', data, config)
+      .then(function (response) {
       console.log(response);
       console.log(response.data)
       setIsLoading(true)

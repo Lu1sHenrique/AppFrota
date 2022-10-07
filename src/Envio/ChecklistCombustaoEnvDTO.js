@@ -1,4 +1,5 @@
-export default function ChecklistCombustao(carroMaxima, carroReserva, departamento, condutor, placaVeiculo, kmInicial, kmFinal, rotaRonda1, rotaRonda2, rotaRonda3, trocaOleo, pneu, correias, fotoKmInical, fotoKmFinal) {
+export default class ChecklistCombustao {
+  constructor(carroMaxima, carroReserva, departamento, condutor, placaVeiculo, kmInicial, kmFinal, rotaRonda1, rotaRonda2, rotaRonda3, trocaOleo, pneu, correias, fotoKmInical, fotoKmFinal) {
     this.carroMaxima = carroMaxima;
     this.carroReserva = carroReserva;
     this.departamento = departamento;
@@ -15,3 +16,4 @@ export default function ChecklistCombustao(carroMaxima, carroReserva, departamen
     this.fotoKmInical = fotoKmInical;
     this.fotoKmFinal = fotoKmFinal;
   }
+}
