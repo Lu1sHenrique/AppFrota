@@ -8,6 +8,7 @@ import RoutesFrota from '../Modulos/ModuloFrota/RoutesFrotas/RoutesFrota'
 import FormFrotaEletrica from '../Modulos/ModuloFrota/FormFrotaEletrica/FormFrotaEletrica';
 import DetalheChecklist from '../Modulos/ModuloFrota/DetalheChecklist/DetalheChecklist';
 import Splash from '../Splash/Splash'
+import DrawerItems from '../HomeDrawer/DrawerItems';
 
 const Stack = createNativeStackNavigator();
 export default function Routes(){
@@ -32,6 +33,14 @@ export default function Routes(){
       options={{
         headerShown:false,
         gestureEnabled: false
+        }}
+      />
+
+      <Stack.Screen 
+      name="DrawerItems"
+      component={DrawerItems}
+      options={{
+        headerShown:false
         }}
       />
 

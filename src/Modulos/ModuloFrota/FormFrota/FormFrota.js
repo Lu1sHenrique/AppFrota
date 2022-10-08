@@ -24,7 +24,6 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import { Modalize } from 'react-native-modalize';
 import {useNetInfo} from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 import ChecklistCombustaoEnvDTO from '../../../Envio/ChecklistCombustaoEnvDTO'
 //pages
 import styles from './style';
@@ -211,9 +210,9 @@ export default function FormFrota() {
       }
     }
 
-    const dadosChecklistCombustao = new ChecklistCombustaoEnvDTO(showSouNCarroMaxima, showSouNCarroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, showRota1, showRota2, showRota3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
+    
 
-    const data = Object.keys(dadosChecklistCombustao)
+    /*const data = Object.keys(dadosChecklistCombustao)
     .map((key) => `${key}=${encodeURIComponent(dadosChecklistCombustao[key])}`)
     .join('&');
 
@@ -221,9 +220,14 @@ export default function FormFrota() {
       headers: { 
         'content-type': 'application/x-www-form-urlencoded' 
       }
-    };
+    };*/
+
+    
 
     const enviarChecklistCombustao = async () =>{
+      const dadosChecklistCombustao = new ChecklistCombustaoEnvDTO(showSouNCarroMaxima, showSouNCarroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, showRota1, showRota2, showRota3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
+      
+
       if(carroMaxima == true){
         setShowSouNCarroMaxima("S")
       }else{
@@ -297,11 +301,19 @@ export default function FormFrota() {
         setShowAlertSuccess(false)
         setShowAlertConfirm(false)
       }else
-      console.log(data)
-      axios.post('/registrarChecklistCombustao', data, config)
+      console.log(dadosChecklistCombustao)
+        fetch('http://192.168.0.3:8082/maxima-mobile-rest/facadeTecV3/registrarChecklistCombustao', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: JSON.stringify({
+        dadosChecklistCombustao: dadosChecklistCombustao
+      })
+      })
       .then(function (response) {
-      console.log(response);
-      console.log(response.data)
+      console.log(response)
       setIsLoading(true)
       setShowAlertConfirm(false)
       setShowAlertSuccess(true)
@@ -483,7 +495,7 @@ export default function FormFrota() {
         <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
           <Animatable.View animation="fadeInLeft" style={styles.icon}>
             <TouchableOpacity
-            onPress={ () => navigation.openDrawer()}
+            onPress={ () => navigation.navigate('DrawerItems')}
             >
               <IconFeather name="menu" size={30} color="#fff" />
             </TouchableOpacity>

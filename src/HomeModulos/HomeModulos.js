@@ -57,11 +57,11 @@ export default function HomeModulos() {
 
   return (
       <View style={styles.container}>
-        <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
+        <Animatable.View animation="fadeInDown" style={styles.containerCaixa}>
           <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
             <Animatable.View animation="fadeInLeft" style={styles.icon}>
               <TouchableOpacity
-              onPress={ () => navigation.openDrawer()}
+              onPress={ () => navigation.navigate('DrawerItems')}
               >
                 <Icon name="menu" size={30} color="#fff" />
               </TouchableOpacity>

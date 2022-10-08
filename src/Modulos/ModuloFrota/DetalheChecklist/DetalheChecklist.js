@@ -29,7 +29,7 @@ export default function DetalheChecklist({route}){
         <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
           <Animatable.View animation="fadeInLeft" style={styles.icon}>
             <TouchableOpacity
-            onPress={ () => navigation.openDrawer()}
+            onPress={ () => navigation.navigate('DrawerItems')}
             >
               <IconFeather name="menu" size={30} color="#fff" />
             </TouchableOpacity>

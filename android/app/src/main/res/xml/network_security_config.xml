@@ -10,7 +10,7 @@
         <domain includeSubdomains="true">http://127.0.0.1:3000/</domain>
         <domain includeSubdomains="true">192.168.1.131</domain>
         <domain includeSubdomains="true">192.168.0.8</domain>
-        <domain includeSubdomains="true">192.168.0.4</domain>
+        <domain includeSubdomains="true">192.168.0.3</domain>
         <domain includeSubdomains="true">192.168.1.179</domain>
         <domain includeSubdomains="true">192.168.1.172</domain>
         <base-config cleartextTrafficPermitted="true"/> 
