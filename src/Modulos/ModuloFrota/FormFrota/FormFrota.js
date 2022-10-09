@@ -97,12 +97,6 @@ export default function FormFrota() {
       const [showKmInicial, setShowKmInicial] = useState(false)
       const [showKmFinal, setShowKmFinal] = useState(false)
       const [showValidacaoKm, setShowValidacaoKm] = useState(false)
-      //states controle S ou N
-      const [showSouNCarroMaxima, setShowSouNCarroMaxima] = useState("")
-      const [showSouNCarroReserva, setShowSouNCarroReserva] = useState("")
-      const [showRota1, setShowRota1] = useState("")
-      const [showRota2, setShowRota2] = useState("")
-      const [showRota3, setShowRota3] = useState("")
       // states image
       const [imageKmInicial, setImageKmInicial] = useState("")
       const [imageKmFinal, setImageKmFinal] = useState("")
@@ -166,7 +160,7 @@ export default function FormFrota() {
         showError && setShowError(false)
         setIsLoading(true)
         try { 
-        const {data} = await api.get('/obterListaDepartamento')
+        const {data} = await api.get('/obterListaDepartamento/1&"TODOS"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
         setIsLoading(false)
         setDepartamentos(data.lista)
       } catch(error) {
@@ -198,7 +192,7 @@ export default function FormFrota() {
         showError && setShowError(false)
         setIsLoading(true)
         try { 
-        const {data} = await api.get('/obterListaVeiculo')
+        const {data} = await api.get('/obterListaVeiculo/1&"TODOS"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
         setIsLoading(false)
         setPlacas(data.lista)
       } catch(error) {
@@ -225,34 +219,8 @@ export default function FormFrota() {
     
 
     const enviarChecklistCombustao = async () =>{
-      const dadosChecklistCombustao = new ChecklistCombustaoEnvDTO(showSouNCarroMaxima, showSouNCarroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, showRota1, showRota2, showRota3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
+      const dadosChecklistCombustaoEnvDTO = new ChecklistCombustaoEnvDTO(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, ronda1, ronda2, ronda3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
       
-
-      if(carroMaxima == true){
-        setShowSouNCarroMaxima("S")
-      }else{
-        setShowSouNCarroMaxima("N")
-      }
-      if(carroReserva == true){
-        setShowSouNCarroReserva("S")
-      }else{
-        setShowSouNCarroReserva("N")
-      }
-      if(ronda1 == true){
-        setShowRota1("S")
-      }else{
-        setShowRota1("N")
-      }
-      if(ronda2 == true){
-        setShowRota2("S")
-      }else{
-        setShowRota2("N")
-      }
-      if(ronda3 == true){
-        setShowRota3("S")
-      }else{
-        setShowRota3("N")
-      }
       if(showErrorNetWork == true){
         setShowErroConec(true)
         setShowAlertConfirm(false)
@@ -302,14 +270,14 @@ export default function FormFrota() {
         setShowAlertConfirm(false)
       }else
       console.log(dadosChecklistCombustao)
-        fetch('http://192.168.0.3:8082/maxima-mobile-rest/facadeTecV3/registrarChecklistCombustao', {
+      fetch('http://192.168.0.3:8082/maxima-mobile-rest/facadeTecV3/registrarChecklistCombustao', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: JSON.stringify({
-        dadosChecklistCombustao: dadosChecklistCombustao
+        dadosChecklistCombustao: dadosChecklistCombustaoEnvDTO
       })
       })
       .then(function (response) {

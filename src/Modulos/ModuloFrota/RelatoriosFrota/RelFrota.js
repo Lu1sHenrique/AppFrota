@@ -18,6 +18,7 @@ import api from '../../../services/api'
 import {Picker} from '@react-native-picker/picker'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import {useNetInfo} from "@react-native-community/netinfo";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //pages
 import styles from './style'
 import ConsultaChecklistComb from '../../../Components/ConsultaChecklistComb/ConsultaChecklistComb'
@@ -40,6 +41,15 @@ export default function RelFrota(){
     }
   },[netInfo])
 
+  useEffect(() => {
+    async function buscarUserCodeAsyncStorage() {
+      const userCode = await AsyncStorage.getItem('@ListApp:userCode');
+      userCode ? setNumUserCode(userCode) : null
+    }
+
+    buscarUserCodeAsyncStorage();
+  }, []);
+
   const navigation = useNavigation();
   
   const [listaChecklistComb, setListaChecklistComb] = useState([])
@@ -52,6 +62,7 @@ export default function RelFrota(){
   const [showErroConec, setShowErroConec] = useState(false)
   const [showError, setShowError] = useState(false);
   const [showAlertConfirm, setShowAlertConfirm] = useState(false)
+  const [numUserCode, setNumUserCode] = useState(0)
   // refresh control
   const [refreshing, setRefreshing] = useState(false)
 
@@ -84,7 +95,7 @@ export default function RelFrota(){
     }else
     if(tipoFrotaSelecionado === 1){
       try { 
-        const {data} = await api.get('/obterListaChecklistCombustao')
+        const {data} = await api.get('/obterListaChecklistCombustao/1&"TODOS"&"teste"&"teste"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
         setIsLoading(false)
         setListaChecklistComb(data.lista)
       } catch(error) {
@@ -96,7 +107,7 @@ export default function RelFrota(){
     }else 
     if(tipoFrotaSelecionado === 2){
       try { 
-        const {data} = await api.get('/obterListaChecklistEletrica')
+        const {data} = await api.get('/obterListaChecklistEletrica/1&"TODOS"&"teste"&"teste"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
         setIsLoading(false)
         setListaChecklistEletrica(data.lista)
       } catch(error) {

@@ -22,6 +22,7 @@ import api from '../../../services/api'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { Modalize } from 'react-native-modalize';
 import {useNetInfo} from "@react-native-community/netinfo";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //pages
 import styles from './style';
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro';
@@ -47,6 +48,15 @@ export default function FormFrota() {
         getDepartamentos();
         getCondutores();
       },[])
+
+      useEffect(() => {
+        async function buscarUserCodeAsyncStorage() {
+          const userCode = await AsyncStorage.getItem('@ListApp:userCode');
+          userCode ? setNumUserCode(userCode) : null
+        }
+
+        buscarUserCodeAsyncStorage();
+      }, []);
 
       const navigation = useNavigation();
 
@@ -81,6 +91,8 @@ export default function FormFrota() {
       const [showValidacaoImageFinal, setShowValidacaoImageFinal] = useState(false)
       // refresh control
       const [refreshing, setRefreshing] = useState(false)
+
+      const [numUserCode, setNumUserCode] = useState(0)
 
       const onRefresh = () =>{
         setRefreshing(false)
@@ -137,7 +149,7 @@ export default function FormFrota() {
         showError && setShowError(false)
         setIsLoading(true)
         try { 
-        const {data} = await api.get('/obterListaDepartamento')
+        const {data} = await api.get('/obterListaDepartamento/1&"TODOS"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
         setIsLoading(false)
         setDepartamentos(data.lista)
       } catch(error) {
@@ -152,7 +164,7 @@ export default function FormFrota() {
         showError && setShowError(false)
         setIsLoading(true)
         try { 
-        const {data} = await api.get('/obterListaRondante/1&"TODOS"&317&"TESTE"&"TESTE"&"TESTE"')
+        const {data} = await api.get('/obterListaRondante/1&"TODOS"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
         setIsLoading(false)
         setCondutores(data.lista)
       } catch(error) {
@@ -167,7 +179,7 @@ export default function FormFrota() {
         showError && setShowError(false)
         setIsLoading(true)
         try { 
-        const {data} = await api.get('/obterListaVeiculo')
+        const {data} = await api.get('/obterListaVeiculo/1&"TODOS"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
         setIsLoading(false)
         setPlacas(data.lista)
       } catch(error) {

@@ -103,7 +103,7 @@ export default function Login(){
       setIsLoading(false)
     }else{
       try{
-        const {data} = await api.get('/processarLoginMobileV3/'+usuario+'&'+password+'&01311001-3955-421b-81cb-af08f5cb1031&00000')
+        const {data} = await api.get('/processarLoginMobileV3/'+usuario+'&'+password+'&01311001-3955-421b-81cb-af08f5cb1031&000000')
         if(data.operacaoExecutada == "N"){
           setShowAlertErro(true)
           setIsLoading(false)
