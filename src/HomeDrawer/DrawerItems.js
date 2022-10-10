@@ -12,7 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import styles from './style'
 import * as Animatable from 'react-native-animatable'
-import { DrawerActions, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -25,7 +25,6 @@ export default function DrawerItems() {
         index: 0,
         routes: [{name: "Login"}]
       })
-      navigation.dispatch(DrawerActions.closeDrawer())
 }
 
   const showAlert = () =>

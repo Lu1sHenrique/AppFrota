@@ -40,6 +40,21 @@ const styles = StyleSheet.create({
     width: '100%',
     fontFamily: 'BebasNeue-Regular'
   },
+
+  inputSms:{
+    borderWidth: 1,
+    height: 50,
+    borderColor: '#fff',
+    marginBottom: 12,
+    fontSize: 19,
+    borderRadius: 10,
+    paddingHorizontal: 30,
+    color: '#fff',
+    width: '100%',
+    fontFamily: 'BebasNeue-Regular',
+    marginTop: 15
+  },
+
   inputHidePass:{
     height: 50,
     marginBottom: 12,

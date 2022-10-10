@@ -60,7 +60,9 @@ export default function Login(){
   //consts do context api
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
+  const [smsCode, setSmsCode] = useState("000000");
   const [isLoading, setIsLoading] = useState(false);
+  const [showSmsCode, setShowSmsCode] = useState(false);
 
   const [showAlertErro, setShowAlertErro] = useState(false)
   const [msgErro, setMsgErro] = useState("")
@@ -103,8 +105,19 @@ export default function Login(){
       setIsLoading(false)
     }else{
       try{
-        const {data} = await api.get('/processarLoginMobileV3/'+usuario+'&'+password+'&01311001-3955-421b-81cb-af08f5cb1031&000000')
-        if(data.operacaoExecutada == "N"){
+        const {data} = await api.get('/processarLoginMobileV3/'
+        +usuario+'&'
+        +password+
+        '&teste&'
+        +smsCode+''
+        )
+        console.log(data)
+        if(data.mensagemErro == "Chave de Acesso Tecnica invalida. Aguarde Autorizacao !"){
+          setMsgErro(data.mensagemErro)
+          setShowAlertErro(true)
+          setIsLoading(false)
+          setShowSmsCode(true)
+        }else if(data.operacaoExecutada == "N"){
           setShowAlertErro(true)
           setIsLoading(false)
           if(data.mensagemErro.length>0){
@@ -198,6 +211,20 @@ export default function Login(){
               )
             }
           </TouchableOpacity>
+
+            {
+            showSmsCode ?
+            <TextInput
+            placeholder='Digite o código sms'
+            placeholderTextColor={'#fff'}
+            style={styles.inputSms}
+            onChangeText={(text)=> setSmsCode(text)}
+            autoCorrect={false}
+            keyboardType="numeric"
+            />
+            : null
+            }
+
           {/*texto versão*/}
           <View style={styles.containerVersao}>
             <Text style={styles.textversao}>Versão 1.0.0</Text>
