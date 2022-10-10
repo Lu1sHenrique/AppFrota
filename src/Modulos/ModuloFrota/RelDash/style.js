@@ -2,8 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
     container:{
-    flex: 1,
-    margin: 50
+    flex: 1
   },
 
   icon:{
@@ -52,55 +51,11 @@ const styles = StyleSheet.create({
     color: "#d21e2b"
   },
 
-  txtLabel:{
-    fontFamily: 'BebasNeue-Regular',
-    color: "#000",
-    fontSize: 25,
-    marginStart: 15,
-  },
+  Chart:{
+    width: '100%',
+    alignItems: 'center',
+  }
 
-  txtValue:{
-    fontFamily: 'BebasNeue-Regular',
-    color: "#d21e2b",
-    fontSize: 25
-  },
-
-  buttonDown:{
-  flexDirection: 'row',
-  paddingHorizontal: 7,
-  borderWidth: 1, 
-  justifyContent: 'center',
-  height: 50,
-  borderColor: "#d21e2b",
-  fontFamily: 'BebasNeue-Regular',
-  alignItems: 'center',
-  backgroundColor: "#d21e2b"
-  },
-
-  containerAlert:{
-    width: "80%",
-    borderRadius: 15
-  },
-
-   txtTitleAlert:{
-    fontSize: 25,
-    color: "#d21e2b",
-    textAlign: 'center',
-    fontFamily: 'BebasNeue-Regular'
-  },
-
-  ButtonAlert:{
-    width: "35%",
-    marginHorizontal: 13,
-    paddingVertical: 15
-  },
-
-  txtButtonAlert:{
-    fontSize: 20,
-    alignSelf: 'center',
-    color: '#fff',
-    fontFamily: 'BebasNeue-Regular'
-  },
 })
 
 export default styles;

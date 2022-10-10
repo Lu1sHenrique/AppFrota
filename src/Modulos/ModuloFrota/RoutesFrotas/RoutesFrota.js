@@ -10,6 +10,7 @@ import RelFrota from '../RelatoriosFrota/RelFrota'
 import InvFrota from '../IventarioFrota/InvFrota'
 import FormFrotaEletrica from '../FormFrotaEletrica/FormFrotaEletrica'
 import FormFrota from '../FormFrota/FormFrota'
+import RelDash from '../RelDash/RelDash'
 import Icon from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 const Bottom = createBottomTabNavigator();
@@ -68,11 +69,23 @@ export default function RoutesFrota(){
         />
 
         <Bottom.Screen 
-        name="Relatórios"
+        name="Consultar"
         component={RelFrota}
         options={{
           tabBarIcon: ({ color }) => (
-          <IconAntDesign name="linechart" color={color} size={30} />
+          <IconAntDesign name="search1" color={color} size={30} />
+          ),
+          tabBarAccessibilityLabel:"Relatório Frota",
+          
+        }}
+        />
+
+        <Bottom.Screen 
+        name="Dashboard"
+        component={RelDash}
+        options={{
+          tabBarIcon: ({ color }) => (
+          <Icon name="pie-chart" color={color} size={30} />
           ),
           tabBarAccessibilityLabel:"Relatório Frota",
           
