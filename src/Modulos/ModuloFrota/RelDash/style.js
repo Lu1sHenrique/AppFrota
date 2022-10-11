@@ -54,8 +54,20 @@ const styles = StyleSheet.create({
   Chart:{
     width: '100%',
     alignItems: 'center',
-  }
+  },
 
+  ContainerLabels:{
+    flexDirection:'row',
+    width: '100%', 
+    justifyContent: 'space-around',
+    marginBottom: 20
+  },
+
+  txtLabels:{
+    fontSize: 20, 
+    color: '#000', 
+    fontFamily: 'BebasNeue-Regular'
+  }
 })
 
 export default styles;
