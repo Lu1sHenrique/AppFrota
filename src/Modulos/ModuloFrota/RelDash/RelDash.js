@@ -13,7 +13,6 @@ import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native'
 import { 
   VictoryPie, 
-  VictoryTooltip,
   VictoryBar,
   VictoryArea,
   VictoryHistogram,
@@ -24,30 +23,31 @@ import {Picker} from '@react-native-picker/picker'
 import ModalMsgSemDash from '../../../Components/Modal/ModalMsgSemDash/ModalMsgSemDash';
 //pages
 import styles from './style'
+import PageHeader from '../../../Components/PageHeader/PageHeader'
 
 const dados=[
     {
     id: '1',
-    label: 'Km Rodados',
+    nome: 'Km Rodados',
     value: 7000,
     color: '#ff8555',
-    percent: '23%',
+    percent: '85%',
     mes: "Janeiro"
     },
     {
     id: '2',
-    label: 'Consumo gasolina',
+    nome: 'Consumo gasolina',
     value: 50,
     color: '#975fff',
-    percent: '8%',
+    percent: '5%',
     mes: "Favereiro"
     },
     {
     id: '3',
-    label: 'Horas fora',
+    nome: 'Horas fora',
     value: 150,
     color: '#8f5e',
-    percent: '52%',
+    percent: '10%',
     mes: "Março"
     }
 ]
@@ -67,23 +67,8 @@ const navigation = useNavigation();
   
     return(
     <View style={styles.container}>
-       <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
-        <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
-          <Animatable.View animation="fadeInLeft" style={styles.icon}>
-            <TouchableOpacity
-            onPress={ () => navigation.navigate('DrawerItems')}
-            >
-              <IconFeather name="menu" size={30} color="#fff" />
-            </TouchableOpacity>
-          </Animatable.View>
-          <View
-          style={styles.ContainerLogo}>
-            <Image source={require('../../../assets/logo_login.png')}
-            style={styles.LogoHome} 
-            />
-          </View>
-        </View>
-      </Animatable.View>
+       
+       <PageHeader/>
 
       <ScrollView>
         <View>
@@ -247,7 +232,7 @@ const navigation = useNavigation();
             <VictoryPie
             colorScale={data.map(dados => dados.color)}
             data={data}
-            x='label'
+            x='percent'
             y='value'
             style={{
                 labels:{
@@ -257,21 +242,16 @@ const navigation = useNavigation();
                 }
             }}
            animate={{
-            duration: 2000,
-            easing:'bounce'
+            duration: 1000,
+            easing:'circle'
            }}
-           labelComponent={
-            <VictoryTooltip
-            renderInPortal={false}
-            />
-           }
             />
             <View style={styles.ContainerLabels}>
             {
             data.map(id => {
               return <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
                   <View style={{borderWidth: 1, backgroundColor: id.color, paddingVertical: 10, width: 25, marginRight: 10}}></View>
-                  <Text style={styles.txtLabels}>{id.label}</Text>
+                  <Text style={styles.txtLabels}>{id.nome}</Text>
                 </View>
             })
             }
@@ -303,8 +283,8 @@ const navigation = useNavigation();
                 }
               }}
               animate={{
-              duration: 2000,
-              easing:'bounce'
+              duration: 1000,
+              easing:'circle'
               }}
               />
             </VictoryChart>
@@ -323,8 +303,8 @@ const navigation = useNavigation();
               x='id'
               y='value'
               animate={{
-                duration: 2000,
-                easing:'bounce'
+                duration: 1000,
+                easing:'circle'
                 }}
             />
             </VictoryChart>
@@ -340,8 +320,8 @@ const navigation = useNavigation();
             x='id'
             y='value'
             animate={{
-              duration: 2000,
-              easing:'bounce'
+              duration: 1000,
+              easing:'circle'
               }}
             />
           </VictoryChart>
@@ -356,24 +336,24 @@ const navigation = useNavigation();
               colorScale={data.map(dados => dados.color)}
               data={[{x: "a", y: 2}, {x: "b", y: 3}, {x: "c", y: 5}]}
               animate={{
-                duration: 2000,
-                easing:'bounce'
+                duration: 1000,
+                easing:'circle'
                 }}
             />
             <VictoryArea
               colorScale={data.map(dados => dados.color)}
               data={[{x: "a", y: 1}, {x: "b", y: 4}, {x: "c", y: 5}]}
               animate={{
-                duration: 2000,
-                easing:'bounce'
+                duration: 1000,
+                easing:'circle'
                 }}
             />
             <VictoryArea
               colorScale={data.map(dados => dados.color)}
               data={[{x: "a", y: 3}, {x: "b", y: 2}, {x: "c", y: 6}]}
               animate={{
-                duration: 2000,
-                easing:'bounce'
+                duration: 1000,
+                easing:'circle'
                 }}
             />
           </VictoryStack>
@@ -382,7 +362,7 @@ const navigation = useNavigation();
           data.map(id => {
             return <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
                 <View style={{borderWidth: 1, backgroundColor: id.color, paddingVertical: 10, width: 25, marginRight: 10}}></View>
-                <Text style={styles.txtLabels}>{id.label}</Text>
+                <Text style={styles.txtLabels}>{id.nome}</Text>
               </View>
           })
           }
@@ -400,8 +380,8 @@ const navigation = useNavigation();
               data={data}
               x='id'
               animate={{
-                duration: 2000,
-                easing:'bounce'
+                duration: 1000,
+                easing:'circle'
                 }}
             />
           </VictoryChart>
@@ -414,33 +394,28 @@ const navigation = useNavigation();
             <VictoryPie
             colorScale={data.map(dados => dados.color)}
             data={data}
-            x='label'
+            x='percent'
             y='value'
             style={{
-                labels:{
-                    fill: "#000", 
-                    fontSize:20,
-                    fontFamily: 'BebasNeue-Regular' 
-                }
+              labels:{
+                  fill: "#000", 
+                  fontSize:20,
+                  fontFamily: 'BebasNeue-Regular' 
+              }
             }}
            animate={{
-            duration: 2000,
-            easing:'bounce'
+            duration: 1000,
+            easing:'circle'
            }}
-           innerRadius={120}
-           padAngle={10}
-           labelComponent={
-            <VictoryTooltip
-            renderInPortal={false}
-            />
-           }
+           innerRadius={170}
+           padAngle={5}
             />
           <View style={styles.ContainerLabels}>
           {
           data.map(id => {
             return <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
                 <View style={{borderWidth: 1, backgroundColor: id.color, paddingVertical: 10, width: 25, marginRight: 10}}></View>
-                <Text style={styles.txtLabels}>{id.label}</Text>
+                <Text style={styles.txtLabels}>{id.nome}</Text>
               </View>
           })
           }

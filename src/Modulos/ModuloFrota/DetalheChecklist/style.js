@@ -55,14 +55,14 @@ const styles = StyleSheet.create({
   txtLabel:{
     fontFamily: 'BebasNeue-Regular',
     color: "#000",
-    fontSize: 25,
+    fontSize: 20,
     marginStart: 15,
   },
 
   txtValue:{
     fontFamily: 'BebasNeue-Regular',
     color: "#d21e2b",
-    fontSize: 25
+    fontSize: 20
   },
 
   buttonDown:{

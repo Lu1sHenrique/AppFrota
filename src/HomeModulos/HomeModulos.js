@@ -15,6 +15,7 @@ import {AuthContext} from '../Contexts/Auth'
 import {useNetInfo} from "@react-native-community/netinfo";
 import ModalErroNetwok from '../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PageHeader from '../Components/PageHeader/PageHeader'
 
 //pages
 import styles from './style'
@@ -57,23 +58,7 @@ export default function HomeModulos() {
 
   return (
       <View style={styles.container}>
-        <Animatable.View animation="fadeInDown" style={styles.containerCaixa}>
-          <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
-            <Animatable.View animation="fadeInLeft" style={styles.icon}>
-              <TouchableOpacity
-              onPress={ () => navigation.navigate('DrawerItems')}
-              >
-                <Icon name="menu" size={30} color="#fff" />
-              </TouchableOpacity>
-            </Animatable.View>
-            <View
-            style={styles.ContainerLogo}>
-              <Image source={require('../assets/logo_login.png')}
-              style={styles.LogoHome} 
-              />
-            </View>
-          </View>
-        </Animatable.View>
+        <PageHeader/>
         
         <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
 

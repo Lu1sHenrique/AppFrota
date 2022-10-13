@@ -18,6 +18,7 @@ import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErr
 
 //pages
 import styles from './style'
+import PageHeader from '../../../Components/PageHeader/PageHeader'
 
 export default function HomeFrota({ navigation: { goBack } }) {
 
@@ -38,23 +39,8 @@ export default function HomeFrota({ navigation: { goBack } }) {
 
   return (
       <View style={styles.container}>
-        <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
-          <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
-            <Animatable.View animation="fadeInLeft" style={styles.icon}>
-              <TouchableOpacity
-              onPress={ () => navigation.navigate('DrawerItems')}
-              >
-                <IconFeather name="menu" size={30} color="#fff" />
-              </TouchableOpacity>
-            </Animatable.View>
-            <View
-            style={styles.ContainerLogo}>
-              <Image source={require('../../../assets/logo_login.png')}
-              style={styles.LogoHome} 
-              />
-            </View>
-          </View>
-        </Animatable.View>
+        
+        <PageHeader/>
 
         <View style={styles.ContainerButtonBack}>
           <TouchableOpacity

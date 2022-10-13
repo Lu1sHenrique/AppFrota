@@ -53,6 +53,7 @@ export default function DrawerItems() {
         <View style={styles.ContainerIcon}>
           <View style={styles.ButtonIcon}>
               <TouchableOpacity
+              style={{padding: 10}}
               onPress={() => navigation.goBack()}
               >
                 <Icon name="x-circle" size={35} color="#fff"/>

@@ -3,23 +3,25 @@ import {
   Text, 
   View, 
   TouchableOpacity, 
-  Image, 
+  ActivityIndicator,
+  ScrollView
 } from 'react-native';
 
 //libs
 import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native'
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import AwesomeAlert from 'react-native-awesome-alerts';
 //pages
 import styles from './style'
+import PageHeader from '../../../Components/PageHeader/PageHeader'
 
 export default function DetalheChecklist({route}){
 
   const [showMsgAlert, setShowMsgAlert] = useState(false)
   const [msgAlert, setMsgAlert] = useState("")
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const hidemsgAlert = () => (
     setShowMsgAlert(false)
@@ -28,6 +30,7 @@ export default function DetalheChecklist({route}){
   const data = route;
 
   async function gerarRel(){
+    setIsLoading(true)
 
     const htmlContent = `
         <html>
@@ -114,12 +117,14 @@ export default function DetalheChecklist({route}){
 
     let options = {
       html: htmlContent,
-      fileName: 'test',
+      fileName: 'Teste',
       directory: 'Documents',
     };
   
     let file = await RNHTMLtoPDF.convert(options)
     //alert(file.filePath);
+    console.log(file.filePath)
+    setIsLoading(false)
     setShowMsgAlert(true)
     setMsgAlert("Relatório "+options.fileName+" gerado com sucesso na pasta "+options.directory)
   }
@@ -131,25 +136,9 @@ export default function DetalheChecklist({route}){
   
     return(
       <View>
-       <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
-        <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
-          <Animatable.View animation="fadeInLeft" style={styles.icon}>
-            <TouchableOpacity
-            onPress={ () => navigation.navigate('DrawerItems')}
-            >
-              <IconFeather name="menu" size={30} color="#fff" />
-            </TouchableOpacity>
-          </Animatable.View>
-          <View
-          style={styles.ContainerLogo}>
-            <Image source={require('../../../assets/logo_login.png')}
-            style={styles.LogoHome} 
-            />
-          </View>
-        </View>
-      </Animatable.View>
-
-        <View>
+       
+      <PageHeader/>
+          
           <View style={styles.ContainerButtonBack}> 
             <TouchableOpacity
               style={styles.ButtonBack}
@@ -160,23 +149,31 @@ export default function DetalheChecklist({route}){
             </TouchableOpacity>
           </View>
 
-          <View style={{flexDirection: 'row', marginVertical: 15}}>
+            {
+            isLoading ? (
+              <ActivityIndicator style={{flex: 1, display: 'flex', paddingVertical: 10}} size="large" color='#d21e2b'/>
+            ) : null           
+            }
+            
+          <ScrollView style={{width: '100%'}}>
+          <View style={{flexDirection: 'row', marginVertical: 10, width: '50%'}}>
             <View style={{marginTop: 15}}>
               <Text style={styles.txtLabel}>Código checklist: <Text style={styles.txtValue}>{route.params.paramKey.codigoChecklistCombustao ? codigoChecklistCombustao : codigoChecklistEletrica}</Text></Text>
             </View>
 
             <View style={{marginTop: 15}}>
-              <Text style={styles.txtLabel}>Data envio: <Text style={styles.txtValue}>{route.params.paramKey.dataEnvio}</Text></Text>
+              <Text style={styles.txtLabel}>Data envio: <Text style={styles.txtValue}>{route.params.paramKey.dataEnvio.substr(0,12)}</Text></Text>
             </View>
           </View>
 
-          <View style={{flexDirection: 'row', marginVertical: 15}}>
+          <View style={{flexDirection: 'row', marginVertical: 10, width: '50%'}}>
             <View style={{marginTop: 15}}>
               <Text style={styles.txtLabel}>Hora envio: <Text style={styles.txtValue}>{route.params.paramKey.horaEnvio}</Text></Text>
             </View>
+          </View>
 
           {codigoChecklistCombustao ?
-            <>
+            <View style={{flexDirection: 'row', marginVertical: 10, width: '50%'}}>
               <View style={{marginTop: 15}}>
                 <Text style={styles.txtLabel}>Carro Máxima: <Text style={styles.txtValue}>{route.params.paramKey.carroMaxima}</Text></Text>
               </View>
@@ -184,8 +181,8 @@ export default function DetalheChecklist({route}){
               <View style={{marginTop: 15}}>
                 <Text style={styles.txtLabel}>Carro Reserva: <Text style={styles.txtValue}>{route.params.paramKey.carroReserva}</Text></Text>
               </View>
-            </> : 
-            <>
+            </View> : 
+            <View style={{flexDirection: 'row', marginVertical: 10, width: '50%'}}>
               <View style={{marginTop: 15}}>
                 <Text style={styles.txtLabel}>Bateria Inicial: <Text style={styles.txtValue}>{route.params.paramKey.bateriaInicial}</Text></Text>
               </View>
@@ -193,70 +190,76 @@ export default function DetalheChecklist({route}){
               <View style={{marginTop: 15}}>
                 <Text style={styles.txtLabel}>Bateria Final: <Text style={styles.txtValue}>{route.params.paramKey.bateriaFinal}</Text></Text>
               </View>
-            </> 
+            </View> 
           }
-          </View>
-
-          <View style={{flexDirection: 'row', marginVertical: 15}}>
+      
           {codigoChecklistEletrica ? 
+          <View style={{flexDirection: 'row', marginVertical: 10}}>
             <View style={{marginTop: 15}}>
               <Text style={styles.txtLabel}>Diferença Bateria: <Text style={styles.txtValue}>{decodeURIComponent(route.params.paramKey.calcDiferenca.replaceAll('+', ' '))}</Text></Text>
-            </View> : null
+            </View> 
+          </View>: null
           }
 
+          <View style={{flexDirection: 'row', marginVertical: 10}}>
             <View style={{marginTop: 15}}>
               <Text style={styles.txtLabel}>Departamento: <Text style={styles.txtValue}>{decodeURIComponent(route.params.paramKey.departamento.replaceAll('+', ' '))}</Text></Text>
             </View>
+          </View>
 
+          <View style={{flexDirection: 'row', marginVertical: 10}}>
             <View style={{marginTop: 15}}>
               <Text style={styles.txtLabel}>Condutor: <Text style={styles.txtValue}>{decodeURIComponent(route.params.paramKey.condutor.replaceAll('+', ' '))}</Text></Text>
             </View>
           </View>
+          
 
-          <View style={{flexDirection: 'row', marginVertical: 15}}>
+          <View style={{flexDirection: 'row', marginVertical: 10}}>
             <View style={{marginTop: 15}}>
               <Text style={styles.txtLabel}>Placa do veículo: <Text style={styles.txtValue}>{route.params.paramKey.placaVeiculo}</Text></Text>
             </View>
+          </View>  
 
+          
             {codigoChecklistCombustao ?
-            <>
-            <View style={{marginTop: 15}}>
-              <Text style={styles.txtLabel}>KM Inicial: <Text style={styles.txtValue}>{route.params.paramKey.kmInicial}</Text></Text>
-            </View>
-            
-            <View style={{marginTop: 15}}>
-              <Text style={styles.txtLabel}>KM Final: <Text style={styles.txtValue}>{route.params.paramKey.kmFinal}</Text></Text>
-            </View>
-            </> : null
+            <View style={{flexDirection: 'row', marginVertical: 10}}>
+              <View style={{marginTop: 10}}>
+                <Text style={styles.txtLabel}>KM Inicial: <Text style={styles.txtValue}>{route.params.paramKey.kmInicial}</Text></Text>
+              </View>
+              
+              <View style={{marginTop: 10}}>
+                <Text style={styles.txtLabel}>KM Final: <Text style={styles.txtValue}>{route.params.paramKey.kmFinal}</Text></Text>
+              </View>
+            </View> : null
             } 
-          </View>
+          
 
           {codigoChecklistCombustao ?
           <>
           <View style={{flexDirection: 'row', marginVertical: 15}}>
-            <View style={{marginTop: 15}}>
+            <View style={{marginTop: 10}}>
               <Text style={styles.txtLabel}>Rota ronda 1: <Text style={styles.txtValue}>{route.params.paramKey.rotaRonda1}</Text></Text>
             </View>
 
-            <View style={{marginTop: 15}}>
+            <View style={{marginTop: 10}}>
               <Text style={styles.txtLabel}>Rota ronda 2: <Text style={styles.txtValue}>{route.params.paramKey.rotaRonda2}</Text></Text>
             </View>
 
-            <View style={{marginTop: 15}}>
+            <View style={{marginTop: 10}}>
               <Text style={styles.txtLabel}>Rota ronda 3: <Text style={styles.txtValue}>{route.params.paramKey.rotaRonda3}</Text></Text>
             </View>
           </View>
 
           <View style={{flexDirection: 'row', marginVertical: 15}}>
-            <View style={{marginTop: 15}}>
+            <View style={{marginTop: 10}}>
               <Text style={styles.txtLabel}>Troca óleo: <Text style={styles.txtValue}>{route.params.paramKey.trocaOleo}</Text></Text>
             </View>
 
-            <View style={{marginTop: 15}}>
+            <View style={{marginTop: 10}}>
               <Text style={styles.txtLabel}>Pneu: <Text style={styles.txtValue}>{route.params.paramKey.pneu}</Text></Text>
             </View>
 
-            <View style={{marginTop: 15}}>
+            <View style={{marginTop: 10}}>
               <Text style={styles.txtLabel}>Correias: <Text style={styles.txtValue}>{route.params.paramKey.correias}</Text></Text>
             </View>
           </View>
@@ -264,53 +267,48 @@ export default function DetalheChecklist({route}){
           } 
 
           {codigoChecklistCombustao ?
-          <>
-          <View style={{flexDirection: 'row', marginStart: 10, justifyContent: 'space-between', marginEnd: 10}}>
-            <View style={{flexDirection: 'row', marginVertical: 15}}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flexDirection: 'row'}}>
+          <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
                 <TouchableOpacity style={styles.buttonDown}>
                   <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
                   <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Km Inicial</Text>
                 </TouchableOpacity>
-            </View>
+          </View>
 
-            <View style={{marginTop: 15}}>
+          <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
               <TouchableOpacity style={styles.buttonDown}>
                 <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
                 <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Km Final</Text>
               </TouchableOpacity>
-            </View>
+          </View> 
 
-            <View style={{marginTop: 15}}>
+          <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
                 <TouchableOpacity 
                 style={styles.buttonDown}
                 onPress={() => gerarRel()}
                 >
                   <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
                   <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar relatório</Text>
-                </TouchableOpacity>
-            </View>
+                  </TouchableOpacity>
           </View>
-          </> 
+          </ScrollView> 
             : 
           <>
-           <View style={{flexDirection: 'row', marginStart: 10, marginEnd: 10}}>
-            <View style={{flexDirection: 'row', marginVertical: 15, marginRight: 20}}>
+            <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
                 <TouchableOpacity style={styles.buttonDown}>
                   <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
                   <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Bateria Inicial</Text>
                 </TouchableOpacity>
-            </View>
-
-            <View style={{marginTop: 15}}>
+            </View> 
+           
+            <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
               <TouchableOpacity style={styles.buttonDown}>
                 <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
                 <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Bateria Final</Text>
               </TouchableOpacity>
-            </View> 
             </View>
 
-            <View style={{flexDirection: 'row', marginStart: 10, marginEnd: 10}}>
-              <View style={{marginTop: 15, width: '40%', marginRight: 10}}>
+            <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
               <TouchableOpacity 
               style={styles.buttonDown}
               onPress={() => gerarRel()}
@@ -318,11 +316,10 @@ export default function DetalheChecklist({route}){
                 <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
                 <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar relatório</Text>
               </TouchableOpacity>
-              </View>
             </View>      
           </>
         }
-        </View>
+      </ScrollView>
 
         <AwesomeAlert
           contentContainerStyle={styles.containerAlert}

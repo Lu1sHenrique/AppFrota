@@ -25,6 +25,7 @@ import ConsultaChecklistComb from '../../../Components/ConsultaChecklistComb/Con
 import ConsultaChecklistEletrica from '../../../Components/ConsultaChecklistEletrica/ConsultaChecklistEletrica'
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
 import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
+import PageHeader from '../../../Components/PageHeader/PageHeader'
 
 export default function RelFrota(){
 
@@ -126,23 +127,8 @@ export default function RelFrota(){
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh ={onRefresh} colors={['#d21e2b']}/>
       }>
-       <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
-        <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
-          <Animatable.View animation="fadeInLeft" style={styles.icon}>
-            <TouchableOpacity
-            onPress={ () => navigation.navigate('DrawerItems')}
-            >
-              <IconFeather name="menu" size={30} color="#fff" />
-            </TouchableOpacity>
-          </Animatable.View>
-          <View
-          style={styles.ContainerLogo}>
-            <Image source={require('../../../assets/logo_login.png')}
-            style={styles.LogoHome} 
-            />
-          </View>
-        </View>
-      </Animatable.View>
+       
+       <PageHeader/>
 
         <View style={styles.ContainerButtonBack}> 
           <TouchableOpacity
@@ -236,10 +222,10 @@ export default function RelFrota(){
         {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
         <>
 
-        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>   
-          <Text style={{color: '#000'}}>Código</Text>
-          <Text style={{color: '#000'}}>Data e hora envio</Text>  
-          <Text style={{color: '#000'}}>Condutor</Text>
+        <View style={{flexDirection: 'row'}}>   
+          <Text style={{color: '#000', marginLeft: 50}}>Código</Text>
+          <Text style={{color: '#000', marginLeft: 40}}>Data e hora envio</Text>  
+          <Text style={{color: '#000', marginLeft: 135}}>Condutor</Text>
         </View>
 
          {

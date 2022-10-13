@@ -7,7 +7,6 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Image,
   ActivityIndicator,
   RefreshControl
 } from 'react-native';
@@ -25,10 +24,12 @@ import { Modalize } from 'react-native-modalize';
 import {useNetInfo} from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ChecklistCombustaoEnvDTO from '../../../Envio/ChecklistCombustaoEnvDTO'
+import axios from 'axios';
 //pages
 import styles from './style';
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
 import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
+import PageHeader from '../../../Components/PageHeader/PageHeader';
 
 
 export default function FormFrota() {
@@ -204,19 +205,22 @@ export default function FormFrota() {
       }
     }
 
-    
-
-    /*const data = Object.keys(dadosChecklistCombustao)
-    .map((key) => `${key}=${encodeURIComponent(dadosChecklistCombustao[key])}`)
-    .join('&');
-
-    const config = {
-      headers: { 
-        'content-type': 'application/x-www-form-urlencoded' 
-      }
-    };*/
-
-    
+    const data = new FormData();
+    data.append('carroMaxima', "true");
+    data.append('carroReserva', "false");
+    data.append('condutor', "E+FUNCIONARIO+1041");
+    data.append('correias', "5000");
+    data.append('departamento', "INFRAESTRUTURA");
+    data.append('fotoKmFinal', "rn_image_picker_lib_temp_bb26df0c-1fb3-4375-a955-e265e13d3691.jpg");
+    data.append('fotoKmInical', "rn_image_picker_lib_temp_987a8a6d-300f-449b-9eeb-2dff1bb0052b.jpg");
+    data.append('kmFinal', "700");
+    data.append('kmInicial', "500");
+    data.append('placaVeiculo', "JIG8787");
+    data.append('pneu', "300");
+    data.append('rotaRonda1', "false");
+    data.append('rotaRonda2', "true");
+    data.append('rotaRonda3', "false");
+    data.append('trocaOleo', "4500");
 
     const enviarChecklistCombustao = async () =>{
       const dadosChecklistCombustaoEnvDTO = new ChecklistCombustaoEnvDTO(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, ronda1, ronda2, ronda3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
@@ -269,16 +273,15 @@ export default function FormFrota() {
         setShowAlertSuccess(false)
         setShowAlertConfirm(false)
       }else
-      console.log(dadosChecklistCombustao)
-      fetch('http://192.168.0.3:8082/maxima-mobile-rest/facadeTecV3/registrarChecklistCombustao', {
+      console.log(dadosChecklistCombustaoEnvDTO)
+      fetch('http://192.168.1.131:8082/maxima-mobile-rest/facadeTecV3/registrarChecklistCombustao', {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: JSON.stringify({
-        dadosChecklistCombustao: dadosChecklistCombustaoEnvDTO
-      })
+      body: JSON.stringify(
+        data
+      )
       })
       .then(function (response) {
       console.log(response)
@@ -459,23 +462,9 @@ export default function FormFrota() {
         </View>
       </View>
       </Modalize>
-      <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
-        <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
-          <Animatable.View animation="fadeInLeft" style={styles.icon}>
-            <TouchableOpacity
-            onPress={ () => navigation.navigate('DrawerItems')}
-            >
-              <IconFeather name="menu" size={30} color="#fff" />
-            </TouchableOpacity>
-          </Animatable.View>
-          <View
-          style={styles.ContainerLogo}>
-            <Image source={require('../../../assets/logo_login.png')}
-            style={styles.LogoHome} 
-            />
-          </View>
-        </View>
-      </Animatable.View>
+      
+      <PageHeader/>
+
       {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
       <ScrollView refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#d21e2b']}/>

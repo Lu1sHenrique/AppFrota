@@ -27,6 +27,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './style';
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro';
 import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
+import PageHeader from '../../../Components/PageHeader/PageHeader'
 
 export default function FormFrota() {
 
@@ -423,23 +424,9 @@ export default function FormFrota() {
             </View>
           </View>
       </Modalize>
-      <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
-        <View style={{width: '90%', flexDirection: 'row', alignSelf: 'center', width: '90%'}}>
-          <Animatable.View animation="fadeInLeft" style={styles.icon}>
-            <TouchableOpacity
-            onPress={ () => navigation.navigate('DrawerItems')}
-            >
-              <IconFeather name="menu" size={30} color="#fff" />
-            </TouchableOpacity>
-          </Animatable.View>
-          <View
-          style={styles.ContainerLogo}>
-            <Image source={require('../../../assets/logo_login.png')}
-            style={styles.LogoHome} 
-            />
-          </View>
-        </View>
-      </Animatable.View>
+      
+      <PageHeader/>
+
       {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
       <ScrollView refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#d21e2b']}/>
