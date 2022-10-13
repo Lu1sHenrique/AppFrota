@@ -29,7 +29,7 @@ const dados=[
     {
     id: '1',
     label: 'Km Rodados',
-    value: '7000',
+    value: 7000,
     color: '#ff8555',
     percent: '23%',
     mes: "Janeiro"
@@ -37,7 +37,7 @@ const dados=[
     {
     id: '2',
     label: 'Consumo gasolina',
-    value: '50',
+    value: 50,
     color: '#975fff',
     percent: '8%',
     mes: "Favereiro"
@@ -45,7 +45,7 @@ const dados=[
     {
     id: '3',
     label: 'Horas fora',
-    value: '150',
+    value: 150,
     color: '#8f5e',
     percent: '52%',
     mes: "Março"
@@ -429,7 +429,22 @@ const navigation = useNavigation();
            }}
            innerRadius={120}
            padAngle={10}
+           labelComponent={
+            <VictoryTooltip
+            renderInPortal={false}
             />
+           }
+            />
+          <View style={styles.ContainerLabels}>
+          {
+          data.map(id => {
+            return <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
+                <View style={{borderWidth: 1, backgroundColor: id.color, paddingVertical: 10, width: 25, marginRight: 10}}></View>
+                <Text style={styles.txtLabels}>{id.label}</Text>
+              </View>
+          })
+          }
+          </View>
           </View>
           : null
         }

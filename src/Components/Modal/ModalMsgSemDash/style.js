@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
   txt:{
     fontSize: 30,
     fontFamily: 'BebasNeue-Regular',
-    opacity: 0.3 
+    opacity: 0.3,
+    color: '#000' 
   }
 })
 
