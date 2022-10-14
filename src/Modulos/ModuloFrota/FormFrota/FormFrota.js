@@ -63,7 +63,7 @@ export default function FormFrota() {
         getDepartamentos();
         getCondutores();
         getPlacas();
-      },[])
+      },[numUserCode])
 
       const navigation = useNavigation();
 

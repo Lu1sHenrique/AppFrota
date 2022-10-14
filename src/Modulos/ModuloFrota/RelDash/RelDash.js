@@ -3,13 +3,11 @@ import {
   Text, 
   View, 
   TouchableOpacity, 
-  Image, 
   ScrollView
 } from 'react-native';
 
 //libs
 import IconFeather from 'react-native-vector-icons/Feather';
-import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native'
 import { 
   VictoryPie, 
@@ -20,10 +18,14 @@ import {
   VictoryChart,
   VictoryStack} from 'victory-native'
 import {Picker} from '@react-native-picker/picker'
-import ModalMsgSemDash from '../../../Components/Modal/ModalMsgSemDash/ModalMsgSemDash';
+import {useNetInfo} from "@react-native-community/netinfo";
+import AwesomeAlert from 'react-native-awesome-alerts';
 //pages
 import styles from './style'
 import PageHeader from '../../../Components/PageHeader/PageHeader'
+import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
+import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
+import ModalMsgSemDash from '../../../Components/Modal/ModalMsgSemDash/ModalMsgSemDash';
 
 const dados=[
     {
@@ -54,14 +56,33 @@ const dados=[
 
 export default function RelDash(){
 
+  const netInfo = useNetInfo();
+
+  const [showErrorNetWork, setShowErrorNetWork] = useState(false)
+
     useEffect(()=>{
         setData(dados)
     }, [])
+
+    useEffect(()=>{
+      setShowErrorNetWork(false)
+      if (netInfo.isConnected) {
+        setShowErrorNetWork(false)
+      } else {
+        setShowErrorNetWork(true)
+      }
+    },[netInfo])
 
 const [data, setData] = useState([])
 const [mes, setMes] = useState([]);
 const [mesSelecionado, setMesSelecionado] = useState([]);
 const [charSelecionado, setCharSelecionado] = useState(0);
+const [showError, setShowError] = useState(false);
+const [showErroConec, setShowErroConec] = useState(false)
+
+const hideErroConec = () => (
+  setShowErroConec(false)
+);
 
 const navigation = useNavigation();
   
@@ -82,6 +103,10 @@ const navigation = useNavigation();
             </TouchableOpacity>
           </View>
         </View>
+
+        <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
+
+        <ModalErro showError={showError} />
 
         <View style={{marginTop: 20}}>
           <Picker
@@ -423,6 +448,25 @@ const navigation = useNavigation();
           </View>
           : null
         }
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showErroConec}
+          showProgress={false}
+          message="Erro de conexão"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideErroConec();
+          }}
+        /> 
         </ScrollView>
     </View>
 )

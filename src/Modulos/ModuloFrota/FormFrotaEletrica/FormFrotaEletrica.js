@@ -48,7 +48,7 @@ export default function FormFrota() {
         getPlacas();
         getDepartamentos();
         getCondutores();
-      },[])
+      },[numUserCode])
 
       useEffect(() => {
         async function buscarUserCodeAsyncStorage() {
