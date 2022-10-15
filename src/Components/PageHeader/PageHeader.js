@@ -22,7 +22,7 @@ export default function PageHeader() {
     <View style={styles.lineButtonLogo}>
       <Animatable.View animation="fadeInLeft" style={styles.icon}>
         <TouchableOpacity
-        style={{padding: 20}}
+        style={{padding: 15}}
         onPress={ () => navigation.navigate('DrawerItems')}
         >
           <IconFeather name="menu" size={30} color="#fff" />

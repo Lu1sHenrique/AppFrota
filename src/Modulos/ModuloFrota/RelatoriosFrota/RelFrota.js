@@ -48,7 +48,7 @@ export default function RelFrota(){
     }
 
     buscarUserCodeAsyncStorage();
-  }, []);
+  }, [numUserCode]);
 
   const navigation = useNavigation();
   
