@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   
   ContainerIcon:{
-    width: '10%',
+    width: '15%',
     marginRight: 70,
     justifyContent: 'center'
   },
@@ -48,11 +48,11 @@ const styles = StyleSheet.create({
   },
 
   ContainerFooter:{
-    flex: 1,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     backgroundColor: '#9E161F',
-    borderWidth: 1
+    borderWidth: 1,
+    height: 45
   },
 
   ButtonFooter:{

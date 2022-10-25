@@ -24,7 +24,6 @@ import { Modalize } from 'react-native-modalize';
 import {useNetInfo} from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ChecklistCombustaoEnvDTO from '../../../Envio/ChecklistCombustaoEnvDTO'
-import axios from 'axios';
 //pages
 import styles from './style';
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
@@ -98,6 +97,8 @@ export default function FormFrota() {
       const [showKmInicial, setShowKmInicial] = useState(false)
       const [showKmFinal, setShowKmFinal] = useState(false)
       const [showValidacaoKm, setShowValidacaoKm] = useState(false)
+      const [showErrorSend, setShowErrorSend] = useState(false)
+      const [showMsgErrorSend, setShowMsgErrorSend] = useState("")
       // states image
       const [imageKmInicial, setImageKmInicial] = useState("")
       const [imageKmFinal, setImageKmFinal] = useState("")
@@ -115,6 +116,10 @@ export default function FormFrota() {
 
       const hideAlertConfirm = () => (
         setShowAlertConfirm(false)
+      );
+
+      const hideAlertErroSend = () => (
+        setShowErrorSend(false)
       );
 
       const hideAlertSuccess = () => (
@@ -205,26 +210,19 @@ export default function FormFrota() {
       }
     }
 
-    const data = new FormData();
-    data.append('carroMaxima', "true");
-    data.append('carroReserva', "false");
-    data.append('condutor', "E+FUNCIONARIO+1041");
-    data.append('correias', "5000");
-    data.append('departamento', "INFRAESTRUTURA");
-    data.append('fotoKmFinal', "rn_image_picker_lib_temp_bb26df0c-1fb3-4375-a955-e265e13d3691.jpg");
-    data.append('fotoKmInical', "rn_image_picker_lib_temp_987a8a6d-300f-449b-9eeb-2dff1bb0052b.jpg");
-    data.append('kmFinal', "700");
-    data.append('kmInicial', "500");
-    data.append('placaVeiculo', "JIG8787");
-    data.append('pneu', "300");
-    data.append('rotaRonda1', "false");
-    data.append('rotaRonda2', "true");
-    data.append('rotaRonda3', "false");
-    data.append('trocaOleo', "4500");
-
     const enviarChecklistCombustao = async () =>{
+
       const dadosChecklistCombustaoEnvDTO = new ChecklistCombustaoEnvDTO(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, ronda1, ronda2, ronda3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
-      
+
+      var data = new URLSearchParams(dadosChecklistCombustaoEnvDTO);
+        data.append('dadosChecklistCombustao', dadosChecklistCombustaoEnvDTO);
+        data.append('codigoUsuario', numUserCode.toString());
+        data.append('token', "teste");
+        data.append('chaveCelular', "teste");
+        data.append('captcha', "xxxxx");
+
+        var datastr = data.toString();
+
       if(showErrorNetWork == true){
         setShowErroConec(true)
         setShowAlertConfirm(false)
@@ -272,17 +270,9 @@ export default function FormFrota() {
         setShowValidacaoImageFinal(true)
         setShowAlertSuccess(false)
         setShowAlertConfirm(false)
-      }else
-      console.log(dadosChecklistCombustaoEnvDTO)
-      fetch('http://192.168.1.131:8082/maxima-mobile-rest/facadeTecV3/registrarChecklistCombustao', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: JSON.stringify(
-        data
-      )
-      })
+      }else{
+      console.log(datastr)
+      api.post('/registrarChecklistCombustao', datastr)
       .then(function (response) {
       console.log(response)
       setIsLoading(true)
@@ -297,13 +287,14 @@ export default function FormFrota() {
       setImageKmFinal("")
       setOleo("")
       setPneu("")
-      setCorreias("")  
-     })
+      setCorreias("") 
+      })
      .catch(function (error) {
        console.error(error);
-     });
-     setIsLoading(false)
-   }
+     })
+    setIsLoading(false)
+  }
+}
     
 
       //configs image picks upload
@@ -811,6 +802,25 @@ export default function FormFrota() {
           confirmButtonColor="#d21e2b"
           onConfirmPressed={() => {
             hideAlertSuccess();
+          }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showErrorSend}
+          showProgress={false}
+          message={showMsgErrorSend}
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertErroSend();
           }}
         />
 

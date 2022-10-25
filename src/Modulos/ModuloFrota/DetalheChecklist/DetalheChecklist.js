@@ -9,6 +9,7 @@ import {
 
 //libs
 import IconFeather from 'react-native-vector-icons/Feather';
+import IconMaterialsIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native'
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import AwesomeAlert from 'react-native-awesome-alerts';
@@ -135,7 +136,7 @@ export default function DetalheChecklist({route}){
   const [codigoChecklistEletrica] = useState(route.params.paramKey.codigoChecklistEletrica)
   
     return(
-      <View>
+      <View style={{backgroundColor: "#fff"}}>
        
       <PageHeader/>
           
@@ -267,31 +268,39 @@ export default function DetalheChecklist({route}){
           } 
 
           {codigoChecklistCombustao ?
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flexDirection: 'row'}}>
-          <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
+          <>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flexDirection: 'row'}}>
+            
+            <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
+                  <TouchableOpacity style={styles.buttonDown}>
+                    <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
+                    <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Km Inicial</Text>
+                  </TouchableOpacity>
+            </View>
+
+            <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
                 <TouchableOpacity style={styles.buttonDown}>
                   <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
-                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Km Inicial</Text>
+                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Km Final</Text>
                 </TouchableOpacity>
-          </View>
+            </View> 
 
-          <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
-              <TouchableOpacity style={styles.buttonDown}>
-                <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
-                <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Km Final</Text>
-              </TouchableOpacity>
-          </View> 
-
-          <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
-                <TouchableOpacity 
-                style={styles.buttonDown}
-                onPress={() => gerarRel()}
-                >
-                  <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
-                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar relatório</Text>
-                  </TouchableOpacity>
-          </View>
-          </ScrollView> 
+            <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
+                  <TouchableOpacity 
+                  style={styles.buttonDown}
+                  onPress={() => gerarRel()}
+                  >
+                    <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
+                    <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar relatório</Text>
+                    </TouchableOpacity>
+            </View>
+            </ScrollView>
+            <View style={styles.containerIconArrowButtons}>
+              <View style={styles.IconArrowButtons}>
+                <IconMaterialsIcons name="keyboard-arrow-right" size={30} color='#d21e2b'/>
+              </View>
+            </View>
+          </> 
             : 
           <>
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>

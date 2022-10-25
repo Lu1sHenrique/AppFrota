@@ -1,6 +1,9 @@
 import axios from 'axios';
 
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
 const api = axios.create({
-    baseURL:'http://192.168.0.3:8082/maxima-mobile-rest/facadeTecV3'
+    baseURL:'http://192.168.1.163:8082/maxima-mobile-rest/facadeTecV3'
 });
+
 export default api;

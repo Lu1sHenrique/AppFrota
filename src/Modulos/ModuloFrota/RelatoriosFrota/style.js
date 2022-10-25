@@ -67,21 +67,20 @@ const styles = StyleSheet.create({
     color: '#f77b77',
     marginLeft: 15
   },
+  
+  containerInput:{
+  flexDirection: 'row', 
+  width: '85%', 
+  alignSelf: 'center',
+  marginTop: 5,
+  borderWidth: 1,
+  borderColor: "#d21e2b"
+  },
 
   input:{
-    alignSelf: 'center',
-    width: '85%',
+    width: '100%',
     height: 50,
     paddingHorizontal: 16,
-    marginTop: 5,
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    borderRightWidth: 1,
-    borderLeftWidth: 1,
-    borderTopColor: "#d21e2b",
-    borderBottomColor: "#d21e2b",
-    borderLeftColor: "#d21e2b",
-    borderRightColor: "#d21e2b",
     color: "#d21e2b",
     fontFamily: 'BebasNeue-Regular',
     fontSize: 19

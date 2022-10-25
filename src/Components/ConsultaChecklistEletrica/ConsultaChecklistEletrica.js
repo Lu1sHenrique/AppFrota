@@ -12,9 +12,9 @@ export default function ConsultaChecklistEletrica({data}){
         style={styles.buttonItemCheck}
         onPress={() => navigation.navigate('DetalheChecklist', {paramKey:data})}
         >
-          <Text style={styles.txtbBttonItemCheck}>{data.codigoChecklistEletrica}</Text>
-          <Text style={styles.txtbBttonItemCheck}>{data.dataEnvio.substr(0,12)} - {data.horaEnvio}</Text>
-          <Text style={styles.txtbBttonItemCheck}>{decodeURIComponent(data.condutor.replaceAll('+', ' '))}</Text>
+          <Text style={styles.txtbBttonItemCheckCodigo}>{data.codigoChecklistEletrica}</Text>
+          <Text style={styles.txtbBttonItemCheckData}>{data.dataEnvio.substr(0,12)} - {data.horaEnvio}</Text>
+          <Text style={styles.txtbBttonItemCheckCondutor}>{decodeURIComponent(data.condutor.replaceAll('+', ' '))}</Text>
         </TouchableOpacity>
     );
 }

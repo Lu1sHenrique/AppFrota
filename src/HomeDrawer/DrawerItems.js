@@ -19,7 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function DrawerItems() {
 
-  logout = async (navigation) =>{
+  const logout = async (navigation) =>{
       await AsyncStorage.removeItem('@ListApp:userToken')
       navigation.reset({
         index: 0,
@@ -35,13 +35,22 @@ export default function DrawerItems() {
   const navigation = useNavigation();
 
   const [showDuvidas, setShowDuvidas] = useState(false)
+  const [showSair, setShowSair] = useState(false)
 
   const hideAlertDuvidas = () => (
     setShowDuvidas(false)
   );
 
+  const hideAlertSair = () => (
+    setShowSair(false)
+  );
+
   function exibirAlerta(){
     setShowDuvidas(true)
+  }
+
+  function exibirAlertaSair(){
+    setShowSair(true)
   }
 
   return (
@@ -121,7 +130,7 @@ export default function DrawerItems() {
             </View>
             <View style={styles.DrawerItem}>
                 <TouchableOpacity
-                onPress={()=> logout(navigation)}
+                onPress={exibirAlertaSair}
                 >
                   <Text style={styles.txtDrawerItem}>Sair</Text>
                 </TouchableOpacity>
@@ -161,6 +170,30 @@ export default function DrawerItems() {
           onConfirmPressed={() => {
             hideAlertDuvidas();
           }}
+        />
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          cancelButtonStyle={styles.ButtonAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          cancelButtonTextStyle={styles.txtButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showSair}
+          showProgress={false}
+          message="Tem certeza que deseja sair?"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          cancelText="Não"
+          confirmText="Sim"
+          confirmButtonColor="#d21e2b"
+          cancelButtonColor='#424242'
+          onCancelPressed={() => {
+            hideAlertSair();
+          }}
+          onConfirmPressed={() => logout(navigation)}
         />
     </Animatable.View>
   );

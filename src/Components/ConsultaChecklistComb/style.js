@@ -12,19 +12,19 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         height: 50,
         alignItems: 'center',
-        borderRadius: 15
+        justifyContent: 'space-between'
     },
 
     txtbBttonItemCheckCodigo:{
       fontSize: 15,
       color:  '#000',
-      marginLeft: 30
+      marginLeft: 10
     },
 
     txtbBttonItemCheckData:{
       fontSize: 15,
       color:  '#000',
-      marginLeft: 55
+      marginLeft: 20
     },
 
     txtbBttonItemCheckCondutor:{

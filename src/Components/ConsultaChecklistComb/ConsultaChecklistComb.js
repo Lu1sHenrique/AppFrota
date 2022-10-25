@@ -14,7 +14,7 @@ export default function ConsultaChecklistComb({data}){
         >
           <Text style={styles.txtbBttonItemCheckCodigo}>{data.codigoChecklistCombustao}</Text>
           <Text style={styles.txtbBttonItemCheckData}>{data.dataEnvio.substr(0,12)} - {data.horaEnvio}</Text>
-          <Text style={styles.txtbBttonItemCheckCondutor}>{decodeURIComponent(data.condutor.replaceAll('+', ' ').substr(0,33))}</Text>
+          <Text style={styles.txtbBttonItemCheckCondutor}>{decodeURIComponent(data.condutor.replaceAll('+', ' '))}</Text>
         </TouchableOpacity>
     );
 }

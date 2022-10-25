@@ -11,13 +11,13 @@ import { ScrollView,
 
 //libs
 import IconFeather from 'react-native-vector-icons/Feather';
-import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native'
 import api from '../../../services/api'
 import {Picker} from '@react-native-picker/picker'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import {useNetInfo} from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import  TextInputMask  from 'react-native-masked-input'
 //pages
 import styles from './style'
 import ConsultaChecklistComb from '../../../Components/ConsultaChecklistComb/ConsultaChecklistComb'
@@ -61,7 +61,8 @@ export default function RelFrota(){
   const [showValidacaoTipoFrota, setShowValidacaoTipoFrota] = useState(false)
   const [showErroConec, setShowErroConec] = useState(false)
   const [showError, setShowError] = useState(false);
-  const [showAlertConfirm, setShowAlertConfirm] = useState(false)
+  const [showAlertErro, setShowAlertErro] = useState(false)
+  const [msgErro, setMsgErro] = useState("")
   const [numUserCode, setNumUserCode] = useState(0)
   // refresh control
   const [refreshing, setRefreshing] = useState(false)
@@ -79,35 +80,82 @@ export default function RelFrota(){
     setShowErroConec(false)
   );
 
+  const hideAlertErro = () => (
+    setShowAlertErro(false)
+  );
+
   const getListaCheckList = async () =>{
     showError && setShowError(false)
     setIsLoading(true)
     if(showErrorNetWork == true){
       setShowErroConec(true)
-      setShowAlertConfirm(false)
     }else
     if(showError == true){
       setShowErroConec(true)
-      setShowAlertConfirm(false)
     }else
     if(tipoFrotaSelecionado === 0){
       setShowValidacaoTipoFrota(true)
     }else
     if(tipoFrotaSelecionado === 1){
-      try { 
-        const {data} = await api.get('/obterListaChecklistCombustao/1&"TODOS"&"teste"&"teste"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+      if(dataInicialSelecionada.length<=0 && dataFinalSelecionada.length<=0){
+      try {
+        const {data} = await api.get('/obterListaChecklistCombustao/1&"TODOS"&03102022&03102022&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+
+        if(data.operacaoExecutada == "N"){
+          setShowAlertErro(true)
+          setIsLoading(false)
+        }
+        if(data.mensagemErro.length>0){
+            setMsgErro(data.mensagemErro)
+            setShowAlertErro(true)
+        }
         setIsLoading(false)
         setListaChecklistComb(data.lista)
+        console.log(data)
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
         if (error.response) {
         console.log({...error});
         }}
-    }else 
+    }else{
+      try {
+        const {data} = await api.get('/obterListaChecklistCombustao/2&"TODOS"&03102022&03102022&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+
+        if(data.operacaoExecutada == "N"){
+          setShowAlertErro(true)
+          setIsLoading(false)
+        }
+        if(data.mensagemErro.length>0){
+            setMsgErro(data.mensagemErro)
+            setShowAlertErro(true)
+        }
+        setIsLoading(false)
+        setListaChecklistComb(data.lista)
+        console.log(data)
+      } catch(error) {
+        setIsLoading(false)
+        setShowError(true)
+        if (error.response) {
+        console.log({...error});
+        }}
+    }
+  } 
     if(tipoFrotaSelecionado === 2){
+      if(dataInicialSelecionada.length<=0 && dataFinalSelecionada.length<=0){
+        try { 
+          const {data} = await api.get('/obterListaChecklistEletrica/1&"TODOS"&"03102022"&"03102022"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+          setIsLoading(false)
+          setListaChecklistEletrica(data.lista)
+        } catch(error) {
+          setIsLoading(false)
+          setShowError(true)
+          if (error.response) {
+          console.log({...error});
+          }}
+    }else{
       try { 
-        const {data} = await api.get('/obterListaChecklistEletrica/1&"TODOS"&"teste"&"teste"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+        const {data} = await api.get('/obterListaChecklistEletrica/2&"TODOS"&"03102022"&"03102022"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
         setIsLoading(false)
         setListaChecklistEletrica(data.lista)
       } catch(error) {
@@ -117,6 +165,7 @@ export default function RelFrota(){
         console.log({...error});
         }}
     }
+  }
     setIsLoading(false)
   };
   
@@ -188,27 +237,35 @@ export default function RelFrota(){
           </Picker>
         </View>
 
-        <View>
-          <TextInput
+        <View style={styles.containerInput}>
+          <TextInputMask
             style={styles.input}
-              placeholder="Data inicial do checklist"
-              keyboardType='numeric'
-              placeholderTextColor={"#d21e2b"}
-              onChangeText={text => setDataInicialSelecionada(text)}
-              value={dataInicialSelecionada}
+            placeholder="Data inicial do checklist"
+            keyboardType='numeric'
+            placeholderTextColor={"#d21e2b"}
+            type={'datetime'}
+            options={{
+              format: 'DD/MM/YYYY'
+            }}
+            onChangeText={text => setDataInicialSelecionada(text)}
+            value={dataInicialSelecionada}
           />
         </View>
 
-        <View>
-          <TextInput
+        <View style={styles.containerInput}>
+          <TextInputMask
             style={styles.input}
-              placeholder="Data final do checklist"
-              keyboardType='numeric'
-              placeholderTextColor={"#d21e2b"}
-              onChangeText={text => setDataFinalSelecionada(text)}
-              value={dataFinalSelecionada}
-          />
-        </View>       
+            placeholder="Data final do checklist"
+            keyboardType='numeric'
+            placeholderTextColor={"#d21e2b"}
+            type={'datetime'}
+            options={{
+              format: 'DD/MM/YYYY'
+            }}
+            onChangeText={text => setDataFinalSelecionada(text)}
+            value={dataFinalSelecionada}
+          />  
+        </View>    
 
         <TouchableOpacity
         onPress={getListaCheckList}
@@ -221,10 +278,10 @@ export default function RelFrota(){
         {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
         <>
 
-        <View style={{flexDirection: 'row'}}>   
-          <Text style={{color: '#000', marginLeft: 50}}>Código</Text>
-          <Text style={{color: '#000', marginLeft: 40}}>Data e hora envio</Text>  
-          <Text style={{color: '#000', marginLeft: 135}}>Condutor</Text>
+        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>   
+          <Text style={{color: '#000'}}>Código</Text>
+          <Text style={{color: '#000'}}>Data e hora envio</Text>  
+          <Text style={{color: '#000'}}>Condutor</Text>
         </View>
 
          {
@@ -278,6 +335,25 @@ export default function RelFrota(){
             hideErroConec();
           }}
         /> 
+
+        <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showAlertErro}
+          showProgress={false}
+          message={msgErro}
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertErro();
+        }}
+        />
       </ScrollView>
     )
 }

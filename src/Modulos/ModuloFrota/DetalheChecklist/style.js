@@ -77,6 +77,21 @@ const styles = StyleSheet.create({
   backgroundColor: "#d21e2b"
   },
 
+  containerIconArrowButtons:{
+    position: 'absolute', 
+    height: "100%", 
+    justifyContent: 'flex-end', 
+    alignSelf: 'flex-end'
+  },
+
+  IconArrowButtons:{
+    justifyContent: 'center', 
+    width: '100%', 
+    height: 50, 
+    alignSelf: 'flex-end', 
+    backgroundColor: "#fff"
+  },
+
   containerAlert:{
     width: "80%",
     borderRadius: 15
