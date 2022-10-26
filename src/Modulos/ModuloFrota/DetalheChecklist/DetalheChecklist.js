@@ -285,7 +285,7 @@ export default function DetalheChecklist({route}){
                 </TouchableOpacity>
             </View> 
 
-            <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
+            <View style={{marginStart: 10, marginEnd: 45, marginTop: 10}}>
                   <TouchableOpacity 
                   style={styles.buttonDown}
                   onPress={() => gerarRel()}

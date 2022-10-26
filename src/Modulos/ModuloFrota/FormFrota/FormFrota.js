@@ -213,15 +213,15 @@ export default function FormFrota() {
     const enviarChecklistCombustao = async () =>{
 
       const dadosChecklistCombustaoEnvDTO = new ChecklistCombustaoEnvDTO(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, ronda1, ronda2, ronda3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
+      
+      let data = new URLSearchParams();
+      data.append('dadosChecklistCombustao', JSON.stringify(dadosChecklistCombustaoEnvDTO));
+      data.append('codigoUsuario', numUserCode.toString());
+      data.append('token', "teste");
+      data.append('chaveCelular', "teste");
+      data.append('captcha', "xxxxx");
 
-      var data = new URLSearchParams(dadosChecklistCombustaoEnvDTO);
-        data.append('dadosChecklistCombustao', dadosChecklistCombustaoEnvDTO);
-        data.append('codigoUsuario', numUserCode.toString());
-        data.append('token', "teste");
-        data.append('chaveCelular', "teste");
-        data.append('captcha', "xxxxx");
-
-        var datastr = data.toString();
+      let datastr = data.toString();
 
       if(showErrorNetWork == true){
         setShowErroConec(true)
@@ -271,12 +271,9 @@ export default function FormFrota() {
         setShowAlertSuccess(false)
         setShowAlertConfirm(false)
       }else{
-      console.log(datastr)
-      api.post('/registrarChecklistCombustao', datastr)
+      await api.post('/registrarChecklistCombustao', datastr)
       .then(function (response) {
       console.log(response)
-      setIsLoading(true)
-      setShowAlertConfirm(false)
       setShowAlertSuccess(true)
       setDepartamentoSelecionado([])
       setCondutorSelecionado([])
@@ -286,13 +283,13 @@ export default function FormFrota() {
       setKmFinalSelecionado("")
       setImageKmFinal("")
       setOleo("")
+      setCorreias("")
       setPneu("")
-      setCorreias("") 
+      setShowAlertConfirm(false)
       })
      .catch(function (error) {
        console.error(error);
      })
-    setIsLoading(false)
   }
 }
     
@@ -722,8 +719,8 @@ export default function FormFrota() {
               placeholder="Troca de Óleo (Km Inicial)"
               placeholderTextColor={"#d21e2b"}
               keyboardType='numeric'
-              value={oleo}
               onChangeText={text => setOleo(text)}
+              value={oleo}
             />
         </View>
 
@@ -733,19 +730,19 @@ export default function FormFrota() {
               placeholder='Pneu'
               placeholderTextColor={"#d21e2b"}
               keyboardType='numeric'
-              value={pneu}
               onChangeText={text => setPneu(text)}
+              value={pneu}
             />
         </View>
 
         <View>
           <TextInput
               style={styles.input}
-              placeholder="Correias (Km Inicail)"
+              placeholder="Correias (Km Inicial)"
               placeholderTextColor={"#d21e2b"}
               keyboardType='numeric'
-              value={correias}
               onChangeText={text => setCorreias(text)}
+              value={correias}
             />
         </View>
 
@@ -793,7 +790,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showAlertSuccess}
           showProgress={false}
-          message="O checklist foi enviado com sucesso"
+          message="O checklist foi enviado com sucesso!😁✅"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -831,7 +828,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showValidacaoDep}
           showProgress={false}
-          message="Selecione um departamento"
+          message="⚠️Selecione um departamento"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -850,7 +847,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showValidacaoCond}
           showProgress={false}
-          message="Selecione um condutor"
+          message="⚠️Selecione um condutor"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -869,7 +866,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showValidacaoPlac}
           showProgress={false}
-          message="Selecione uma placa"
+          message="⚠️Selecione uma placa"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -888,7 +885,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showErroConec}
           showProgress={false}
-          message="Erro de conexão"
+          message="⚠️Erro de conexão"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -907,7 +904,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showKmInicial}
           showProgress={false}
-          message="Preencha o Km Inicial com no mínimo dois dígitos"
+          message="⚠️Preencha o Km Inicial com no mínimo dois dígitos"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -926,7 +923,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showKmFinal}
           showProgress={false}
-          message="Preencha o Km Final com no mínimo dois dígitos"
+          message="⚠️Preencha o Km Final com no mínimo dois dígitos"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -945,7 +942,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showValidacaoKm}
           showProgress={false}
-          message="O Km Inicial deve ser menor que o Km Final"
+          message="⚠️O Km Inicial deve ser menor que o Km Final"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -964,7 +961,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showValidacaoImageInicial}
           showProgress={false}
-          message="Capture ou selecione uma foto do Km Inicial"
+          message="⚠️Capture ou selecione uma foto do Km Inicial"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -983,7 +980,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showValidacaoImageFinal}
           showProgress={false}
-          message="Capture ou selecione uma foto do Km Final"
+          message="⚠️Capture ou selecione uma foto do Km Final"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}

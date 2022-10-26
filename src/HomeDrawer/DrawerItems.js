@@ -160,7 +160,7 @@ export default function DrawerItems() {
           messageStyle={styles.txtTitleAlert}
           show={showDuvidas}
           showProgress={false}
-          message='Se tiver qualquer dúvida envie um email para "suporteti@maximaseguranca.com" ou ligue para o ramal "8128" que entraremos em contato assim que possível.'
+          message='Se tiver qualquer dúvida envie um email para "suporteti@maximaseguranca.com" ou ligue para o ramal "8128" que entraremos em contato assim que possível.😁'
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}

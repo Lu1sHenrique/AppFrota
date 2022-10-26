@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   IconArrowButtons:{
     justifyContent: 'center', 
     width: '100%', 
-    height: 50, 
+    height: 55, 
     alignSelf: 'flex-end', 
     backgroundColor: "#fff"
   },

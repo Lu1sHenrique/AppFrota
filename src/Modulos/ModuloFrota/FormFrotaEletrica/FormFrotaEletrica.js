@@ -7,7 +7,6 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Image,
   ActivityIndicator,
   RefreshControl
 } from 'react-native';
@@ -23,6 +22,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import { Modalize } from 'react-native-modalize';
 import {useNetInfo} from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ChecklistEletricaEnvDTO from '../../../Envio/ChecklistEletricaEnvDTO'
 //pages
 import styles from './style';
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro';
@@ -70,7 +70,7 @@ export default function FormFrota() {
       const [condutorSelecionado, setCondutorSelecionado] = useState([]);
       const [placas, setPlacas] = useState([]);
       const [placaSelecionada, setPlacaSelecionada] = useState([]);
-      const [diferenca, setDiferenca] = useState(0);
+      const [diferenca, setDiferenca] = useState("");
       //
       const [bateriaInicialSelecionado, setBateriaInicialSelecionado] = useState("");
       const [bateriaFinalSelecionado, setBateriaFinalSelecionado] = useState("");
@@ -192,11 +192,24 @@ export default function FormFrota() {
       }
 
       function calcDiferenca(){
-        setDiferenca(parseInt(bateriaInicialSelecionado)-parseInt(bateriaFinalSelecionado))
+        let result = parseInt(bateriaInicialSelecionado)-parseInt(bateriaFinalSelecionado)
+        setDiferenca(result.toString())
       }
 
 
       const enviarChecklistEletrica = async () =>{
+
+      const dadosChecklistEletricaEnvDTO = new ChecklistEletricaEnvDTO(departamentoSelecionado, condutorSelecionado, placaSelecionada, bateriaInicialSelecionado, bateriaFinalSelecionado, imageBateriaInicial, imageBateriaFinal, diferenca);
+      
+      let data = new URLSearchParams();
+      data.append('dadosChecklistEletrica', JSON.stringify(dadosChecklistEletricaEnvDTO));
+      data.append('codigoUsuario', numUserCode.toString());
+      data.append('token', "teste");
+      data.append('chaveCelular', "teste");
+      data.append('captcha', "xxxxx");
+
+      let datastr = data.toString();
+
         if(showErrorNetWork == true){
           setShowErroConec(true)
           setShowAlertConfirm(false)
@@ -244,24 +257,11 @@ export default function FormFrota() {
           setShowValidacaoImageFinal(true)
           setShowAlertSuccess(false)
           setShowAlertConfirm(false)
-        }else
-        await api.post('http://192.168.1.131:3000/enviarChecklistEletrica', {
-          codigo_checklist_eletrica: 1,
-          departamento: departamentoSelecionado,
-          condutor: condutorSelecionado,
-          placa_veiculo: placaSelecionada,
-          bateria_inicial: bateriaInicialSelecionado,
-          bateria_final: bateriaFinalSelecionado,
-          calc_diferenca: diferenca,
-          foto_bateria_inicial: imageBateriaInicial,
-          foto_bateria_final: imageBateriaFinal
-       })
+        }else{
+        await api.post('/registrarChecklistEletrica', datastr)
        .then(function (response) {
         console.log(response);
-        console.log(response.data)
-        setIsLoading(true)
-        setShowAlertConfirm(false)
-        setShowAlertSuccess(true)
+        setShowAlertSuccess(true) 
         setDepartamentoSelecionado([])
         setCondutorSelecionado([])
         setPlacaSelecionada([])
@@ -269,13 +269,14 @@ export default function FormFrota() {
         setImageBateriaInicial("")
         setBateriaFinalSelecionado("")
         setimageBateriaFinal("")
-        setDiferenca("")  
+        setDiferenca("")
+        setShowAlertConfirm(false)
        })
        .catch(function (error) {
          console.error(error);
        });
-       setIsLoading(false)
      }
+    }
 
       //configs image picks upload
       function onOpenKmInicial(){
@@ -603,9 +604,9 @@ export default function FormFrota() {
         <View>
           <TextInput
               style={styles.input}
-              placeholder="Diferença entre a bateria inicical e a final"
+              placeholder="Diferença entre a bateria inicial e a final"
               placeholderTextColor={"#d21e2b"}
-              editable={true}
+              editable={false}
               value={String(diferenca)}
               onChangeText={text => setDiferenca(text)}
             />
@@ -653,7 +654,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showAlertSuccess}
           showProgress={false}
-          message="O checklist foi enviado com sucesso"
+          message="O checklist foi enviado com sucesso!😁✅"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -672,7 +673,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showValidacaoDep}
           showProgress={false}
-          message="Selecione um departamento"
+          message="⚠️Selecione um departamento"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -691,7 +692,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showValidacaoCond}
           showProgress={false}
-          message="Selecione um condutor"
+          message="⚠️Selecione um condutor"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -710,7 +711,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showValidacaoPlac}
           showProgress={false}
-          message="Selecione uma placa"
+          message="⚠️Selecione uma placa"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -729,7 +730,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showErroConec}
           showProgress={false}
-          message="Erro de conexão"
+          message="⚠️Erro de conexão"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -748,7 +749,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showBateriaInicial}
           showProgress={false}
-          message="Preencha a Bateria Inicial"
+          message="⚠️Preencha a Bateria Inicial"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -767,7 +768,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showBateriaFinal}
           showProgress={false}
-          message="Preencha a Bateria Final"
+          message="⚠️Preencha a Bateria Final"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -786,7 +787,7 @@ export default function FormFrota() {
         messageStyle={styles.txtTitleAlert}
         show={showValidacaoBateria}
         showProgress={false}
-        message="A Bateria Inicial deve ser maior que a Bateria Final"
+        message="⚠️A Bateria Inicial deve ser maior que a Bateria Final"
         closeOnTouchOutside={false}
         closeOnHardwareBackPress={false}
         showCancelButton={false}
@@ -804,7 +805,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showValidacaoImageInicial}
           showProgress={false}
-          message="Capture ou selecione uma foto do Km Inicial"
+          message="⚠️Capture ou selecione uma foto da Bateria Inicial"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
@@ -823,7 +824,7 @@ export default function FormFrota() {
           messageStyle={styles.txtTitleAlert}
           show={showValidacaoImageFinal}
           showProgress={false}
-          message="Capture ou selecione uma foto do Km Final"
+          message="⚠️Capture ou selecione uma foto da Bateria Final"
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
