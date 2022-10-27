@@ -24,6 +24,7 @@ import { Modalize } from 'react-native-modalize';
 import {useNetInfo} from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ChecklistCombustaoEnvDTO from '../../../Envio/ChecklistCombustaoEnvDTO'
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 //pages
 import styles from './style';
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
@@ -31,7 +32,7 @@ import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErr
 import PageHeader from '../../../Components/PageHeader/PageHeader';
 
 
-export default function FormFrota() {
+ function FormFrota() {
   
       const netInfo = useNetInfo();
 
@@ -1000,3 +1001,5 @@ export default function FormFrota() {
     setShowAlertConfirm(true)
   }
 }
+
+export default gestureHandlerRootHOC(FormFrota)

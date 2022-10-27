@@ -23,13 +23,14 @@ import { Modalize } from 'react-native-modalize';
 import {useNetInfo} from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ChecklistEletricaEnvDTO from '../../../Envio/ChecklistEletricaEnvDTO'
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 //pages
 import styles from './style';
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro';
 import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 import PageHeader from '../../../Components/PageHeader/PageHeader'
 
-export default function FormFrota() {
+  function FormFrotaEletrica() {
 
       const netInfo = useNetInfo();
 
@@ -846,5 +847,4 @@ export default function FormFrota() {
   }
 };
 
-
-
+export default gestureHandlerRootHOC(FormFrotaEletrica);
