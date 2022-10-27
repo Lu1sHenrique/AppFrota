@@ -275,6 +275,10 @@ import PageHeader from '../../../Components/PageHeader/PageHeader';
       await api.post('/registrarChecklistCombustao', datastr)
       .then(function (response) {
       console.log(response)
+      if(response.data.operacaoExecutada  == "N"){
+        setShowErrorSend(true)
+        setShowMsgErrorSend("Erro ao enviar: "+response.data.mensagemErro)
+      }else{
       setShowAlertSuccess(true)
       setDepartamentoSelecionado([])
       setCondutorSelecionado([])
@@ -286,7 +290,8 @@ import PageHeader from '../../../Components/PageHeader/PageHeader';
       setOleo("")
       setCorreias("")
       setPneu("")
-      setShowAlertConfirm(false)
+    }
+    setShowAlertConfirm(false)
       })
      .catch(function (error) {
        console.error(error);

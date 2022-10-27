@@ -146,7 +146,10 @@ export default function DrawerItems() {
                 <Icon style={styles.IconFooter} name="help-circle" size={20} color="#fff" />
                 <Text style={styles.txtFooter}>Dúvidas?</Text>
               </TouchableOpacity>      
-              <TouchableOpacity style={styles.ButtonFooter}>
+              <TouchableOpacity 
+              style={styles.ButtonFooter}
+              onPress={() => navigation.navigate('ReportsErro')}
+              >
                   <Icon style={styles.IconFooter} name="alert-triangle" size={20} color="#fff" />
                   <Text style={styles.txtFooter}>Reportar Erro</Text>
               </TouchableOpacity>

@@ -36,6 +36,8 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
 
       const [showErrorNetWork, setShowErrorNetWork] = useState(false)
 
+      const [numUserCode, setNumUserCode] = useState(0)
+
       useEffect(()=>{
         setShowErrorNetWork(false)
         if (netInfo.isConnected) {
@@ -45,12 +47,6 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
         }
       },[netInfo])
 
-      useEffect(()=>{
-        getPlacas();
-        getDepartamentos();
-        getCondutores();
-      },[numUserCode])
-
       useEffect(() => {
         async function buscarUserCodeAsyncStorage() {
           const userCode = await AsyncStorage.getItem('@ListApp:userCode');
@@ -59,6 +55,13 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
 
         buscarUserCodeAsyncStorage();
       }, []);
+
+      useEffect(()=>{
+        getPlacas();
+        getDepartamentos();
+        getCondutores();
+      },[numUserCode])
+
 
       const navigation = useNavigation();
 
@@ -86,6 +89,8 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
       const [showBateriaInicial, setShowBateriaInicial] = useState(false)
       const [showBateriaFinal, setShowBateriaFinal] = useState(false)
       const [showValidacaoBateria, setShowValidacaoBateria] = useState(false)
+      const [showErrorSend, setShowErrorSend] = useState(false)
+      const [showMsgErrorSend, setShowMsgErrorSend] = useState("")
       // states image
       const [imageBateriaInicial, setImageBateriaInicial] = useState("")
       const [imageBateriaFinal, setimageBateriaFinal] = useState("")
@@ -93,8 +98,6 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
       const [showValidacaoImageFinal, setShowValidacaoImageFinal] = useState(false)
       // refresh control
       const [refreshing, setRefreshing] = useState(false)
-
-      const [numUserCode, setNumUserCode] = useState(0)
 
       const onRefresh = () =>{
         setRefreshing(false)
@@ -262,6 +265,10 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
         await api.post('/registrarChecklistEletrica', datastr)
        .then(function (response) {
         console.log(response);
+        if(response.data.operacaoExecutada  == "N"){
+          setShowErrorSend(true)
+          setShowMsgErrorSend("Erro ao enviar: "+response.data.mensagemErro)
+        }else{
         setShowAlertSuccess(true) 
         setDepartamentoSelecionado([])
         setCondutorSelecionado([])
@@ -271,8 +278,9 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
         setBateriaFinalSelecionado("")
         setimageBateriaFinal("")
         setDiferenca("")
+        }
         setShowAlertConfirm(false)
-       })
+      })
        .catch(function (error) {
          console.error(error);
        });
@@ -834,6 +842,25 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           confirmButtonColor="#d21e2b"
           onConfirmPressed={() => {
             hideAlertValidacaoImageFinal();
+          }}
+        />
+
+          <AwesomeAlert
+          contentContainerStyle={styles.containerAlert}
+          confirmButtonStyle={styles.ButtonAlert}
+          confirmButtonTextStyle={styles.txtButtonAlert}
+          messageStyle={styles.txtTitleAlert}
+          show={showErrorSend}
+          showProgress={false}
+          message={showMsgErrorSend}
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="Ok"
+          confirmButtonColor="#d21e2b"
+          onConfirmPressed={() => {
+            hideAlertErroSend();
           }}
         />
         <View style={{paddingVertical: 15}}></View>

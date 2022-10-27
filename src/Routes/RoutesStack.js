@@ -9,6 +9,7 @@ import FormFrotaEletrica from '../Modulos/ModuloFrota/FormFrotaEletrica/FormFrot
 import DetalheChecklist from '../Modulos/ModuloFrota/DetalheChecklist/DetalheChecklist';
 import Splash from '../Splash/Splash'
 import DrawerItems from '../HomeDrawer/DrawerItems';
+import ReportsErro from '../ReportsErro/ReportsErro'
 
 const Stack = createNativeStackNavigator();
 export default function Routes(){
@@ -83,6 +84,14 @@ export default function Routes(){
         headerShown:false
         }}
       />  
+
+    <Stack.Screen 
+      name="ReportsErro"
+      component={ReportsErro}
+      options={{
+        headerShown:false
+        }}
+      /> 
     </Stack.Navigator>
   )
 }

@@ -62,17 +62,11 @@ const styles = StyleSheet.create({
   input:{
     alignSelf: 'center',
     width: '85%',
-    height: 50,
+    height: 200,
     paddingHorizontal: 16,
     marginTop: 5,
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    borderRightWidth: 1,
-    borderLeftWidth: 1,
-    borderTopColor: "#d21e2b",
-    borderBottomColor: "#d21e2b",
-    borderLeftColor: "#d21e2b",
-    borderRightColor: "#d21e2b",
+    borderWidth: 1,
+    borderColor:"#d21e2b",
     color: "#d21e2b",
     fontFamily: 'BebasNeue-Regular',
     fontSize: 19
@@ -196,12 +190,6 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
 
-  ContainerRonda:{
-    borderBottomWidth: 1, 
-    borderBottomColor:"#d21e2b", 
-    marginBottom: 20
-  },
-
   containerAlert:{
     width: "80%",
     borderRadius: 15
@@ -226,9 +214,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#fff'
   },
-
-  
-
 
 })
 
