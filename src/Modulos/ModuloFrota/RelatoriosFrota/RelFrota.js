@@ -120,7 +120,7 @@ export default function RelFrota(){
         }}
     }else{
       try {
-        const {data} = await api.get('/obterListaChecklistCombustao/2&"TODOS"&03102022&03102022&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+        const {data} = await api.get('/obterListaChecklistCombustao/2&"TODOS"&28102022&28102022&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
 
         if(data.operacaoExecutada == "N"){
           setShowAlertErro(true)
@@ -145,6 +145,14 @@ export default function RelFrota(){
       if(dataInicialSelecionada.length<=0 && dataFinalSelecionada.length<=0){
         try { 
           const {data} = await api.get('/obterListaChecklistEletrica/1&"TODOS"&"03102022"&"03102022"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+          if(data.operacaoExecutada == "N"){
+            setShowAlertErro(true)
+            setIsLoading(false)
+          }
+          if(data.mensagemErro.length>0){
+            setMsgErro(data.mensagemErro)
+            setShowAlertErro(true)
+          }
           setIsLoading(false)
           setListaChecklistEletrica(data.lista)
         } catch(error) {
@@ -156,6 +164,14 @@ export default function RelFrota(){
     }else{
       try { 
         const {data} = await api.get('/obterListaChecklistEletrica/2&"TODOS"&"03102022"&"03102022"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+        if(data.operacaoExecutada == "N"){
+          setShowAlertErro(true)
+          setIsLoading(false)
+        }
+        if(data.mensagemErro.length>0){
+          setMsgErro(data.mensagemErro)
+          setShowAlertErro(true)
+        }
         setIsLoading(false)
         setListaChecklistEletrica(data.lista)
       } catch(error) {

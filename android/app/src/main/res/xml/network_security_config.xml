@@ -11,7 +11,7 @@
         <domain includeSubdomains="true">192.168.1.131</domain>
         <domain includeSubdomains="true">192.168.0.3</domain>
         <domain includeSubdomains="true">192.168.1.111</domain>
-        <domain includeSubdomains="true">192.168.12.88</domain>
+        <domain includeSubdomains="true">192.168.0.10</domain>
         <base-config cleartextTrafficPermitted="true"/> 
     </domain-config>
 </network-security-config>
