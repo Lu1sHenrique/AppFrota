@@ -199,7 +199,7 @@ import PageHeader from '../Components/PageHeader/PageHeader'
         }
         const result = await launchImageLibrary(options)
         if(result?.assets){
-          setImageErro(result.assets[0].fileName)
+          setImageErro(result.assets[0].base64)
         }
         onClose()
       }
@@ -213,7 +213,7 @@ import PageHeader from '../Components/PageHeader/PageHeader'
         }
         const result = await launchCamera(options)
         if(result?.assets){
-          setImageErro(result.assets[0].fileName)
+          setImageErro(result.assets[0].base64)
         }
         onClose()
       }
