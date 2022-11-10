@@ -69,6 +69,7 @@ import colors from '../Utils/colors';
       const [condutores, setCondutores] = useState([]);
       const [condutorSelecionado, setCondutorSelecionado] = useState([]);
       const [imageErro, setImageErro] = useState("");
+      const [imageErroAnex, setImageErroAnex] = useState(false)
       const [msgErro, setMsgErro] = useState("");
 
       //states alerts
@@ -175,6 +176,7 @@ import colors from '../Utils/colors';
           setCondutorSelecionado([])
           setImageErro([])
           setMsgErro("")
+          setImageErroAnex(false)
         }
         setShowAlertConfirm(false)
        })
@@ -201,6 +203,7 @@ import colors from '../Utils/colors';
         const result = await launchImageLibrary(options)
         if(result?.assets){
           setImageErro(result.assets[0].base64)
+          setImageErroAnex(true)
         }
         onClose()
       }
@@ -215,6 +218,7 @@ import colors from '../Utils/colors';
         const result = await launchCamera(options)
         if(result?.assets){
           setImageErro(result.assets[0].base64)
+          setImageErroAnex(true)
         }
         onClose()
       }
@@ -338,7 +342,13 @@ import colors from '../Utils/colors';
         onPress={onOpenImageErro}
         >
           <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color={colors.white} />
-          <Text style={styles.txtButtonEnviar}>Se desejar envie uma foto do erro</Text>
+          <Text style={styles.txtButtonEnviar}>
+            {
+              imageErroAnex ? "Foto do Erro Anexada ✅"
+              : 
+              "Se desejar envie uma foto do erro"
+            }  
+            </Text>
         </TouchableOpacity> 
 
           <View>

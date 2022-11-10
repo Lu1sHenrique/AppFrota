@@ -70,6 +70,7 @@ import colors from '../../../Utils/colors';
       const navigation = useNavigation();
 
       const [isLoading, setIsLoading] = useState(true);
+      const [diferenca, setDiferenca] = useState("");
 
       //states picker
       const [departamentos, setDepartamentos] = useState([]);
@@ -105,6 +106,8 @@ import colors from '../../../Utils/colors';
       // states image
       const [imageKmInicial, setImageKmInicial] = useState("")
       const [imageKmFinal, setImageKmFinal] = useState("")
+      const [imageKmInicialAnex, setImageKmInicialAnex] = useState(false)
+      const [imageKmFinalAnex, setImageKmFinalAnex] = useState(false)
       const [showValidacaoImageInicial, setShowValidacaoImageInicial] = useState(false)
       const [showValidacaoImageFinal, setShowValidacaoImageFinal] = useState(false)
       // refresh control
@@ -215,7 +218,7 @@ import colors from '../../../Utils/colors';
 
     const enviarChecklistCombustao = async () =>{
 
-      const dadosChecklistCombustaoEnvDTO = new ChecklistCombustaoEnvDTO(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, ronda1, ronda2, ronda3, oleo, pneu, correias, imageKmInicial, imageKmFinal);
+      const dadosChecklistCombustaoEnvDTO = new ChecklistCombustaoEnvDTO(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, ronda1, ronda2, ronda3, oleo, pneu, correias, imageKmInicial, imageKmFinal, diferenca);
       
       let data = new URLSearchParams();
       data.append('dadosChecklistCombustao', JSON.stringify(dadosChecklistCombustaoEnvDTO));
@@ -292,6 +295,9 @@ import colors from '../../../Utils/colors';
       setOleo("")
       setCorreias("")
       setPneu("")
+      setDiferenca("")
+      setImageKmInicialAnex(false)
+      setImageKmFinalAnex(false)
     }
     setShowAlertConfirm(false)
       })
@@ -300,6 +306,11 @@ import colors from '../../../Utils/colors';
      })
   }
 }
+
+    function calcDiferenca(){
+      let result = parseInt(kmFinalSelecionado)-parseInt(kmInicialSelecionado)
+      setDiferenca(result.toString())
+    }
     
 
       //configs image picks upload
@@ -324,6 +335,7 @@ import colors from '../../../Utils/colors';
         const result = await launchImageLibrary(options)
         if(result?.assets){
           setImageKmInicial(result.assets[0].base64)
+          setImageKmInicialAnex(true)
         }
         onClose()
       }
@@ -338,6 +350,7 @@ import colors from '../../../Utils/colors';
         const result = await launchCamera(options)
         if(result?.assets){
           setImageKmInicial(result.assets[0].base64)
+          setImageKmInicialAnex(true)
         }
         onClose()
       }
@@ -350,6 +363,7 @@ import colors from '../../../Utils/colors';
         const result = await launchImageLibrary(options)
         if(result?.assets){
           setImageKmFinal(result.assets[0].base64)
+          setImageKmFinalAnex(true)
         }
         onClose()
       }
@@ -364,6 +378,7 @@ import colors from '../../../Utils/colors';
         const result = await launchCamera(options)
         if(result?.assets){
           setImageKmFinal(result.assets[0].base64)
+          setImageKmFinalAnex(true)
         }
         onClose()
       }
@@ -651,7 +666,13 @@ import colors from '../../../Utils/colors';
         onPress={onOpenKmInicial}
         >
           <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color={colors.white} />
-          <Text style={styles.txtButtonEnviar}>Foto Km Inicial</Text>
+          <Text style={styles.txtButtonEnviar}>
+            {
+              imageKmInicialAnex ? "Foto Km Inicial Anexada ✅"
+              : 
+              "Foto Km Inicial"
+            }
+          </Text>
         </TouchableOpacity>
 
           <View>
@@ -661,6 +682,7 @@ import colors from '../../../Utils/colors';
                 placeholderTextColor={colors.red}
                 keyboardType='numeric'
                 onChangeText={text => setKmFinalSelecionado(text)}
+                onEndEditing={() => calcDiferenca()}
                 value={kmFinalSelecionado}
             />
           </View>
@@ -670,8 +692,25 @@ import colors from '../../../Utils/colors';
         onPress={onOpenKmFinal}
         >
           <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color={colors.white} />
-          <Text style={styles.txtButtonEnviar}>Foto Km Final</Text>
+          <Text style={styles.txtButtonEnviar}>
+            {
+              imageKmFinalAnex ? "Foto Km Final Anexada ✅"
+              : 
+              "Foto Km Final"
+            }
+          </Text>
         </TouchableOpacity>
+
+        <View>
+          <TextInput
+              style={styles.input}
+              placeholder="Diferença entre o Km inicial e o final"
+              placeholderTextColor={colors.red}
+              editable={false}
+              value={String(diferenca)}
+              onChangeText={text => setDiferenca(text)}
+            />
+        </View>
 
         <View style={styles.ContainerRonda}>
           <View style={{marginVertical: 25, marginHorizontal: 30}}>

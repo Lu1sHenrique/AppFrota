@@ -91,11 +91,14 @@ import colors from '../../../Utils/colors';
       const [showBateriaInicial, setShowBateriaInicial] = useState(false)
       const [showBateriaFinal, setShowBateriaFinal] = useState(false)
       const [showValidacaoBateria, setShowValidacaoBateria] = useState(false)
+      const [showValidacaoBateriaIni8, setShowValidacaoBateriaIni8] = useState(false)
       const [showErrorSend, setShowErrorSend] = useState(false)
       const [showMsgErrorSend, setShowMsgErrorSend] = useState("")
       // states image
       const [imageBateriaInicial, setImageBateriaInicial] = useState("")
       const [imageBateriaFinal, setimageBateriaFinal] = useState("")
+      const [imageBateriaInicialAnex, setImageBateriaInicialAnex] = useState(false)
+      const [imageBateriaFinalAnex, setimageBateriaFinalAnex] = useState(false)
       const [showValidacaoImageInicial, setShowValidacaoImageInicial] = useState(false)
       const [showValidacaoImageFinal, setShowValidacaoImageFinal] = useState(false)
       // refresh control
@@ -142,6 +145,10 @@ import colors from '../../../Utils/colors';
 
       const hideAlertValidacaoBateria = () => (
         setShowValidacaoBateria(false)
+      );
+
+      const hideAlertValidacaoBateriaIni8 = () => (
+        setShowValidacaoBateriaIni8(false)
       );
 
       const hideAlertValidacaoImageInicial = () => (
@@ -249,6 +256,11 @@ import colors from '../../../Utils/colors';
           setShowAlertSuccess(false)
           setShowAlertConfirm(false)
         }else
+        if(parseInt(bateriaInicialSelecionado) > 8){
+          setShowValidacaoBateriaIni8(true)
+          setShowAlertSuccess(false)
+          setShowAlertConfirm(false)
+        }else
         if(parseInt(bateriaInicialSelecionado) <= parseInt(bateriaFinalSelecionado)){
           setShowValidacaoBateria(true)
           setShowAlertSuccess(false)
@@ -280,6 +292,8 @@ import colors from '../../../Utils/colors';
         setBateriaFinalSelecionado("")
         setimageBateriaFinal("")
         setDiferenca("")
+        setImageBateriaInicialAnex(false)
+        setimageBateriaFinalAnex(false)
         }
         setShowAlertConfirm(false)
       })
@@ -311,6 +325,7 @@ import colors from '../../../Utils/colors';
         const result = await launchImageLibrary(options)
         if(result?.assets){
           setImageBateriaInicial(result.assets[0].base64)
+          setImageBateriaInicialAnex(true)
         }
         onClose()
       }
@@ -325,6 +340,7 @@ import colors from '../../../Utils/colors';
         const result = await launchCamera(options)
         if(result?.assets){
           setImageBateriaInicial(result.assets[0].base64)
+          setImageBateriaInicialAnex(true)
         }
         onClose()
       }
@@ -337,6 +353,7 @@ import colors from '../../../Utils/colors';
         const result = await launchImageLibrary(options)
         if(result?.assets){
           setimageBateriaFinal(result.assets[0].base64)
+          setimageBateriaFinalAnex(true)
         }
         onClose()
       }
@@ -351,6 +368,7 @@ import colors from '../../../Utils/colors';
         const result = await launchCamera(options)
         if(result?.assets){
           setimageBateriaFinal(result.assets[0].base64)
+          setimageBateriaFinalAnex(true)
         }
         onClose()
       }   
@@ -592,7 +610,13 @@ import colors from '../../../Utils/colors';
         onPress={onOpenKmInicial}
         >
           <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color={colors.white} />
-          <Text style={styles.txtButtonEnviar}>Foto Bateria Inicial</Text>
+          <Text style={styles.txtButtonEnviar}>
+            {
+              imageBateriaInicialAnex ? "Foto Bateria Inicial Anexada ✅"
+              : 
+              "Foto Bateria Inicial"
+            }
+            </Text>
         </TouchableOpacity>
 
         <TextInput
@@ -610,7 +634,13 @@ import colors from '../../../Utils/colors';
         onPress={onOpenKmFinal}
         >
           <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color={colors.white}/>
-          <Text style={styles.txtButtonEnviar}>Foto Bateria Final</Text>
+          <Text style={styles.txtButtonEnviar}>
+          {
+              imageBateriaFinalAnex ? "Foto Bateria Final Anexada ✅"
+              : 
+              "Foto Bateria Final"
+            }
+            </Text>
         </TouchableOpacity>   
         <View>
           <TextInput
@@ -809,6 +839,26 @@ import colors from '../../../Utils/colors';
           hideAlertValidacaoBateria();
         }}
         />
+
+        <AwesomeAlert
+        contentContainerStyle={styles.containerAlert}
+        confirmButtonStyle={styles.ButtonAlert}
+        confirmButtonTextStyle={styles.txtButtonAlert}
+        messageStyle={styles.txtTitleAlert}
+        show={showValidacaoBateriaIni8}
+        showProgress={false}
+        message="⚠️A Bateria Inicial não pode ser maior que 8"
+        closeOnTouchOutside={false}
+        closeOnHardwareBackPress={false}
+        showCancelButton={false}
+        showConfirmButton={true}
+        confirmText="Ok"
+        confirmButtonColor={colors.red}
+        onConfirmPressed={() => {
+          hideAlertValidacaoBateriaIni8();
+        }}
+        />
+
          <AwesomeAlert
           contentContainerStyle={styles.containerAlert}
           confirmButtonStyle={styles.ButtonAlert}

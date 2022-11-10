@@ -233,6 +233,10 @@ export default function DetalheChecklist({route}){
               <View style={{marginTop: 10}}>
                 <Text style={styles.txtLabel}>KM Final: <Text style={styles.txtValue}>{route.params.paramKey.kmFinal}</Text></Text>
               </View>
+
+              <View style={{marginTop: 10}}>
+                <Text style={styles.txtLabel}>Diferença Km: <Text style={styles.txtValue}>{route.params.paramKey.calcDiferenca}</Text></Text>
+              </View>
             </View> : null
             } 
           
