@@ -5,7 +5,6 @@ import { ScrollView,
   TouchableOpacity, 
   FlatList, 
   RefreshControl, 
-  TextInput,
   ActivityIndicator
 } from 'react-native';
 
@@ -25,6 +24,8 @@ import ConsultaChecklistEletrica from '../../../Components/ConsultaChecklistElet
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
 import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 import PageHeader from '../../../Components/PageHeader/PageHeader'
+
+import colors from '../../../Utils/colors';
 
 export default function RelFrota(){
 
@@ -189,7 +190,7 @@ export default function RelFrota(){
       <ScrollView 
       style={styles.container}
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh ={onRefresh} colors={['#d21e2b']}/>
+        <RefreshControl refreshing={refreshing} onRefresh ={onRefresh} colors={[colors.red]}/>
       }>
        
        <PageHeader/>
@@ -200,7 +201,7 @@ export default function RelFrota(){
             onPress={() => navigation.navigate('HomeFrota')}
             >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: '#424242'}}>Pesquisar checklist</Text>
+            <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: colors.gray}}>Pesquisar checklist</Text>
           </TouchableOpacity>
         </View>
 
@@ -214,20 +215,20 @@ export default function RelFrota(){
           onValueChange={(itemValue) =>
             setTipoFrotaSelecionado(itemValue)
           }
-              dropdownIconColor='#fff'
+              dropdownIconColor={colors.white}
               style={{
-              backgroundColor:'#d21e2b',
+              backgroundColor:colors.red,
               width: '85%',
               alignSelf: 'center',
-              color: '#fff'
+              color: colors.white
             }}
-            dropdownIconRippleColor='#fff'
+            dropdownIconRippleColor={colors.white}
             >
               <Picker.Item 
               label='Selecione o tipo de frota'
               value={0} 
               style={{
-                color: '#d21e2b',
+                color: colors.red,
                 fontFamily: 'BebasNeue-Regular'
               }}
               />
@@ -236,7 +237,7 @@ export default function RelFrota(){
               label='Combustão'
               value={1}  
               style={{
-                color: '#d21e2b',
+                color: colors.red,
                 fontFamily: 'BebasNeue-Regular'
               }}
               />
@@ -245,7 +246,7 @@ export default function RelFrota(){
               label='Elétrica'
               value={2} 
               style={{
-                color: '#d21e2b',
+                color: colors.red,
                 fontFamily: 'BebasNeue-Regular'
               }}
               />
@@ -258,7 +259,7 @@ export default function RelFrota(){
             style={styles.input}
             placeholder="Data inicial do checklist"
             keyboardType='numeric'
-            placeholderTextColor={"#d21e2b"}
+            placeholderTextColor={colors.red}
             type={'datetime'}
             options={{
               format: 'DD/MM/YYYY'
@@ -273,7 +274,7 @@ export default function RelFrota(){
             style={styles.input}
             placeholder="Data final do checklist"
             keyboardType='numeric'
-            placeholderTextColor={"#d21e2b"}
+            placeholderTextColor={colors.red}
             type={'datetime'}
             options={{
               format: 'DD/MM/YYYY'
@@ -287,17 +288,17 @@ export default function RelFrota(){
         onPress={getListaCheckList}
         style={styles.buttonBuscar}
         >
-          <IconFeather style={{marginRight: 15}} name="search" size={25} color="#fff"/>
-          <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Buscar</Text>
+          <IconFeather style={{marginRight: 15}} name="search" size={25} color={colors.white}/>
+          <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Buscar</Text>
         </TouchableOpacity>
         
-        {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
+        {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color={colors.red}/> : (
         <>
 
         <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>   
-          <Text style={{color: '#000'}}>Código</Text>
-          <Text style={{color: '#000'}}>Data e hora envio</Text>  
-          <Text style={{color: '#000'}}>Condutor</Text>
+          <Text style={{color: colors.black}}>Código</Text>
+          <Text style={{color: colors.black}}>Data e hora envio</Text>  
+          <Text style={{color: colors.black}}>Condutor</Text>
         </View>
 
          {
@@ -327,7 +328,7 @@ export default function RelFrota(){
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertValidacaoTipoFrota();
           }}
@@ -346,7 +347,7 @@ export default function RelFrota(){
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideErroConec();
           }}
@@ -365,7 +366,7 @@ export default function RelFrota(){
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertErro();
         }}

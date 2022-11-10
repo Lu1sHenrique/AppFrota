@@ -13,6 +13,7 @@ import FormFrota from '../FormFrota/FormFrota'
 import RelDash from '../RelDash/RelDash'
 import Icon from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import colors from '../../../Utils/colors';
 const Bottom = createBottomTabNavigator();
 
 export default function RoutesFrota(){
@@ -30,15 +31,15 @@ export default function RoutesFrota(){
         tabBarStyle:{
           borderTopColor: 'transparent',
           right: 10,
-          backgroundColor: "#d21e2b",
+          backgroundColor: colors.red,
           borderWidth: 1,
           borderTopLeftRadius: 60,
           borderTopRightRadius: 60,
           height: 80,
           paddingTop: 10
         },
-        tabBarActiveTintColor: '#fff',
-        tabBarInactiveTintColor: '#000',
+        tabBarActiveTintColor: colors.white,
+        tabBarInactiveTintColor: colors.black,
         tabBarLabelStyle:{
           fontSize: 18,
           fontFamily: 'BebasNeue-Regular',

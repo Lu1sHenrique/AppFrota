@@ -1,11 +1,12 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../Utils/colors';
 
 const styles = StyleSheet.create({
 
   container:{
-        flex: 1,
-        backgroundColor: '#f4f4f4'
-      },
+    flex: 1,
+    backgroundColor: colors.white
+  },
 
   icon:{
     width: '15%',
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
   },
 
   containerCaixa:{
-    backgroundColor: '#d21e2b',
+    backgroundColor: colors.red,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
     paddingBottom: '2%',
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   ContainerButtonBack:{
     flexDirection: 'row',
     borderBottomWidth: 1, 
-    borderBottomColor:"#d21e2b" 
+    borderBottomColor:colors.red 
   },
 
   ButtonBack:{
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
 
   IconBack:{
     marginRight: 15,
-    color: "#d21e2b"
+    color: colors.red
   },
 
   ContainerTxt:{
@@ -79,11 +80,11 @@ ContainerButtonSolo:{
     borderRadius: 10, 
     width: '70%',
     paddingVertical: 10, 
-    backgroundColor: '#d21e2b' 
+    backgroundColor: colors.red 
 },
   
 BarFooter:{
-    backgroundColor: '#d21e2b', 
+    backgroundColor: colors.red, 
     paddingVertical: 3, 
     borderTopLeftRadius: 20, 
     borderTopRightRadius: 20, 

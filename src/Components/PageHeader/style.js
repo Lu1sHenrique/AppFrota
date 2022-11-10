@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../Utils/colors'
 
 const styles = StyleSheet.create({
 
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
   },
 
   containerCaixa:{
-    backgroundColor: '#d21e2b',
+    backgroundColor: colors.red,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
     paddingBottom: '2%',

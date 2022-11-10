@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
+import colors from '../Utils/colors'
 
 const styles = StyleSheet.create({
     container:{
       flex: 1,
-      backgroundColor: '#d21e2b',
+      backgroundColor: colors.red,
       width: '100%'
   },
 
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   },
 
   txtDrawerItem:{
-    color: '#fff',
+    color: colors.white,
     fontSize: 20,
     fontWeight: 'bold'
   },
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
   ContainerFooter:{
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
-    backgroundColor: '#9E161F',
+    backgroundColor: colors.redDark,
     borderWidth: 1,
     height: 45
   },
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     width: '83%',
     fontSize: 15,
     marginLeft: 8,
-    color: '#fff',
+    color: colors.white,
     fontWeight: 'bold'
   },
 
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
 
   txtTitleAlert:{
     fontSize: 25,
-    color: "#d21e2b",
+    color: colors.red,
     textAlign: 'center',
     fontFamily: 'BebasNeue-Regular'
   },
@@ -100,13 +101,10 @@ const styles = StyleSheet.create({
   txtButtonAlert:{
     fontSize: 20,
     alignSelf: 'center',
-    color: '#fff',
+    color: colors.white,
     fontFamily: 'BebasNeue-Regular'
   }
 
 })
 
 export default styles;
-
-
-

@@ -15,6 +15,7 @@ import {useNetInfo} from "@react-native-community/netinfo";
 import ModalErroNetwok from '../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PageHeader from '../Components/PageHeader/PageHeader'
+import colors from '../Utils/colors';
 
 //pages
 import styles from './style'
@@ -77,7 +78,7 @@ export default function HomeModulos() {
                   <TouchableOpacity style={styles.button}
                     onPress={ () => navigation.navigate('HomeFrota')}
                     >
-                      <Icon style={styles.iconButtonModulos} name="truck" size={30} color="#fff" />
+                      <Icon style={styles.iconButtonModulos} name="truck" size={30} color={colors.white} />
                       <Text style={styles.textButton}>
                         Frota
                       </Text>
@@ -89,7 +90,7 @@ export default function HomeModulos() {
               <Animatable.View animation="fadeInRight">
                 <TouchableOpacity style={styles.button}
                 onPress={(showAlert)}>
-                  <Icon style={styles.iconButtonModulos} name="briefcase" size={30} color="#fff" />
+                  <Icon style={styles.iconButtonModulos} name="briefcase" size={30} color={colors.white} />
                   <Text style={styles.textButton}>
                     Comercial
                   </Text>
@@ -103,7 +104,7 @@ export default function HomeModulos() {
               <Animatable.View animation="fadeInLeft" style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}
                 onPress={(showAlert)}>
-                    <Icon style={styles.iconButtonModulos} name="tool" size={30} color="#fff" />
+                    <Icon style={styles.iconButtonModulos} name="tool" size={30} color={colors.white} />
                     <Text style={styles.textButton}>
                       Técnica
                     </Text>
@@ -113,7 +114,7 @@ export default function HomeModulos() {
               <Animatable.View animation="fadeInRight"  style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}
                 onPress={(showAlert)}>
-                <Icon style={styles.iconButtonModulos} name="users" size={30} color="#fff" />
+                <Icon style={styles.iconButtonModulos} name="users" size={30} color={colors.white} />
                   <Text style={styles.textButton}>
                     RH
                   </Text>
@@ -127,7 +128,7 @@ export default function HomeModulos() {
               <Animatable.View animation="fadeInLeft">
                 <TouchableOpacity style={styles.button}
                 onPress={(showAlert)}>
-                  <Icon style={styles.iconButtonModulos} name="archive" size={30} color="#fff" />
+                  <Icon style={styles.iconButtonModulos} name="archive" size={30} color={colors.white} />
                   <Text style={styles.textButton}>
                     Estoque
                   </Text>
@@ -139,7 +140,7 @@ export default function HomeModulos() {
               <Animatable.View animation="fadeInRight">
                 <TouchableOpacity style={styles.button}
                 onPress={(showAlert)}>
-                  <Icon style={styles.iconButtonModulos} name="dollar-sign" size={30} color="#fff" />
+                  <Icon style={styles.iconButtonModulos} name="dollar-sign" size={30} color={colors.white} />
                   <Text style={styles.textButton}>
                     Financeiro
                   </Text>

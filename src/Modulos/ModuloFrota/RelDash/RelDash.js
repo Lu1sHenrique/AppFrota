@@ -26,6 +26,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
 import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 import ModalMsgSemDash from '../../../Components/Modal/ModalMsgSemDash/ModalMsgSemDash';
+import colors from '../../../Utils/colors';
 
 const dados=[
     {
@@ -99,7 +100,7 @@ const navigation = useNavigation();
               onPress={() => navigation.goBack()}
               >
               <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-              <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: '#424242'}}>Dashboard Frota</Text>
+              <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: colors.gray}}>Dashboard Frota</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -114,21 +115,21 @@ const navigation = useNavigation();
             onValueChange={(itemValue) =>
               setMesSelecionado(itemValue)
             }
-              dropdownIconColor='#fff'
+              dropdownIconColor={colors.white}
               style={{
-              backgroundColor:'#d21e2b',
+              backgroundColor:colors.red,
               width: '85%',
               alignSelf: 'center',
-              color: '#fff',
+              color: colors.white,
               marginTop: 5,
               fontFamily: 'BebasNeue-Regular'
             }}
-            dropdownIconRippleColor='#fff'
+            dropdownIconRippleColor={colors.white}
             >
               <Picker.Item 
               label='Selecione o mês' 
               style={{
-                color: '#000',
+                color: colors.black,
                 fontFamily: 'BebasNeue-Regular'
               }}
               />
@@ -138,7 +139,7 @@ const navigation = useNavigation();
                 label={id.mes} 
                 value={id.mes} 
                 style={{
-                  color: '#d21e2b',
+                  color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
                 }}
                 key='mes'
@@ -154,22 +155,22 @@ const navigation = useNavigation();
             onValueChange={(itemValue) =>
               setCharSelecionado(itemValue)
             }
-              dropdownIconColor='#fff'
+              dropdownIconColor={colors.white}
               style={{
-              backgroundColor:'#d21e2b',
+              backgroundColor:colors.red,
               width: '85%',
               alignSelf: 'center',
-              color: '#fff',
+              color: colors.white,
               marginTop: 5,
               fontFamily: 'BebasNeue-Regular'
             }}
-            dropdownIconRippleColor='#fff'
+            dropdownIconRippleColor={colors.white}
             >
               <Picker.Item 
               label='Selecione o tipo de gráfico'
               value={0} 
               style={{
-                color: '#000',
+                color: colors.black,
                 fontFamily: 'BebasNeue-Regular'
               }}
               />
@@ -177,7 +178,7 @@ const navigation = useNavigation();
                 label='Pizza' 
                 value={1} 
                 style={{
-                  color: '#d21e2b',
+                  color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
                 }}
                 key='pizza'
@@ -187,7 +188,7 @@ const navigation = useNavigation();
                 label='Barra' 
                 value={2} 
                 style={{
-                  color: '#d21e2b',
+                  color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
                 }}
                 key='barra'
@@ -197,7 +198,7 @@ const navigation = useNavigation();
                 label='Linha' 
                 value={3} 
                 style={{
-                  color: '#d21e2b',
+                  color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
                 }}
                 key='linha'
@@ -207,7 +208,7 @@ const navigation = useNavigation();
                 label='Área' 
                 value={4} 
                 style={{
-                  color: '#d21e2b',
+                  color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
                 }}
                 key='area'
@@ -217,7 +218,7 @@ const navigation = useNavigation();
                 label='Pilha' 
                 value={5} 
                 style={{
-                  color: '#d21e2b',
+                  color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
                 }}
                 key='pilha'
@@ -227,7 +228,7 @@ const navigation = useNavigation();
                 label='Histograma' 
                 value={6} 
                 style={{
-                  color: '#d21e2b',
+                  color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
                 }}
                 key='histograma'
@@ -237,7 +238,7 @@ const navigation = useNavigation();
                 label='Rosca' 
                 value={7} 
                 style={{
-                  color: '#d21e2b',
+                  color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
                 }}
                 key='rosca'
@@ -261,7 +262,7 @@ const navigation = useNavigation();
             y='value'
             style={{
                 labels:{
-                    fill: "#000", 
+                    fill: colors.black, 
                     fontSize:20,
                     fontFamily: 'BebasNeue-Regular' 
                 }
@@ -299,12 +300,12 @@ const navigation = useNavigation();
               y0='0'
               style={{
                 labels:{
-                    fill: "#000", 
+                    fill: colors.black, 
                     fontSize:20,
                     fontFamily: 'BebasNeue-Regular' 
                 },
                 data:{
-                  fill: '#d21e2b'
+                  fill: colors.red
                 }
               }}
               animate={{
@@ -321,7 +322,7 @@ const navigation = useNavigation();
             <VictoryChart>
               <VictoryLine
               style={{
-                data: { stroke: '#d21e2b' },
+                data: { stroke: colors.red },
                 parent: { border: "1px solid #ccc"}
               }}
               data={data}
@@ -340,7 +341,7 @@ const navigation = useNavigation();
           charSelecionado == 4 ?
           <VictoryChart> 
             <VictoryArea
-            style={{ data: { fill: "#000" } }}
+            style={{ data: { fill: colors.black } }}
             data={data}
             x='id'
             y='value'
@@ -423,7 +424,7 @@ const navigation = useNavigation();
             y='value'
             style={{
               labels:{
-                  fill: "#000", 
+                  fill: colors.black, 
                   fontSize:20,
                   fontFamily: 'BebasNeue-Regular' 
               }
@@ -462,7 +463,7 @@ const navigation = useNavigation();
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideErroConec();
           }}

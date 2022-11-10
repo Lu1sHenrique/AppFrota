@@ -30,6 +30,8 @@ import ModalErro from '../../../Components/Modal/ModalErro/ModalErro';
 import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 import PageHeader from '../../../Components/PageHeader/PageHeader'
 
+import colors from '../../../Utils/colors';
+
   function FormFrotaEletrica() {
 
       const netInfo = useNetInfo();
@@ -437,9 +439,9 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
       
       <PageHeader/>
 
-      {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
+      {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color={colors.red}/> : (
       <ScrollView refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#d21e2b']}/>
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[colors.red]}/>
       }>
         <Animatable.View animation={"fadeInUp"}>
         <View style={styles.ContainerButtonBack}>
@@ -448,7 +450,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
            onPress={() => navigation.navigate('HomeFrota')}
            >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: '#424242'}}>Checklist Elétrica</Text>
+            <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: colors.gray}}>Checklist Elétrica</Text>
           </TouchableOpacity>
         </View>
 
@@ -462,21 +464,21 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
             onValueChange={(itemValue) =>
               setDepartamentoSelecionado(itemValue)
             }
-              dropdownIconColor='#fff'
+              dropdownIconColor={colors.white}
               style={{
-              backgroundColor:'#d21e2b',
+              backgroundColor:colors.red,
               width: '85%',
               alignSelf: 'center',
-              color: '#fff',
+              color: colors.white,
               marginTop: 5,
               fontFamily: 'BebasNeue-Regular',
             }}
-            dropdownIconRippleColor='#fff'
+            dropdownIconRippleColor= {colors.white}
             >
               <Picker.Item 
               label='Departamento' 
               style={{
-                color: '#000',
+                color: colors.black,
                 fontFamily: 'BebasNeue-Regular',
               }}
               />
@@ -486,7 +488,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
                 label={decodeURIComponent(id.nomeDepartamento.replaceAll('+', ' '))} 
                 value={id.nomeDepartamento} 
                 style={{
-                  color: '#d21e2b',
+                  color: colors.red,
                   fontFamily: 'BebasNeue-Regular',
                 }}
                 key='departamento'
@@ -502,21 +504,21 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
             onValueChange={(itemValue) =>
               setCondutorSelecionado(itemValue)
             }
-              dropdownIconColor='#fff'
+              dropdownIconColor={colors.white}
               style={{
-              backgroundColor:'#d21e2b',
+              backgroundColor:colors.red,
               width: '85%',
               alignSelf: 'center',
-              color: '#fff',
+              color: colors.white,
               marginTop: 5,
               fontFamily: 'BebasNeue-Regular',
             }}
-            dropdownIconRippleColor='#fff'
+            dropdownIconRippleColor={colors.white}
             >
               <Picker.Item 
               label='Condutor' 
               style={{
-                color: '#000',
+                color: colors.black,
                 fontFamily: 'BebasNeue-Regular',
               }}
               />
@@ -526,7 +528,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
                 label={decodeURIComponent(id.nomeRondante.replaceAll('+', ' '))} 
                 value={id.nomeRondante}
                 style={{
-                  color: '#d21e2b',
+                  color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
                 }}
                 key='condutor'
@@ -542,21 +544,21 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
             onValueChange={(itemValue) =>
               setPlacaSelecionada(itemValue)
             }
-            dropdownIconColor='#fff'
+            dropdownIconColor={colors.white}
             style={{
-              backgroundColor:'#d21e2b',
+              backgroundColor:colors.red,
               width: '85%',
               alignSelf: 'center',
-              color: '#fff',
+              color: colors.white,
               marginTop: 5,
               fontFamily: 'BebasNeue-Regular'
             }}
-            dropdownIconRippleColor='#fff'
+            dropdownIconRippleColor={colors.white}
             >
               <Picker.Item 
                 label='Placa Veículo' 
                 style={{
-                  color: '#000',
+                  color: colors.black,
                   fontFamily: 'BebasNeue-Regular'
                 }}
                 />
@@ -566,7 +568,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
                 label={id.placaVeiculo} 
                 value={id.placaVeiculo}
                 style={{
-                  color: '#d21e2b',
+                  color: colors.red,
                   fontFamily: 'BebasNeue-Regular',
                 }}
                 key='placa'
@@ -580,7 +582,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           style={styles.input}
           placeholder="Bateria Inicial"
           keyboardType='numeric'
-          placeholderTextColor={"#d21e2b"}
+          placeholderTextColor={colors.red}
           value={bateriaInicialSelecionado}
           onChangeText={text => setBateriaInicialSelecionado(text)}
         />
@@ -589,14 +591,14 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
         style={styles.buttonArquivo}
         onPress={onOpenKmInicial}
         >
-          <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
+          <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color={colors.white} />
           <Text style={styles.txtButtonEnviar}>Foto Bateria Inicial</Text>
         </TouchableOpacity>
 
         <TextInput
           style={styles.input}
           placeholder="Bateria Final"
-          placeholderTextColor={"#d21e2b"}
+          placeholderTextColor={colors.red}
           keyboardType='numeric'
           value={bateriaFinalSelecionado}
           onChangeText={text => setBateriaFinalSelecionado(text)}
@@ -607,14 +609,14 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
         style={styles.buttonArquivo}
         onPress={onOpenKmFinal}
         >
-          <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
+          <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color={colors.white}/>
           <Text style={styles.txtButtonEnviar}>Foto Bateria Final</Text>
         </TouchableOpacity>   
         <View>
           <TextInput
               style={styles.input}
               placeholder="Diferença entre a bateria inicial e a final"
-              placeholderTextColor={"#d21e2b"}
+              placeholderTextColor={colors.red}
               editable={false}
               value={String(diferenca)}
               onChangeText={text => setDiferenca(text)}
@@ -648,8 +650,8 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           showConfirmButton={true}
           cancelText="Não"
           confirmText="Sim"
-          confirmButtonColor="#d21e2b"
-          cancelButtonColor='#424242'
+          confirmButtonColor={colors.red}
+          cancelButtonColor={colors.gray}
           onCancelPressed={() => {
             hideAlertConfirm();
           }}
@@ -669,7 +671,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertSuccess();
           }}
@@ -688,7 +690,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertValidacaoDep();
           }}
@@ -707,7 +709,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertValidacaoCond();
           }}
@@ -726,7 +728,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertValidacaoPlac();
           }}
@@ -745,7 +747,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideErroConec();
           }}
@@ -764,7 +766,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideBateriaInicial();
           }}
@@ -783,7 +785,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideBaterialFinal();
           }}
@@ -802,7 +804,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
         showCancelButton={false}
         showConfirmButton={true}
         confirmText="Ok"
-        confirmButtonColor="#d21e2b"
+        confirmButtonColor={colors.red}
         onConfirmPressed={() => {
           hideAlertValidacaoBateria();
         }}
@@ -820,7 +822,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertValidacaoImageInicial();
           }}
@@ -839,7 +841,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertValidacaoImageFinal();
           }}
@@ -858,7 +860,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertErroSend();
           }}

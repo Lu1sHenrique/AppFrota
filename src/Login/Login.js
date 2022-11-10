@@ -25,6 +25,8 @@ import styles from './style'
 import {AuthContext} from '../Contexts/Auth'
 import api from '../services/api'
 
+import colors from '../Utils/colors'
+
 export default function Login(){
 
   const netInfo = useNetInfo();
@@ -170,7 +172,7 @@ export default function Login(){
 
           <TextInput
             placeholder='Digite o usuário'
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={colors.white}
             style={styles.input}
             value={usuario}
             onChangeText={(text)=> setUsuario(text)}
@@ -179,7 +181,7 @@ export default function Login(){
           <View style={styles.ContainerHidePass}>
           <TextInput
             placeholder='Digite a senha'
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={colors.white}
             style={styles.inputHidePass}
             value={password}
             onChangeText={(text)=> setPassword(text)}
@@ -192,9 +194,9 @@ export default function Login(){
             >
               {
                 hidePass ?
-                <Icon name="eye" size={23} color="#fff" />
+                <Icon name="eye" size={23} color={colors.white} />
                 :
-                <Icon name="eye-off" size={23} color="#fff" />
+                <Icon name="eye-off" size={23} color={colors.white} />
               }
           </TouchableOpacity>
           </View>
@@ -205,7 +207,7 @@ export default function Login(){
           >
             {
               isLoading ? (
-                <ActivityIndicator style={{flex: 1, display: 'flex', paddingVertical: 10}} size="large" color='#d21e2b'/>
+                <ActivityIndicator style={{flex: 1, display: 'flex', paddingVertical: 10}} size="large" color={'#d21e2b'}/>
               ) : (
                 <Text style={styles.buttonText}>Acessar</Text>
               )
@@ -216,7 +218,7 @@ export default function Login(){
             showSmsCode ?
             <TextInput
             placeholder='Digite o código sms'
-            placeholderTextColor={'#fff'}
+            placeholderTextColor={colors.white}
             style={styles.inputSms}
             onChangeText={(text)=> setSmsCode(text)}
             autoCorrect={false}
@@ -245,7 +247,7 @@ export default function Login(){
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertErro();
           }}
@@ -264,7 +266,7 @@ export default function Login(){
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideErroConec();
           }}

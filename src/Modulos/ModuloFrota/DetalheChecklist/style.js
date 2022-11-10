@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../Utils/colors';
 
 const styles = StyleSheet.create({
     container:{
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
   },
 
   containerCaixa:{
-    backgroundColor: '#d21e2b',
+    backgroundColor: colors.red,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
     paddingBottom: '2%',
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
   ContainerButtonBack:{
     flexDirection: 'row',
     borderBottomWidth: 1, 
-    borderBottomColor:"#808080" 
+    borderBottomColor:colors.gray 
   },
 
   ButtonBack:{
@@ -49,19 +50,19 @@ const styles = StyleSheet.create({
 
   IconBack:{
     marginRight: 15,
-    color: "#d21e2b"
+    color: colors.red
   },
 
   txtLabel:{
     fontFamily: 'BebasNeue-Regular',
-    color: "#000",
+    color: colors.black,
     fontSize: 20,
     marginStart: 15,
   },
 
   txtValue:{
     fontFamily: 'BebasNeue-Regular',
-    color: "#d21e2b",
+    color: colors.red,
     fontSize: 20
   },
 
@@ -71,10 +72,10 @@ const styles = StyleSheet.create({
   borderWidth: 1, 
   justifyContent: 'center',
   height: 50,
-  borderColor: "#d21e2b",
+  borderColor: colors.red,
   fontFamily: 'BebasNeue-Regular',
   alignItems: 'center',
-  backgroundColor: "#d21e2b"
+  backgroundColor: colors.red
   },
 
   containerIconArrowButtons:{
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     width: '100%', 
     height: 55, 
     alignSelf: 'flex-end', 
-    backgroundColor: "#fff"
+    backgroundColor: colors.white
   },
 
   containerAlert:{
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
 
    txtTitleAlert:{
     fontSize: 25,
-    color: "#d21e2b",
+    color: colors.red,
     textAlign: 'center',
     fontFamily: 'BebasNeue-Regular'
   },
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
   txtButtonAlert:{
     fontSize: 20,
     alignSelf: 'center',
-    color: '#fff',
+    color: colors.white,
     fontFamily: 'BebasNeue-Regular'
   },
 })

@@ -1,11 +1,12 @@
 import {StyleSheet} from 'react-native';
+import colors from '../Utils/colors'
 
 const styles = StyleSheet.create({
 
   container:{
-        flex: 1,
-        backgroundColor: '#f4f4f4'
-      },
+    flex: 1,
+    backgroundColor: colors.white
+  },
 
   containerButtonsMod:{
     marginTop: 20
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
   },
 
   containerCaixa:{
-    backgroundColor: '#d21e2b',
+    backgroundColor: colors.red,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
     paddingBottom: 10,
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
 
   textOla:{
     fontSize: 25,
-    color: "#424242",
+    color: colors.gray,
     alignSelf: 'center',
     fontFamily: 'BebasNeue-Regular'
   },
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   textBold:{
     fontFamily: 'BebasNeue-Regular',
     fontSize: 44,
-    color: "#d21e2b",
+    color: colors.red,
     alignSelf: 'center',
     textTransform: 'capitalize',
     fontFamily: 'BebasNeue-Regular'
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   },
 
   button:{
-    backgroundColor: '#d21e2b',
+    backgroundColor: colors.red,
     paddingVertical: 30,
     borderRadius: 20,
     borderWidth: 1
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontFamily: 'BebasNeue-Regular',
     alignSelf: 'center',
-    color: '#fff',
+    color: colors.white,
     marginTop: 10,
   },
 

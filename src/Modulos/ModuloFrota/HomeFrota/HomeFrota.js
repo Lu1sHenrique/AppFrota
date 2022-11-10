@@ -3,22 +3,20 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image
 } from 'react-native';
 
 
 //libs
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons'
-import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
-import {AuthContext} from '../../../Contexts/Auth'
 import {useNetInfo} from "@react-native-community/netinfo";
 import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 
 //pages
 import styles from './style'
 import PageHeader from '../../../Components/PageHeader/PageHeader'
+import colors from '../../../Utils/colors';
 
 export default function HomeFrota({ navigation: { goBack } }) {
 
@@ -48,7 +46,7 @@ export default function HomeFrota({ navigation: { goBack } }) {
            onPress={() => navigation.navigate('HomeModulos')}
            >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 33, color: '#424242', fontFamily: 'BebasNeue-Regular'}}>Voltar</Text>
+            <Text style={{fontSize: 33, color: colors.gray, fontFamily: 'BebasNeue-Regular'}}>Voltar</Text>
           </TouchableOpacity>
         </View>
 
@@ -56,10 +54,10 @@ export default function HomeFrota({ navigation: { goBack } }) {
 
         <View style={{flexDirection: 'row'}}>
             <View style={styles.ContainerTxt}>
-                <Text style={{fontSize: 38, color: '#424242', fontFamily: 'BebasNeue-Regular'}}>
+                <Text style={{fontSize: 38, color: colors.gray, fontFamily: 'BebasNeue-Regular'}}>
                     Escolha o tipo da
                 </Text>
-                <Text style={{fontSize: 44, fontFamily: 'BebasNeue-Regular', color: '#424242'}}>
+                <Text style={{fontSize: 44, fontFamily: 'BebasNeue-Regular', color: colors.gray}}>
                     Frota
                 </Text>
             </View>
@@ -71,8 +69,8 @@ export default function HomeFrota({ navigation: { goBack } }) {
                 style={{alignItems: 'center', width: "100%"}}
                 onPress={() => navigation.navigate('RoutesFrota')}
                 >
-                    <IconMaterial size={80} name="local-gas-station" color='#fff' />
-                    <Text style={{fontSize: 33,  color: '#fff', fontFamily: 'BebasNeue-Regular'}}>Combustão</Text>
+                    <IconMaterial size={80} name="local-gas-station" color={colors.white} />
+                    <Text style={{fontSize: 33,  color: colors.white, fontFamily: 'BebasNeue-Regular'}}>Combustão</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -83,8 +81,8 @@ export default function HomeFrota({ navigation: { goBack } }) {
                 style={{alignItems: 'center', width: "100%"}}
                 onPress={() => navigation.navigate('FormFrotaEletrica')}
                 >
-                    <IconMaterial size={80} name="bolt" color='#fff' />
-                    <Text style={{fontSize: 33, color: '#fff', fontFamily: 'BebasNeue-Regular'}}>Elétrica</Text>
+                    <IconMaterial size={80} name="bolt" color={colors.white} />
+                    <Text style={{fontSize: 33, color: colors.white, fontFamily: 'BebasNeue-Regular'}}>Elétrica</Text>
                 </TouchableOpacity>
             </View>
         </View>

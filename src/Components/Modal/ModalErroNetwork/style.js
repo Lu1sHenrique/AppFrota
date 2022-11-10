@@ -1,13 +1,14 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../Utils/colors'
 
 const styles = StyleSheet.create({
     container:{
-    backgroundColor: "#d21e2b",
+    backgroundColor: colors.red,
     width: "90%",
     justifyContent: 'space-evenly',
     alignSelf: "center",
     borderWidth: 1,
-    borderColor: "#000",
+    borderColor: colors.black,
     borderRadius: 10,
     paddingVertical: 10,
     marginVertical: 10,
@@ -15,14 +16,11 @@ const styles = StyleSheet.create({
   },
 
   txtErro:{
-    color: "#fff",
+    color: colors.white,
     alignSelf: 'center',
     fontSize: 23,
     fontFamily: 'BebasNeue-Regular',
   }
-
-
-
 })
 
 export default styles;

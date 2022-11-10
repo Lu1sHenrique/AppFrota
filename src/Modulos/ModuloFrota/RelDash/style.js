@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../Utils/colors';
 
 const styles = StyleSheet.create({
     container:{
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
   },
 
   containerCaixa:{
-    backgroundColor: '#d21e2b',
+    backgroundColor: colors.red,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
     paddingBottom: '2%',
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   ContainerButtonBack:{
     flexDirection: 'row',
     borderBottomWidth: 1, 
-    borderBottomColor:"#808080" 
+    borderBottomColor:colors.gray 
   },
 
   ButtonBack:{
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
 
   IconBack:{
     marginRight: 15,
-    color: "#d21e2b"
+    color: colors.red
   },
 
   Chart:{
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
 
   txtLabels:{
     fontSize: 20, 
-    color: '#000', 
+    color: colors.black, 
     fontFamily: 'BebasNeue-Regular'
   }
 })

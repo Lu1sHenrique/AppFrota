@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../Utils/colors';
 
 const styles = StyleSheet.create({
     container:{
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
   },
 
   containerCaixa:{
-    backgroundColor: '#d21e2b',
+    backgroundColor: colors.red,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
     paddingBottom: '2%',
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   ContainerButtonBack:{
     flexDirection: 'row',
     borderBottomWidth: 1, 
-    borderBottomColor:"#808080" 
+    borderBottomColor:colors.gray 
   },
 
   ButtonBack:{
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
 
   IconBack:{
     marginRight: 15,
-    color: "#d21e2b"
+    color: colors.red
   },
 
   containerCheckBox:{
@@ -57,15 +58,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center', 
     justifyContent: 'center', 
     borderBottomWidth: 1, 
-    borderBottomColor: "#d21e2b"
-  },
-  
-
-  txtCaption:{
-    fontSize: 25,
-    marginTop: 15,
-    color: '#f77b77',
-    marginLeft: 15
+    borderBottomColor: colors.red
   },
   
   containerInput:{
@@ -74,14 +67,14 @@ const styles = StyleSheet.create({
   alignSelf: 'center',
   marginTop: 5,
   borderWidth: 1,
-  borderColor: "#d21e2b"
+  borderColor: colors.red
   },
 
   input:{
     width: '100%',
     height: 50,
     paddingHorizontal: 16,
-    color: "#d21e2b",
+    color: colors.red,
     fontFamily: 'BebasNeue-Regular',
     fontSize: 19
   },
@@ -91,21 +84,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '85%',
     height: 45,
-    backgroundColor: "#d21e2b",
+    backgroundColor: colors.red,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1
   },
 
-  labelError:{
-    alignSelf: 'center',
-    color: '#ff375b',
-    marginBottom: 8,
-    marginLeft: 10
-  },
-
   txtButton: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 25,
     fontFamily: 'BebasNeue-Regular',
   },
@@ -114,14 +100,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '85%',
     borderWidth: 1,
-    backgroundColor: "#d21e2b",
+    backgroundColor: colors.red,
     marginTop: 5
   },
 
   txtButtonEnviar:{
     paddingVertical: 15,
     justifyContent: 'center',
-    color:'#fff', 
+    color:colors.white, 
     fontSize: 19,
     marginLeft: 40,
     fontFamily: 'BebasNeue-Regular'
@@ -130,7 +116,7 @@ const styles = StyleSheet.create({
   txtButtonPicker:{
     paddingVertical: 15,
     justifyContent: 'center',
-    color:'#fff', 
+    color:colors.white, 
     fontSize: 17,
     marginLeft: 40
   },
@@ -153,7 +139,7 @@ const styles = StyleSheet.create({
 },
 
   header:{
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     shadowRadius: 2,
     shadowOpacity: 0.4,
     borderTopLeftRadius: 20,
@@ -163,7 +149,7 @@ const styles = StyleSheet.create({
 
   panel:{
     padding: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.white,
     paddingTop: 5
   },
 
@@ -171,7 +157,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 13,
     borderRadius: 10,
-    backgroundColor: "#d21e2b",
+    backgroundColor: colors.red,
     alignItems: 'center',
     marginVertical: 7,
     borderWidth: 1
@@ -181,7 +167,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontFamily: 'BebasNeue-Regular',
     height: 35,
-    color: "#d21e2b",
+    color: colors.red,
   },
 
   panelSubtitle: {
@@ -190,18 +176,18 @@ const styles = StyleSheet.create({
     color: 'gray',
     height: 30,
     marginBottom: 10,
-    color: "#d21e2b",
+    color: colors.red,
   },
 
   panelButtonTitle: {
     fontSize: 17,
     fontFamily: 'BebasNeue-Regular',
-    color: '#fff'
+    color:colors.white
   },
 
   ContainerRonda:{
     borderBottomWidth: 1, 
-    borderBottomColor:"#d21e2b", 
+    borderBottomColor:colors.red, 
     marginBottom: 20
   },
 
@@ -212,7 +198,7 @@ const styles = StyleSheet.create({
 
   txtTitleAlert:{
     fontSize: 25,
-    color: "#d21e2b",
+    color:colors.red,
     textAlign: 'center',
     fontFamily: 'BebasNeue-Regular'
   },
@@ -226,7 +212,7 @@ const styles = StyleSheet.create({
   txtButtonAlert:{
     fontSize: 20,
     alignSelf: 'center',
-    color: '#fff',
+    color: colors.white,
     fontFamily: 'BebasNeue-Regular'
   },
 
@@ -238,23 +224,22 @@ const styles = StyleSheet.create({
 
   textConfig:{
       fontSize: 20,
-      color: "#000"
+      color: colors.black
   },
 
   buttonBuscar:{
-  flexDirection: 'row', 
-  width: '85%', 
-  borderWidth: 1, 
-  justifyContent: 'center',
-  marginVertical: 10,
-  alignSelf: 'center',
-  height: 50,
-  borderColor: "#d21e2b",
-  fontFamily: 'BebasNeue-Regular',
-  alignItems: 'center',
-  backgroundColor: "#d21e2b"
-}
-
+    flexDirection: 'row', 
+    width: '85%', 
+    borderWidth: 1, 
+    justifyContent: 'center',
+    marginVertical: 10,
+    alignSelf: 'center',
+    height: 50,
+    borderColor: colors.red,
+    fontFamily: 'BebasNeue-Regular',
+    alignItems: 'center',
+    backgroundColor: colors.red
+  }
 })
 
 export default styles;

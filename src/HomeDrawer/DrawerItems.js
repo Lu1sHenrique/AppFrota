@@ -15,7 +15,7 @@ import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import colors from '../Utils/colors';
 
 export default function DrawerItems() {
 
@@ -65,7 +65,7 @@ export default function DrawerItems() {
               style={{padding: 2}}
               onPress={() => navigation.goBack()}
               >
-                <Icon name="x-circle" size={35} color="#fff"/>
+                <Icon name="x-circle" size={35} color={colors.white}/>
               </TouchableOpacity>
           </View>
         </View>
@@ -143,14 +143,14 @@ export default function DrawerItems() {
               style={styles.ButtonFooter}
               onPress={exibirAlerta}
               >
-                <Icon style={styles.IconFooter} name="help-circle" size={20} color="#fff" />
+                <Icon style={styles.IconFooter} name="help-circle" size={20} color={colors.white} />
                 <Text style={styles.txtFooter}>Dúvidas?</Text>
               </TouchableOpacity>      
               <TouchableOpacity 
               style={styles.ButtonFooter}
               onPress={() => navigation.navigate('ReportsErro')}
               >
-                  <Icon style={styles.IconFooter} name="alert-triangle" size={20} color="#fff" />
+                  <Icon style={styles.IconFooter} name="alert-triangle" size={20} color={colors.white} />
                   <Text style={styles.txtFooter}>Reportar Erro</Text>
               </TouchableOpacity>
               </View>          
@@ -169,7 +169,7 @@ export default function DrawerItems() {
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertDuvidas();
           }}
@@ -191,8 +191,8 @@ export default function DrawerItems() {
           showConfirmButton={true}
           cancelText="Não"
           confirmText="Sim"
-          confirmButtonColor="#d21e2b"
-          cancelButtonColor='#424242'
+          confirmButtonColor={colors.red}
+          cancelButtonColor={colors.gray}
           onCancelPressed={() => {
             hideAlertSair();
           }}

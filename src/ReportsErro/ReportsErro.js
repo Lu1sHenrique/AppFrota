@@ -29,6 +29,7 @@ import styles from './style';
 import ModalErro from '../Components/Modal/ModalErro/ModalErro';
 import ModalErroNetwok from '../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 import PageHeader from '../Components/PageHeader/PageHeader'
+import colors from '../Utils/colors';
 
   function ReportsErro() {
 
@@ -263,9 +264,9 @@ import PageHeader from '../Components/PageHeader/PageHeader'
       
       <PageHeader/>
 
-      {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color='#d21e2b'/> : (
+      {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color={colors.red}/> : (
       <ScrollView refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#d21e2b']}/>
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[colors.red]}/>
       }>
         <Animatable.View animation={"fadeInUp"}>
         <View style={styles.ContainerButtonBack}>
@@ -274,7 +275,7 @@ import PageHeader from '../Components/PageHeader/PageHeader'
            onPress={() => navigation.navigate('DrawerItems')}
            >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: '#424242'}}>Reportar Erro</Text>
+            <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: colors.gray}}>Reportar Erro</Text>
           </TouchableOpacity>
         </View>
 
@@ -288,21 +289,21 @@ import PageHeader from '../Components/PageHeader/PageHeader'
             onValueChange={(itemValue) =>
               setCondutorSelecionado(itemValue)
             }
-              dropdownIconColor='#fff'
+              dropdownIconColor={colors.white}
               style={{
-              backgroundColor:'#d21e2b',
+              backgroundColor:colors.red,
               width: '85%',
               alignSelf: 'center',
-              color: '#fff',
+              color: colors.white,
               marginTop: 5,
               fontFamily: 'BebasNeue-Regular',
             }}
-            dropdownIconRippleColor='#fff'
+            dropdownIconRippleColor={colors.white}
             >
               <Picker.Item 
               label='Colaborador' 
               style={{
-                color: '#000',
+                color: colors.black,
                 fontFamily: 'BebasNeue-Regular',
               }}
               />
@@ -312,7 +313,7 @@ import PageHeader from '../Components/PageHeader/PageHeader'
                 label={decodeURIComponent(id.nomeRondante.replaceAll('+', ' '))} 
                 value={id.nomeRondante}
                 style={{
-                  color: '#d21e2b',
+                  color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
                 }}
                 key='colaborador'
@@ -325,7 +326,7 @@ import PageHeader from '../Components/PageHeader/PageHeader'
         <TextInput
           style={styles.input}
           placeholder="Mensagem detalhada do erro"
-          placeholderTextColor={"#d21e2b"}
+          placeholderTextColor={colors.red}
           value={msgErro}
           onChangeText={text => setMsgErro(text)}
           multiline={true}
@@ -336,7 +337,7 @@ import PageHeader from '../Components/PageHeader/PageHeader'
         style={styles.buttonArquivo}
         onPress={onOpenImageErro}
         >
-          <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color="#fff" />
+          <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color={colors.white} />
           <Text style={styles.txtButtonEnviar}>Se desejar envie uma foto do erro</Text>
         </TouchableOpacity> 
 
@@ -368,8 +369,8 @@ import PageHeader from '../Components/PageHeader/PageHeader'
           showConfirmButton={true}
           cancelText="Não"
           confirmText="Sim"
-          confirmButtonColor="#d21e2b"
-          cancelButtonColor='#424242'
+          confirmButtonColor={colors.red}
+          cancelButtonColor={colors.gray}
           onCancelPressed={() => {
             hideAlertConfirm();
           }}
@@ -389,7 +390,7 @@ import PageHeader from '../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertSuccess();
           }}
@@ -408,7 +409,7 @@ import PageHeader from '../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertValidacaoCond();
           }}
@@ -427,7 +428,7 @@ import PageHeader from '../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideErroConec();
           }}
@@ -446,7 +447,7 @@ import PageHeader from '../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertValidacaoMsg();
           }}
@@ -465,7 +466,7 @@ import PageHeader from '../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertValidacaoImage();
           }}
@@ -484,7 +485,7 @@ import PageHeader from '../Components/PageHeader/PageHeader'
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hideAlertErroSend();
           }}

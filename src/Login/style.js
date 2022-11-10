@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../Utils/colors'
 
 const styles = StyleSheet.create({
     container:{
@@ -31,12 +32,12 @@ const styles = StyleSheet.create({
   input:{
     borderWidth: 1,
     height: 50,
-    borderColor: '#fff',
+    borderColor: colors.white,
     marginBottom: 12,
     fontSize: 19,
     borderRadius: 10,
     paddingHorizontal: 30,
-    color: '#fff',
+    color: colors.white,
     width: '100%',
     fontFamily: 'BebasNeue-Regular'
   },
@@ -44,12 +45,12 @@ const styles = StyleSheet.create({
   inputSms:{
     borderWidth: 1,
     height: 50,
-    borderColor: '#fff',
+    borderColor: colors.white,
     marginBottom: 12,
     fontSize: 19,
     borderRadius: 10,
     paddingHorizontal: 30,
-    color: '#fff',
+    color: colors.white,
     width: '100%',
     fontFamily: 'BebasNeue-Regular',
     marginTop: 15
@@ -60,14 +61,14 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     fontSize: 19,
     paddingHorizontal: 30,
-    color: '#fff',
+    color: colors.white,
     width: '85%',
     fontFamily: 'BebasNeue-Regular'
   },
   ContainerHidePass:{
     flexDirection: 'row',
     height: 50,
-    borderColor: '#fff',
+    borderColor: colors.white,
     borderWidth: 1,
     borderRadius: 10,
     width: '100%'
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
   },
 
   button:{
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     width: '100%',
     borderRadius: 10,
     marginTop: 8,
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText:{
-    color: "#d21e2b",
+    color: colors.red,
     fontSize: 22,
     fontFamily: 'BebasNeue-Regular',
     alignSelf: "center"
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
   },
 
   textversao:{
-    color: "#fff",
+    color: colors.white,
     fontSize: 19,
     fontFamily: 'BebasNeue-Regular'
   },
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
 
    txtTitleAlert:{
     fontSize: 25,
-    color: "#d21e2b",
+    color: colors.red,
     textAlign: 'center',
     fontFamily: 'BebasNeue-Regular'
   },
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
   txtButtonAlert:{
     fontSize: 20,
     alignSelf: 'center',
-    color: '#fff',
+    color: colors.white,
     fontFamily: 'BebasNeue-Regular'
   },
 

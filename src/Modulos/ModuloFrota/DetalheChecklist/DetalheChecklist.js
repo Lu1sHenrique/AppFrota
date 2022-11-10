@@ -17,6 +17,8 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from './style'
 import PageHeader from '../../../Components/PageHeader/PageHeader'
 
+import colors from '../../../Utils/colors';
+
 export default function DetalheChecklist({route}){
 
   const [showMsgAlert, setShowMsgAlert] = useState(false)
@@ -136,7 +138,7 @@ export default function DetalheChecklist({route}){
   const [codigoChecklistEletrica] = useState(route.params.paramKey.codigoChecklistEletrica)
   
     return(
-      <View style={{backgroundColor: "#fff"}}>
+      <View style={{backgroundColor: colors.white}}>
        
       <PageHeader/>
           
@@ -146,13 +148,13 @@ export default function DetalheChecklist({route}){
               onPress={() => navigation.goBack()}
               >
               <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-              <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: '#424242'}}>{route.params.paramKey.codigoChecklistCombustao ? "Detalhes checklist combustão" : "Detalhes checklist elétrica"}</Text>
+              <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: colors.gray}}>{route.params.paramKey.codigoChecklistCombustao ? "Detalhes checklist combustão" : "Detalhes checklist elétrica"}</Text>
             </TouchableOpacity>
           </View>
 
             {
             isLoading ? (
-              <ActivityIndicator style={{flex: 1, display: 'flex', paddingVertical: 10}} size="large" color='#d21e2b'/>
+              <ActivityIndicator style={{flex: 1, display: 'flex', paddingVertical: 10}} size="large" color={colors.red}/>
             ) : null           
             }
             
@@ -273,15 +275,15 @@ export default function DetalheChecklist({route}){
             
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
                   <TouchableOpacity style={styles.buttonDown}>
-                    <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
-                    <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Km Inicial</Text>
+                    <IconFeather style={{marginRight: 15}} name="download" size={25} color={colors.white}/>
+                    <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Baixar foto Km Inicial</Text>
                   </TouchableOpacity>
             </View>
 
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
                 <TouchableOpacity style={styles.buttonDown}>
-                  <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
-                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Km Final</Text>
+                  <IconFeather style={{marginRight: 15}} name="download" size={25} color={colors.white}/>
+                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Baixar foto Km Final</Text>
                 </TouchableOpacity>
             </View> 
 
@@ -290,14 +292,14 @@ export default function DetalheChecklist({route}){
                   style={styles.buttonDown}
                   onPress={() => gerarRel()}
                   >
-                    <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
-                    <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar relatório</Text>
+                    <IconFeather style={{marginRight: 15}} name="download" size={25} color={colors.white}/>
+                    <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Baixar relatório</Text>
                     </TouchableOpacity>
             </View>
             </ScrollView>
             <View style={styles.containerIconArrowButtons}>
               <View style={styles.IconArrowButtons}>
-                <IconMaterialsIcons name="keyboard-arrow-right" size={30} color='#d21e2b'/>
+                <IconMaterialsIcons name="keyboard-arrow-right" size={30} color={colors.red}/>
               </View>
             </View>
           </> 
@@ -305,15 +307,15 @@ export default function DetalheChecklist({route}){
           <>
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
                 <TouchableOpacity style={styles.buttonDown}>
-                  <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
-                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Bateria Inicial</Text>
+                  <IconFeather style={{marginRight: 15}} name="download" size={25} color={colors.white}/>
+                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Baixar foto Bateria Inicial</Text>
                 </TouchableOpacity>
             </View> 
            
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
               <TouchableOpacity style={styles.buttonDown}>
-                <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
-                <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar foto Bateria Final</Text>
+                <IconFeather style={{marginRight: 15}} name="download" size={25} color={colors.white}/>
+                <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Baixar foto Bateria Final</Text>
               </TouchableOpacity>
             </View>
 
@@ -322,8 +324,8 @@ export default function DetalheChecklist({route}){
               style={styles.buttonDown}
               onPress={() => gerarRel()}
               >
-                <IconFeather style={{marginRight: 15}} name="download" size={25} color="#fff"/>
-                <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: '#fff'}}>Baixar relatório</Text>
+                <IconFeather style={{marginRight: 15}} name="download" size={25} color={colors.white}/>
+                <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Baixar relatório</Text>
               </TouchableOpacity>
             </View>      
           </>
@@ -343,7 +345,7 @@ export default function DetalheChecklist({route}){
           showCancelButton={false}
           showConfirmButton={true}
           confirmText="Ok"
-          confirmButtonColor="#d21e2b"
+          confirmButtonColor={colors.red}
           onConfirmPressed={() => {
             hidemsgAlert();
           }}

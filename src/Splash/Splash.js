@@ -7,6 +7,7 @@ import Lottie from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native'
 import TouchID from 'react-native-touch-id';
+import colors from '../Utils/colors';
 
 export default function BemVindo(props) {
 
@@ -28,11 +29,11 @@ export default function BemVindo(props) {
   function biometria(){
     const configs = {
       title: "Autenticação requerida",
-      color: "#d21e2b",
+      color: colors.red,
       sensorErrorDescription: 'Biometria inválida',
       sensorDescription: 'Toque no sensor',
       cancelText: 'Cancelar',
-      imageErrorColor: "#d21e2b"
+      imageErrorColor: colors.red
     };
     TouchID.authenticate("Verificação de login", configs)
     .then((success)=>{

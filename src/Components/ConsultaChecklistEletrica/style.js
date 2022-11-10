@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../Utils/colors';
 
 
 const styles = StyleSheet.create({
@@ -6,7 +7,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         borderBottomWidth: 1,
-        borderBottomColor: '#d21e2b',
+        borderBottomColor: colors.red,
         width: '90%',
         alignSelf: 'center',
         marginVertical: 8,
@@ -17,19 +18,19 @@ const styles = StyleSheet.create({
 
     txtbBttonItemCheckCodigo:{
       fontSize: 15,
-      color:  '#000',
+      color: colors.black,
       marginLeft: 10
     },
 
     txtbBttonItemCheckData:{
       fontSize: 15,
-      color:  '#000',
+      color: colors.black,
       marginLeft: 20
     },
 
     txtbBttonItemCheckCondutor:{
       fontSize: 15,
-      color:  '#000',
+      color: colors.black,
       marginLeft: 20
     },
 })

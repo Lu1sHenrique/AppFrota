@@ -12,6 +12,8 @@ import { useNavigation } from '@react-navigation/native'
 //pages
 import styles from './style';
 
+import colors from '../../Utils/colors';
+
 export default function PageHeader() {
     
     const navigation = useNavigation();
@@ -25,7 +27,7 @@ export default function PageHeader() {
         style={{padding: 15}}
         onPress={ () => navigation.navigate('DrawerItems')}
         >
-          <IconFeather name="menu" size={30} color="#fff" />
+          <IconFeather name="menu" size={30} color={colors.white} />
         </TouchableOpacity>
       </Animatable.View>
       <View
