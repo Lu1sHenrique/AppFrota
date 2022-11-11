@@ -212,7 +212,7 @@ import colors from '../../../Utils/colors';
 
       const enviarChecklistEletrica = async () =>{
 
-      const dadosChecklistEletricaEnvDTO = new ChecklistEletricaEnvDTO(departamentoSelecionado, condutorSelecionado, placaSelecionada, bateriaInicialSelecionado, bateriaFinalSelecionado, imageBateriaInicial, imageBateriaFinal, diferenca, "I");
+      const dadosChecklistEletricaEnvDTO = new ChecklistEletricaEnvDTO(departamentoSelecionado, condutorSelecionado, placaSelecionada, bateriaInicialSelecionado, bateriaFinalSelecionado, imageBateriaInicial, imageBateriaFinal, diferenca);
       
       let data = new URLSearchParams();
       data.append('dadosChecklistEletrica', JSON.stringify(dadosChecklistEletricaEnvDTO));

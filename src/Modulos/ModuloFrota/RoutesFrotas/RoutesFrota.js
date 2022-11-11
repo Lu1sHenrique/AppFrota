@@ -7,11 +7,12 @@ import {
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import RelFrota from '../RelatoriosFrota/RelFrota'
-import InvFrota from '../IventarioFrota/InvFrota'
+import ChecklistFotoVeiculo from '../ChecklistFotoVeiculo/ChecklistFotoVeiculo'
 import FormFrotaEletrica from '../FormFrotaEletrica/FormFrotaEletrica'
 import FormFrota from '../FormFrota/FormFrota'
 import RelDash from '../RelDash/RelDash'
 import Icon from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import colors from '../../../Utils/colors';
 const Bottom = createBottomTabNavigator();
@@ -94,16 +95,13 @@ export default function RoutesFrota(){
         />
 
         <Bottom.Screen 
-        name="Inventário"
-        component={InvFrota}
+        name="Checklist"
+        component={ChecklistFotoVeiculo}
         options={{
           tabBarIcon: ({ color }) => (
-          <Icon name="clipboard" color={color} size={30} />
+          <MaterialCommunityIcons name="clipboard-arrow-up-outline" color={color} size={35} />
           ),
           tabBarAccessibilityLabel:"Inventário Frota",
-          tabBarButton: props => (
-            <TouchableOpacity {...props} onPress={(showAlert)} />
-          )
           }}
         />    
       </Bottom.Navigator>
