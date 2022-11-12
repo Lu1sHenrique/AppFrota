@@ -77,6 +77,7 @@ import colors from '../../../Utils/colors';
       const [placas, setPlacas] = useState([]);
       const [placaSelecionada, setPlacaSelecionada] = useState([]);
       const [diferenca, setDiferenca] = useState("");
+      const [operacao, setOperacao] = useState("I");
       //
       const [bateriaInicialSelecionado, setBateriaInicialSelecionado] = useState("");
       const [bateriaFinalSelecionado, setBateriaFinalSelecionado] = useState("");
@@ -117,6 +118,10 @@ import colors from '../../../Utils/colors';
 
       const hideAlertSuccess = () => (
         setShowAlertSuccess(false)
+      );
+
+      const hideAlertErroSend = () => (
+        setShowErrorSend(false)
       );
 
       const hideAlertValidacaoDep = () => (
@@ -212,7 +217,7 @@ import colors from '../../../Utils/colors';
 
       const enviarChecklistEletrica = async () =>{
 
-      const dadosChecklistEletricaEnvDTO = new ChecklistEletricaEnvDTO(departamentoSelecionado, condutorSelecionado, placaSelecionada, bateriaInicialSelecionado, bateriaFinalSelecionado, imageBateriaInicial, imageBateriaFinal, diferenca);
+      const dadosChecklistEletricaEnvDTO = new ChecklistEletricaEnvDTO(departamentoSelecionado, condutorSelecionado, placaSelecionada, bateriaInicialSelecionado, bateriaFinalSelecionado, imageBateriaInicial, imageBateriaFinal, diferenca, operacao);
       
       let data = new URLSearchParams();
       data.append('dadosChecklistEletrica', JSON.stringify(dadosChecklistEletricaEnvDTO));

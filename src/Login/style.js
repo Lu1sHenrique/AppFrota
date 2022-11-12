@@ -138,6 +138,22 @@ const styles = StyleSheet.create({
     fontFamily: 'BebasNeue-Regular'
   },
 
+  containerAviso:{
+    borderWidth: 1, 
+    borderColor: colors.white, 
+    borderRadius: 10, 
+    height: 40, 
+    marginTop: -70, 
+    marginBottom: 70,
+    justifyContent: 'center'
+  },
+
+  textAviso:{
+    fontSize: 25,
+    color: colors.white,
+    fontFamily: 'BebasNeue-Regular',
+    alignSelf: 'center'
+  }
 })
 
 export default styles;

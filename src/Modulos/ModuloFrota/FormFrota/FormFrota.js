@@ -84,6 +84,7 @@ import colors from '../../../Utils/colors';
       const [oleo, setOleo] = useState("");
       const [pneu, setPneu] = useState("");
       const [correias, setCorreias] = useState("");
+      const [operacao, setOperacao] = useState("I");
       //states checks
       const [carroMaxima, setCarroMaxima] = useState(true);
       const [carroReserva, setCarroReserva] = useState(false);
@@ -218,7 +219,7 @@ import colors from '../../../Utils/colors';
 
     const enviarChecklistCombustao = async () =>{
 
-      const dadosChecklistCombustaoEnvDTO = new ChecklistCombustaoEnvDTO(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, ronda1, ronda2, ronda3, oleo, pneu, correias, imageKmInicial, imageKmFinal, diferenca);
+      const dadosChecklistCombustaoEnvDTO = new ChecklistCombustaoEnvDTO(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, ronda1, ronda2, ronda3, oleo, pneu, correias, imageKmInicial, imageKmFinal, diferenca, operacao);
       
       let data = new URLSearchParams();
       data.append('dadosChecklistCombustao', JSON.stringify(dadosChecklistCombustaoEnvDTO));

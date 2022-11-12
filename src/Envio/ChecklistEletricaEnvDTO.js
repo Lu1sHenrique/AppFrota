@@ -1,5 +1,5 @@
 export default class ChecklistEletrica {
-    constructor(departamento, condutor, placaVeiculo, bateriaInicial, bateriaFinal, fotoBateriaInicial, fotoBateriaFinal, diferenca) {
+    constructor(departamento, condutor, placaVeiculo, bateriaInicial, bateriaFinal, fotoBateriaInicial, fotoBateriaFinal, diferenca, operacao) {
       this.departamento = departamento;
       this.condutor = condutor;
       this.placaVeiculo = placaVeiculo;
@@ -8,5 +8,6 @@ export default class ChecklistEletrica {
       this.fotoBateriaInicial = fotoBateriaInicial;
       this.fotoBateriaFinal = fotoBateriaFinal;
       this.diferenca = diferenca;
+      this.operacao = operacao;
     }
   }

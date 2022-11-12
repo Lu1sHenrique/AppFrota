@@ -170,6 +170,10 @@ export default function Login(){
 
         <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
 
+        <View style={styles.containerAviso}>
+          <Text style={styles.textAviso}>Uso exclusivo dos colaboradores máxima</Text>
+        </View>
+
           <TextInput
             placeholder='Digite o usuário'
             placeholderTextColor={colors.white}

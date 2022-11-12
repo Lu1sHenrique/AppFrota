@@ -1,5 +1,5 @@
 export default class ChecklistCombustao {
-  constructor(carroMaxima, carroReserva, departamento, condutor, placaVeiculo, kmInicial, kmFinal, rotaRonda1, rotaRonda2, rotaRonda3, trocaOleo, pneu, correias, fotoKmInical, fotoKmFinal, diferencaKm) {
+  constructor(carroMaxima, carroReserva, departamento, condutor, placaVeiculo, kmInicial, kmFinal, rotaRonda1, rotaRonda2, rotaRonda3, trocaOleo, pneu, correias, fotoKmInical, fotoKmFinal, diferencaKm, operacao) {
     this.carroMaxima = carroMaxima;
     this.carroReserva = carroReserva;
     this.departamento = departamento;
@@ -16,5 +16,6 @@ export default class ChecklistCombustao {
     this.fotoKmInical = fotoKmInical;
     this.fotoKmFinal = fotoKmFinal;
     this.diferencaKm = diferencaKm;
+    this.operacao = operacao;
   }
 }
