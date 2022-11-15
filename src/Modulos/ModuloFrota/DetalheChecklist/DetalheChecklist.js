@@ -4,7 +4,8 @@ import {
   View, 
   TouchableOpacity, 
   ActivityIndicator,
-  ScrollView
+  ScrollView,
+  Modal
 } from 'react-native';
 
 //libs
@@ -23,6 +24,7 @@ export default function DetalheChecklist({route}){
 
   const [showMsgAlert, setShowMsgAlert] = useState(false)
   const [msgAlert, setMsgAlert] = useState("")
+  const [exibeModalFoto, setExibeModalFoto] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -139,6 +141,33 @@ export default function DetalheChecklist({route}){
   
     return(
       <View style={{backgroundColor: colors.white}}>
+
+      <Modal
+      visible={exibeModalFoto}
+      animationType='slide'
+      transparent={true}
+      >
+        <View
+        style={styles.containerModal}
+        >
+          <View style={{flexDirection: 'row', alignSelf: 'flex-end', marginTop: 10}}>
+            <TouchableOpacity
+            style={styles.ButtonDownFoto}
+            >
+              <Text style={styles.txtButtonFechar}>Baixar foto</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+            onPress={() => setExibeModalFoto(false)}
+            style={styles.ButtonFecharModal}
+            >
+              <Text style={styles.txtButtonFechar}>X</Text>
+            </TouchableOpacity>
+          </View>
+          
+          <Text>{route.params.paramKey.fotoBateriaIncial}</Text>
+        </View> 
+      </Modal>
        
       <PageHeader/>
           
@@ -278,16 +307,20 @@ export default function DetalheChecklist({route}){
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flexDirection: 'row'}}>
             
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
-                  <TouchableOpacity style={styles.buttonDown}>
-                    <IconFeather style={{marginRight: 15}} name="download" size={25} color={colors.white}/>
-                    <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Baixar foto Km Inicial</Text>
+                  <TouchableOpacity style={styles.buttonDown}
+                  onPress={() => setExibeModalFoto(true)}
+                  >
+                    <IconFeather style={{marginRight: 15}} name="eye" size={25} color={colors.white}/>
+                    <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Visualizar foto Km Inicial</Text>
                   </TouchableOpacity>
             </View>
 
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
-                <TouchableOpacity style={styles.buttonDown}>
-                  <IconFeather style={{marginRight: 15}} name="download" size={25} color={colors.white}/>
-                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Baixar foto Km Final</Text>
+                <TouchableOpacity style={styles.buttonDown}
+                onPress={() => setExibeModalFoto(true)}
+                >
+                  <IconFeather style={{marginRight: 15}} name="eye" size={25} color={colors.white}/>
+                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Visualizar foto Km Final</Text>
                 </TouchableOpacity>
             </View> 
 
@@ -310,16 +343,20 @@ export default function DetalheChecklist({route}){
             : 
           <>
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
-                <TouchableOpacity style={styles.buttonDown}>
-                  <IconFeather style={{marginRight: 15}} name="download" size={25} color={colors.white}/>
-                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Baixar foto Bateria Inicial</Text>
+                <TouchableOpacity style={styles.buttonDown}
+                onPress={() => setExibeModalFoto(true)}
+                >
+                  <IconFeather style={{marginRight: 15}} name="eye" size={25} color={colors.white}/>
+                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Visualizar foto Bateria Inicial</Text>
                 </TouchableOpacity>
             </View> 
            
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
-              <TouchableOpacity style={styles.buttonDown}>
-                <IconFeather style={{marginRight: 15}} name="download" size={25} color={colors.white}/>
-                <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Baixar foto Bateria Final</Text>
+              <TouchableOpacity style={styles.buttonDown}
+              onPress={() => setExibeModalFoto(true)}
+              >
+                <IconFeather style={{marginRight: 15}} name="eye" size={25} color={colors.white}/>
+                <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Visualizar foto Bateria Final</Text>
               </TouchableOpacity>
             </View>
 

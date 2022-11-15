@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     width: '85%',
     borderWidth: 1,
     backgroundColor: colors.red,
-    marginTop: 20
+    marginTop: 5
   },
 
   txtButtonEnviar:{

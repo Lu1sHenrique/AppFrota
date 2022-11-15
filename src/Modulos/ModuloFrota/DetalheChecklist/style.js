@@ -7,6 +7,42 @@ const styles = StyleSheet.create({
     margin: 50
   },
 
+  containerModal:{
+    width: '85%',
+    height: '85%',
+    borderWidth: 1,
+    borderColor: colors.red,
+    alignSelf: 'center',
+    marginVertical: 60,
+    backgroundColor: colors.white,
+    borderRadius: 15
+  },
+
+  ButtonFecharModal:{
+    backgroundColor: colors.red,
+    marginRight: 20,
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },  
+
+  txtButtonFechar:{
+    color: colors.white,
+    fontFamily: 'BebasNeue-Regular',
+    fontSize: 20
+  },
+
+  ButtonDownFoto:{
+    backgroundColor: colors.red,
+    marginRight: 20,
+    borderRadius: 15,
+    paddingHorizontal: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },  
+
   icon:{
     width: '15%',
     alignItems: 'center',

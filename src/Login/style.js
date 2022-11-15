@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
 
   textAviso:{
-    fontSize: 25,
+    fontSize: 20,
     color: colors.white,
     fontFamily: 'BebasNeue-Regular',
     alignSelf: 'center'

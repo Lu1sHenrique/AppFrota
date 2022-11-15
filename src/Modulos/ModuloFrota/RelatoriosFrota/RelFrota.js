@@ -5,7 +5,8 @@ import { ScrollView,
   TouchableOpacity, 
   FlatList, 
   RefreshControl, 
-  ActivityIndicator
+  ActivityIndicator,
+  TextInput
 } from 'react-native';
 
 //libs
@@ -57,6 +58,7 @@ export default function RelFrota(){
   const [listaChecklistEletrica, setListaChecklistEletrica] = useState([])
   const [dataInicialSelecionada, setDataInicialSelecionada] = useState("");
   const [dataFinalSelecionada, setDataFinalSelecionada] = useState("");
+  const [condutorSelecionado, setCondutorSelecionado] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [tipoFrotaSelecionado, setTipoFrotaSelecionado] = useState(0);
   const [showValidacaoTipoFrota, setShowValidacaoTipoFrota] = useState(false)
@@ -98,9 +100,30 @@ export default function RelFrota(){
       setShowValidacaoTipoFrota(true)
     }else
     if(tipoFrotaSelecionado === 1){
-      if(dataInicialSelecionada.length<=0 && dataFinalSelecionada.length<=0){
+      if(condutorSelecionado.length>0){
+        try {
+          const {data} = await api.get('/obterListaChecklistCombustao/3&"TODOS"&""&""&'+condutorSelecionado+'&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+  
+          if(data.operacaoExecutada == "N"){
+            setShowAlertErro(true)
+            setIsLoading(false)
+          }
+          if(data.mensagemErro.length>0){
+              setMsgErro(data.mensagemErro)
+              setShowAlertErro(true)
+          }
+          setIsLoading(false)
+          setListaChecklistComb(data.lista)
+          console.log(data)
+        } catch(error) {
+          setIsLoading(false)
+          setShowError(true)
+          if (error.response) {
+          console.log({...error});
+          }}
+      }else if(dataInicialSelecionada.length<=0 && dataFinalSelecionada.length<=0){
       try {
-        const {data} = await api.get('/obterListaChecklistCombustao/1&"TODOS"&03102022&03102022&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+        const {data} = await api.get('/obterListaChecklistCombustao/1&"TODOS"&""&""&""&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
 
         if(data.operacaoExecutada == "N"){
           setShowAlertErro(true)
@@ -121,7 +144,9 @@ export default function RelFrota(){
         }}
     }else{
       try {
-        const {data} = await api.get('/obterListaChecklistCombustao/2&"TODOS"&28102022&28102022&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+        const dataInicial = dataInicialSelecionada.replaceAll('/', '');
+        const dataFinal = dataFinalSelecionada.replaceAll('/', '');
+        const {data} = await api.get('/obterListaChecklistCombustao/2&"TODOS"&'+ dataInicial +'&'+ dataFinal +'&""&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
 
         if(data.operacaoExecutada == "N"){
           setShowAlertErro(true)
@@ -133,7 +158,6 @@ export default function RelFrota(){
         }
         setIsLoading(false)
         setListaChecklistComb(data.lista)
-        console.log(data)
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
@@ -141,11 +165,31 @@ export default function RelFrota(){
         console.log({...error});
         }}
     }
-  } 
-    if(tipoFrotaSelecionado === 2){
-      if(dataInicialSelecionada.length<=0 && dataFinalSelecionada.length<=0){
+  } else if(tipoFrotaSelecionado === 2){
+    if(condutorSelecionado.length>0){
+        try {
+          const {data} = await api.get('/obterListaChecklistCombustao/3&"TODOS"&""&""&'+condutorSelecionado+'&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+  
+          if(data.operacaoExecutada == "N"){
+            setShowAlertErro(true)
+            setIsLoading(false)
+          }
+          if(data.mensagemErro.length>0){
+              setMsgErro(data.mensagemErro)
+              setShowAlertErro(true)
+          }
+          setIsLoading(false)
+          setListaChecklistComb(data.lista)
+          console.log(data)
+        } catch(error) {
+          setIsLoading(false)
+          setShowError(true)
+          if (error.response) {
+          console.log({...error});
+          }}
+      }else if(dataInicialSelecionada.length<=0 && dataFinalSelecionada.length<=0){
         try { 
-          const {data} = await api.get('/obterListaChecklistEletrica/1&"TODOS"&"03102022"&"03102022"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+          const {data} = await api.get('/obterListaChecklistEletrica/1&"TODOS"&""&""&&""&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
           if(data.operacaoExecutada == "N"){
             setShowAlertErro(true)
             setIsLoading(false)
@@ -164,7 +208,9 @@ export default function RelFrota(){
           }}
     }else{
       try { 
-        const {data} = await api.get('/obterListaChecklistEletrica/2&"TODOS"&"03102022"&"03102022"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+        const dataInicial = dataInicialSelecionada.replaceAll('/', '');
+        const dataFinal = dataFinalSelecionada.replaceAll('/', '');
+        const {data} = await api.get('/obterListaChecklistEletrica/2&"TODOS"&'+ dataInicial +'&'+ dataFinal +'&""&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
         if(data.operacaoExecutada == "N"){
           setShowAlertErro(true)
           setIsLoading(false)
@@ -252,6 +298,16 @@ export default function RelFrota(){
               />
               
           </Picker>
+        </View>
+
+        <View style={styles.containerInput}>
+          <TextInput
+            style={styles.input}
+            placeholder="Nome do Condutor"
+            placeholderTextColor={colors.red}
+            onChangeText={text => setCondutorSelecionado(text)}
+            value={condutorSelecionado}
+          />
         </View>
 
         <View style={styles.containerInput}>
