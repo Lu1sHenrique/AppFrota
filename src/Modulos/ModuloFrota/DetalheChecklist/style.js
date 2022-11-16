@@ -153,6 +153,15 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontFamily: 'BebasNeue-Regular'
   },
+
+  containerFoto:{ 
+    marginVertical: 15,
+    width: '90%',
+    height: '87%', 
+    alignSelf: 'center',
+    borderRadius: 15,
+    resizeMode: 'contain'
+  }
 })
 
 export default styles;

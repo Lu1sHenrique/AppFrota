@@ -5,7 +5,8 @@ import {
   TouchableOpacity, 
   ActivityIndicator,
   ScrollView,
-  Modal
+  Modal,
+  Image
 } from 'react-native';
 
 //libs
@@ -165,7 +166,16 @@ export default function DetalheChecklist({route}){
             </TouchableOpacity>
           </View>
           
-          <Text>{route.params.paramKey.fotoBateriaIncial}</Text>
+          <Image
+            source={{
+              uri: 'https://source.unsplash.com/1024x768/?nature',
+              method: 'POST',
+              headers: {
+                Pragma: 'no-cache'
+              }
+            }}
+            style={styles.containerFoto}
+          />
         </View> 
       </Modal>
        

@@ -114,7 +114,6 @@ export default function RelFrota(){
           }
           setIsLoading(false)
           setListaChecklistComb(data.lista)
-          console.log(data)
         } catch(error) {
           setIsLoading(false)
           setShowError(true)
@@ -135,7 +134,6 @@ export default function RelFrota(){
         }
         setIsLoading(false)
         setListaChecklistComb(data.lista)
-        console.log(data)
       } catch(error) {
         setIsLoading(false)
         setShowError(true)
@@ -168,7 +166,7 @@ export default function RelFrota(){
   } else if(tipoFrotaSelecionado === 2){
     if(condutorSelecionado.length>0){
         try {
-          const {data} = await api.get('/obterListaChecklistCombustao/3&"TODOS"&""&""&'+condutorSelecionado+'&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
+          const {data} = await api.get('/obterListaChecklistEletrica/3&"TODOS"&""&""&'+condutorSelecionado+'&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
   
           if(data.operacaoExecutada == "N"){
             setShowAlertErro(true)
@@ -179,8 +177,7 @@ export default function RelFrota(){
               setShowAlertErro(true)
           }
           setIsLoading(false)
-          setListaChecklistComb(data.lista)
-          console.log(data)
+          setListaChecklistEletrica(data.lista)
         } catch(error) {
           setIsLoading(false)
           setShowError(true)
@@ -360,11 +357,11 @@ export default function RelFrota(){
          {
           tipoFrotaSelecionado === 1 ? <FlatList 
           data={listaChecklistComb}
-          keyExtractor={(item) => String(item.id)}
-          renderItem={({item})=> <ConsultaChecklistComb data={item} />}
+          keyExtractor={(item, indexComb) => String(indexComb)}
+          renderItem={({item})=> <ConsultaChecklistComb data={item} key={item}/>}
           /> : <FlatList 
             data={listaChecklistEletrica}
-            keyExtractor={(item) => String(item.id)}
+            keyExtractor={(item, indexEle) => String(indexEle)}
             renderItem={({item})=> <ConsultaChecklistEletrica data={item} />}
           />
          } 
