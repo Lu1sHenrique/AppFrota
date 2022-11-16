@@ -358,7 +358,7 @@ export default function RelFrota(){
           tipoFrotaSelecionado === 1 ? <FlatList 
           data={listaChecklistComb}
           keyExtractor={(item, indexComb) => String(indexComb)}
-          renderItem={({item})=> <ConsultaChecklistComb data={item} key={item}/>}
+          renderItem={({item})=> <ConsultaChecklistComb data={item}/>}
           /> : <FlatList 
             data={listaChecklistEletrica}
             keyExtractor={(item, indexEle) => String(indexEle)}
