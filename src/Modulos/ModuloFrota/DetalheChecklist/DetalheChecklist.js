@@ -25,7 +25,8 @@ export default function DetalheChecklist({route}){
 
   const [showMsgAlert, setShowMsgAlert] = useState(false)
   const [msgAlert, setMsgAlert] = useState("")
-  const [exibeModalFoto, setExibeModalFoto] = useState(false);
+  const [exibeModalFotoIni, setExibeModalFotoIni] = useState(false);
+  const [exibeModalFotoFim, setExibeModalFotoFim] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -144,7 +145,7 @@ export default function DetalheChecklist({route}){
       <View style={{backgroundColor: colors.white}}>
 
       <Modal
-      visible={exibeModalFoto}
+      visible={exibeModalFotoIni}
       animationType='slide'
       transparent={true}
       >
@@ -159,23 +160,65 @@ export default function DetalheChecklist({route}){
             </TouchableOpacity>
 
             <TouchableOpacity
-            onPress={() => setExibeModalFoto(false)}
+            onPress={() => setExibeModalFotoIni(false)}
             style={styles.ButtonFecharModal}
             >
               <Text style={styles.txtButtonFechar}>X</Text>
             </TouchableOpacity>
           </View>
           
+          {
+            codigoChecklistCombustao ?
           <Image
-            source={{
-              uri: 'https://source.unsplash.com/1024x768/?nature',
-              method: 'POST',
-              headers: {
-                Pragma: 'no-cache'
-              }
-            }}
+            source={{uri: 'https://reactjs.org/logo-og.png'}}
             style={styles.containerFoto}
           />
+          :
+          <Image
+            source={{uri: "https://source.unsplash.com/1024x768/?nature"}}
+            style={styles.containerFoto}
+          />
+          }
+          
+        </View> 
+      </Modal>
+
+      <Modal
+      visible={exibeModalFotoFim}
+      animationType='slide'
+      transparent={true}
+      >
+        <View
+        style={styles.containerModal}
+        >
+          <View style={{flexDirection: 'row', alignSelf: 'flex-end', marginTop: 10}}>
+            <TouchableOpacity
+            style={styles.ButtonDownFoto}
+            >
+              <Text style={styles.txtButtonFechar}>Baixar foto</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+            onPress={() => setExibeModalFotoFim(false)}
+            style={styles.ButtonFecharModal}
+            >
+              <Text style={styles.txtButtonFechar}>X</Text>
+            </TouchableOpacity>
+          </View>
+          
+          {
+            codigoChecklistCombustao ?
+          <Image
+            source={{uri: 'https://source.unsplash.com/1024x768/?girl'}}
+            style={styles.containerFoto}
+          />
+          :
+          <Image
+            source={{uri: "https://source.unsplash.com/1024x768/?nature"}}
+            style={styles.containerFoto}
+          />
+          }
+          
         </View> 
       </Modal>
        
@@ -318,7 +361,7 @@ export default function DetalheChecklist({route}){
             
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
                   <TouchableOpacity style={styles.buttonDown}
-                  onPress={() => setExibeModalFoto(true)}
+                  onPress={() => setExibeModalFotoIni(true)}
                   >
                     <IconFeather style={{marginRight: 15}} name="eye" size={25} color={colors.white}/>
                     <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Visualizar foto Km Inicial</Text>
@@ -327,7 +370,7 @@ export default function DetalheChecklist({route}){
 
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
                 <TouchableOpacity style={styles.buttonDown}
-                onPress={() => setExibeModalFoto(true)}
+                onPress={() => setExibeModalFotoFim(true)}
                 >
                   <IconFeather style={{marginRight: 15}} name="eye" size={25} color={colors.white}/>
                   <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Visualizar foto Km Final</Text>
@@ -354,7 +397,7 @@ export default function DetalheChecklist({route}){
           <>
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
                 <TouchableOpacity style={styles.buttonDown}
-                onPress={() => setExibeModalFoto(true)}
+                onPress={() => setExibeModalFotoIni(true)}
                 >
                   <IconFeather style={{marginRight: 15}} name="eye" size={25} color={colors.white}/>
                   <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Visualizar foto Bateria Inicial</Text>
@@ -363,7 +406,7 @@ export default function DetalheChecklist({route}){
            
             <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
               <TouchableOpacity style={styles.buttonDown}
-              onPress={() => setExibeModalFoto(true)}
+              onPress={() => setExibeModalFotoFim(true)}
               >
                 <IconFeather style={{marginRight: 15}} name="eye" size={25} color={colors.white}/>
                 <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Visualizar foto Bateria Final</Text>
