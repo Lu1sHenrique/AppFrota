@@ -70,7 +70,8 @@ import colors from '../../../Utils/colors';
       const navigation = useNavigation();
 
       const [isLoading, setIsLoading] = useState(true);
-      const [diferenca, setDiferenca] = useState("");
+      const [isLoadingSend, setIsLoadingSend] = useState(false);
+      const [diferenca, setDiferenca] = useState(0);
 
       //states picker
       const [departamentos, setDepartamentos] = useState([]);
@@ -79,11 +80,11 @@ import colors from '../../../Utils/colors';
       const [condutorSelecionado, setCondutorSelecionado] = useState([]);
       const [placas, setPlacas] = useState([]);
       const [placaSelecionada, setPlacaSelecionada] = useState([]);
-      const [kmInicialSelecionado, setKmInicialSelecionado] = useState("");
-      const [kmFinalSelecionado, setKmFinalSelecionado] = useState("");
-      const [oleo, setOleo] = useState("");
-      const [pneu, setPneu] = useState("");
-      const [correias, setCorreias] = useState("");
+      const [kmInicialSelecionado, setKmInicialSelecionado] = useState(0);
+      const [kmFinalSelecionado, setKmFinalSelecionado] = useState(0);
+      const [oleo, setOleo] = useState(0);
+      const [pneu, setPneu] = useState(0);
+      const [correias, setCorreias] = useState(0);
       const [operacao, setOperacao] = useState("I");
       //states checks
       const [carroMaxima, setCarroMaxima] = useState(true);
@@ -278,8 +279,10 @@ import colors from '../../../Utils/colors';
         setShowAlertSuccess(false)
         setShowAlertConfirm(false)
       }else{
+      setIsLoadingSend(true)
       await api.post('/registrarChecklistCombustao', datastr)
       .then(function (response) {
+      setIsLoadingSend(false)
       console.log(response)
       if(response.data.operacaoExecutada  == "N"){
         setShowErrorSend(true)
@@ -289,19 +292,19 @@ import colors from '../../../Utils/colors';
       setDepartamentoSelecionado([])
       setCondutorSelecionado([])
       setPlacaSelecionada([])
-      setKmInicialSelecionado("")
+      setKmInicialSelecionado(0)
       setImageKmInicial("")
-      setKmFinalSelecionado("")
+      setKmFinalSelecionado(0)
       setImageKmFinal("")
-      setOleo("")
-      setCorreias("")
-      setPneu("")
-      setDiferenca("")
+      setOleo(0)
+      setCorreias(0)
+      setPneu(0)
+      setDiferenca(0)
       setImageKmInicialAnex(false)
       setImageKmFinalAnex(false)
     }
-    setShowAlertConfirm(false)
-      })
+      setShowAlertConfirm(false)
+    })
      .catch(function (error) {
        console.error(error);
      })
@@ -309,8 +312,7 @@ import colors from '../../../Utils/colors';
 }
 
     function calcDiferenca(){
-      let result = parseInt(kmFinalSelecionado)-parseInt(kmInicialSelecionado)
-      setDiferenca(result.toString())
+      setDiferenca(kmFinalSelecionado-kmInicialSelecionado)
     }
     
 
@@ -709,7 +711,6 @@ import colors from '../../../Utils/colors';
               placeholderTextColor={colors.red}
               editable={false}
               value={String(diferenca)}
-              onChangeText={text => setDiferenca(text)}
             />
         </View>
 
@@ -816,11 +817,11 @@ import colors from '../../../Utils/colors';
           messageStyle={styles.txtTitleAlert}
           show={showAlertConfirm}
           showProgress={false}
-          message="Tem certeza que deseja enviar o checklist?"
+          message={isLoadingSend ? <View style={{flexDirection: 'column'}}><Text style={styles.txtTitleAlert}>🖐️Enviando Checklist</Text><ActivityIndicator style={{marginTop: 15}} color={colors.red}/></View> : "Tem certeza que deseja enviar o checklist?"}
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
-          showCancelButton={true}
-          showConfirmButton={true}
+          showCancelButton={isLoadingSend ? false : true}
+          showConfirmButton={isLoadingSend ? false : true}
           cancelText="Não"
           confirmText="Sim"
           confirmButtonColor={colors.red}

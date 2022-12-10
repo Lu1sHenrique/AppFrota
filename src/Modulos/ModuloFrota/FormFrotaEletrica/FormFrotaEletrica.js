@@ -68,6 +68,7 @@ import colors from '../../../Utils/colors';
       const navigation = useNavigation();
 
       const [isLoading, setIsLoading] = useState(true);
+      const [isLoadingSend, setIsLoadingSend] = useState(false);
 
       //states picker
       const [departamentos, setDepartamentos] = useState([]);
@@ -76,11 +77,11 @@ import colors from '../../../Utils/colors';
       const [condutorSelecionado, setCondutorSelecionado] = useState([]);
       const [placas, setPlacas] = useState([]);
       const [placaSelecionada, setPlacaSelecionada] = useState([]);
-      const [diferenca, setDiferenca] = useState("");
+      const [diferenca, setDiferenca] = useState(0);
       const [operacao, setOperacao] = useState("I");
       //
-      const [bateriaInicialSelecionado, setBateriaInicialSelecionado] = useState("");
-      const [bateriaFinalSelecionado, setBateriaFinalSelecionado] = useState("");
+      const [bateriaInicialSelecionado, setBateriaInicialSelecionado] = useState(0);
+      const [bateriaFinalSelecionado, setBateriaFinalSelecionado] = useState(0);
       //states alerts
       const [showError, setShowError] = useState(false);
       const [showAlertConfirm, setShowAlertConfirm] = useState(false)
@@ -281,8 +282,10 @@ import colors from '../../../Utils/colors';
           setShowAlertSuccess(false)
           setShowAlertConfirm(false)
         }else{
+        setIsLoadingSend(true)
         await api.post('/registrarChecklistEletrica', datastr)
        .then(function (response) {
+        setIsLoadingSend(false)
         console.log(response);
         if(response.data.operacaoExecutada  == "N"){
           setShowErrorSend(true)
@@ -292,11 +295,11 @@ import colors from '../../../Utils/colors';
         setDepartamentoSelecionado([])
         setCondutorSelecionado([])
         setPlacaSelecionada([])
-        setBateriaInicialSelecionado("")
+        setBateriaInicialSelecionado(0)
         setImageBateriaInicial("")
-        setBateriaFinalSelecionado("")
+        setBateriaFinalSelecionado(0)
         setimageBateriaFinal("")
-        setDiferenca("")
+        setDiferenca(0)
         setImageBateriaInicialAnex(false)
         setimageBateriaFinalAnex(false)
         }
@@ -678,11 +681,11 @@ import colors from '../../../Utils/colors';
           messageStyle={styles.txtTitleAlert}
           show={showAlertConfirm}
           showProgress={false}
-          message="Tem certeza que deseja enviar o checklist?"
+          message={isLoadingSend ? <View style={{flexDirection: 'column'}}><Text style={styles.txtTitleAlert}>🖐️Enviando Checklist</Text><ActivityIndicator style={{marginTop: 15}} color={colors.red}/></View> : "Tem certeza que deseja enviar o checklist?"}
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
-          showCancelButton={true}
-          showConfirmButton={true}
+          showCancelButton={isLoadingSend ? false : true}
+          showConfirmButton={isLoadingSend ? false : true}
           cancelText="Não"
           confirmText="Sim"
           confirmButtonColor={colors.red}

@@ -516,11 +516,12 @@ console.log("Enviar")
         </ScrollView>
   </View>
   );
-};
-
-function exibirAlerta(){
-  setShowAlertConfirm(true)
+  
+  function exibirAlerta(){
+    setShowAlertConfirm(true)
+  }
 }
+
 
 export default gestureHandlerRootHOC(ChecklistFotoVeiculo)
 
