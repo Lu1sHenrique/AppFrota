@@ -288,7 +288,7 @@ export default function DetalheChecklist({route}){
 
           <View style={{flexDirection: 'row', marginVertical: 10}}>
             <View style={{marginTop: 15}}>
-              <Text style={styles.txtLabel}>Departamento: <Text style={styles.txtValue}>{decodeURIComponent(route.params.paramKey.departamento.replaceAll('+', ' '))}</Text></Text>
+              <Text style={styles.txtLabel}>Departamento: <Text style={styles.txtValue}>{route.params.paramKey.departamento}</Text></Text>
             </View>
           </View>
 

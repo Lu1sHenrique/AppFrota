@@ -512,7 +512,7 @@ import colors from '../../../Utils/colors';
               departamentos.map(id => {
                 return <Picker.Item 
                 label={decodeURIComponent(id.nomeDepartamento.replaceAll('+', ' '))} 
-                value={id.nomeDepartamento} 
+                value={id.codigoDepartamento} 
                 style={{
                   color: colors.red,
                   fontFamily: 'BebasNeue-Regular',

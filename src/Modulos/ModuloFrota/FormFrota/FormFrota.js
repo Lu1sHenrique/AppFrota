@@ -239,7 +239,7 @@ import colors from '../../../Utils/colors';
         setShowErroConec(true)
         setShowAlertConfirm(false)
       }else
-      if(!departamentoSelecionado.length){
+      if(departamentoSelecionado.length<1){
         setShowValidacaoDep(true)
         setShowAlertSuccess(false)
         setShowAlertConfirm(false)
@@ -561,7 +561,7 @@ import colors from '../../../Utils/colors';
               departamentos.map(id => {
                 return <Picker.Item 
                 label={decodeURIComponent(id.nomeDepartamento.replaceAll('+', ' '))} 
-                value={id.nomeDepartamento} 
+                value={id.codigoDepartamento}
                 style={{
                   color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
