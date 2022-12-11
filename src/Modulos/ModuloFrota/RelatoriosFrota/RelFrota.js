@@ -142,8 +142,22 @@ export default function RelFrota(){
         }}
     }else{
       try {
-        const dataInicial = dataInicialSelecionada.replaceAll('/', '');
-        const dataFinal = dataFinalSelecionada.replaceAll('/', '');
+
+        let dataInicial = ''
+        let dataFinal = ''
+
+        if(dataInicialSelecionada.length<=0){
+          dataInicial = '01012022'
+        }else{
+          dataInicial = dataInicialSelecionada.replaceAll('/', '');
+        }
+
+        if(dataFinalSelecionada.length<=0){
+          dataFinal = '00000000'
+        }else{
+          dataFinal = dataFinalSelecionada.replaceAll('/', '');
+        }
+      
         const {data} = await api.get('/obterListaChecklistCombustao/2&"TODOS"&'+ dataInicial +'&'+ dataFinal +'&""&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
 
         if(data.operacaoExecutada == "N"){
