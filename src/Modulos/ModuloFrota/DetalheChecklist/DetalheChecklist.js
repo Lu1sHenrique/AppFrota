@@ -251,9 +251,13 @@ export default function DetalheChecklist({route}){
             </View>
           </View>
 
-          <View style={{flexDirection: 'row', marginVertical: 10, width: '50%'}}>
+          <View style={{flexDirection: 'row', marginVertical: 10, width: '60%'}}>
             <View style={{marginTop: 15}}>
               <Text style={styles.txtLabel}>Hora envio: <Text style={styles.txtValue}>{route.params.paramKey.horaEnvio}</Text></Text>
+            </View>
+
+            <View style={{marginTop: 15}}>
+              <Text style={styles.txtLabel}>Usuário: <Text style={styles.txtValue}>{route.params.paramKey.nomeUsuario.substr(0,22).replaceAll('+', ' ')}</Text></Text>
             </View>
           </View>
 
@@ -281,7 +285,7 @@ export default function DetalheChecklist({route}){
           {codigoChecklistEletrica ? 
           <View style={{flexDirection: 'row', marginVertical: 10}}>
             <View style={{marginTop: 15}}>
-              <Text style={styles.txtLabel}>Diferença Bateria: <Text style={styles.txtValue}>{decodeURIComponent(route.params.paramKey.calcDiferenca.replaceAll('+', ' '))}</Text></Text>
+              <Text style={styles.txtLabel}>Diferença Bateria: <Text style={styles.txtValue}>{decodeURIComponent(route.params.paramKey.calcDiferenca)}</Text></Text>
             </View> 
           </View>: null
           }

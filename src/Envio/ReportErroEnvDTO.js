@@ -1,6 +1,5 @@
 export default class ReportErroEnvDTO {
-  constructor(condutor, fotoErro, msgErro) {
-    this.condutor = condutor;
+  constructor(fotoErro, msgErro) {
     this.fotoErro = fotoErro;
     this.msgErro = msgErro;
   }

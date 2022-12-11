@@ -237,7 +237,7 @@ import colors from '../../../Utils/colors';
           setShowErroConec(true)
           setShowAlertConfirm(false)
         }else
-        if(!departamentoSelecionado.length){
+        if(departamentoSelecionado == 0){
           setShowValidacaoDep(true)
           setShowAlertSuccess(false)
           setShowAlertConfirm(false)
@@ -507,6 +507,7 @@ import colors from '../../../Utils/colors';
                 color: colors.black,
                 fontFamily: 'BebasNeue-Regular',
               }}
+              value={0}
               />
               {
               departamentos.map(id => {

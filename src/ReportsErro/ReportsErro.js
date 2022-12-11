@@ -16,7 +16,6 @@ import * as Animatable from 'react-native-animatable';
 import IconFeather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native'
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
-import {Picker} from '@react-native-picker/picker'
 import api from '../services/api'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { Modalize } from 'react-native-modalize';
@@ -57,17 +56,10 @@ import colors from '../Utils/colors';
         buscarUserCodeAsyncStorage();
       }, []);
 
-      useEffect(()=>{
-        getCondutores();
-      },[numUserCode])
-
-
       const navigation = useNavigation();
 
-      const [isLoading, setIsLoading] = useState(true);
+      const [isLoadingSend, setIsLoadingSend] = useState(false);
 
-      const [condutores, setCondutores] = useState([]);
-      const [condutorSelecionado, setCondutorSelecionado] = useState([]);
       const [imageErro, setImageErro] = useState("");
       const [imageErroAnex, setImageErroAnex] = useState(false)
       const [msgErro, setMsgErro] = useState("");
@@ -82,14 +74,6 @@ import colors from '../Utils/colors';
       const [showErroSend, setShowErroSend] = useState(false)
       const [msgErroSend, setMsgErroSend] = useState("")
       const [showErroConec, setShowErroConec] = useState(false)
-
-      // refresh control
-      const [refreshing, setRefreshing] = useState(false)
-
-      const onRefresh = () =>{
-        setRefreshing(false)
-        getCondutores();
-      }
 
       const hideAlertConfirm = () => (
         setShowAlertConfirm(false)
@@ -119,24 +103,9 @@ import colors from '../Utils/colors';
         setShowErroConec(false)
       );
 
-      const getCondutores = async () =>{
-        showError && setShowError(false)
-        setIsLoading(true)
-        try { 
-        const {data} = await api.get('/obterListaRondante/1&"TODOS"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
-        setIsLoading(false)
-        setCondutores(data.lista)
-      } catch(error) {
-        setIsLoading(false)
-        setShowError(true)
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
       const enviarReportErro = async () =>{
 
-      const dadosReportErroEnvDTO = new ReportErroEnvDTO(condutorSelecionado, imageErro, msgErro);
+      const dadosReportErroEnvDTO = new ReportErroEnvDTO(imageErro, msgErro);
       
       let data = new URLSearchParams();
       data.append('dadosReportErro', JSON.stringify(dadosReportErroEnvDTO));
@@ -155,26 +124,22 @@ import colors from '../Utils/colors';
           setShowErroConec(true)
           setShowAlertConfirm(false)
         }else
-        if(!condutorSelecionado.length){
-          setShowValidacaoCond(true)
-          setShowAlertSuccess(false)
-          setShowAlertConfirm(false)
-        }else
         if(!msgErro.length){
           setShowValidacaoMsg(true)
           setShowAlertSuccess(false)
           setShowAlertConfirm(false)
         }else{
+        setIsLoadingSend(true)
         await api.post('/registrarReportErro', datastr)
        .then(function (response) {
+        setIsLoadingSend(false)
         console.log(response);
         if(response.data.operacaoExecutada == "N"){
           setShowErroSend(true)
           setMsgErroSend("Erro ao enviar: "+response.data.mensagemErro)
         }else{
           setShowAlertSuccess(true) 
-          setCondutorSelecionado([])
-          setImageErro([])
+          setImageErro("")
           setMsgErro("")
           setImageErroAnex(false)
         }
@@ -268,10 +233,7 @@ import colors from '../Utils/colors';
       
       <PageHeader/>
 
-      {isLoading ? <ActivityIndicator style={{flex: 1, display: 'flex'}} size="large" color={colors.red}/> : (
-      <ScrollView refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[colors.red]}/>
-      }>
+      <ScrollView>
         <Animatable.View animation={"fadeInUp"}>
         <View style={styles.ContainerButtonBack}>
           <TouchableOpacity
@@ -285,47 +247,7 @@ import colors from '../Utils/colors';
 
         <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
 
-        <ModalErro showError={showError} />      
-
-        <View style={{marginTop: 15}}>
-          <Picker
-            selectedValue={condutorSelecionado}
-            onValueChange={(itemValue) =>
-              setCondutorSelecionado(itemValue)
-            }
-              dropdownIconColor={colors.white}
-              style={{
-              backgroundColor:colors.red,
-              width: '85%',
-              alignSelf: 'center',
-              color: colors.white,
-              marginTop: 5,
-              fontFamily: 'BebasNeue-Regular',
-            }}
-            dropdownIconRippleColor={colors.white}
-            >
-              <Picker.Item 
-              label='Colaborador' 
-              style={{
-                color: colors.black,
-                fontFamily: 'BebasNeue-Regular',
-              }}
-              />
-              {
-              condutores.map(id => {
-                return <Picker.Item 
-                label={decodeURIComponent(id.nomeRondante.replaceAll('+', ' '))} 
-                value={id.nomeRondante}
-                style={{
-                  color: colors.red,
-                  fontFamily: 'BebasNeue-Regular'
-                }}
-                key='colaborador'
-                />
-              })
-            }
-          </Picker>
-        </View>          
+        <ModalErro showError={showError} />              
 
         <TextInput
           style={styles.input}
@@ -372,11 +294,11 @@ import colors from '../Utils/colors';
           messageStyle={styles.txtTitleAlert}
           show={showAlertConfirm}
           showProgress={false}
-          message="Tem certeza que deseja reportar o erro?"
+          message={isLoadingSend ? <View style={{flexDirection: 'column'}}><Text style={styles.txtTitleAlert}>🖐️Reportanto o erro</Text><ActivityIndicator style={{marginTop: 15}} color={colors.red}/></View> : "Tem certeza que deseja reportar o erro?"}
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
-          showCancelButton={true}
-          showConfirmButton={true}
+          showCancelButton={isLoadingSend ? false : true}
+          showConfirmButton={isLoadingSend ? false : true}
           cancelText="Não"
           confirmText="Sim"
           confirmButtonColor={colors.red}
@@ -502,8 +424,7 @@ import colors from '../Utils/colors';
         />
 
         <View style={{paddingVertical: 15}}></View>
-        </ScrollView>
-      )}    
+        </ScrollView>  
     </KeyboardAvoidingView>
   );
 
