@@ -10,13 +10,10 @@ import {
 import IconFeather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native'
 import { 
-  VictoryPie, 
   VictoryBar,
-  VictoryArea,
-  VictoryHistogram,
-  VictoryLine,
-  VictoryChart,
-  VictoryStack} from 'victory-native'
+  VictoryChart
+} from 'victory-native'
+import api from '../../../services/api'
 import {Picker} from '@react-native-picker/picker'
 import {useNetInfo} from "@react-native-community/netinfo";
 import AwesomeAlert from 'react-native-awesome-alerts';
@@ -74,18 +71,55 @@ export default function RelDash(){
       }
     },[netInfo])
 
-const [data, setData] = useState([])
-const [mes, setMes] = useState([]);
-const [mesSelecionado, setMesSelecionado] = useState([]);
-const [charSelecionado, setCharSelecionado] = useState(0);
-const [showError, setShowError] = useState(false);
-const [showErroConec, setShowErroConec] = useState(false)
+    const [data, setData] = useState([]);
+    const [mesSelecionado, setMesSelecionado] = useState([]);
+    const [formatoSelecionadoCombustao, setFormatoSelecionadoCombustao] = useState(0);
+    const [formatoSelecionadoEletrica, setFormatoSelecionadoEletrica] = useState(0);
+    const [showError, setShowError] = useState(false);
+    const [showErroConec, setShowErroConec] = useState(false);
+    const [tipoFrotaSelecionado, setTipoFrotaSelecionado] = useState(0);;
 
-const hideErroConec = () => (
-  setShowErroConec(false)
-);
+/*
+  const getDash = async () =>{
+    showError && setShowError(false)
+    setIsLoading(true)
+    if(showErrorNetWork == true){
+      setShowErroConec(true)
+    }else
+    if(showError == true){
+      setShowErroConec(true)
+    }else
+    if(tipoFrotaSelecionado === 0){
+      setShowValidacaoTipoFrota(true)
+    }else
+    if(formatoSelecionadoCombustao === 1){
+      if(dataInicialSelecionada.length<=0 && dataFinalSelecionada.length<=0 && condutorSelecionado.length<=0){
+      try {
+        const {data} = await api.get('/obterDash/qual tipo de fora&"qual formato"& qual mes&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
 
-const navigation = useNavigation();
+        if(data.operacaoExecutada == "N"){
+          setShowAlertErro(true)
+          setIsLoading(false)
+        }
+        if(data.mensagemErro.length>0){
+            setMsgErro(data.mensagemErro)
+            setShowAlertErro(true)
+        }
+        setIsLoading(false)
+        setListaChecklistComb(data.lista)
+      } catch(error) {
+        setIsLoading(false)
+        setShowError(true)
+        if (error.response) {
+        console.log({...error});
+        }}
+    }*/
+
+  const hideErroConec = () => (
+    setShowErroConec(false)
+  );
+
+  const navigation = useNavigation();
   
     return(
     <View style={styles.container}>
@@ -109,346 +143,391 @@ const navigation = useNavigation();
 
         <ModalErro showError={showError} />
 
-        <View style={{marginTop: 20}}>
-          <Picker
-            selectedValue={mesSelecionado}
+          <View style={{marginTop: 10}}>
+            <Picker
+            selectedValue={tipoFrotaSelecionado}
             onValueChange={(itemValue) =>
-              setMesSelecionado(itemValue)
+              setTipoFrotaSelecionado(itemValue)
             }
-              dropdownIconColor={colors.white}
-              style={{
-              backgroundColor:colors.red,
-              width: '85%',
-              alignSelf: 'center',
-              color: colors.white,
-              marginTop: 5,
-              fontFamily: 'BebasNeue-Regular'
-            }}
-            dropdownIconRippleColor={colors.white}
-            >
-              <Picker.Item 
-              label='Selecione o mês' 
-              style={{
-                color: colors.black,
-                fontFamily: 'BebasNeue-Regular'
-              }}
-              />
-              {
-              data.map(id => {
-                return <Picker.Item 
-                label={id.mes} 
-                value={id.mes} 
+                dropdownIconColor={colors.white}
                 style={{
-                  color: colors.red,
+                backgroundColor:colors.red,
+                width: '85%',
+                alignSelf: 'center',
+                color: colors.white
+              }}
+              dropdownIconRippleColor={colors.white}
+              >
+                <Picker.Item 
+                label='Selecione o tipo de frota'
+                value={0} 
+                style={{
+                  color: colors.black,
                   fontFamily: 'BebasNeue-Regular'
                 }}
-                key='mes'
                 />
-              })
-            }
-          </Picker>
-        </View>
 
-        <View style={{marginTop: 20}}>
-          <Picker
-            selectedValue={charSelecionado}
-            onValueChange={(itemValue) =>
-              setCharSelecionado(itemValue)
-            }
-              dropdownIconColor={colors.white}
-              style={{
-              backgroundColor:colors.red,
-              width: '85%',
-              alignSelf: 'center',
-              color: colors.white,
-              marginTop: 5,
-              fontFamily: 'BebasNeue-Regular'
-            }}
-            dropdownIconRippleColor={colors.white}
-            >
-              <Picker.Item 
-              label='Selecione o tipo de gráfico'
-              value={0} 
-              style={{
-                color: colors.black,
-                fontFamily: 'BebasNeue-Regular'
-              }}
-              />
-              <Picker.Item 
-                label='Pizza' 
-                value={1} 
+                <Picker.Item
+                label='Combustão'
+                value={1}  
                 style={{
                   color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
                 }}
-                key='pizza'
-              />
+                />
 
-              <Picker.Item 
-                label='Barra' 
+              <Picker.Item
+                label='Elétrica'
                 value={2} 
                 style={{
                   color: colors.red,
                   fontFamily: 'BebasNeue-Regular'
                 }}
-                key='barra'
-              />
-
-              <Picker.Item 
-                label='Linha' 
-                value={3} 
-                style={{
-                  color: colors.red,
-                  fontFamily: 'BebasNeue-Regular'
-                }}
-                key='linha'
-              />
-
-              <Picker.Item 
-                label='Área' 
-                value={4} 
-                style={{
-                  color: colors.red,
-                  fontFamily: 'BebasNeue-Regular'
-                }}
-                key='area'
-              />
-
-              <Picker.Item 
-                label='Pilha' 
-                value={5} 
-                style={{
-                  color: colors.red,
-                  fontFamily: 'BebasNeue-Regular'
-                }}
-                key='pilha'
-              />
-
-              <Picker.Item 
-                label='Histograma' 
-                value={6} 
-                style={{
-                  color: colors.red,
-                  fontFamily: 'BebasNeue-Regular'
-                }}
-                key='histograma'
-              />
-
-              <Picker.Item 
-                label='Rosca' 
-                value={7} 
-                style={{
-                  color: colors.red,
-                  fontFamily: 'BebasNeue-Regular'
-                }}
-                key='rosca'
-              />
-          </Picker>
-        </View> 
-
-        {
-          charSelecionado == 0 ?
-            <ModalMsgSemDash/>     
-          : null
-        }
-        
-        {
-          charSelecionado == 1 ? 
-          <View style={styles.Chart}>
-            <VictoryPie
-            colorScale={data.map(dados => dados.color)}
-            data={data}
-            x='percent'
-            y='value'
-            style={{
-                labels:{
-                    fill: colors.black, 
-                    fontSize:20,
-                    fontFamily: 'BebasNeue-Regular' 
-                }
-            }}
-           animate={{
-            duration: 1000,
-            easing:'circle'
-           }}
-            />
-            <View style={styles.ContainerLabels}>
-            {
-            data.map(id => {
-              return <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
-                  <View style={{borderWidth: 1, backgroundColor: id.color, paddingVertical: 10, width: 25, marginRight: 10}}></View>
-                  <Text style={styles.txtLabels}>{id.nome}</Text>
-                </View>
-            })
-            }
-            </View>
+                />
+            </Picker>
           </View>
-          : null
-        }
 
-        {
-          charSelecionado == 2 ? 
-            <VictoryChart
-            domainPadding={10}
-            >
-              <VictoryBar
-              alignment='start'
-              colorScale={data.map(dados => dados.color)}
-              data={data}
-              x='id'
-              y='value'
-              y0='0'
-              style={{
-                labels:{
-                    fill: colors.black, 
-                    fontSize:20,
-                    fontFamily: 'BebasNeue-Regular' 
-                },
-                data:{
-                  fill: colors.red
-                }
-              }}
-              animate={{
-              duration: 1000,
-              easing:'circle'
-              }}
-              />
-            </VictoryChart>
-          : null
-        }
-
-        {
-          charSelecionado == 3 ? 
-            <VictoryChart>
-              <VictoryLine
-              style={{
-                data: { stroke: colors.red },
-                parent: { border: "1px solid #ccc"}
-              }}
-              data={data}
-              x='id'
-              y='value'
-              animate={{
-                duration: 1000,
-                easing:'circle'
-                }}
-            />
-            </VictoryChart>
-          : null
-        }
-
-        {
-          charSelecionado == 4 ?
-          <VictoryChart> 
-            <VictoryArea
-            style={{ data: { fill: colors.black } }}
-            data={data}
-            x='id'
-            y='value'
-            animate={{
-              duration: 1000,
-              easing:'circle'
-              }}
-            />
-          </VictoryChart>
-          : null
-        }
-
-        {
-          charSelecionado == 5 ?
-          <>
-          <VictoryStack>
-            <VictoryArea
-              colorScale={data.map(dados => dados.color)}
-              data={[{x: "a", y: 2}, {x: "b", y: 3}, {x: "c", y: 5}]}
-              animate={{
-                duration: 1000,
-                easing:'circle'
-                }}
-            />
-            <VictoryArea
-              colorScale={data.map(dados => dados.color)}
-              data={[{x: "a", y: 1}, {x: "b", y: 4}, {x: "c", y: 5}]}
-              animate={{
-                duration: 1000,
-                easing:'circle'
-                }}
-            />
-            <VictoryArea
-              colorScale={data.map(dados => dados.color)}
-              data={[{x: "a", y: 3}, {x: "b", y: 2}, {x: "c", y: 6}]}
-              animate={{
-                duration: 1000,
-                easing:'circle'
-                }}
-            />
-          </VictoryStack>
-          <View style={styles.ContainerLabels}>
           {
-          data.map(id => {
-            return <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
-                <View style={{borderWidth: 1, backgroundColor: id.color, paddingVertical: 10, width: 25, marginRight: 10}}></View>
-                <Text style={styles.txtLabels}>{id.nome}</Text>
-              </View>
-          })
-          }
-          </View>
-          </>
-          : null
-        }
-
-        {
-          charSelecionado == 6 ?
-          <VictoryChart
-            domainPadding={10}
-          >
-            <VictoryHistogram
-              data={data}
-              x='id'
-              animate={{
-                duration: 1000,
-                easing:'circle'
-                }}
-            />
-          </VictoryChart>
-          : null
-        }
-
-        {
-          charSelecionado == 7 ?
-          <View style={styles.Chart}>
-            <VictoryPie
-            colorScale={data.map(dados => dados.color)}
-            data={data}
-            x='percent'
-            y='value'
-            style={{
-              labels:{
-                  fill: colors.black, 
-                  fontSize:20,
-                  fontFamily: 'BebasNeue-Regular' 
+           tipoFrotaSelecionado == 1 && formatoSelecionadoCombustao == 2?
+            <View>
+            <Picker
+              selectedValue={mesSelecionado}
+              onValueChange={(itemValue) =>
+                setMesSelecionado(itemValue)
               }
-            }}
-           animate={{
-            duration: 1000,
-            easing:'circle'
-           }}
-           innerRadius={170}
-           padAngle={5}
-            />
-          <View style={styles.ContainerLabels}>
-          {
-          data.map(id => {
-            return <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
-                <View style={{borderWidth: 1, backgroundColor: id.color, paddingVertical: 10, width: 25, marginRight: 10}}></View>
-                <Text style={styles.txtLabels}>{id.nome}</Text>
-              </View>
-          })
+                dropdownIconColor={colors.white}
+                style={{
+                backgroundColor:colors.red,
+                width: '85%',
+                alignSelf: 'center',
+                color: colors.white,
+                marginTop: 5,
+                fontFamily: 'BebasNeue-Regular'
+              }}
+              dropdownIconRippleColor={colors.white}
+              >
+                <Picker.Item 
+                label='Selecione o mês' 
+                style={{
+                  color: colors.black,
+                  fontFamily: 'BebasNeue-Regular'
+                }}
+                />
+                {
+                data.map(id => {
+                  return <Picker.Item 
+                  label={id.mes} 
+                  value={id.mes} 
+                  style={{
+                    color: colors.red,
+                    fontFamily: 'BebasNeue-Regular'
+                  }}
+                  key='mes'
+                  />
+                })
+              }
+            </Picker>
+            </View>
+            :
+            null
           }
-          </View>
-          </View>
-          : null
-        }
+
+          {
+            tipoFrotaSelecionado == 2 && formatoSelecionadoEletrica == 2 ?
+            <View>
+              <Picker
+                selectedValue={mesSelecionado}
+                onValueChange={(itemValue) =>
+                  setMesSelecionado(itemValue)
+                }
+                  dropdownIconColor={colors.white}
+                  style={{
+                  backgroundColor:colors.red,
+                  width: '85%',
+                  alignSelf: 'center',
+                  color: colors.white,
+                  marginTop: 5,
+                  fontFamily: 'BebasNeue-Regular'
+                }}
+                dropdownIconRippleColor={colors.white}
+                >
+                  <Picker.Item 
+                  label='Selecione o mês' 
+                  style={{
+                    color: colors.black,
+                    fontFamily: 'BebasNeue-Regular'
+                  }}
+                  />
+                  {
+                  data.map(id => {
+                    return <Picker.Item 
+                    label={id.mes} 
+                    value={id.mes} 
+                    style={{
+                      color: colors.red,
+                      fontFamily: 'BebasNeue-Regular'
+                    }}
+                    key='mes'
+                    />
+                  })
+                }
+              </Picker>
+            </View>
+            :
+            null
+          }
+             
+          {
+            tipoFrotaSelecionado == 0 ?
+            <View>
+              <Picker
+                selectedValue={formatoSelecionadoEletrica}
+                onValueChange={(itemValue) =>
+                  setFormatoSelecionadoEletrica(itemValue)
+                }
+                  dropdownIconColor={colors.white}
+                  style={{
+                  backgroundColor:colors.red,
+                  width: '85%',
+                  alignSelf: 'center',
+                  color: colors.white,
+                  marginTop: 5,
+                  fontFamily: 'BebasNeue-Regular'
+                }}
+                dropdownIconRippleColor={colors.white}
+                >
+
+                  <Picker.Item 
+                  label=''
+                  value={0} 
+                  style={{
+                    color: colors.black,
+                    fontFamily: 'BebasNeue-Regular'
+                  }}
+                  />
+              </Picker>
+            </View>
+            :
+            null
+          }
+
+          {
+            tipoFrotaSelecionado == 1 ?
+            <View>
+              <Picker
+                selectedValue={formatoSelecionadoCombustao}
+                onValueChange={(itemValue) =>
+                  setFormatoSelecionadoCombustao(itemValue)
+                }
+                  dropdownIconColor={colors.white}
+                  style={{
+                  backgroundColor:colors.red,
+                  width: '85%',
+                  alignSelf: 'center',
+                  color: colors.white,
+                  marginTop: 5,
+                  fontFamily: 'BebasNeue-Regular'
+                }}
+                se
+                dropdownIconRippleColor={colors.white}
+                >
+                  <Picker.Item 
+                  label='Selecione o formato'
+                  value={0} 
+                  style={{
+                    color: colors.black,
+                    fontFamily: 'BebasNeue-Regular'
+                  }}
+                  />
+
+                  <Picker.Item 
+                    label='Km rodados anual' 
+                    value={1} 
+                    style={{
+                      color: colors.red,
+                      fontFamily: 'BebasNeue-Regular'
+                    }}
+                    key='kmRdodados'
+                  />
+
+                  <Picker.Item 
+                    label='Km rodados por mês' 
+                    value={2} 
+                    style={{
+                      color: colors.red,
+                      fontFamily: 'BebasNeue-Regular'
+                    }}
+                    key='kmRodadosMes'
+                  />
+              </Picker>
+
+              {
+                formatoSelecionadoCombustao == 0 ? 
+                <ModalMsgSemDash />      
+                :
+                null
+              }
+
+              {
+                formatoSelecionadoCombustao == 1 ?
+                <View>
+                  <VictoryChart
+                  domainPadding={10}
+                  >
+                    <VictoryBar
+                    alignment='start'
+                    colorScale={data.map(dados => dados.color)}
+                    data={data}
+                    x='id'
+                    y='value'
+                    y0='0'
+                    style={{
+                      labels:{
+                          fill: colors.black, 
+                          fontSize:20,
+                          fontFamily: 'BebasNeue-Regular' 
+                      },
+                      data:{
+                        fill: colors.red
+                      }
+                    }}
+                    animate={{
+                    duration: 1000,
+                    easing:'circle'
+                    }}
+                    />
+                  </VictoryChart>
+                </View>
+                : null
+              }
+
+              {
+                formatoSelecionadoCombustao == 2 ?
+                <View style={{marginTop: 70, alignSelf: 'center'}}>
+                  <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
+                    <Text style={styles.NumerokmRodadosMes}>3.291</Text>
+                    <Text style={styles.textkmRodados}>km Rodados</Text>
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.textEm}>em  </Text>
+                    <Text style={styles.textMes}>Janeiro</Text>
+                  </View>
+                </View>
+                : null
+              }
+            </View>
+              :
+              null
+            }
+
+          {
+            tipoFrotaSelecionado == 2 ?
+            <View>
+              <Picker
+                selectedValue={formatoSelecionadoEletrica}
+                onValueChange={(itemValue) =>
+                  setFormatoSelecionadoEletrica(itemValue)
+                }
+                  dropdownIconColor={colors.white}
+                  style={{
+                  backgroundColor:colors.red,
+                  width: '85%',
+                  alignSelf: 'center',
+                  color: colors.white,
+                  marginTop: 5,
+                  fontFamily: 'BebasNeue-Regular'
+                }}
+                dropdownIconRippleColor={colors.white}
+                >
+
+                  <Picker.Item 
+                  label='Selecione o formato'
+                  value={0} 
+                  style={{
+                    color: colors.black,
+                    fontFamily: 'BebasNeue-Regular'
+                  }}
+                  />
+
+                  <Picker.Item 
+                    label='Bateria consumida anual' 
+                    value={1} 
+                    style={{
+                      color: colors.red,
+                      fontFamily: 'BebasNeue-Regular'
+                    }}
+                    key='bateriaConsumida'
+                  />
+
+                  <Picker.Item 
+                    label='Bateria consumida por mês' 
+                    value={2} 
+                    style={{
+                      color: colors.red,
+                      fontFamily: 'BebasNeue-Regular'
+                    }}
+                    key='bateriaConsumidaMes'
+                  />
+              </Picker> 
+
+              {
+                formatoSelecionadoEletrica == 0 ? 
+                <ModalMsgSemDash />      
+                :
+                null
+              }
+
+              {
+                formatoSelecionadoEletrica == 1 ? 
+                <>
+                  <VictoryChart
+                  domainPadding={10}
+                  >
+                    <VictoryBar
+                    alignment='start'
+                    colorScale={data.map(dados => dados.color)}
+                    data={data}
+                    x='id'
+                    y='value'
+                    y0='0'
+                    style={{
+                      labels:{
+                          fill: colors.black, 
+                          fontSize:20,
+                          fontFamily: 'BebasNeue-Regular' 
+                      },
+                      data:{
+                        fill: colors.red
+                      }
+                    }}
+                    animate={{
+                    duration: 1000,
+                    easing:'circle'
+                    }}
+                    />
+                  </VictoryChart>
+                  </>
+                : null
+              }
+
+              {
+                formatoSelecionadoEletrica == 2 ?
+                <View style={{marginTop: 70, alignSelf: 'center'}}>
+                  <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
+                    <Text style={styles.NumerokmRodadosMes}>152</Text>
+                    <Text style={styles.textkmRodados}> de Bateria cosumida</Text>
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.textEm}>em  </Text>
+                    <Text style={styles.textMes}>Janeiro</Text>
+                  </View>
+                </View>
+                : null
+              }
+            </View>
+            :
+            null
+          }
 
         <AwesomeAlert
           contentContainerStyle={styles.containerAlert}

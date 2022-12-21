@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderBottomColor: colors.red,
-        width: '90%',
+        width: '100%',
         alignSelf: 'center',
         marginVertical: 8,
         height: 50,

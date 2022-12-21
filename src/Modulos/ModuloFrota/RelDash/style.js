@@ -68,6 +68,35 @@ const styles = StyleSheet.create({
     fontSize: 20, 
     color: colors.black, 
     fontFamily: 'BebasNeue-Regular'
+  },
+
+  NumerokmRodadosMes:{
+    fontSize: 80,
+    color: colors.red,
+    fontFamily: 'BebasNeue-Regular',
+  },
+
+  textkmRodados:{
+    alignSelf: 'flex-end',
+    fontSize: 20,
+    color: colors.red,
+    fontFamily: 'BebasNeue-Regular',
+    marginBottom: 12
+  },
+
+  textEm:{
+    alignSelf: 'flex-end',
+    fontSize: 20,
+    color: colors.red,
+    fontFamily: 'BebasNeue-Regular',
+    marginBottom: 6
+  },
+
+  textMes:{
+    alignSelf: 'flex-end',
+    fontSize: 50,
+    color: colors.red,
+    fontFamily: 'BebasNeue-Regular',
   }
 })
 

@@ -100,7 +100,7 @@ export default function RelFrota(){
       setShowValidacaoTipoFrota(true)
     }else
     if(tipoFrotaSelecionado === 1){
-      if(dataInicialSelecionada.length<=0 && dataFinalSelecionada.length<=0 && condutorSelecionado,length<=0){
+      if(dataInicialSelecionada.length<=0 && dataFinalSelecionada.length<=0 && condutorSelecionado.length<=0){
       try {
         const {data} = await api.get('/obterListaChecklistCombustao/1&"TODOS"&""&""&""&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
 
@@ -353,10 +353,12 @@ export default function RelFrota(){
          {
           tipoFrotaSelecionado === 1 ? <FlatList 
           data={listaChecklistComb}
+          style={{width: '85%', alignSelf: 'center'}}
           keyExtractor={(item, indexComb) => String(indexComb)}
           renderItem={({item})=> <ConsultaChecklistComb data={item}/>}
           /> : <FlatList 
             data={listaChecklistEletrica}
+            style={{width: '85%', alignSelf: 'center'}}
             keyExtractor={(item, indexEle) => String(indexEle)}
             renderItem={({item})=> <ConsultaChecklistEletrica data={item} />}
           />
