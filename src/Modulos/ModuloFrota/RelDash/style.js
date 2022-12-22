@@ -1,18 +1,18 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../../Utils/colors';
 
 const styles = StyleSheet.create({
-    container:{
+  container: {
     flex: 1
   },
 
-  icon:{
+  icon: {
     width: '15%',
     alignItems: 'center',
     justifyContent: 'center'
   },
 
-  containerCaixa:{
+  containerCaixa: {
     backgroundColor: colors.red,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
@@ -27,56 +27,56 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
-  LogoHome:{
+  LogoHome: {
     width: '100%',
     height: 80,
     borderWidth: 1
   },
 
-  ContainerButtonBack:{
+  ContainerButtonBack: {
     flexDirection: 'row',
-    borderBottomWidth: 1, 
-    borderBottomColor:colors.gray 
+    borderBottomWidth: 1,
+    borderBottomColor: colors.gray
   },
 
-  ButtonBack:{
-    width: '100%', 
-    flexDirection: 'row', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
+  ButtonBack: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingVertical: 25
   },
 
-  IconBack:{
+  IconBack: {
     marginRight: 15,
     color: colors.red
   },
 
-  Chart:{
+  Chart: {
     width: '100%',
     alignItems: 'center',
   },
 
-  ContainerLabels:{
-    flexDirection:'row',
-    width: '100%', 
+  ContainerLabels: {
+    flexDirection: 'row',
+    width: '100%',
     justifyContent: 'space-around',
     marginBottom: 20
   },
 
-  txtLabels:{
-    fontSize: 20, 
-    color: colors.black, 
+  txtLabels: {
+    fontSize: 20,
+    color: colors.black,
     fontFamily: 'BebasNeue-Regular'
   },
 
-  NumerokmRodadosMes:{
+  NumerokmRodadosMes: {
     fontSize: 80,
     color: colors.red,
     fontFamily: 'BebasNeue-Regular',
   },
 
-  textkmRodados:{
+  textkmRodados: {
     alignSelf: 'flex-end',
     fontSize: 20,
     color: colors.red,
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     marginBottom: 12
   },
 
-  textEm:{
+  textEm: {
     alignSelf: 'flex-end',
     fontSize: 20,
     color: colors.red,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     marginBottom: 6
   },
 
-  textMes:{
+  textMes: {
     alignSelf: 'flex-end',
     fontSize: 50,
     color: colors.red,
@@ -101,6 +101,3 @@ const styles = StyleSheet.create({
 })
 
 export default styles;
-
-
-

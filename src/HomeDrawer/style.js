@@ -1,14 +1,14 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../Utils/colors'
 
 const styles = StyleSheet.create({
-    container:{
-      flex: 1,
-      backgroundColor: colors.red,
-      width: '100%'
+  container: {
+    flex: 1,
+    backgroundColor: colors.red,
+    width: '100%'
   },
 
-  Logo:{
+  Logo: {
     width: 200,
     height: 80,
   },
@@ -19,36 +19,36 @@ const styles = StyleSheet.create({
   },
 
   ContainerLogo: {
-    width:'75%',
+    width: '75%',
     alignItems: 'flex-start',
     justifyContent: 'center',
     marginLeft: '5%'
   },
-  
-  ContainerIcon:{
+
+  ContainerIcon: {
     width: '15%',
     marginRight: 70,
     justifyContent: 'center'
   },
 
-  ContainerDrawerItem:{
+  ContainerDrawerItem: {
     marginTop: 20,
     marginBottom: 30
   },
 
-  DrawerItem:{
+  DrawerItem: {
     paddingLeft: 55,
     marginTop: 15,
     paddingVertical: 10
   },
 
-  txtDrawerItem:{
+  txtDrawerItem: {
     color: colors.white,
     fontSize: 20,
     fontWeight: 'bold'
   },
 
-  ContainerFooter:{
+  ContainerFooter: {
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     backgroundColor: colors.redDark,
@@ -56,17 +56,17 @@ const styles = StyleSheet.create({
     height: 45
   },
 
-  ButtonFooter:{
+  ButtonFooter: {
     flexDirection: 'row',
     width: '40%',
     marginLeft: 10
   },
 
-  IconFooter:{
+  IconFooter: {
     width: '17%'
   },
 
-  txtFooter:{
+  txtFooter: {
     width: '83%',
     fontSize: 15,
     marginLeft: 8,
@@ -74,31 +74,31 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
 
-  RowFooter:{
-    flexDirection: 'row', 
-    justifyContent: 'center', 
+  RowFooter: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginTop: '2%'
   },
 
-  containerAlert:{
+  containerAlert: {
     width: "80%",
     borderRadius: 15
   },
 
-  txtTitleAlert:{
+  txtTitleAlert: {
     fontSize: 25,
     color: colors.red,
     textAlign: 'center',
     fontFamily: 'BebasNeue-Regular'
   },
 
-  ButtonAlert:{
+  ButtonAlert: {
     width: "35%",
     marginHorizontal: 13,
     paddingVertical: 15
   },
 
-  txtButtonAlert:{
+  txtButtonAlert: {
     fontSize: 20,
     alignSelf: 'center',
     color: colors.white,

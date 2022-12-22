@@ -17,19 +17,19 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import colors from '../../../Utils/colors';
 const Bottom = createBottomTabNavigator();
 
-export default function RoutesFrota(){
+export default function RoutesFrota() {
 
   const showAlert = () =>
-  Alert.alert(
-    "Opção disponível em breve!"
-  );
+    Alert.alert(
+      "Opção disponível em breve!"
+    );
 
   return (
-      <Bottom.Navigator
+    <Bottom.Navigator
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
-        tabBarStyle:{
+        tabBarStyle: {
           borderTopColor: 'transparent',
           right: 10,
           backgroundColor: colors.red,
@@ -41,72 +41,69 @@ export default function RoutesFrota(){
         },
         tabBarActiveTintColor: colors.white,
         tabBarInactiveTintColor: colors.black,
-        tabBarLabelStyle:{
+        tabBarLabelStyle: {
           fontSize: 18,
           fontFamily: 'BebasNeue-Regular',
           paddingBottom: 10
         }
       }}
-      >
-      <Bottom.Screen 
+    >
+      <Bottom.Screen
         name="Combustão"
         component={FormFrota}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="file-text" color={color} size={30} />
-            ),
-            tabBarAccessibilityLabel:"Formulário Frota",
-          }}
-        />
+          ),
+          tabBarAccessibilityLabel: "Formulário Frota",
+        }}
+      />
 
-      <Bottom.Screen 
+      <Bottom.Screen
         name="Elétrica"
         component={FormFrotaEletrica}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="file-text" color={color} size={30} />
-            ),
-            tabBarAccessibilityLabel:"Formulário Elétrica",
-          }}
-        />
+          ),
+          tabBarAccessibilityLabel: "Formulário Elétrica",
+        }}
+      />
 
-        <Bottom.Screen 
+      <Bottom.Screen
         name="Consultar"
         component={RelFrota}
         options={{
           tabBarIcon: ({ color }) => (
-          <IconAntDesign name="search1" color={color} size={30} />
+            <IconAntDesign name="search1" color={color} size={30} />
           ),
-          tabBarAccessibilityLabel:"Relatório Frota",
-          
-        }}
-        />
+          tabBarAccessibilityLabel: "Relatório Frota",
 
-        <Bottom.Screen 
+        }}
+      />
+
+      <Bottom.Screen
         name="Dashboard"
         component={RelDash}
         options={{
           tabBarIcon: ({ color }) => (
-          <Icon name="pie-chart" color={color} size={30} />
+            <Icon name="pie-chart" color={color} size={30} />
           ),
-          tabBarAccessibilityLabel:"Relatório Frota",
-          
-        }}
-        />
+          tabBarAccessibilityLabel: "Relatório Frota",
 
-        <Bottom.Screen 
+        }}
+      />
+
+      <Bottom.Screen
         name="Checklist"
         component={ChecklistFotoVeiculo}
         options={{
           tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="clipboard-arrow-up-outline" color={color} size={35} />
+            <MaterialCommunityIcons name="clipboard-arrow-up-outline" color={color} size={35} />
           ),
-          tabBarAccessibilityLabel:"Inventário Frota",
-          }}
-        />    
-      </Bottom.Navigator>
+          tabBarAccessibilityLabel: "Inventário Frota",
+        }}
+      />
+    </Bottom.Navigator>
   )
 };
-
-
-

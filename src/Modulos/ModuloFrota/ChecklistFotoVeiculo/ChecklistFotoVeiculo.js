@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Text,
   View,
@@ -12,14 +12,14 @@ import {
 import { Modalize } from 'react-native-modalize';
 import IconFeather from 'react-native-vector-icons/Feather';
 import api from '../../../services/api'
-import {useNetInfo} from "@react-native-community/netinfo";
+import { useNetInfo } from "@react-native-community/netinfo";
 import { useNavigation } from '@react-navigation/native'
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 import ImagePicker from 'react-native-image-crop-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SliderBox } from "react-native-image-slider-box";
 import AwesomeAlert from 'react-native-awesome-alerts';
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 //pages
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
 import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
@@ -27,9 +27,9 @@ import PageHeader from '../../../Components/PageHeader/PageHeader';
 import colors from '../../../Utils/colors';
 import styles from './style';
 
-  const windowWidth = Dimensions.get('window').width;
+const windowWidth = Dimensions.get('window').width;
 
-  function ChecklistFotoVeiculo({ navigation: { goBack } }) {
+function ChecklistFotoVeiculo({ navigation: { goBack } }) {
 
 
   const netInfo = useNetInfo();
@@ -55,14 +55,14 @@ import styles from './style';
 
   const navigation = useNavigation();
 
-  useEffect(()=>{
+  useEffect(() => {
     setShowErrorNetWork(false)
     if (netInfo.isConnected) {
       setShowErrorNetWork(false)
     } else {
       setShowErrorNetWork(true)
     }
-  },[netInfo])
+  }, [netInfo])
 
   useEffect(() => {
     async function buscarUserCodeAsyncStorage() {
@@ -73,18 +73,18 @@ import styles from './style';
     buscarUserCodeAsyncStorage();
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     getDepartamentos();
     getCondutores();
     getPlacas();
-  },[numUserCode])
+  }, [numUserCode])
 
   //configs image picks upload
-  function onOpenImageChecklist(){
+  function onOpenImageChecklist() {
     modalizeRefImageChecklist.current?.open()
   }
 
-  function onClose(){
+  function onClose() {
     modalizeRefImageChecklist.current?.close()
   }
 
@@ -118,55 +118,55 @@ import styles from './style';
     onClose()
   }
 
-  const getDepartamentos = async () =>{
-    showError && setShowError(false)
-    setIsLoading(true)
-    try { 
-    const {data} = await api.get('/obterListaDepartamento/1&"TODOS"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
-    setIsLoading(false)
-    setDepartamentos(data.lista)
-  } catch(error) {
-    setIsLoading(false)
-    setShowError(true)
-    console.log(error)
-  }finally{
-    setIsLoading(false)
-  }
-}
-
-  const getCondutores = async () =>{
+  const getDepartamentos = async () => {
     showError && setShowError(false)
     setIsLoading(true)
     try {
-    const {data} = await api.get('/obterListaRondante/1&"TODOS"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
-    setIsLoading(false)
-    setCondutores(data.lista)
-  } catch(error) {
-    setIsLoading(false)
-    setShowError(true)
-    console.log(error)
-  }finally{
-    setIsLoading(false)
+      const { data } = await api.get('/obterListaDepartamento/1&"TODOS"&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
+      setIsLoading(false)
+      setDepartamentos(data.lista)
+    } catch (error) {
+      setIsLoading(false)
+      setShowError(true)
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
   }
-}
 
-  const getPlacas = async () =>{
+  const getCondutores = async () => {
     showError && setShowError(false)
     setIsLoading(true)
-    try { 
-    const {data} = await api.get('/obterListaVeiculo/1&"TODOS"&'+numUserCode+'&"TESTE"&"TESTE"&"TESTE"')
-    setIsLoading(false)
-    setPlacas(data.lista)
-  } catch(error) {
-    setIsLoading(false)
-    setShowError(true)
-    console.log(error)
-  }finally{
-    setIsLoading(false)
+    try {
+      const { data } = await api.get('/obterListaRondante/1&"TODOS"&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
+      setIsLoading(false)
+      setCondutores(data.lista)
+    } catch (error) {
+      setIsLoading(false)
+      setShowError(true)
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
   }
-}
 
-  const enviarChecklistCombustao = async () =>{
+  const getPlacas = async () => {
+    showError && setShowError(false)
+    setIsLoading(true)
+    try {
+      const { data } = await api.get('/obterListaVeiculo/1&"TODOS"&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
+      setIsLoading(false)
+      setPlacas(data.lista)
+    } catch (error) {
+      setIsLoading(false)
+      setShowError(true)
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const enviarChecklistCombustao = async () => {
 
     /*const dadosChecklistCombustaoEnvDTO = new ChecklistCombustaoEnvDTO(carroMaxima, carroReserva, departamentoSelecionado, condutorSelecionado, placaSelecionada, kmInicialSelecionado, kmFinalSelecionado, ronda1, ronda2, ronda3, oleo, pneu, correias, imageKmInicial, imageKmFinal, diferenca, "I");
     
@@ -255,95 +255,95 @@ import styles from './style';
      console.error(error);
    })
 }*/
-console.log("Enviar")
-}
+    console.log("Enviar")
+  }
 
   return (
-  <View style={styles.container}>
-    <Modalize
-      ref={modalizeRefImageChecklist}
-      snapPoint={330}
-      modalHeight={330}
-      HeaderComponent={
-        <View style={styles.header}>
-          <View style={styles.panelHeader}>
-          </View>
-        </View>
-      }
-      >
-          <View style={styles.panel}>
-            <View style={{alignItems: 'center'}}> 
-              <Text style={styles.panelTitle}>Enviar foto</Text>
-              <Text style={styles.panelSubtitle}>Escolha como deseja enviar a foto</Text>
-
-              <TouchableOpacity 
-              style={styles.panelButton}
-              onPress={() => pickImageFromCamera()}
-              >
-                <Text style={styles.panelButtonTitle}>Capturar foto</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity 
-              style={styles.panelButton}
-              onPress={() => pickImageFromGallery()}
-              >
-                <Text style={styles.panelButtonTitle}>Escolher da galeria</Text>
-              </TouchableOpacity>
-              <TouchableOpacity 
-              style={styles.panelButton}
-              onPress={onClose}
-              >
-                <Text style={styles.panelButtonTitle}>Cancelar</Text>
-              </TouchableOpacity>
+    <View style={styles.container}>
+      <Modalize
+        ref={modalizeRefImageChecklist}
+        snapPoint={330}
+        modalHeight={330}
+        HeaderComponent={
+          <View style={styles.header}>
+            <View style={styles.panelHeader}>
             </View>
           </View>
+        }
+      >
+        <View style={styles.panel}>
+          <View style={{ alignItems: 'center' }}>
+            <Text style={styles.panelTitle}>Enviar foto</Text>
+            <Text style={styles.panelSubtitle}>Escolha como deseja enviar a foto</Text>
+
+            <TouchableOpacity
+              style={styles.panelButton}
+              onPress={() => pickImageFromCamera()}
+            >
+              <Text style={styles.panelButtonTitle}>Capturar foto</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.panelButton}
+              onPress={() => pickImageFromGallery()}
+            >
+              <Text style={styles.panelButtonTitle}>Escolher da galeria</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.panelButton}
+              onPress={onClose}
+            >
+              <Text style={styles.panelButtonTitle}>Cancelar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </Modalize>
 
-    <PageHeader/>
+      <PageHeader />
 
-    <ScrollView>
-    <View style={styles.ContainerButtonBack}>
+      <ScrollView>
+        <View style={styles.ContainerButtonBack}>
           <TouchableOpacity
-           style={styles.ButtonBack}
-           onPress={() => navigation.goBack()}
-           >
+            style={styles.ButtonBack}
+            onPress={() => navigation.goBack()}
+          >
             <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: colors.gray}}>Checklist Veículo</Text>
+            <Text style={{ fontSize: 33, fontFamily: 'BebasNeue-Regular', color: colors.gray }}>Checklist Veículo</Text>
           </TouchableOpacity>
         </View>
 
-    <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
+        <ModalErroNetwok showErrorNetWork={showErrorNetWork} />
 
-    <ModalErro showError={showError} />
+        <ModalErro showError={showError} />
 
-    
-      {
-        imageChecklistAnex ? 
-        <View style={{marginTop: 20, marginBottom: 15}}>
-          <View 
-          style={styles.containerSliderFotos}
-          >
-            <SliderBox 
-            images={images} 
-            parentWidth={windowWidth/1.2}
-            dotColor={colors.red}
-            sliderBoxHeight={400}
-            /> 
-          </View>
-        </View>
-        : null
-      }
-    
-    
-    <View style={{marginTop: 5}}>
+
+        {
+          imageChecklistAnex ?
+            <View style={{ marginTop: 20, marginBottom: 15 }}>
+              <View
+                style={styles.containerSliderFotos}
+              >
+                <SliderBox
+                  images={images}
+                  parentWidth={windowWidth / 1.2}
+                  dotColor={colors.red}
+                  sliderBoxHeight={400}
+                />
+              </View>
+            </View>
+            : null
+        }
+
+
+        <View style={{ marginTop: 5 }}>
           <Picker
             selectedValue={departamentoSelecionado}
             onValueChange={(itemValue) =>
               setDepartamentoSelecionado(itemValue)
             }
-              dropdownIconColor={colors.white}
-              style={{
-              backgroundColor:colors.red,
+            dropdownIconColor={colors.white}
+            style={{
+              backgroundColor: colors.red,
               width: '85%',
               alignSelf: 'center',
               color: colors.white,
@@ -351,29 +351,29 @@ console.log("Enviar")
               fontFamily: 'BebasNeue-Regular'
             }}
             dropdownIconRippleColor={colors.white}
-            >
-              <Picker.Item 
-              label='Departamentos' 
+          >
+            <Picker.Item
+              label='Departamentos'
               style={{
                 color: colors.black,
                 fontFamily: 'BebasNeue-Regular'
               }}
-              />
-              {
+            />
+            {
               departamentos.map(id => {
-                return <Picker.Item 
-                label={decodeURIComponent(id.nomeDepartamento.replaceAll('+', ' '))} 
-                value={id.nomeDepartamento} 
-                style={{
-                  color: colors.red,
-                  fontFamily: 'BebasNeue-Regular'
-                }}
-                key='departamento'
+                return <Picker.Item
+                  label={decodeURIComponent(id.nomeDepartamento.replaceAll('+', ' '))}
+                  value={id.nomeDepartamento}
+                  style={{
+                    color: colors.red,
+                    fontFamily: 'BebasNeue-Regular'
+                  }}
+                  key='departamento'
                 />
               })
             }
           </Picker>
-        </View>         
+        </View>
 
         <View>
           <Picker
@@ -381,9 +381,9 @@ console.log("Enviar")
             onValueChange={(itemValue) =>
               setCondutorSelecionado(itemValue)
             }
-              dropdownIconColor={colors.white}
-              style={{
-              backgroundColor:colors.red,
+            dropdownIconColor={colors.white}
+            style={{
+              backgroundColor: colors.red,
               width: '85%',
               alignSelf: 'center',
               color: colors.white,
@@ -391,30 +391,30 @@ console.log("Enviar")
               fontFamily: 'BebasNeue-Regular'
             }}
             dropdownIconRippleColor={colors.white}
-            >
-              <Picker.Item 
-              label='Condutores' 
+          >
+            <Picker.Item
+              label='Condutores'
               style={{
                 color: colors.black,
                 fontFamily: 'BebasNeue-Regular'
               }}
-              />
-              {
+            />
+            {
               condutores.map(id => {
-                return <Picker.Item 
-                label={decodeURIComponent(id.nomeRondante.replaceAll('+', ' '))} 
-                value={id.nomeRondante} 
-                style={{
-                  color: colors.red,
-                  fontFamily: 'BebasNeue-Regular'
-                }}
-                key='condutor'
+                return <Picker.Item
+                  label={decodeURIComponent(id.nomeRondante.replaceAll('+', ' '))}
+                  value={id.nomeRondante}
+                  style={{
+                    color: colors.red,
+                    fontFamily: 'BebasNeue-Regular'
+                  }}
+                  key='condutor'
                 />
               })
             }
           </Picker>
-        </View>          
-        
+        </View>
+
         <View>
           <Picker
             selectedValue={placaSelecionada}
@@ -423,7 +423,7 @@ console.log("Enviar")
             }
             dropdownIconColor={colors.white}
             style={{
-              backgroundColor:colors.red,
+              backgroundColor: colors.red,
               width: '85%',
               alignSelf: 'center',
               color: colors.white,
@@ -431,40 +431,40 @@ console.log("Enviar")
               fontFamily: 'BebasNeue-Regular'
             }}
             dropdownIconRippleColor={colors.white}
-            >
-              <Picker.Item 
-                label='Placa Veículo' 
-                style={{
-                  color: colors.black,
-                  fontFamily: 'BebasNeue-Regular'
-                }}
-                />
+          >
+            <Picker.Item
+              label='Placa Veículo'
+              style={{
+                color: colors.black,
+                fontFamily: 'BebasNeue-Regular'
+              }}
+            />
             {
               placas.map(id => {
-                return <Picker.Item 
-                label={id.placaVeiculo.replaceAll('+', ' ')} 
-                value={id.placaVeiculo}
-                style={{
-                  color: colors.red,
-                  fontFamily: 'BebasNeue-Regular'
-                }}
-                key='placa'
+                return <Picker.Item
+                  label={id.placaVeiculo.replaceAll('+', ' ')}
+                  value={id.placaVeiculo}
+                  style={{
+                    color: colors.red,
+                    fontFamily: 'BebasNeue-Regular'
+                  }}
+                  key='placa'
                 />
               })
             }
           </Picker>
         </View>
 
-    <TouchableOpacity
-        style={styles.buttonArquivo}
-        onPress={onOpenImageChecklist}
+        <TouchableOpacity
+          style={styles.buttonArquivo}
+          onPress={onOpenImageChecklist}
         >
           <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color={colors.white} />
           <Text style={styles.txtButtonEnviar}>
             {
               imageChecklistAnex ? "Fotos do veículo Anexadas ✅"
-              : 
-              "Fotos do Veículo"
+                :
+                "Fotos do Veículo"
             }
           </Text>
         </TouchableOpacity>
@@ -481,14 +481,14 @@ console.log("Enviar")
 
         <View>
           <TouchableOpacity
-          onPress={exibirAlerta}
-          style={styles.button}
+            onPress={exibirAlerta}
+            style={styles.button}
           >
             <Text style={styles.txtButton}>
               Enviar
             </Text>
           </TouchableOpacity>
-        </View>  
+        </View>
 
         <AwesomeAlert
           contentContainerStyle={styles.containerAlert}
@@ -513,17 +513,14 @@ console.log("Enviar")
           }}
           onConfirmPressed={enviarChecklistCombustao}
         />
-        </ScrollView>
-  </View>
+      </ScrollView>
+    </View>
   );
-  
-  function exibirAlerta(){
+
+  function exibirAlerta() {
     setShowAlertConfirm(true)
   }
 }
 
 
-export default gestureHandlerRootHOC(ChecklistFotoVeiculo)
-
-
-
+export default gestureHandlerRootHOC(ChecklistFotoVeiculo);

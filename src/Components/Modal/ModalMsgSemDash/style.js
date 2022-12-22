@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../../Utils/colors'
 
 const styles = StyleSheet.create({
-    container:{
+  container: {
     flex: 1,
     width: '100%',
     height: 400,
@@ -10,15 +10,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
-  icon:{
+  icon: {
     opacity: 0.3
   },
 
-  txt:{
+  txt: {
     fontSize: 30,
     fontFamily: 'BebasNeue-Regular',
     opacity: 0.3,
-    color: colors.black 
+    color: colors.black
   }
 })
 

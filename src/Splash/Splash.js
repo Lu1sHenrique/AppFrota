@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
   View
 } from 'react-native';
@@ -16,17 +16,17 @@ export default function BemVindo(props) {
   useEffect(() => {
     async function buscarTokenAsyncStorage() {
       const userToken = await AsyncStorage.getItem('@ListApp:userToken');
-      userToken 
-      ? 
-      biometria()
-      : 
-      null
+      userToken
+        ?
+        biometria()
+        :
+        null
     }
 
     buscarTokenAsyncStorage();
   }, []);
 
-  function biometria(){
+  function biometria() {
     const configs = {
       title: "Autenticação requerida",
       color: colors.red,
@@ -36,29 +36,26 @@ export default function BemVindo(props) {
       imageErrorColor: colors.red
     };
     TouchID.authenticate("Verificação de login", configs)
-    .then((success)=>{
-      console.log("Sucesso na autenticação")
-      props.navigation.navigate('HomeModulos');
-    })
-    .catch((error) =>{
-      console.log("Falha na autenticação "+error)
-      props.navigation.navigate('Login');
-    })  
+      .then((success) => {
+        console.log("Sucesso na autenticação")
+        props.navigation.navigate('HomeModulos');
+      })
+      .catch((error) => {
+        console.log("Falha na autenticação " + error)
+        props.navigation.navigate('Login');
+      })
   }
 
   return (
-      <View style={{flex: 1, justifyContent: "center", alignItems:'center'}}>
-        <Lottie 
-          source={require('../assets/splash.json')} 
-          autoPlay 
-          loop={false}
-          onAnimationFinish={() => navigation.navigate("Login")}
-          resizeMode="cover"
-          speed={1.5}
-        />
-      </View>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: 'center' }}>
+      <Lottie
+        source={require('../assets/splash.json')}
+        autoPlay
+        loop={false}
+        onAnimationFinish={() => navigation.navigate("Login")}
+        resizeMode="cover"
+        speed={1.5}
+      />
+    </View>
   );
 };
-
-
-

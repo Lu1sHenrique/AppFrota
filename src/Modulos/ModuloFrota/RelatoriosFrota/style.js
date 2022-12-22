@@ -1,18 +1,18 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../../Utils/colors';
 
 const styles = StyleSheet.create({
-    container:{
+  container: {
     flex: 1
   },
 
-  icon:{
+  icon: {
     width: '15%',
     alignItems: 'center',
     justifyContent: 'center'
   },
 
-  containerCaixa:{
+  containerCaixa: {
     backgroundColor: colors.red,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
@@ -27,50 +27,50 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
-  LogoHome:{
+  LogoHome: {
     width: '100%',
     height: 80,
     borderWidth: 1
   },
 
-  ContainerButtonBack:{
+  ContainerButtonBack: {
     flexDirection: 'row',
-    borderBottomWidth: 1, 
-    borderBottomColor:colors.gray 
+    borderBottomWidth: 1,
+    borderBottomColor: colors.gray
   },
 
-  ButtonBack:{
-    width: '100%', 
-    flexDirection: 'row', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
+  ButtonBack: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingVertical: 25
   },
 
-  IconBack:{
+  IconBack: {
     marginRight: 15,
     color: colors.red
   },
 
-  containerCheckBox:{
-    flexDirection: 'row', 
-    paddingVertical: 20, 
-    alignSelf: 'center', 
-    justifyContent: 'center', 
-    borderBottomWidth: 1, 
+  containerCheckBox: {
+    flexDirection: 'row',
+    paddingVertical: 20,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: 1,
     borderBottomColor: colors.red
   },
-  
-  containerInput:{
-  flexDirection: 'row', 
-  width: '85%', 
-  alignSelf: 'center',
-  marginTop: 5,
-  borderWidth: 1,
-  borderColor: colors.red
+
+  containerInput: {
+    flexDirection: 'row',
+    width: '85%',
+    alignSelf: 'center',
+    marginTop: 5,
+    borderWidth: 1,
+    borderColor: colors.red
   },
 
-  input:{
+  input: {
     width: '100%',
     height: 50,
     paddingHorizontal: 16,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     fontSize: 19
   },
 
-  button:{
+  button: {
     marginTop: 15,
     alignSelf: 'center',
     width: '85%',
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     fontFamily: 'BebasNeue-Regular',
   },
 
-  buttonArquivo:{
+  buttonArquivo: {
     alignSelf: 'center',
     width: '85%',
     borderWidth: 1,
@@ -104,41 +104,41 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
 
-  txtButtonEnviar:{
+  txtButtonEnviar: {
     paddingVertical: 15,
     justifyContent: 'center',
-    color:colors.white, 
+    color: colors.white,
     fontSize: 19,
     marginLeft: 40,
     fontFamily: 'BebasNeue-Regular'
   },
 
-  txtButtonPicker:{
+  txtButtonPicker: {
     paddingVertical: 15,
     justifyContent: 'center',
-    color:colors.white, 
+    color: colors.white,
     fontSize: 17,
     marginLeft: 40
   },
 
-  iconButtonUpLoad:{
-      position: 'absolute',
-      marginLeft: 9,
-      paddingVertical: 13
+  iconButtonUpLoad: {
+    position: 'absolute',
+    marginLeft: 9,
+    paddingVertical: 13
   },
 
-  iconButonPicker:{
+  iconButonPicker: {
     position: 'absolute',
-    right:40,
+    right: 40,
     paddingVertical: 15
   },
 
-  iconButtonEnviar:{
+  iconButtonEnviar: {
     position: 'absolute',
-    right:115
-},
+    right: 115
+  },
 
-  header:{
+  header: {
     backgroundColor: colors.white,
     shadowRadius: 2,
     shadowOpacity: 0.4,
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 
-  panel:{
+  panel: {
     padding: 20,
     backgroundColor: colors.white,
     paddingTop: 5
@@ -182,55 +182,55 @@ const styles = StyleSheet.create({
   panelButtonTitle: {
     fontSize: 17,
     fontFamily: 'BebasNeue-Regular',
-    color:colors.white
+    color: colors.white
   },
 
-  ContainerRonda:{
-    borderBottomWidth: 1, 
-    borderBottomColor:colors.red, 
+  ContainerRonda: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.red,
     marginBottom: 20
   },
 
-  containerAlert:{
+  containerAlert: {
     width: "80%",
     borderRadius: 15
   },
 
-  txtTitleAlert:{
+  txtTitleAlert: {
     fontSize: 25,
-    color:colors.red,
+    color: colors.red,
     textAlign: 'center',
     fontFamily: 'BebasNeue-Regular'
   },
 
-  ButtonAlert:{
+  ButtonAlert: {
     width: "35%",
     marginHorizontal: 13,
     paddingVertical: 15
   },
 
-  txtButtonAlert:{
+  txtButtonAlert: {
     fontSize: 20,
     alignSelf: 'center',
     color: colors.white,
     fontFamily: 'BebasNeue-Regular'
   },
 
-  textHeader:{
+  textHeader: {
     position: 'absolute',
     alignSelf: 'center',
     marginTop: 10,
   },
 
-  textConfig:{
-      fontSize: 20,
-      color: colors.black
+  textConfig: {
+    fontSize: 20,
+    color: colors.black
   },
 
-  buttonBuscar:{
-    flexDirection: 'row', 
-    width: '85%', 
-    borderWidth: 1, 
+  buttonBuscar: {
+    flexDirection: 'row',
+    width: '85%',
+    borderWidth: 1,
     justifyContent: 'center',
     marginVertical: 10,
     alignSelf: 'center',
@@ -243,6 +243,3 @@ const styles = StyleSheet.create({
 })
 
 export default styles;
-
-
-

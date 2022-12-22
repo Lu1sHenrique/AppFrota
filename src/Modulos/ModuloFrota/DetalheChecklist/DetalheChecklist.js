@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {
-  Text, 
-  View, 
-  TouchableOpacity, 
+  Text,
+  View,
+  TouchableOpacity,
   ActivityIndicator,
   ScrollView,
   Modal,
@@ -21,7 +21,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader'
 
 import colors from '../../../Utils/colors';
 
-export default function DetalheChecklist({route}){
+export default function DetalheChecklist({ route }) {
 
   const [showMsgAlert, setShowMsgAlert] = useState(false)
   const [msgAlert, setMsgAlert] = useState("")
@@ -36,7 +36,7 @@ export default function DetalheChecklist({route}){
 
   const data = route;
 
-  async function gerarRel(){
+  async function gerarRel() {
     setIsLoading(true)
 
     const htmlContent = `
@@ -127,331 +127,331 @@ export default function DetalheChecklist({route}){
       fileName: 'Teste',
       directory: 'Documents',
     };
-  
+
     let file = await RNHTMLtoPDF.convert(options)
     //alert(file.filePath);
     console.log(file.filePath)
     setIsLoading(false)
     setShowMsgAlert(true)
-    setMsgAlert("Relatório "+options.fileName+" gerado com sucesso na pasta "+options.directory)
+    setMsgAlert("Relatório " + options.fileName + " gerado com sucesso na pasta " + options.directory)
   }
 
   const navigation = useNavigation();
 
   const [codigoChecklistCombustao] = useState(route.params.paramKey.codigoChecklistCombustao)
   const [codigoChecklistEletrica] = useState(route.params.paramKey.codigoChecklistEletrica)
-  
-    return(
-      <View style={{backgroundColor: colors.white}}>
+
+  return (
+    <View style={{ backgroundColor: colors.white }}>
 
       <Modal
-      visible={exibeModalFotoIni}
-      animationType='slide'
-      transparent={true}
+        visible={exibeModalFotoIni}
+        animationType='slide'
+        transparent={true}
       >
         <View
-        style={styles.containerModal}
+          style={styles.containerModal}
         >
-          <View style={{flexDirection: 'row', alignSelf: 'flex-end', marginTop: 10}}>
+          <View style={{ flexDirection: 'row', alignSelf: 'flex-end', marginTop: 10 }}>
             <TouchableOpacity
-            style={styles.ButtonDownFoto}
+              style={styles.ButtonDownFoto}
             >
               <Text style={styles.txtButtonFechar}>Baixar foto</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-            onPress={() => setExibeModalFotoIni(false)}
-            style={styles.ButtonFecharModal}
+              onPress={() => setExibeModalFotoIni(false)}
+              style={styles.ButtonFecharModal}
             >
               <Text style={styles.txtButtonFechar}>X</Text>
             </TouchableOpacity>
           </View>
-          
+
           {
             codigoChecklistCombustao ?
-          <Image
-            source={{uri: 'https://reactjs.org/logo-og.png'}}
-            style={styles.containerFoto}
-          />
-          :
-          <Image
-            source={{uri: "https://source.unsplash.com/1024x768/?nature"}}
-            style={styles.containerFoto}
-          />
+              <Image
+                source={{ uri: 'https://reactjs.org/logo-og.png' }}
+                style={styles.containerFoto}
+              />
+              :
+              <Image
+                source={{ uri: "https://source.unsplash.com/1024x768/?nature" }}
+                style={styles.containerFoto}
+              />
           }
-          
-        </View> 
+
+        </View>
       </Modal>
 
       <Modal
-      visible={exibeModalFotoFim}
-      animationType='slide'
-      transparent={true}
+        visible={exibeModalFotoFim}
+        animationType='slide'
+        transparent={true}
       >
         <View
-        style={styles.containerModal}
+          style={styles.containerModal}
         >
-          <View style={{flexDirection: 'row', alignSelf: 'flex-end', marginTop: 10}}>
+          <View style={{ flexDirection: 'row', alignSelf: 'flex-end', marginTop: 10 }}>
             <TouchableOpacity
-            style={styles.ButtonDownFoto}
+              style={styles.ButtonDownFoto}
             >
               <Text style={styles.txtButtonFechar}>Baixar foto</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-            onPress={() => setExibeModalFotoFim(false)}
-            style={styles.ButtonFecharModal}
+              onPress={() => setExibeModalFotoFim(false)}
+              style={styles.ButtonFecharModal}
             >
               <Text style={styles.txtButtonFechar}>X</Text>
             </TouchableOpacity>
           </View>
-          
+
           {
             codigoChecklistCombustao ?
-          <Image
-            source={{uri: 'https://source.unsplash.com/1024x768/?girl'}}
-            style={styles.containerFoto}
-          />
-          :
-          <Image
-            source={{uri: "https://source.unsplash.com/1024x768/?nature"}}
-            style={styles.containerFoto}
-          />
+              <Image
+                source={{ uri: 'https://source.unsplash.com/1024x768/?girl' }}
+                style={styles.containerFoto}
+              />
+              :
+              <Image
+                source={{ uri: "https://source.unsplash.com/1024x768/?nature" }}
+                style={styles.containerFoto}
+              />
           }
-          
-        </View> 
+
+        </View>
       </Modal>
-       
-      <PageHeader/>
-          
-          <View style={styles.ContainerButtonBack}> 
-            <TouchableOpacity
-              style={styles.ButtonBack}
-              onPress={() => navigation.goBack()}
-              >
-              <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-              <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: colors.gray}}>{route.params.paramKey.codigoChecklistCombustao ? "Detalhes checklist combustão" : "Detalhes checklist elétrica"}</Text>
-            </TouchableOpacity>
+
+      <PageHeader />
+
+      <View style={styles.ContainerButtonBack}>
+        <TouchableOpacity
+          style={styles.ButtonBack}
+          onPress={() => navigation.goBack()}
+        >
+          <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
+          <Text style={{ fontSize: 33, fontFamily: 'BebasNeue-Regular', color: colors.gray }}>{route.params.paramKey.codigoChecklistCombustao ? "Detalhes checklist combustão" : "Detalhes checklist elétrica"}</Text>
+        </TouchableOpacity>
+      </View>
+
+      {
+        isLoading ? (
+          <ActivityIndicator style={{ flex: 1, display: 'flex', paddingVertical: 10 }} size="large" color={colors.red} />
+        ) : null
+      }
+
+      <ScrollView style={{ width: '100%' }}>
+        <View style={{ flexDirection: 'row', marginVertical: 10, width: '50%' }}>
+          <View style={{ marginTop: 15 }}>
+            <Text style={styles.txtLabel}>Código checklist: <Text style={styles.txtValue}>{route.params.paramKey.codigoChecklistCombustao ? codigoChecklistCombustao : codigoChecklistEletrica}</Text></Text>
           </View>
 
-            {
-            isLoading ? (
-              <ActivityIndicator style={{flex: 1, display: 'flex', paddingVertical: 10}} size="large" color={colors.red}/>
-            ) : null           
-            }
-            
-          <ScrollView style={{width: '100%'}}>
-          <View style={{flexDirection: 'row', marginVertical: 10, width: '50%'}}>
-            <View style={{marginTop: 15}}>
-              <Text style={styles.txtLabel}>Código checklist: <Text style={styles.txtValue}>{route.params.paramKey.codigoChecklistCombustao ? codigoChecklistCombustao : codigoChecklistEletrica}</Text></Text>
-            </View>
+          <View style={{ marginTop: 15 }}>
+            <Text style={styles.txtLabel}>Data envio: <Text style={styles.txtValue}>{route.params.paramKey.dataEnvio.substr(0, 12)}</Text></Text>
+          </View>
+        </View>
 
-            <View style={{marginTop: 15}}>
-              <Text style={styles.txtLabel}>Data envio: <Text style={styles.txtValue}>{route.params.paramKey.dataEnvio.substr(0,12)}</Text></Text>
-            </View>
+        <View style={{ flexDirection: 'row', marginVertical: 10, width: '60%' }}>
+          <View style={{ marginTop: 15 }}>
+            <Text style={styles.txtLabel}>Hora envio: <Text style={styles.txtValue}>{route.params.paramKey.horaEnvio}</Text></Text>
           </View>
 
-          <View style={{flexDirection: 'row', marginVertical: 10, width: '60%'}}>
-            <View style={{marginTop: 15}}>
-              <Text style={styles.txtLabel}>Hora envio: <Text style={styles.txtValue}>{route.params.paramKey.horaEnvio}</Text></Text>
+          <View style={{ marginTop: 15 }}>
+            <Text style={styles.txtLabel}>Usuário: <Text style={styles.txtValue}>{route.params.paramKey.nomeUsuario.substr(0, 22).replaceAll('+', ' ')}</Text></Text>
+          </View>
+        </View>
+
+        {codigoChecklistCombustao ?
+          <View style={{ flexDirection: 'row', marginVertical: 10, width: '50%' }}>
+            <View style={{ marginTop: 15 }}>
+              <Text style={styles.txtLabel}>Carro Máxima: <Text style={styles.txtValue}>{route.params.paramKey.carroMaxima}</Text></Text>
             </View>
 
-            <View style={{marginTop: 15}}>
-              <Text style={styles.txtLabel}>Usuário: <Text style={styles.txtValue}>{route.params.paramKey.nomeUsuario.substr(0,22).replaceAll('+', ' ')}</Text></Text>
+            <View style={{ marginTop: 15 }}>
+              <Text style={styles.txtLabel}>Carro Reserva: <Text style={styles.txtValue}>{route.params.paramKey.carroReserva}</Text></Text>
+            </View>
+          </View> :
+          <View style={{ flexDirection: 'row', marginVertical: 10, width: '50%' }}>
+            <View style={{ marginTop: 15 }}>
+              <Text style={styles.txtLabel}>Bateria Inicial: <Text style={styles.txtValue}>{route.params.paramKey.bateriaInicial}</Text></Text>
+            </View>
+
+            <View style={{ marginTop: 15 }}>
+              <Text style={styles.txtLabel}>Bateria Final: <Text style={styles.txtValue}>{route.params.paramKey.bateriaFinal}</Text></Text>
             </View>
           </View>
+        }
 
-          {codigoChecklistCombustao ?
-            <View style={{flexDirection: 'row', marginVertical: 10, width: '50%'}}>
-              <View style={{marginTop: 15}}>
-                <Text style={styles.txtLabel}>Carro Máxima: <Text style={styles.txtValue}>{route.params.paramKey.carroMaxima}</Text></Text>
-              </View>
-
-              <View style={{marginTop: 15}}>
-                <Text style={styles.txtLabel}>Carro Reserva: <Text style={styles.txtValue}>{route.params.paramKey.carroReserva}</Text></Text>
-              </View>
-            </View> : 
-            <View style={{flexDirection: 'row', marginVertical: 10, width: '50%'}}>
-              <View style={{marginTop: 15}}>
-                <Text style={styles.txtLabel}>Bateria Inicial: <Text style={styles.txtValue}>{route.params.paramKey.bateriaInicial}</Text></Text>
-              </View>
-
-              <View style={{marginTop: 15}}>
-                <Text style={styles.txtLabel}>Bateria Final: <Text style={styles.txtValue}>{route.params.paramKey.bateriaFinal}</Text></Text>
-              </View>
-            </View> 
-          }
-      
-          {codigoChecklistEletrica ? 
-          <View style={{flexDirection: 'row', marginVertical: 10}}>
-            <View style={{marginTop: 15}}>
+        {codigoChecklistEletrica ?
+          <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+            <View style={{ marginTop: 15 }}>
               <Text style={styles.txtLabel}>Diferença Bateria: <Text style={styles.txtValue}>{decodeURIComponent(route.params.paramKey.calcDiferenca)}</Text></Text>
-            </View> 
-          </View>: null
-          }
-
-          <View style={{flexDirection: 'row', marginVertical: 10}}>
-            <View style={{marginTop: 15}}>
-              <Text style={styles.txtLabel}>Departamento: <Text style={styles.txtValue}>{route.params.paramKey.departamento}</Text></Text>
             </View>
+          </View> : null
+        }
+
+        <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+          <View style={{ marginTop: 15 }}>
+            <Text style={styles.txtLabel}>Departamento: <Text style={styles.txtValue}>{route.params.paramKey.departamento}</Text></Text>
           </View>
+        </View>
 
-          <View style={{flexDirection: 'row', marginVertical: 10}}>
-            <View style={{marginTop: 15}}>
-              <Text style={styles.txtLabel}>Condutor: <Text style={styles.txtValue}>{decodeURIComponent(route.params.paramKey.condutor.replaceAll('+', ' '))}</Text></Text>
-            </View>
+        <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+          <View style={{ marginTop: 15 }}>
+            <Text style={styles.txtLabel}>Condutor: <Text style={styles.txtValue}>{decodeURIComponent(route.params.paramKey.condutor.replaceAll('+', ' '))}</Text></Text>
           </View>
-          
+        </View>
 
-          <View style={{flexDirection: 'row', marginVertical: 10}}>
-            <View style={{marginTop: 15}}>
-              <Text style={styles.txtLabel}>Placa do veículo: <Text style={styles.txtValue}>{route.params.paramKey.placaVeiculo}</Text></Text>
+
+        <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+          <View style={{ marginTop: 15 }}>
+            <Text style={styles.txtLabel}>Placa do veículo: <Text style={styles.txtValue}>{route.params.paramKey.placaVeiculo}</Text></Text>
+          </View>
+        </View>
+
+
+        {codigoChecklistCombustao ?
+          <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+            <View style={{ marginTop: 10 }}>
+              <Text style={styles.txtLabel}>KM Inicial: <Text style={styles.txtValue}>{route.params.paramKey.kmInicial}</Text></Text>
             </View>
-          </View>  
 
-          
-            {codigoChecklistCombustao ?
-            <View style={{flexDirection: 'row', marginVertical: 10}}>
-              <View style={{marginTop: 10}}>
-                <Text style={styles.txtLabel}>KM Inicial: <Text style={styles.txtValue}>{route.params.paramKey.kmInicial}</Text></Text>
-              </View>
-              
-              <View style={{marginTop: 10}}>
-                <Text style={styles.txtLabel}>KM Final: <Text style={styles.txtValue}>{route.params.paramKey.kmFinal}</Text></Text>
-              </View>
+            <View style={{ marginTop: 10 }}>
+              <Text style={styles.txtLabel}>KM Final: <Text style={styles.txtValue}>{route.params.paramKey.kmFinal}</Text></Text>
+            </View>
 
-              <View style={{marginTop: 10}}>
-                <Text style={styles.txtLabel}>Diferença Km: <Text style={styles.txtValue}>{route.params.paramKey.calcDiferenca}</Text></Text>
-              </View>
-            </View> : null
-            } 
-          
+            <View style={{ marginTop: 10 }}>
+              <Text style={styles.txtLabel}>Diferença Km: <Text style={styles.txtValue}>{route.params.paramKey.calcDiferenca}</Text></Text>
+            </View>
+          </View> : null
+        }
 
-          {codigoChecklistCombustao ?
+
+        {codigoChecklistCombustao ?
           <>
-          <View style={{flexDirection: 'row', marginVertical: 15}}>
-            <View style={{marginTop: 10}}>
-              <Text style={styles.txtLabel}>Rota ronda 1: <Text style={styles.txtValue}>{route.params.paramKey.rotaRonda1}</Text></Text>
+            <View style={{ flexDirection: 'row', marginVertical: 15 }}>
+              <View style={{ marginTop: 10 }}>
+                <Text style={styles.txtLabel}>Rota ronda 1: <Text style={styles.txtValue}>{route.params.paramKey.rotaRonda1}</Text></Text>
+              </View>
+
+              <View style={{ marginTop: 10 }}>
+                <Text style={styles.txtLabel}>Rota ronda 2: <Text style={styles.txtValue}>{route.params.paramKey.rotaRonda2}</Text></Text>
+              </View>
+
+              <View style={{ marginTop: 10 }}>
+                <Text style={styles.txtLabel}>Rota ronda 3: <Text style={styles.txtValue}>{route.params.paramKey.rotaRonda3}</Text></Text>
+              </View>
             </View>
 
-            <View style={{marginTop: 10}}>
-              <Text style={styles.txtLabel}>Rota ronda 2: <Text style={styles.txtValue}>{route.params.paramKey.rotaRonda2}</Text></Text>
-            </View>
+            <View style={{ flexDirection: 'row', marginVertical: 15 }}>
+              <View style={{ marginTop: 10 }}>
+                <Text style={styles.txtLabel}>Troca óleo: <Text style={styles.txtValue}>{route.params.paramKey.trocaOleo}</Text></Text>
+              </View>
 
-            <View style={{marginTop: 10}}>
-              <Text style={styles.txtLabel}>Rota ronda 3: <Text style={styles.txtValue}>{route.params.paramKey.rotaRonda3}</Text></Text>
-            </View>
-          </View>
+              <View style={{ marginTop: 10 }}>
+                <Text style={styles.txtLabel}>Pneu: <Text style={styles.txtValue}>{route.params.paramKey.pneu}</Text></Text>
+              </View>
 
-          <View style={{flexDirection: 'row', marginVertical: 15}}>
-            <View style={{marginTop: 10}}>
-              <Text style={styles.txtLabel}>Troca óleo: <Text style={styles.txtValue}>{route.params.paramKey.trocaOleo}</Text></Text>
+              <View style={{ marginTop: 10 }}>
+                <Text style={styles.txtLabel}>Correias: <Text style={styles.txtValue}>{route.params.paramKey.correias}</Text></Text>
+              </View>
             </View>
-
-            <View style={{marginTop: 10}}>
-              <Text style={styles.txtLabel}>Pneu: <Text style={styles.txtValue}>{route.params.paramKey.pneu}</Text></Text>
-            </View>
-
-            <View style={{marginTop: 10}}>
-              <Text style={styles.txtLabel}>Correias: <Text style={styles.txtValue}>{route.params.paramKey.correias}</Text></Text>
-            </View>
-          </View>
           </> : null
-          } 
+        }
 
-          {codigoChecklistCombustao ?
+        {codigoChecklistCombustao ?
           <>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flexDirection: 'row'}}>
-            
-            <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
-                  <TouchableOpacity style={styles.buttonDown}
-                  onPress={() => setExibeModalFotoIni(true)}
-                  >
-                    <IconFeather style={{marginRight: 15}} name="eye" size={25} color={colors.white}/>
-                    <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Visualizar foto Km Inicial</Text>
-                  </TouchableOpacity>
-            </View>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ flexDirection: 'row' }}>
 
-            <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
+              <View style={{ marginStart: 10, marginEnd: 10, marginTop: 10 }}>
                 <TouchableOpacity style={styles.buttonDown}
-                onPress={() => setExibeModalFotoFim(true)}
+                  onPress={() => setExibeModalFotoIni(true)}
                 >
-                  <IconFeather style={{marginRight: 15}} name="eye" size={25} color={colors.white}/>
-                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Visualizar foto Km Final</Text>
+                  <IconFeather style={{ marginRight: 15 }} name="eye" size={25} color={colors.white} />
+                  <Text style={{ fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white }}>Visualizar foto Km Inicial</Text>
                 </TouchableOpacity>
-            </View> 
+              </View>
 
-            <View style={{marginStart: 10, marginEnd: 45, marginTop: 10}}>
-                  <TouchableOpacity 
+              <View style={{ marginStart: 10, marginEnd: 10, marginTop: 10 }}>
+                <TouchableOpacity style={styles.buttonDown}
+                  onPress={() => setExibeModalFotoFim(true)}
+                >
+                  <IconFeather style={{ marginRight: 15 }} name="eye" size={25} color={colors.white} />
+                  <Text style={{ fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white }}>Visualizar foto Km Final</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={{ marginStart: 10, marginEnd: 45, marginTop: 10 }}>
+                <TouchableOpacity
                   style={styles.buttonDown}
                   onPress={() => gerarRel()}
-                  >
-                    <IconFeather style={{marginRight: 15}} name="download" size={25} color={colors.white}/>
-                    <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Baixar relatório</Text>
-                    </TouchableOpacity>
-            </View>
+                >
+                  <IconFeather style={{ marginRight: 15 }} name="download" size={25} color={colors.white} />
+                  <Text style={{ fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white }}>Baixar relatório</Text>
+                </TouchableOpacity>
+              </View>
             </ScrollView>
             <View style={styles.containerIconArrowButtons}>
               <View style={styles.IconArrowButtons}>
-                <IconMaterialsIcons name="keyboard-arrow-right" size={30} color={colors.red}/>
+                <IconMaterialsIcons name="keyboard-arrow-right" size={30} color={colors.red} />
               </View>
             </View>
-          </> 
-            : 
+          </>
+          :
           <>
-            <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
-                <TouchableOpacity style={styles.buttonDown}
-                onPress={() => setExibeModalFotoIni(true)}
-                >
-                  <IconFeather style={{marginRight: 15}} name="eye" size={25} color={colors.white}/>
-                  <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Visualizar foto Bateria Inicial</Text>
-                </TouchableOpacity>
-            </View> 
-           
-            <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
+            <View style={{ marginStart: 10, marginEnd: 10, marginTop: 10 }}>
               <TouchableOpacity style={styles.buttonDown}
-              onPress={() => setExibeModalFotoFim(true)}
+                onPress={() => setExibeModalFotoIni(true)}
               >
-                <IconFeather style={{marginRight: 15}} name="eye" size={25} color={colors.white}/>
-                <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Visualizar foto Bateria Final</Text>
+                <IconFeather style={{ marginRight: 15 }} name="eye" size={25} color={colors.white} />
+                <Text style={{ fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white }}>Visualizar foto Bateria Inicial</Text>
               </TouchableOpacity>
             </View>
 
-            <View style={{marginStart: 10, marginEnd: 10, marginTop: 10}}>
-              <TouchableOpacity 
-              style={styles.buttonDown}
-              onPress={() => gerarRel()}
+            <View style={{ marginStart: 10, marginEnd: 10, marginTop: 10 }}>
+              <TouchableOpacity style={styles.buttonDown}
+                onPress={() => setExibeModalFotoFim(true)}
               >
-                <IconFeather style={{marginRight: 15}} name="download" size={25} color={colors.white}/>
-                <Text style={{fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white}}>Baixar relatório</Text>
+                <IconFeather style={{ marginRight: 15 }} name="eye" size={25} color={colors.white} />
+                <Text style={{ fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white }}>Visualizar foto Bateria Final</Text>
               </TouchableOpacity>
-            </View>      
+            </View>
+
+            <View style={{ marginStart: 10, marginEnd: 10, marginTop: 10 }}>
+              <TouchableOpacity
+                style={styles.buttonDown}
+                onPress={() => gerarRel()}
+              >
+                <IconFeather style={{ marginRight: 15 }} name="download" size={25} color={colors.white} />
+                <Text style={{ fontSize: 20, fontFamily: 'BebasNeue-Regular', color: colors.white }}>Baixar relatório</Text>
+              </TouchableOpacity>
+            </View>
           </>
         }
       </ScrollView>
 
-        <AwesomeAlert
-          contentContainerStyle={styles.containerAlert}
-          confirmButtonStyle={styles.ButtonAlert}
-          confirmButtonTextStyle={styles.txtButtonAlert}
-          messageStyle={styles.txtTitleAlert}
-          show={showMsgAlert}
-          showProgress={false}
-          message={msgAlert}
-          closeOnTouchOutside={false}
-          closeOnHardwareBackPress={false}
-          showCancelButton={false}
-          showConfirmButton={true}
-          confirmText="Ok"
-          confirmButtonColor={colors.red}
-          onConfirmPressed={() => {
-            hidemsgAlert();
-          }}
-        />
-      </View>
-)
+      <AwesomeAlert
+        contentContainerStyle={styles.containerAlert}
+        confirmButtonStyle={styles.ButtonAlert}
+        confirmButtonTextStyle={styles.txtButtonAlert}
+        messageStyle={styles.txtTitleAlert}
+        show={showMsgAlert}
+        showProgress={false}
+        message={msgAlert}
+        closeOnTouchOutside={false}
+        closeOnHardwareBackPress={false}
+        showCancelButton={false}
+        showConfirmButton={true}
+        confirmText="Ok"
+        confirmButtonColor={colors.red}
+        onConfirmPressed={() => {
+          hidemsgAlert();
+        }}
+      />
+    </View>
+  )
 }
-    
+
 const htmlStyles = `
 *{
   border: 0;

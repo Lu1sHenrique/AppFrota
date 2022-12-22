@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Text,
   View,
@@ -15,11 +15,11 @@ import {
 import * as Animatable from 'react-native-animatable';
 import IconFeather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native'
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import api from '../services/api'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { Modalize } from 'react-native-modalize';
-import {useNetInfo} from "@react-native-community/netinfo";
+import { useNetInfo } from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ReportErroEnvDTO from '../Envio/ReportErroEnvDTO'
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
@@ -30,259 +30,259 @@ import ModalErroNetwok from '../Components/Modal/ModalErroNetwork/ModalErroNetwo
 import PageHeader from '../Components/PageHeader/PageHeader'
 import colors from '../Utils/colors';
 
-  function ReportsErro() {
+function ReportsErro() {
 
-      const netInfo = useNetInfo();
+  const netInfo = useNetInfo();
 
-      const [showErrorNetWork, setShowErrorNetWork] = useState(false)
+  const [showErrorNetWork, setShowErrorNetWork] = useState(false)
 
-      const [numUserCode, setNumUserCode] = useState(0)
+  const [numUserCode, setNumUserCode] = useState(0)
 
-      useEffect(()=>{
-        setShowErrorNetWork(false)
-        if (netInfo.isConnected) {
-          setShowErrorNetWork(false)
-        } else {
-          setShowErrorNetWork(true)
-        }
-      },[netInfo])
+  useEffect(() => {
+    setShowErrorNetWork(false)
+    if (netInfo.isConnected) {
+      setShowErrorNetWork(false)
+    } else {
+      setShowErrorNetWork(true)
+    }
+  }, [netInfo])
 
-      useEffect(() => {
-        async function buscarUserCodeAsyncStorage() {
-          const userCode = await AsyncStorage.getItem('@ListApp:userCode');
-          userCode ? setNumUserCode(userCode) : null
-        }
+  useEffect(() => {
+    async function buscarUserCodeAsyncStorage() {
+      const userCode = await AsyncStorage.getItem('@ListApp:userCode');
+      userCode ? setNumUserCode(userCode) : null
+    }
 
-        buscarUserCodeAsyncStorage();
-      }, []);
+    buscarUserCodeAsyncStorage();
+  }, []);
 
-      const navigation = useNavigation();
+  const navigation = useNavigation();
 
-      const [isLoadingSend, setIsLoadingSend] = useState(false);
+  const [isLoadingSend, setIsLoadingSend] = useState(false);
 
-      const [imageErro, setImageErro] = useState("");
-      const [imageErroAnex, setImageErroAnex] = useState(false)
-      const [msgErro, setMsgErro] = useState("");
+  const [imageErro, setImageErro] = useState("");
+  const [imageErroAnex, setImageErroAnex] = useState(false)
+  const [msgErro, setMsgErro] = useState("");
 
-      //states alerts
-      const [showError, setShowError] = useState(false);
-      const [showAlertConfirm, setShowAlertConfirm] = useState(false)
-      const [showAlertSuccess, setShowAlertSuccess] = useState(false)
-      const [showValidacaoCond, setShowValidacaoCond] = useState(false)
-      const [showValidacaoMsg, setShowValidacaoMsg] = useState(false)
-      const [showValidacaoImage, setShowValidacaoImage] = useState(false)
-      const [showErroSend, setShowErroSend] = useState(false)
-      const [msgErroSend, setMsgErroSend] = useState("")
-      const [showErroConec, setShowErroConec] = useState(false)
+  //states alerts
+  const [showError, setShowError] = useState(false);
+  const [showAlertConfirm, setShowAlertConfirm] = useState(false)
+  const [showAlertSuccess, setShowAlertSuccess] = useState(false)
+  const [showValidacaoCond, setShowValidacaoCond] = useState(false)
+  const [showValidacaoMsg, setShowValidacaoMsg] = useState(false)
+  const [showValidacaoImage, setShowValidacaoImage] = useState(false)
+  const [showErroSend, setShowErroSend] = useState(false)
+  const [msgErroSend, setMsgErroSend] = useState("")
+  const [showErroConec, setShowErroConec] = useState(false)
 
-      const hideAlertConfirm = () => (
+  const hideAlertConfirm = () => (
+    setShowAlertConfirm(false)
+  );
+
+  const hideAlertSuccess = () => (
+    setShowAlertSuccess(false)
+  );
+
+  const hideAlertValidacaoCond = () => (
+    setShowValidacaoCond(false)
+  );
+
+  const hideAlertValidacaoMsg = () => (
+    setShowValidacaoMsg(false)
+  );
+
+  const hideAlertErroSend = () => (
+    setShowErroSend(false)
+  );
+
+  const hideAlertValidacaoImage = () => (
+    setShowValidacaoImage(false)
+  );
+
+  const hideErroConec = () => (
+    setShowErroConec(false)
+  );
+
+  const enviarReportErro = async () => {
+
+    const dadosReportErroEnvDTO = new ReportErroEnvDTO(imageErro, msgErro);
+
+    let data = new URLSearchParams();
+    data.append('dadosReportErro', JSON.stringify(dadosReportErroEnvDTO));
+    data.append('codigoUsuario', numUserCode.toString());
+    data.append('token', "teste");
+    data.append('chaveCelular', "teste");
+    data.append('captcha', "xxxxx");
+
+    let datastr = data.toString();
+
+    if (showErrorNetWork == true) {
+      setShowErroConec(true)
+      setShowAlertConfirm(false)
+    } else
+      if (showError == true) {
+        setShowErroConec(true)
         setShowAlertConfirm(false)
-      );
-
-      const hideAlertSuccess = () => (
-        setShowAlertSuccess(false)
-      );
-
-      const hideAlertValidacaoCond = () => (
-        setShowValidacaoCond(false)
-      );
-
-      const hideAlertValidacaoMsg = () => (
-        setShowValidacaoMsg(false)
-      );
-
-      const hideAlertErroSend = () => (
-        setShowErroSend(false)
-      );
-
-      const hideAlertValidacaoImage = () => (
-        setShowValidacaoImage(false)
-      );
-
-      const hideErroConec = () => (
-        setShowErroConec(false)
-      );
-
-      const enviarReportErro = async () =>{
-
-      const dadosReportErroEnvDTO = new ReportErroEnvDTO(imageErro, msgErro);
-      
-      let data = new URLSearchParams();
-      data.append('dadosReportErro', JSON.stringify(dadosReportErroEnvDTO));
-      data.append('codigoUsuario', numUserCode.toString());
-      data.append('token', "teste");
-      data.append('chaveCelular', "teste");
-      data.append('captcha', "xxxxx");
-
-      let datastr = data.toString();
-
-        if(showErrorNetWork == true){
-          setShowErroConec(true)
-          setShowAlertConfirm(false)
-        }else
-        if(showError == true){
-          setShowErroConec(true)
-          setShowAlertConfirm(false)
-        }else
-        if(!msgErro.length){
+      } else
+        if (!msgErro.length) {
           setShowValidacaoMsg(true)
           setShowAlertSuccess(false)
           setShowAlertConfirm(false)
-        }else{
-        setIsLoadingSend(true)
-        await api.post('/registrarReportErro', datastr)
-       .then(function (response) {
-        setIsLoadingSend(false)
-        console.log(response);
-        if(response.data.operacaoExecutada == "N"){
-          setShowErroSend(true)
-          setMsgErroSend("Erro ao enviar: "+response.data.mensagemErro)
-        }else{
-          setShowAlertSuccess(true) 
-          setImageErro("")
-          setMsgErro("")
-          setImageErroAnex(false)
+        } else {
+          setIsLoadingSend(true)
+          await api.post('/registrarReportErro', datastr)
+            .then(function (response) {
+              setIsLoadingSend(false)
+              console.log(response);
+              if (response.data.operacaoExecutada == "N") {
+                setShowErroSend(true)
+                setMsgErroSend("Erro ao enviar: " + response.data.mensagemErro)
+              } else {
+                setShowAlertSuccess(true)
+                setImageErro("")
+                setMsgErro("")
+                setImageErroAnex(false)
+              }
+              setShowAlertConfirm(false)
+            })
+            .catch(function (error) {
+              console.error(error);
+            });
         }
-        setShowAlertConfirm(false)
-       })
-       .catch(function (error) {
-         console.error(error);
-       });
-     }
+  }
+
+  //configs image picks upload
+  function onOpenImageErro() {
+    modalizeRefImageErro.current?.open()
+  }
+
+  function onClose() {
+    modalizeRefImageErro.current?.close()
+  }
+
+  const pickImageFromGalleryImageErro = async () => {
+    const options = {
+      mediaType: 'photo',
+      includeBase64: true
     }
+    const result = await launchImageLibrary(options)
+    if (result?.assets) {
+      setImageErro(result.assets[0].base64)
+      setImageErroAnex(true)
+    }
+    onClose()
+  }
 
-      //configs image picks upload
-      function onOpenImageErro(){
-        modalizeRefImageErro.current?.open()
-      }
+  const pickImageFromCameraImageErro = async () => {
+    const options = {
+      mediaTyp: 'photo',
+      saveToPhotos: false,
+      quality: 1,
+      includeBase64: true
+    }
+    const result = await launchCamera(options)
+    if (result?.assets) {
+      setImageErro(result.assets[0].base64)
+      setImageErroAnex(true)
+    }
+    onClose()
+  }
 
-      function onClose(){
-        modalizeRefImageErro.current?.close()
-      }
-
-      const pickImageFromGalleryImageErro = async () => {
-        const options ={
-          mediaType: 'photo',
-          includeBase64: true
-        }
-        const result = await launchImageLibrary(options)
-        if(result?.assets){
-          setImageErro(result.assets[0].base64)
-          setImageErroAnex(true)
-        }
-        onClose()
-      }
-
-      const pickImageFromCameraImageErro = async () => {
-        const options ={
-          mediaTyp: 'photo',
-          saveToPhotos: false,
-          quality: 1,
-          includeBase64: true
-        }
-        const result = await launchCamera(options)
-        if(result?.assets){
-          setImageErro(result.assets[0].base64)
-          setImageErroAnex(true)
-        }
-        onClose()
-      }
-
-      const modalizeRefImageErro = useRef(null)
+  const modalizeRefImageErro = useRef(null)
 
   return (
-  <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <Modalize
-      ref={modalizeRefImageErro}
-      snapPoint={330}
-      modalHeight={330}
-      HeaderComponent={
-        <View style={styles.header}>
-          <View style={styles.panelHeader}>
-          </View>
-        </View>
-      }
-      >
-          <View style={styles.panel}>
-            <View style={{alignItems: 'center'}}> 
-              <Text style={styles.panelTitle}>Enviar foto</Text>
-              <Text style={styles.panelSubtitle}>Escolha como deseja enviar a foto</Text>
-
-              <TouchableOpacity 
-              style={styles.panelButton}
-              onPress={() => pickImageFromCameraImageErro()}
-              >
-                <Text style={styles.panelButtonTitle}>Capturar foto</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity 
-              style={styles.panelButton}
-              onPress={() => pickImageFromGalleryImageErro()}
-              >
-                <Text style={styles.panelButtonTitle}>Escolher da galeria</Text>
-              </TouchableOpacity>
-              <TouchableOpacity 
-              style={styles.panelButton}
-              onPress={onClose}
-              >
-                <Text style={styles.panelButtonTitle}>Cancelar</Text>
-              </TouchableOpacity>
+        ref={modalizeRefImageErro}
+        snapPoint={330}
+        modalHeight={330}
+        HeaderComponent={
+          <View style={styles.header}>
+            <View style={styles.panelHeader}>
             </View>
           </View>
+        }
+      >
+        <View style={styles.panel}>
+          <View style={{ alignItems: 'center' }}>
+            <Text style={styles.panelTitle}>Enviar foto</Text>
+            <Text style={styles.panelSubtitle}>Escolha como deseja enviar a foto</Text>
+
+            <TouchableOpacity
+              style={styles.panelButton}
+              onPress={() => pickImageFromCameraImageErro()}
+            >
+              <Text style={styles.panelButtonTitle}>Capturar foto</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.panelButton}
+              onPress={() => pickImageFromGalleryImageErro()}
+            >
+              <Text style={styles.panelButtonTitle}>Escolher da galeria</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.panelButton}
+              onPress={onClose}
+            >
+              <Text style={styles.panelButtonTitle}>Cancelar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </Modalize>
-      
-      <PageHeader/>
+
+      <PageHeader />
 
       <ScrollView>
         <Animatable.View animation={"fadeInUp"}>
-        <View style={styles.ContainerButtonBack}>
+          <View style={styles.ContainerButtonBack}>
+            <TouchableOpacity
+              style={styles.ButtonBack}
+              onPress={() => navigation.navigate('DrawerItems')}
+            >
+              <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
+              <Text style={{ fontSize: 33, fontFamily: 'BebasNeue-Regular', color: colors.gray }}>Reportar Erro</Text>
+            </TouchableOpacity>
+          </View>
+
+          <ModalErroNetwok showErrorNetWork={showErrorNetWork} />
+
+          <ModalErro showError={showError} />
+
+          <TextInput
+            style={styles.input}
+            placeholder="Mensagem detalhada do erro"
+            placeholderTextColor={colors.red}
+            value={msgErro}
+            onChangeText={text => setMsgErro(text)}
+            multiline={true}
+            textAlignVertical="top"
+          />
+
           <TouchableOpacity
-           style={styles.ButtonBack}
-           onPress={() => navigation.navigate('DrawerItems')}
-           >
-            <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-            <Text style={{fontSize: 33,fontFamily: 'BebasNeue-Regular', color: colors.gray}}>Reportar Erro</Text>
-          </TouchableOpacity>
-        </View>
-
-        <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
-
-        <ModalErro showError={showError} />              
-
-        <TextInput
-          style={styles.input}
-          placeholder="Mensagem detalhada do erro"
-          placeholderTextColor={colors.red}
-          value={msgErro}
-          onChangeText={text => setMsgErro(text)}
-          multiline={true}
-          textAlignVertical="top"
-        />
-        
-        <TouchableOpacity
-        style={styles.buttonArquivo}
-        onPress={onOpenImageErro}
-        >
-          <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color={colors.white} />
-          <Text style={styles.txtButtonEnviar}>
-            {
-              imageErroAnex ? "Foto do Erro Anexada ✅"
-              : 
-              "Se desejar envie uma foto do erro"
-            }  
+            style={styles.buttonArquivo}
+            onPress={onOpenImageErro}
+          >
+            <IconFeather style={styles.iconButtonUpLoad} name="upload" size={25} color={colors.white} />
+            <Text style={styles.txtButtonEnviar}>
+              {
+                imageErroAnex ? "Foto do Erro Anexada ✅"
+                  :
+                  "Se desejar envie uma foto do erro"
+              }
             </Text>
-        </TouchableOpacity> 
+          </TouchableOpacity>
 
           <View>
             <TouchableOpacity
-            onPress={exibirAlerta}
-            style={styles.button}
+              onPress={exibirAlerta}
+              style={styles.button}
             >
               <Text style={styles.txtButton}>
                 Enviar
               </Text>
             </TouchableOpacity>
-          </View>  
+          </View>
         </Animatable.View>
 
         <AwesomeAlert
@@ -294,7 +294,7 @@ import colors from '../Utils/colors';
           messageStyle={styles.txtTitleAlert}
           show={showAlertConfirm}
           showProgress={false}
-          message={isLoadingSend ? <View style={{flexDirection: 'column'}}><Text style={styles.txtTitleAlert}>🖐️Reportanto o erro</Text><ActivityIndicator style={{marginTop: 15}} color={colors.red}/></View> : "Tem certeza que deseja reportar o erro?"}
+          message={isLoadingSend ? <View style={{ flexDirection: 'column' }}><Text style={styles.txtTitleAlert}>🖐️Reportanto o erro</Text><ActivityIndicator style={{ marginTop: 15 }} color={colors.red} /></View> : "Tem certeza que deseja reportar o erro?"}
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={isLoadingSend ? false : true}
@@ -423,12 +423,12 @@ import colors from '../Utils/colors';
           }}
         />
 
-        <View style={{paddingVertical: 15}}></View>
-        </ScrollView>  
+        <View style={{ paddingVertical: 15 }}></View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 
-  function exibirAlerta(){
+  function exibirAlerta() {
     setShowAlertConfirm(true)
   }
 };

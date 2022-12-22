@@ -15,28 +15,28 @@ import styles from './style';
 import colors from '../../Utils/colors';
 
 export default function PageHeader() {
-    
-    const navigation = useNavigation();
+
+  const navigation = useNavigation();
 
 
- return (
-    <Animatable.View animation="fadeInDown"  style={styles.containerCaixa}>
-    <View style={styles.lineButtonLogo}>
-      <Animatable.View animation="fadeInLeft" style={styles.icon}>
-        <TouchableOpacity
-        style={{padding: 15}}
-        onPress={ () => navigation.navigate('DrawerItems')}
-        >
-          <IconFeather name="menu" size={30} color={colors.white} />
-        </TouchableOpacity>
-      </Animatable.View>
-      <View
-      style={styles.ContainerLogo}>
-        <Image source={require('../../assets/logo_login.png')}
-        style={styles.LogoHome} 
-        />
+  return (
+    <Animatable.View animation="fadeInDown" style={styles.containerCaixa}>
+      <View style={styles.lineButtonLogo}>
+        <Animatable.View animation="fadeInLeft" style={styles.icon}>
+          <TouchableOpacity
+            style={{ padding: 15 }}
+            onPress={() => navigation.navigate('DrawerItems')}
+          >
+            <IconFeather name="menu" size={30} color={colors.white} />
+          </TouchableOpacity>
+        </Animatable.View>
+        <View
+          style={styles.ContainerLogo}>
+          <Image source={require('../../assets/logo_login.png')}
+            style={styles.LogoHome}
+          />
+        </View>
       </View>
-    </View>
-  </Animatable.View>
+    </Animatable.View>
   );
 }

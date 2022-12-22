@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -10,8 +10,8 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
-import {AuthContext} from '../Contexts/Auth'
-import {useNetInfo} from "@react-native-community/netinfo";
+import { AuthContext } from '../Contexts/Auth'
+import { useNetInfo } from "@react-native-community/netinfo";
 import ModalErroNetwok from '../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PageHeader from '../Components/PageHeader/PageHeader'
@@ -48,108 +48,107 @@ export default function HomeModulos() {
 
 
   const showAlert = () =>
-  Alert.alert(
-    "Módulo disponível em breve!"
-  );
+    Alert.alert(
+      "Módulo disponível em breve!"
+    );
 
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   const navigation = useNavigation();
 
   return (
-      <View style={styles.container}>
-        <PageHeader/>
-        
-        <ModalErroNetwok showErrorNetWork={showErrorNetWork}/>
+    <View style={styles.container}>
+      <PageHeader />
 
-        <Animatable.View animation="fadeInDown" style={styles.containerNomeHeader}>
-          <View style={{width: '100%'}}>
-            <Text style={styles.textOla}>Seja bem vindo,</Text>
-            <Text style={styles.textBold}>{user.usuario ? user.usuario : userName}</Text>
-          </View>
-        </Animatable.View>
-        {/*botoes modulos*/}
-        <View style={styles.containerButtonsMod}>
-          {/*linha com dois botoes*/}
-          <View style={styles.containerRow}>
-            {/*botao frota*/}
-            <Animatable.View animation="fadeInDown" style={styles.containerButton}>
-              <Animatable.View animation="fadeInLeft">
-                  <TouchableOpacity style={styles.button}
-                    onPress={ () => navigation.navigate('HomeFrota')}
-                    >
-                      <Icon style={styles.iconButtonModulos} name="truck" size={30} color={colors.white} />
-                      <Text style={styles.textButton}>
-                        Frota
-                      </Text>
-                  </TouchableOpacity>
-                </Animatable.View>
-              </Animatable.View>
+      <ModalErroNetwok showErrorNetWork={showErrorNetWork} />
 
-              <Animatable.View animation="fadeInDown" style={styles.containerButton}>
-              <Animatable.View animation="fadeInRight">
-                <TouchableOpacity style={styles.button}
-                onPress={(showAlert)}>
-                  <Icon style={styles.iconButtonModulos} name="briefcase" size={30} color={colors.white} />
-                  <Text style={styles.textButton}>
-                    Comercial
-                  </Text>
-                </TouchableOpacity>
-                </Animatable.View>
-              </Animatable.View>
-            </View>
-  
-            <View style={styles.containerRow}>
-
-              <Animatable.View animation="fadeInLeft" style={styles.containerButton}>
-                <TouchableOpacity style={styles.button}
-                onPress={(showAlert)}>
-                    <Icon style={styles.iconButtonModulos} name="tool" size={30} color={colors.white} />
-                    <Text style={styles.textButton}>
-                      Técnica
-                    </Text>
-                </TouchableOpacity>
-              </Animatable.View>
-
-              <Animatable.View animation="fadeInRight"  style={styles.containerButton}>
-                <TouchableOpacity style={styles.button}
-                onPress={(showAlert)}>
-                <Icon style={styles.iconButtonModulos} name="users" size={30} color={colors.white} />
-                  <Text style={styles.textButton}>
-                    RH
-                  </Text>
-                </TouchableOpacity>
-              </Animatable.View>
-            </View>
-
-            <View style={styles.containerRow}>
-
-            <Animatable.View animation="fadeInUp" style={styles.containerButton}>
-              <Animatable.View animation="fadeInLeft">
-                <TouchableOpacity style={styles.button}
-                onPress={(showAlert)}>
-                  <Icon style={styles.iconButtonModulos} name="archive" size={30} color={colors.white} />
-                  <Text style={styles.textButton}>
-                    Estoque
-                  </Text>
-                </TouchableOpacity>
-                </Animatable.View>
+      <Animatable.View animation="fadeInDown" style={styles.containerNomeHeader}>
+        <View style={{ width: '100%' }}>
+          <Text style={styles.textOla}>Seja bem vindo,</Text>
+          <Text style={styles.textBold}>{user.usuario ? user.usuario : userName}</Text>
+        </View>
+      </Animatable.View>
+      {/*botoes modulos*/}
+      <View style={styles.containerButtonsMod}>
+        {/*linha com dois botoes*/}
+        <View style={styles.containerRow}>
+          {/*botao frota*/}
+          <Animatable.View animation="fadeInDown" style={styles.containerButton}>
+            <Animatable.View animation="fadeInLeft">
+              <TouchableOpacity style={styles.button}
+                onPress={() => navigation.navigate('HomeFrota')}
+              >
+                <Icon style={styles.iconButtonModulos} name="truck" size={30} color={colors.white} />
+                <Text style={styles.textButton}>
+                  Frota
+                </Text>
+              </TouchableOpacity>
             </Animatable.View>
+          </Animatable.View>
 
-              <Animatable.View animation="fadeInUp" style={styles.containerButton}>
-              <Animatable.View animation="fadeInRight">
-                <TouchableOpacity style={styles.button}
+          <Animatable.View animation="fadeInDown" style={styles.containerButton}>
+            <Animatable.View animation="fadeInRight">
+              <TouchableOpacity style={styles.button}
                 onPress={(showAlert)}>
-                  <Icon style={styles.iconButtonModulos} name="dollar-sign" size={30} color={colors.white} />
-                  <Text style={styles.textButton}>
-                    Financeiro
-                  </Text>
-                </TouchableOpacity>
-                </Animatable.View>
-              </Animatable.View>
-            </View>
+                <Icon style={styles.iconButtonModulos} name="briefcase" size={30} color={colors.white} />
+                <Text style={styles.textButton}>
+                  Comercial
+                </Text>
+              </TouchableOpacity>
+            </Animatable.View>
+          </Animatable.View>
+        </View>
+
+        <View style={styles.containerRow}>
+
+          <Animatable.View animation="fadeInLeft" style={styles.containerButton}>
+            <TouchableOpacity style={styles.button}
+              onPress={(showAlert)}>
+              <Icon style={styles.iconButtonModulos} name="tool" size={30} color={colors.white} />
+              <Text style={styles.textButton}>
+                Técnica
+              </Text>
+            </TouchableOpacity>
+          </Animatable.View>
+
+          <Animatable.View animation="fadeInRight" style={styles.containerButton}>
+            <TouchableOpacity style={styles.button}
+              onPress={(showAlert)}>
+              <Icon style={styles.iconButtonModulos} name="users" size={30} color={colors.white} />
+              <Text style={styles.textButton}>
+                RH
+              </Text>
+            </TouchableOpacity>
+          </Animatable.View>
+        </View>
+
+        <View style={styles.containerRow}>
+
+          <Animatable.View animation="fadeInUp" style={styles.containerButton}>
+            <Animatable.View animation="fadeInLeft">
+              <TouchableOpacity style={styles.button}
+                onPress={(showAlert)}>
+                <Icon style={styles.iconButtonModulos} name="archive" size={30} color={colors.white} />
+                <Text style={styles.textButton}>
+                  Estoque
+                </Text>
+              </TouchableOpacity>
+            </Animatable.View>
+          </Animatable.View>
+
+          <Animatable.View animation="fadeInUp" style={styles.containerButton}>
+            <Animatable.View animation="fadeInRight">
+              <TouchableOpacity style={styles.button}
+                onPress={(showAlert)}>
+                <Icon style={styles.iconButtonModulos} name="dollar-sign" size={30} color={colors.white} />
+                <Text style={styles.textButton}>
+                  Financeiro
+                </Text>
+              </TouchableOpacity>
+            </Animatable.View>
+          </Animatable.View>
         </View>
       </View>
+    </View>
   );
 };
-

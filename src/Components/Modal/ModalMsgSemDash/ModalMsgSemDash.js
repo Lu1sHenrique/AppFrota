@@ -7,8 +7,8 @@ import colors from '../../../Utils/colors';
 export default function ModalMsgSemDash() {
     return (
         <View style={styles.container}>
-        <Icon style={styles.icon} name='bar-chart' size={100} color={colors.gray}/>
-        <Text style={styles.txt}>Nenhum formato selecionado</Text>
-       </View>
- )
+            <Icon style={styles.icon} name='bar-chart' size={100} color={colors.gray} />
+            <Text style={styles.txt}>Nenhum formato selecionado</Text>
+        </View>
+    )
 }

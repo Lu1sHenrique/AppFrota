@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../../Utils/colors';
 
 const styles = StyleSheet.create({
-    container:{
+  container: {
     flex: 1,
     backgroundColor: colors.red,
     width: "80%",
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  txtErro:{
+  txtErro: {
     color: colors.white,
     alignSelf: 'center',
     fontSize: 23,

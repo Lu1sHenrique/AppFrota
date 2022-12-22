@@ -1,15 +1,15 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../Utils/colors'
 
 const styles = StyleSheet.create({
 
-  icon:{
+  icon: {
     width: '15%',
     alignItems: 'center',
     justifyContent: 'center'
   },
 
-  containerCaixa:{
+  containerCaixa: {
     backgroundColor: colors.red,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
@@ -18,10 +18,10 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
 
-  lineButtonLogo:{
-    width: '90%', 
-    flexDirection: 'row', 
-    alignSelf: 'center', 
+  lineButtonLogo: {
+    width: '90%',
+    flexDirection: 'row',
+    alignSelf: 'center',
     width: '90%'
   },
 
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
-  LogoHome:{
+  LogoHome: {
     width: '100%',
     height: 80,
     borderWidth: 1

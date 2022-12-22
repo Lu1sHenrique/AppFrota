@@ -12,86 +12,86 @@ import DrawerItems from '../HomeDrawer/DrawerItems';
 import ReportsErro from '../ReportsErro/ReportsErro'
 
 const Stack = createNativeStackNavigator();
-export default function Routes(){
-  return(
+export default function Routes() {
+  return (
     <Stack.Navigator
-    screenOptions={{
-      headerShown: true
-    }}
+      screenOptions={{
+        headerShown: true
+      }}
     >
 
-    <Stack.Screen 
-      name="Splash"
-      component={Splash}
-      options={{
-        headerShown:false
+      <Stack.Screen
+        name="Splash"
+        component={Splash}
+        options={{
+          headerShown: false
         }}
       />
 
-      <Stack.Screen 
-      name="Login"
-      component={Login}
-      options={{
-        headerShown:false,
-        gestureEnabled: false
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false,
+          gestureEnabled: false
         }}
       />
 
-      <Stack.Screen 
-      name="DrawerItems"
-      component={DrawerItems}
-      options={{
-        headerShown:false
+      <Stack.Screen
+        name="DrawerItems"
+        component={DrawerItems}
+        options={{
+          headerShown: false
         }}
       />
 
-      <Stack.Screen 
-      name="HomeModulos"
-      component={HomeModulos}
-      options={{
-        headerShown:false
+      <Stack.Screen
+        name="HomeModulos"
+        component={HomeModulos}
+        options={{
+          headerShown: false
         }}
       />
 
-      <Stack.Screen 
-      name="HomeFrota"
-      component={HomeFrota}
-      options={{
-        headerShown:false
-        }}
-      />
-      
-      <Stack.Screen 
-      name="RoutesFrota"
-      component={RoutesFrota}
-      options={{
-        headerShown:false
+      <Stack.Screen
+        name="HomeFrota"
+        component={HomeFrota}
+        options={{
+          headerShown: false
         }}
       />
 
-      <Stack.Screen 
-      name="FormFrotaEletrica"
-      component={FormFrotaEletrica}
-      options={{
-        headerShown:false
+      <Stack.Screen
+        name="RoutesFrota"
+        component={RoutesFrota}
+        options={{
+          headerShown: false
         }}
       />
 
-      <Stack.Screen 
-      name="DetalheChecklist"
-      component={DetalheChecklist}
-      options={{
-        headerShown:false
+      <Stack.Screen
+        name="FormFrotaEletrica"
+        component={FormFrotaEletrica}
+        options={{
+          headerShown: false
         }}
-      />  
+      />
 
-    <Stack.Screen 
-      name="ReportsErro"
-      component={ReportsErro}
-      options={{
-        headerShown:false
+      <Stack.Screen
+        name="DetalheChecklist"
+        component={DetalheChecklist}
+        options={{
+          headerShown: false
         }}
-      /> 
+      />
+
+      <Stack.Screen
+        name="ReportsErro"
+        component={ReportsErro}
+        options={{
+          headerShown: false
+        }}
+      />
     </Stack.Navigator>
   )
-}
+};

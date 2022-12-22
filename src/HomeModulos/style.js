@@ -1,24 +1,24 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../Utils/colors'
 
 const styles = StyleSheet.create({
 
-  container:{
+  container: {
     flex: 1,
     backgroundColor: colors.white
   },
 
-  containerButtonsMod:{
+  containerButtonsMod: {
     marginTop: 20
   },
 
-  icon:{
+  icon: {
     width: '15%',
     alignItems: 'center',
     justifyContent: 'center'
   },
 
-  containerCaixa:{
+  containerCaixa: {
     backgroundColor: colors.red,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
@@ -33,26 +33,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
-  LogoHome:{
+  LogoHome: {
     width: '100%',
     height: 80,
     borderWidth: 1
   },
 
-  containerNomeHeader:{
+  containerNomeHeader: {
     width: '100%',
     justifyContent: 'center',
     marginTop: 20,
   },
 
-  textOla:{
+  textOla: {
     fontSize: 25,
     color: colors.gray,
     alignSelf: 'center',
     fontFamily: 'BebasNeue-Regular'
   },
 
-  textBold:{
+  textBold: {
     fontFamily: 'BebasNeue-Regular',
     fontSize: 44,
     color: colors.red,
@@ -61,24 +61,24 @@ const styles = StyleSheet.create({
     fontFamily: 'BebasNeue-Regular'
   },
 
-  containerRow:{
-    flexDirection:'row',
+  containerRow: {
+    flexDirection: 'row',
     marginTop: 30
   },
 
-  containerButton:{
-  flex: 0.5,
-  marginHorizontal: 30
+  containerButton: {
+    flex: 0.5,
+    marginHorizontal: 30
   },
 
-  button:{
+  button: {
     backgroundColor: colors.red,
     paddingVertical: 30,
     borderRadius: 20,
     borderWidth: 1
   },
 
-  textButton:{
+  textButton: {
     fontSize: 22,
     fontFamily: 'BebasNeue-Regular',
     alignSelf: 'center',
@@ -86,13 +86,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-  iconButtonModulos:{
+  iconButtonModulos: {
     alignSelf: 'center',
     marginTop: -10
   }
 })
 
 export default styles;
-
-
-
