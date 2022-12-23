@@ -4,11 +4,11 @@ import styles from './style';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import colors from '../../../Utils/colors';
 
-export default function ModalMsgSemDash() {
+export default function ModalMsgSemDash({ msg }) {
     return (
         <View style={styles.container}>
             <Icon style={styles.icon} name='bar-chart' size={100} color={colors.gray} />
-            <Text style={styles.txt}>Nenhum formato selecionado</Text>
+            <Text style={styles.txt}>{msg}</Text>
         </View>
     )
 }

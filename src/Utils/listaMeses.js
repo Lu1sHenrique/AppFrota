@@ -45,6 +45,6 @@ export default [
     },
     {
         id: '12',
-        nomeMes: "Dezembo"
+        nomeMes: "Dezembro"
     }
 ]
