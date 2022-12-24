@@ -681,8 +681,8 @@ function FormFrotaEletrica() {
             confirmButtonTextStyle={styles.txtButtonAlert}
             messageStyle={styles.txtTitleAlert}
             show={showAlertConfirm}
-            showProgress={false}
-            message={isLoadingSend ? <View style={{ flexDirection: 'column' }}><Text style={styles.txtTitleAlert}>🖐️Enviando Checklist</Text><ActivityIndicator style={{ marginTop: 15 }} color={colors.red} /></View> : "Tem certeza que deseja enviar o checklist?"}
+            progressColor={colors.red}
+            message={isLoadingSend ? "🖐️Enviando Checklist" : "Tem certeza que deseja enviar o checklist?"}
             closeOnTouchOutside={false}
             closeOnHardwareBackPress={false}
             showCancelButton={isLoadingSend ? false : true}
