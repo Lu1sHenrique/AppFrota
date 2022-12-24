@@ -355,6 +355,7 @@ function FormFrota() {
       setImageKmInicial(result.assets[0].base64)
       setImageKmInicialAnex(true)
     }
+    console.log("aqui")
     onClose()
   }
 
