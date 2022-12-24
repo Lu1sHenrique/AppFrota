@@ -55,8 +55,6 @@ export default function RelDash() {
   const [mesSelecionado, setMesSelecionado] = useState(0);
   const [dataNumDash, setDataNumDash] = useState("");
   const [nomeMesSelecionado, setNomeMesSelecionado] = useState("");
-  const [diaMesIni, setDiaMesIni] = useState("");
-  const [diaMesFim, setDiaMesFim] = useState("");
   const [formatoSelecionadoCombustao, setFormatoSelecionadoCombustao] = useState(0);
   const [formatoSelecionadoEletrica, setFormatoSelecionadoEletrica] = useState(0);
   const [showError, setShowError] = useState(false);
@@ -71,8 +69,13 @@ export default function RelDash() {
     setShowAlertErro(false)
   );
 
-  const getKmAnualComb = async (itemValue) => {
-    setFormatoSelecionadoCombustao(itemValue)
+  const getFormatoAnual = async (itemValue) => {
+    setMesSelecionado(0)
+    if (tipoFrotaSelecionado == 1) {
+      setFormatoSelecionadoCombustao(itemValue)
+    } else {
+      setFormatoSelecionadoEletrica(itemValue)
+    }
     showError && setShowError(false)
     setIsLoading(true)
     if (showErrorNetWork == true) {
@@ -85,17 +88,31 @@ export default function RelDash() {
       const diaAnoFim = "3112";
 
       try {
-      const { data } = await api.get('/obterDash/1&1&' + diaAnoIni + '&' + diaAnoFim + '&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
-      if (data.operacaoExecutada == "N") {
-        setShowAlertErro(true)
-        setIsLoading(false)
-      }
-      if (data.mensagemErro.length > 0) {
-        setMsgErro(data.mensagemErro)
-        setShowAlertErro(true)
-      }
-      setIsLoading(false)
-      setDataNumDash(data.kmRodados)
+        if (tipoFrotaSelecionado == 1) {
+          const { data } = await api.get('/obterDash/1&1&' + diaAnoIni + '&' + diaAnoFim + '&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
+          if (data.operacaoExecutada == "N") {
+            setShowAlertErro(true)
+            setIsLoading(false)
+          }
+          if (data.mensagemErro.length > 0) {
+            setMsgErro(data.mensagemErro)
+            setShowAlertErro(true)
+          }
+          setIsLoading(false)
+          setDataNumDash(data.kmRodados)
+        } else {
+          const { data } = await api.get('/obterDash/2&1&' + diaAnoIni + '&' + diaAnoFim + '&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
+          if (data.operacaoExecutada == "N") {
+            setShowAlertErro(true)
+            setIsLoading(false)
+          }
+          if (data.mensagemErro.length > 0) {
+            setMsgErro(data.mensagemErro)
+            setShowAlertErro(true)
+          }
+          setIsLoading(false)
+          setDataNumDash(data.consumoBateria)
+        }
       } catch (error) {
         setIsLoading(false)
         setShowError(true)
@@ -107,7 +124,7 @@ export default function RelDash() {
     setIsLoading(false)
   }
 
-  const getKmMesComb = async (itemValue) => {
+  const getFormatoMes = async (itemValue) => {
     setMesSelecionado(itemValue)
     setaNomeIdMesSelecionado(itemValue)
     showError && setShowError(false)
@@ -160,134 +177,41 @@ export default function RelDash() {
           diaMesFim = "3112"
         }
 
-        const { data } = await api.get('/obterDash/1&2&' + diaMesIni + '&' + diaMesFim + '&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
-        if (data.operacaoExecutada == "N") {
-          setShowAlertErro(true)
-          setMsgErro(data.mensagemErro)
-          setIsLoading(false)
-          setDataNumDash("")
-        }else
-        if (data.mensagemErro.length > 0) {
-          setMsgErro(data.mensagemErro)
-          setShowAlertErro(true)
-        }else{
-          setIsLoading(false)
-          setDataNumDash(data.kmRodados)
+        if (tipoFrotaSelecionado == 1 && itemValue > 0) {
+          const { data } = await api.get('/obterDash/1&2&' + diaMesIni + '&' + diaMesFim + '&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
+          if (data.operacaoExecutada == "N") {
+            setShowAlertErro(true)
+            setMsgErro(data.mensagemErro)
+            setIsLoading(false)
+            setDataNumDash("")
+          } else
+            if (data.mensagemErro.length > 0) {
+              setMsgErro(data.mensagemErro)
+              setShowAlertErro(true)
+            } else {
+              setIsLoading(false)
+              setDataNumDash(data.kmRodados)
+            }
+        } else if(itemValue > 0) {
+          const { data } = await api.get('/obterDash/2&2&' + diaMesIni + '&' + diaMesFim + '&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
+          if (data.operacaoExecutada == "N") {
+            setShowAlertErro(true)
+            setMsgErro(data.mensagemErro)
+            setIsLoading(false)
+            setDataNumDash("")
+          } else
+            if (data.mensagemErro.length > 0) {
+              setMsgErro(data.mensagemErro)
+              setShowAlertErro(true)
+            } else {
+              setIsLoading(false)
+              setDataNumDash(data.consumoBateria)
+            }
         }
       } catch (error) {
         setIsLoading(false)
         setShowError(true)
         setDataNumDash("")
-        if (error.response) {
-          console.log({ ...error });
-        }
-      }
-    }
-    setIsLoading(false)
-  };
-
-  const getBateriaAnualEle = async (itemValue) => {
-    setFormatoSelecionadoEletrica(itemValue)
-    setaNomeIdMesSelecionado(itemValue)
-    showError && setShowError(false)
-    setIsLoading(true)
-    if (showErrorNetWork == true) {
-      setShowErroConec(true)
-    } else if (showError == true) {
-      setShowErroConec(true)
-    } else if (itemValue == 1) {
-      console.log("pego as infos pro ano")
-      /*try {
-      
-    
-      /*const { data } = api.get('/obterDash/' + tipoFrotaSelecionado + '&' + formatoSelecionadoCombustao + '&' + diaMesIni + '&' + diaMesFim + '&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
-      
-      if (data.operacaoExecutada == "N") {
-        setShowAlertErro(true)
-        setIsLoading(false)
-      }
-      if (data.mensagemErro.length > 0) {
-        setMsgErro(data.mensagemErro)
-        setShowAlertErro(true)
-      }
-      setIsLoading(false)
-      setDataNumDash(data) aqui vai ser um objeto com as infos de consumo e mes
-      } catch (error) {
-        setIsLoading(false)
-        setShowError(true)
-        if (error.response) {
-          console.log({ ...error });
-        }
-      }*/
-    }
-    setIsLoading(false)
-  };
-
-  const getBateriaMesEle = async(itemValue) => {
-    setMesSelecionado(itemValue)
-    setaNomeIdMesSelecionado(itemValue)
-    showError && setShowError(false)
-    setIsLoading(true)
-    if (showErrorNetWork == true) {
-      setShowErroConec(true)
-    } else if (showError == true) {
-      setShowErroConec(true)
-    } else {
-      try {
-
-        if (itemValue == 1) {
-          setDiaMesIni("0101")
-          setDiaMesFim("3101")
-        } else if (itemValue == 2) {
-          setDiaMesIni("0102")
-          setDiaMesFim("2802")
-        } else if (itemValue == 3) {
-          setDiaMesIni("0103")
-          setDiaMesFim("3103")
-        } else if (itemValue == 4) {
-          setDiaMesIni("0104")
-          setDiaMesFim("3004")
-        } else if (itemValue == 5) {
-          setDiaMesIni("0105")
-          setDiaMesFim("3105")
-        } else if (itemValue == 6) {
-          setDiaMesIni("0106")
-          setDiaMesFim("3006")
-        } else if (itemValue == 7) {
-          setDiaMesIni("0107")
-          setDiaMesFim("3107")
-        } else if (itemValue == 8) {
-          setDiaMesIni("0108")
-          setDiaMesFim("3108")
-        } else if (itemValue == 9) {
-          setDiaMesIni("0109")
-          setDiaMesFim("3009")
-        } else if (itemValue == 10) {
-          setDiaMesIni("0110")
-          setDiaMesFim("3110")
-        } else if (itemValue == 11) {
-          setDiaMesIni("0111")
-          setDiaMesFim("3011")
-        } else if (itemValue == 12) {
-          setDiaMesIni("0112")
-          setDiaMesFim("3112")
-        }
-
-        const { data } = api.get('/obterDash/' + tipoFrotaSelecionado + '&' + formatoSelecionadoCombustao + '&' + diaMesIni + '&' + diaMesFim + '&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
-
-        if (data.operacaoExecutada == "N") {
-          setShowAlertErro(true)
-          setIsLoading(false)
-        }
-        if (data.mensagemErro.length > 0) {
-          setMsgErro(data.mensagemErro)
-          setShowAlertErro(true)
-        }
-        setIsLoading(false)
-        setDataNumDash(data)
-      } catch (error) {
-        setIsLoading(false)
-        setShowError(true)
         if (error.response) {
           console.log({ ...error });
         }
@@ -331,6 +255,12 @@ export default function RelDash() {
     }
   }
 
+  function clickTipoFrota(itemValue) {
+    setTipoFrotaSelecionado(itemValue)
+    setFormatoSelecionadoCombustao(0)
+    setFormatoSelecionadoEletrica(0)
+  }
+
   return (
     <View style={styles.container}>
 
@@ -357,7 +287,7 @@ export default function RelDash() {
           <Picker
             selectedValue={tipoFrotaSelecionado}
             onValueChange={(itemValue) =>
-              setTipoFrotaSelecionado(itemValue)
+              clickTipoFrota(itemValue)
             }
             dropdownIconColor={colors.white}
             style={{
@@ -433,7 +363,7 @@ export default function RelDash() {
               <Picker
                 selectedValue={formatoSelecionadoCombustao}
                 onValueChange={(itemValue) =>
-                  getKmAnualComb(itemValue)
+                  getFormatoAnual(itemValue)
                 }
                 dropdownIconColor={colors.white}
                 style={{
@@ -483,7 +413,7 @@ export default function RelDash() {
                     <Picker
                       selectedValue={mesSelecionado}
                       onValueChange={(itemValue) =>
-                        getKmMesComb(itemValue)
+                        getFormatoMes(itemValue)
                       }
                       dropdownIconColor={colors.white}
                       style={{
@@ -536,15 +466,15 @@ export default function RelDash() {
                     formatoSelecionadoCombustao == 1 ?
                       <View>
                         <View style={{ marginTop: 70, alignSelf: 'center' }}>
-                        <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
-                          <Text style={styles.NumerokmRodadosMes}>{dataNumDash}</Text>
-                          <Text style={styles.textkmRodados}>  km Rodados</Text>
+                          <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
+                            <Text style={styles.NumerokmRodadosMes}>{dataNumDash}</Text>
+                            <Text style={styles.textkmRodados}>  km Rodados</Text>
+                          </View>
+                          <View style={{ flexDirection: 'row' }}>
+                            <Text style={styles.textEm}>em  </Text>
+                            <Text style={styles.textMes}>2022</Text>
+                          </View>
                         </View>
-                        <View style={{ flexDirection: 'row' }}>
-                          <Text style={styles.textEm}>em  </Text>
-                          <Text style={styles.textMes}>2022</Text>
-                        </View>
-                      </View>
                       </View>
                       : null
                   }
@@ -583,7 +513,7 @@ export default function RelDash() {
               <Picker
                 selectedValue={formatoSelecionadoEletrica}
                 onValueChange={(itemValue) =>
-                  getBateriaAnualEle(itemValue)
+                  getFormatoAnual(itemValue)
                 }
                 dropdownIconColor={colors.white}
                 style={{
@@ -633,7 +563,7 @@ export default function RelDash() {
                     <Picker
                       selectedValue={mesSelecionado}
                       onValueChange={(itemValue) =>
-                        getBateriaMesEle(itemValue)
+                        getFormatoMes(itemValue)
                       }
                       dropdownIconColor={colors.white}
                       style={{
@@ -684,15 +614,15 @@ export default function RelDash() {
                 formatoSelecionadoEletrica == 1 ?
                   <>
                     <View style={{ marginTop: 70, alignSelf: 'center' }}>
-                    <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
-                      <Text style={styles.NumerokmRodadosMes}>152</Text>
-                      <Text style={styles.textkmRodados}> de Bateria cosumida</Text>
+                      <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
+                        <Text style={styles.NumerokmRodadosMes}>{dataNumDash}</Text>
+                        <Text style={styles.textkmRodados}> de Bateria cosumida</Text>
+                      </View>
+                      <View style={{ flexDirection: 'row' }}>
+                        <Text style={styles.textEm}>em  </Text>
+                        <Text style={styles.textMes}>2022</Text>
+                      </View>
                     </View>
-                    <View style={{ flexDirection: 'row' }}>
-                      <Text style={styles.textEm}>em  </Text>
-                      <Text style={styles.textMes}>{nomeMesSelecionado}</Text>
-                    </View>
-                  </View>
                   </>
                   : null
               }
@@ -701,7 +631,7 @@ export default function RelDash() {
                 formatoSelecionadoEletrica == 2 && mesSelecionado > 0 ?
                   <View style={{ marginTop: 70, alignSelf: 'center' }}>
                     <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
-                      <Text style={styles.NumerokmRodadosMes}>152</Text>
+                      <Text style={styles.NumerokmRodadosMes}>{dataNumDash}</Text>
                       <Text style={styles.textkmRodados}> de Bateria cosumida</Text>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
