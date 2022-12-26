@@ -4,7 +4,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
-  ActivityIndicator,
+  ActivityIndicator
 } from 'react-native';
 
 //libs
@@ -18,11 +18,12 @@ import api from '../../../services/api'
 import { Picker } from '@react-native-picker/picker'
 import { useNetInfo } from "@react-native-community/netinfo";
 import AwesomeAlert from 'react-native-awesome-alerts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ToggleSwitch from 'toggle-switch-react-native'
 //pages
 import styles from './style'
 import PageHeader from '../../../Components/PageHeader/PageHeader'
 import ModalErro from '../../../Components/Modal/ModalErro/ModalErro'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import ModalErroNetwok from '../../../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 import ModalMsgSemDash from '../../../Components/Modal/ModalMsgSemDash/ModalMsgSemDash';
 import listaMeses from '../../../Utils/listaMeses';
@@ -64,6 +65,7 @@ export default function RelDash() {
   const [showAlertErro, setShowAlertErro] = useState(false)
   const [numUserCode, setNumUserCode] = useState(0);
   const [msgErro, setMsgErro] = useState("")
+  const [exibirGrafico, setExibirGrafico] = useState(false)
 
   const hideAlertErro = () => (
     setShowAlertErro(false)
@@ -71,6 +73,7 @@ export default function RelDash() {
 
   const getFormatoAnual = async (itemValue) => {
     setMesSelecionado(0)
+    setExibirGrafico(false)
     if (tipoFrotaSelecionado == 1) {
       setFormatoSelecionadoCombustao(itemValue)
     } else {
@@ -192,7 +195,7 @@ export default function RelDash() {
               setIsLoading(false)
               setDataNumDash(data.kmRodados)
             }
-        } else if(itemValue > 0) {
+        } else if (itemValue > 0) {
           const { data } = await api.get('/obterDash/2&2&' + diaMesIni + '&' + diaMesFim + '&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
           if (data.operacaoExecutada == "N") {
             setShowAlertErro(true)
@@ -259,6 +262,11 @@ export default function RelDash() {
     setTipoFrotaSelecionado(itemValue)
     setFormatoSelecionadoCombustao(0)
     setFormatoSelecionadoEletrica(0)
+  }
+
+  function clickExibirGrafico() {
+    setExibirGrafico(!exibirGrafico)
+    console.log("grafico")
   }
 
   return (
@@ -408,47 +416,63 @@ export default function RelDash() {
               </Picker>
 
               {
-                formatoSelecionadoCombustao == 2 ?
-                  <View>
-                    <Picker
-                      selectedValue={mesSelecionado}
-                      onValueChange={(itemValue) =>
-                        getFormatoMes(itemValue)
-                      }
-                      dropdownIconColor={colors.white}
-                      style={{
-                        backgroundColor: colors.red,
-                        width: '85%',
-                        alignSelf: 'center',
-                        color: colors.white,
-                        marginTop: 5,
-                        fontFamily: 'BebasNeue-Regular'
-                      }}
-                      dropdownIconRippleColor={colors.white}
-                    >
-                      <Picker.Item
-                        label='Selecione o mês'
-                        value={0}
+                formatoSelecionadoCombustao == 2?
+                  <>
+                    <View>
+                      <Picker
+                        selectedValue={mesSelecionado}
+                        onValueChange={(itemValue) =>
+                          getFormatoMes(itemValue)
+                        }
+                        dropdownIconColor={colors.white}
                         style={{
-                          color: colors.black,
+                          backgroundColor: exibirGrafico ? "#a7a7a7" : colors.red,
+                          width: '85%',
+                          alignSelf: 'center',
+                          color: colors.white,
+                          marginTop: 5,
                           fontFamily: 'BebasNeue-Regular'
-                        }}
+                        }}                       
+                        enabled={exibirGrafico ? false : true}
+                        dropdownIconRippleColor={colors.white}
+                      >
+                        <Picker.Item
+                          label='Selecione o mês'
+                          value={0}
+                          style={{
+                            color: colors.black,
+                            fontFamily: 'BebasNeue-Regular'
+                          }}
+                        />
+                        {
+                          listaMeses.map(id => {
+                            return <Picker.Item
+                              label={id.nomeMes}
+                              value={id.id}
+                              style={{
+                                color: colors.red,
+                                fontFamily: 'BebasNeue-Regular'
+                              }}
+                              key='mes'
+                            />
+                          })
+                        }
+                      </Picker>
+                    </View>
+
+                    <View style={{ alignSelf: 'center', width: '85%', alignItems: 'flex-end', marginTop: 10 }}>
+                      <ToggleSwitch
+                        isOn={exibirGrafico}
+                        onColor={colors.red}
+                        offColor={colors.gray}
+                        label="Visualizar em gráfico"
+                        labelStyle={{ color: colors.red, fontWeight: "600", fontFamily: 'BebasNeue-Regular', fontSize: 20 }}
+                        size='medium'
+                        onToggle={clickExibirGrafico}
+                        animationSpeed={50}
                       />
-                      {
-                        listaMeses.map(id => {
-                          return <Picker.Item
-                            label={id.nomeMes}
-                            value={id.id}
-                            style={{
-                              color: colors.red,
-                              fontFamily: 'BebasNeue-Regular'
-                            }}
-                            key='mes'
-                          />
-                        })
-                      }
-                    </Picker>
-                  </View>
+                    </View>
+                  </>
                   :
                   null
               }
@@ -480,7 +504,7 @@ export default function RelDash() {
                   }
 
                   {
-                    formatoSelecionadoCombustao == 2 && mesSelecionado > 0 ?
+                    formatoSelecionadoCombustao == 2 && mesSelecionado > 0 && exibirGrafico == false?
                       <View style={{ marginTop: 70, alignSelf: 'center' }}>
                         <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
                           <Text style={styles.NumerokmRodadosMes}>{dataNumDash}</Text>
@@ -496,9 +520,37 @@ export default function RelDash() {
                   }
 
                   {
-                    formatoSelecionadoCombustao == 2 && mesSelecionado == 0 ?
+                    formatoSelecionadoCombustao == 2 && mesSelecionado == 0 && exibirGrafico == false ?
                       <ModalMsgSemDash msg="Nenhum mês selecionado" />
                       : null
+                  }
+
+                  {
+                    exibirGrafico ? 
+                    <VictoryChart
+                      domainPadding={10}
+                    >
+                      <VictoryBar
+                        style={{ data: { fill: "#c43a31" } }}
+                        data={[
+                          { x: "Jan", y: 365},
+                          { x: "Fev", y: 455},
+                          { x: "Mar", y: 100},
+                          { x: "Abr", y: 123},
+                          { x: "Mai", y: 350},
+                          { x: "Jun", y: 90},
+                          { x: "Jul", y: 500},
+                          { x: "Ago", y: 150},
+                          { x: "Set", y: 300},
+                          { x: "Out", y: 125},
+                          { x: "Nov", y: 200},
+                          { x: "Dez", y: 265}
+                        ]}
+                        labels={({ datum }) => `${datum.y}`}
+                      />
+                    </VictoryChart>
+                    :
+                    null
                   }
                 </>
               )}

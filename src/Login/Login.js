@@ -204,7 +204,7 @@ export default function Login() {
               }
             </TouchableOpacity>
           </View>
-          {/*botao acessar*/}
+
           <TouchableOpacity
             style={styles.button}
             onPress={HandleLogar}
@@ -231,7 +231,6 @@ export default function Login() {
               : null
           }
 
-          {/*texto versão*/}
           <View style={styles.containerVersao}>
             <Text style={styles.textversao}>Versão 1.0.0</Text>
           </View>

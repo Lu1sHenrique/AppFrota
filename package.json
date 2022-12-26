@@ -50,6 +50,7 @@
     "react-native-vector-icons": "^9.1.0",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "sequelize": "^6.19.0",
+    "toggle-switch-react-native": "^3.3.0",
     "victory-native": "^36.6.8",
     "yup": "^0.32.11"
   },
