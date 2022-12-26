@@ -266,7 +266,6 @@ export default function RelDash() {
 
   function clickExibirGrafico() {
     setExibirGrafico(!exibirGrafico)
-    console.log("grafico")
   }
 
   return (
@@ -611,6 +610,7 @@ export default function RelDash() {
 
               {
                 tipoFrotaSelecionado == 2 && formatoSelecionadoEletrica == 2 ?
+                <>
                   <View>
                     <Picker
                       selectedValue={mesSelecionado}
@@ -619,13 +619,14 @@ export default function RelDash() {
                       }
                       dropdownIconColor={colors.white}
                       style={{
-                        backgroundColor: colors.red,
+                        backgroundColor: exibirGrafico ? "#a7a7a7" : colors.red,
                         width: '85%',
                         alignSelf: 'center',
                         color: colors.white,
                         marginTop: 5,
                         fontFamily: 'BebasNeue-Regular'
                       }}
+                      enabled={exibirGrafico ? false : true}
                       dropdownIconRippleColor={colors.white}
                     >
                       <Picker.Item
@@ -651,6 +652,20 @@ export default function RelDash() {
                       }
                     </Picker>
                   </View>
+
+                  <View style={{ alignSelf: 'center', width: '85%', alignItems: 'flex-end', marginTop: 10 }}>
+                  <ToggleSwitch
+                    isOn={exibirGrafico}
+                    onColor={colors.red}
+                    offColor={colors.gray}
+                    label="Visualizar em gráfico"
+                    labelStyle={{ color: colors.red, fontWeight: "600", fontFamily: 'BebasNeue-Regular', fontSize: 20 }}
+                    size='medium'
+                    onToggle={clickExibirGrafico}
+                    animationSpeed={50}
+                  />
+                  </View>
+                  </>
                   :
                   null
               }
@@ -680,7 +695,7 @@ export default function RelDash() {
               }
 
               {
-                formatoSelecionadoEletrica == 2 && mesSelecionado > 0 ?
+                formatoSelecionadoEletrica == 2 && mesSelecionado > 0 && exibirGrafico == false ?
                   <View style={{ marginTop: 70, alignSelf: 'center' }}>
                     <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
                       <Text style={styles.NumerokmRodadosMes}>{dataNumDash}</Text>
@@ -696,7 +711,7 @@ export default function RelDash() {
               }
 
               {
-                formatoSelecionadoEletrica == 2 && mesSelecionado == 0 ?
+                formatoSelecionadoEletrica == 2 && mesSelecionado == 0 && exibirGrafico == false ?
                   <ModalMsgSemDash msg="Nenhum mês selecionado" />
                   :
                   null
@@ -705,6 +720,34 @@ export default function RelDash() {
             :
             null
         }
+
+                  {
+                    exibirGrafico ? 
+                    <VictoryChart
+                      domainPadding={10}
+                    >
+                      <VictoryBar
+                        style={{ data: { fill: colors.red } }}
+                        data={[
+                          { x: "Jan", y: 365},
+                          { x: "Fev", y: 455},
+                          { x: "Mar", y: 100},
+                          { x: "Abr", y: 123},
+                          { x: "Mai", y: 350},
+                          { x: "Jun", y: 90},
+                          { x: "Jul", y: 500},
+                          { x: "Ago", y: 150},
+                          { x: "Set", y: 300},
+                          { x: "Out", y: 125},
+                          { x: "Nov", y: 200},
+                          { x: "Dez", y: 265}
+                        ]}
+                        labels={({ datum }) => `${datum.y}`}
+                      />
+                    </VictoryChart>
+                    :
+                    null
+                  }
 
         <AwesomeAlert
           contentContainerStyle={styles.containerAlert}
