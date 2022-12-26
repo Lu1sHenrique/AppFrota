@@ -531,7 +531,7 @@ export default function RelDash() {
                       domainPadding={10}
                     >
                       <VictoryBar
-                        style={{ data: { fill: "#c43a31" } }}
+                        style={{ data: { fill: colors.red } }}
                         data={[
                           { x: "Jan", y: 365},
                           { x: "Fev", y: 455},
