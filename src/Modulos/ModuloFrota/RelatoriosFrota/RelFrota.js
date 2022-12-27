@@ -143,6 +143,8 @@ export default function RelFrota() {
 
                 if (condutorSelecionado.length <= 0) {
                   condutor = '1'
+                }else{
+                  condutor = condutorSelecionado
                 }
 
                 const { data } = await api.get('/obterListaChecklistCombustao/2&"TODOS"&' + dataInicial + '&' + dataFinal + '&' + condutor + '&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
@@ -206,6 +208,8 @@ export default function RelFrota() {
 
                 if (condutorSelecionado.length <= 0) {
                   condutor = '1'
+                }else{
+                  condutor = condutorSelecionado
                 }
                 const { data } = await api.get('/obterListaChecklistEletrica/2&"TODOS"&' + dataInicial + '&' + dataFinal + '&' + condutor + '&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
                 if (data.operacaoExecutada == "N") {
