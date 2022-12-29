@@ -23,7 +23,7 @@ export default function BemVindo(props) {
         null
     }
 
-    setTimeout(buscarTokenAsyncStorage, 4000);
+    setTimeout(buscarTokenAsyncStorage, 2500);
   }, []);
 
   function biometria() {
