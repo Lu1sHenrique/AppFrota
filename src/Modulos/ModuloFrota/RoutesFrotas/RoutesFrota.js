@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  Alert
-} from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
@@ -18,11 +14,6 @@ import colors from '../../../Utils/colors';
 const Bottom = createBottomTabNavigator();
 
 export default function RoutesFrota() {
-
-  const showAlert = () =>
-    Alert.alert(
-      "Opção disponível em breve!"
-    );
 
   return (
     <Bottom.Navigator
