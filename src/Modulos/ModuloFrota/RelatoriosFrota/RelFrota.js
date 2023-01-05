@@ -71,7 +71,7 @@ export default function RelFrota() {
   // refresh control
   const [refreshing, setRefreshing] = useState(false)
 
-  const onRefresh = () => {
+  const onRefresh = (exclusao) => {
     setRefreshing(false)
     getListaCheckList();
   }
@@ -143,7 +143,7 @@ export default function RelFrota() {
 
                 if (condutorSelecionado.length <= 0) {
                   condutor = '1'
-                }else{
+                } else {
                   condutor = condutorSelecionado
                 }
 
@@ -208,7 +208,7 @@ export default function RelFrota() {
 
                 if (condutorSelecionado.length <= 0) {
                   condutor = '1'
-                }else{
+                } else {
                   condutor = condutorSelecionado
                 }
                 const { data } = await api.get('/obterListaChecklistEletrica/2&"TODOS"&' + dataInicial + '&' + dataFinal + '&' + condutor + '&' + numUserCode + '&"TESTE"&"TESTE"&"TESTE"')
@@ -364,12 +364,12 @@ export default function RelFrota() {
               data={listaChecklistComb}
               style={{ width: '85%', alignSelf: 'center' }}
               keyExtractor={(item, indexComb) => String(indexComb)}
-              renderItem={({ item }) => <ConsultaChecklistComb data={item} />}
+              renderItem={({ item }) => <ConsultaChecklistComb data={item} onRefresh={() => onRefresh()}/>}
             /> : <FlatList
               data={listaChecklistEletrica}
               style={{ width: '85%', alignSelf: 'center' }}
               keyExtractor={(item, indexEle) => String(indexEle)}
-              renderItem={({ item }) => <ConsultaChecklistEletrica data={item} />}
+              renderItem={({ item }) => <ConsultaChecklistEletrica data={item} onRefresh={() => onRefresh()}/>}
             />
           }
         </>

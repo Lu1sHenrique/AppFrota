@@ -34,7 +34,7 @@ import PageHeader from '../../../Components/PageHeader/PageHeader';
 import colors from '../../../Utils/colors';
 
 
-function FormFrota() {
+function FormFrota({ route }) {
 
   const netInfo = useNetInfo();
 
@@ -355,7 +355,6 @@ function FormFrota() {
       setImageKmInicial(result.assets[0].base64)
       setImageKmInicialAnex(true)
     }
-    console.log("aqui")
     onClose()
   }
 
