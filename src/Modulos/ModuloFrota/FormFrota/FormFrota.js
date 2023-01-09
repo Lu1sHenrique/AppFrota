@@ -35,6 +35,8 @@ import colors from '../../../Utils/colors';
 
 
 function FormFrota({ route }) {
+  
+  console.log(route)
 
   const netInfo = useNetInfo();
 
@@ -114,6 +116,14 @@ function FormFrota({ route }) {
   const [showValidacaoImageFinal, setShowValidacaoImageFinal] = useState(false)
   // refresh control
   const [refreshing, setRefreshing] = useState(false)
+
+  function op(){
+    if(route.name == 'Combustão' && route.params != undefined){
+      setOperacao("A")
+    }else{
+      setOperacao("I")
+    }
+  }
 
   const onRefresh = () => {
     setRefreshing(false)
@@ -490,13 +500,13 @@ function FormFrota({ route }) {
                 onPress={() => navigation.navigate('HomeFrota')}
               >
                 <IconFeather style={styles.IconBack} name="arrow-left-circle" size={35} />
-                <Text style={{ fontSize: 33, fontFamily: 'BebasNeue-Regular', color: colors.gray }}>Checklist Combustão</Text>
+                <Text style={{ fontSize: 33, fontFamily: 'BebasNeue-Regular', color: colors.gray }}>{route.name == 'Combustão' && route.params != undefined ? 'Alterar Checklist Combustão' : 'Checklist Combustão'}</Text>
               </TouchableOpacity>
             </View>
 
             <ModalErroNetwok showErrorNetWork={showErrorNetWork} />
 
-            <ModalErro showError={showError} />
+            <ModalErro showError={showError} /> 
 
             <View style={styles.containerCheckBox}>
               <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
@@ -510,7 +520,7 @@ function FormFrota({ route }) {
                       fontSize: 20,
                       fontFamily: 'BebasNeue-Regular',
                     }}
-                    isChecked={carroMaxima}
+                    isChecked={route.name == 'Combustão' && route.params != undefined && route.params.data.carroMaxima == 'S' ? true : carroMaxima}
                     disableBuiltInState
                     onPress={clickCheckCarroMaxima}
                   />
@@ -525,7 +535,7 @@ function FormFrota({ route }) {
                       fontSize: 20,
                       fontFamily: 'BebasNeue-Regular'
                     }}
-                    isChecked={carroReserva}
+                    isChecked={route.name == 'Combustão' && route.params != undefined && route.params.data.carroReserva == 'S' ? true : carroReserva}
                     disableBuiltInState
                     onPress={clickCheckCarroReserva}
                   />
@@ -535,7 +545,7 @@ function FormFrota({ route }) {
 
             <View style={{ marginTop: 20 }}>
               <Picker
-                selectedValue={departamentoSelecionado}
+                selectedValue={route.name == 'Combustão' && route.params != undefined ? route.params.data.departamento : departamentoSelecionado}
                 onValueChange={(itemValue) =>
                   setDepartamentoSelecionado(itemValue)
                 }
@@ -562,7 +572,7 @@ function FormFrota({ route }) {
                   departamentos.map(id => {
                     return <Picker.Item
                       label={decodeURIComponent(id.nomeDepartamento.replaceAll('+', ' '))}
-                      value={id.codigoDepartamento}
+                      value={route.name == 'Combustão' && route.params != undefined ? route.params.data.departamento : id.codigoDepartamento}
                       style={{
                         color: colors.red,
                         fontFamily: 'BebasNeue-Regular'
@@ -576,7 +586,7 @@ function FormFrota({ route }) {
 
             <View>
               <Picker
-                selectedValue={condutorSelecionado}
+                selectedValue={route.name == 'Combustão' && route.params != undefined ? route.params.data.condutor : condutorSelecionado}
                 onValueChange={(itemValue) =>
                   setCondutorSelecionado(itemValue)
                 }
@@ -602,7 +612,7 @@ function FormFrota({ route }) {
                   condutores.map(id => {
                     return <Picker.Item
                       label={decodeURIComponent(id.nomeRondante.replaceAll('+', ' '))}
-                      value={id.nomeRondante}
+                      value={route.name == 'Combustão' && route.params != undefined ? route.params.data.condutor : id.nomeRondante}
                       style={{
                         color: colors.red,
                         fontFamily: 'BebasNeue-Regular'
@@ -616,7 +626,7 @@ function FormFrota({ route }) {
 
             <View>
               <Picker
-                selectedValue={placaSelecionada}
+                selectedValue={route.name == 'Combustão' && route.params != undefined ? route.params.data.placaVeiculo : placaSelecionada}
                 onValueChange={(itemValue) =>
                   setPlacaSelecionada(itemValue)
                 }
@@ -642,7 +652,7 @@ function FormFrota({ route }) {
                   placas.map(id => {
                     return <Picker.Item
                       label={id.placaVeiculo.replaceAll('+', ' ')}
-                      value={id.placaVeiculo}
+                      value={route.name == 'Combustão' && route.params != undefined ? route.params.data.placaVeiculo : id.placaVeiculo}
                       style={{
                         color: colors.red,
                         fontFamily: 'BebasNeue-Regular'
@@ -661,7 +671,7 @@ function FormFrota({ route }) {
                 keyboardType='numeric'
                 placeholderTextColor={colors.red}
                 onChangeText={text => setKmInicialSelecionado(text)}
-                value={kmInicialSelecionado}
+                value={route.name == 'Combustão' && route.params != undefined ? String(route.params.data.kmInicial) : kmInicialSelecionado}
               />
             </View>
 
@@ -687,7 +697,7 @@ function FormFrota({ route }) {
                 keyboardType='numeric'
                 onChangeText={text => setKmFinalSelecionado(text)}
                 onEndEditing={() => calcDiferenca()}
-                value={kmFinalSelecionado}
+                value={route.name == 'Combustão' && route.params != undefined ? String(route.params.data.kmFinal) : kmFinalSelecionado}
               />
             </View>
 
@@ -711,7 +721,7 @@ function FormFrota({ route }) {
                 placeholder="Diferença entre o Km inicial e o final"
                 placeholderTextColor={colors.red}
                 editable={false}
-                value={String(diferenca)}
+                value={route.name == 'Combustão' && route.params != undefined ? String(route.params.data.calcDiferenca) : String(diferenca)}
               />
             </View>
 
@@ -731,7 +741,7 @@ function FormFrota({ route }) {
                       fontFamily: 'BebasNeue-Regular',
                       marginRight: 20
                     }}
-                    isChecked={ronda1}
+                    isChecked={route.name == 'Combustão' && route.params != undefined && route.params.data.rotaRonda1 == 'S' ? true : ronda1}
                     onPress={() => setRonda1(!ronda1)}
                   />
                   <Checkbox
@@ -744,7 +754,7 @@ function FormFrota({ route }) {
                       fontFamily: 'BebasNeue-Regular',
                       marginRight: 20
                     }}
-                    isChecked={ronda2}
+                    isChecked={route.name == 'Combustão' && route.params != undefined && route.params.data.rotaRonda2 == 'S' ? true : ronda2}
                     onPress={() => setRonda2(!ronda2)}
                   />
                   <Checkbox
@@ -756,7 +766,7 @@ function FormFrota({ route }) {
                       fontSize: 20,
                       fontFamily: 'BebasNeue-Regular',
                     }}
-                    isChecked={ronda3}
+                    isChecked={route.name == 'Combustão' && route.params != undefined && route.params.data.rotaRonda3 == 'S' ? true : ronda3}
                     onPress={() => setRonda3(!ronda3)}
                   />
                 </View>
@@ -770,7 +780,7 @@ function FormFrota({ route }) {
                 placeholderTextColor={colors.red}
                 keyboardType='numeric'
                 onChangeText={text => setOleo(text)}
-                value={oleo}
+                value={route.name == 'Combustão' && route.params != undefined ? String(route.params.data.trocaOleo) : oleo}
               />
             </View>
 
@@ -781,7 +791,7 @@ function FormFrota({ route }) {
                 placeholderTextColor={colors.red}
                 keyboardType='numeric'
                 onChangeText={text => setPneu(text)}
-                value={pneu}
+                value={route.name == 'Combustão' && route.params != undefined ? String(route.params.data.pneu) : pneu}
               />
             </View>
 
@@ -792,7 +802,7 @@ function FormFrota({ route }) {
                 placeholderTextColor={colors.red}
                 keyboardType='numeric'
                 onChangeText={text => setCorreias(text)}
-                value={correias}
+                value={route.name == 'Combustão' && route.params != undefined ? String(route.params.data.correias) : correias}
               />
             </View>
 

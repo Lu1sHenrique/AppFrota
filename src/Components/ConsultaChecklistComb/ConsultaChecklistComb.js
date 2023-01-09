@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './style';
 import api from '../../services/api'
@@ -12,6 +12,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AwesomeAlert from 'react-native-awesome-alerts';
 
 function ConsultaChecklistComb({ data, onRefresh }) {
+
+  const swipeableRef = useRef(null);
 
   const navigation = useNavigation();
 
@@ -33,6 +35,7 @@ function ConsultaChecklistComb({ data, onRefresh }) {
   const [showAlertConfirm, setShowAlertConfirm] = useState(false);
   const [showAlertConfirmAlt, setShowAlertConfirmAlt] = useState(false);
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+  const [dados] = useState([data]);
 
   const hideAlertErroSend = () => (
     setShowErrorSend(false)
@@ -42,13 +45,15 @@ function ConsultaChecklistComb({ data, onRefresh }) {
     setShowAlertSuccess(false)
   );
 
-  const hideAlertConfirm = () => (
+  function hideAlertConfirm(){
     setShowAlertConfirm(false)
-  );
+    swipeableRef.current.close()
+  };
 
-  const hideAlertConfirmAlt = () => (
+  function hideAlertConfirmAlt(){
     setShowAlertConfirmAlt(false)
-  );
+    swipeableRef.current.close()
+  };
 
   const excluirCheckListComb = async () => {
 
@@ -107,6 +112,7 @@ function ConsultaChecklistComb({ data, onRefresh }) {
 
   return (
     <Swipeable
+      ref={swipeableRef}
       renderLeftActions={LeftActions}
       renderRightActions={RightActions}
       onSwipeableLeftOpen={exibirAlertaAlt}
