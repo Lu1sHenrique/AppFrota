@@ -35,8 +35,6 @@ import colors from '../../../Utils/colors';
 
 
 function FormFrota({ route }) {
-  
-  console.log(route)
 
   const netInfo = useNetInfo();
 
