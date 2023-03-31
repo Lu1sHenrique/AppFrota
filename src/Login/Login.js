@@ -54,7 +54,7 @@ export default function Login() {
 
   const [hidePass, setHidePass] = useState(true);
 
-  const [supportedTouchID, setSupportedTouchID] = useState(null);
+  const [setSupportedTouchID] = useState(null);
 
   const [showErrorNetWork, setShowErrorNetWork] = useState(false)
   const [showErroConec, setShowErroConec] = useState(false)
