@@ -22,7 +22,7 @@ import { useNetInfo } from "@react-native-community/netinfo";
 import ModalErroNetwok from '../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 //pages
 import styles from './style'
-import { AuthContext } from '../Contexts/Auth'
+import { AuthContext } from '../contexts/Auth';
 import api from '../services/api'
 
 import colors from '../Utils/colors'

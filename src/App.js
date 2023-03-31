@@ -3,7 +3,7 @@ import { StatusBar } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native'
 import Routes from './Routes/RoutesStack';
-import AuthProvider from './Contexts/Auth';
+import AuthProvider from './contexts/Auth';
 
 export default function App() {
   return (
@@ -15,6 +15,5 @@ export default function App() {
         <Routes />
       </AuthProvider>
     </NavigationContainer>
-
   );
 }

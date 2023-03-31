@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
-import { AuthContext } from '../Contexts/Auth'
+import { AuthContext } from '../contexts/Auth';
 import { useNetInfo } from "@react-native-community/netinfo";
 import ModalErroNetwok from '../Components/Modal/ModalErroNetwork/ModalErroNetwork'
 import AsyncStorage from '@react-native-async-storage/async-storage';
