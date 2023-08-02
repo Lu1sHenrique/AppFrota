@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from '../Utils/colors'
+import stylesGlobal from '../Utils/styles'
 
 const styles = StyleSheet.create({
   container: {
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     color: colors.white,
     width: '100%',
-    fontFamily: 'BebasNeue-Regular'
+    fontFamily: stylesGlobal.fontFamily
   },
 
   inputSms: {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     color: colors.white,
     width: '100%',
-    fontFamily: 'BebasNeue-Regular',
+    fontFamily: stylesGlobal.fontFamily,
     marginTop: 15
   },
 
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     color: colors.white,
     width: '85%',
-    fontFamily: 'BebasNeue-Regular'
+    fontFamily: stylesGlobal.fontFamily
   },
   ContainerHidePass: {
     flexDirection: 'row',
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: colors.red,
     fontSize: 22,
-    fontFamily: 'BebasNeue-Regular',
+    fontFamily: stylesGlobal.fontFamily,
     alignSelf: "center"
   },
 
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
   textversao: {
     color: colors.white,
     fontSize: 19,
-    fontFamily: 'BebasNeue-Regular'
+    fontFamily: stylesGlobal.fontFamily
   },
 
   containerAlert: {
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: colors.red,
     textAlign: 'center',
-    fontFamily: 'BebasNeue-Regular'
+    fontFamily: stylesGlobal.fontFamily
   },
 
   ButtonAlert: {
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignSelf: 'center',
     color: colors.white,
-    fontFamily: 'BebasNeue-Regular'
+    fontFamily: stylesGlobal.fontFamily
   },
 
   containerAviso: {
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
   textAviso: {
     fontSize: 20,
     color: colors.white,
-    fontFamily: 'BebasNeue-Regular',
+    fontFamily: stylesGlobal.fontFamily,
     alignSelf: 'center'
   }
 })
